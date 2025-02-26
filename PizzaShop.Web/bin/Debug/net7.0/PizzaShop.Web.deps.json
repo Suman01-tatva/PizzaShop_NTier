@@ -2506,6 +2506,7 @@
       },
       "PizzaShop.Service/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.7",
           "PizzaShop.Entity": "1.0.0",
           "PizzaShop.Repository": "1.0.0"
         },

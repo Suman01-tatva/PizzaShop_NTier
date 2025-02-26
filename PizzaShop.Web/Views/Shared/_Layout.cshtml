@@ -1,5 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var UserEmail = Context.Request.Cookies["email"];
+    ViewData["Tiele"] = "Layou";
+}
+
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,42 +14,230 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PizzaShop.Web.styles.css" asp-append-version="true" />
 </head>
+
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">PizzaShop.Web</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+    <div class="container-fluid">
+        <div class="row main-container">
+            <!-- sidebar -->
+            @* <div class="offcanvas-lg offcanvas-start col-lg-2 p-0" id="sidebar">
+                <div class="d-flex align-items-center justify-content-center p-0 mb-4 sidebar-header">
+                    <img src="~/images/logos/pizzashop_logo.png" alt="pizzashop_logo" id="pizzashop_logo" />
+                    <h6 class="textBlue ms-2">PIZZASHOP</h6>
+                    <button class="btn btn-close close-btn ms-4" id="sidebar-cancel-btn" type="button"
+                        data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+                        aria-controls="offcanvasWithBothOptions"></button>
+                </div>
+                <ul class="nav flex-column">
+                    <a href="/Home/Index">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <i class="fa-solid fa-table-cells-large me-2"></i>Dashboard
                         </li>
+                    </a>
+                    <a href="/Users/Index">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <i class="fa-solid fa-users me-2"></i>User
                         </li>
+                    </a>
+                    <a href="">
+                        <li class="nav-item">
+                            <i class="fa-solid fa-monument me-2"></i>Role and Permission
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="nav-item">
+                            <i class="fa-solid fa-square me-2"></i>Menu
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="nav-item">
+                            <i class="fa-solid fa-money-check-dollar me-2"></i>Table And
+                            Section
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="nav-item">
+                            <i class="fa-solid fa-cart-plus me-2"></i>Taxes And Fees
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="nav-item">
+                            <i class="fa-solid fa-users-rectangle me-2"></i>Orders
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="nav-item">
+                            <i class="fa-solid fa-user me-2"></i>Customers
+                        </li>
+                    </a>
+                </ul>
+            </div> *@
+            <div class="col-md-3 col-lg-2 bg-light sidebar" id="sidebar">
+                <div class="offcanvas-lg offcanvas-start">
+                    <div class="d-flex flex-row justify-content-center align-item-center mt-2 fs-3">
+                        <img src="~/images/pizzashop_logo.png" alt="pizashop-logo" class="img-fliud pizza-logo" />
+                        <div class="brand-name fs-5 mt-2"><b>PIZZASHOP</b></div>
+                        <button class="btn btn-close close-btn" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#sidebar" aria-controls="offcanvasWithBothOptions"></button>
+                    </div>
+                    <ul class="nav d-flex justify-content-between align-items-left flex-column mt-4">
+                        <a asp-action="AdminDashboard" asp-controller="Home">
+                            <li class="nav-item sidebar-active cursor-pointer">
+                                <i class="fa-solid fa-table-cells-large me-2"></i>
+                                Dashboard
+                            </li>
+                        </a>
+                        <a asp-action="UserList" asp-controller="User">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-users me-2"></i> Users
+                            </li>
+                        </a>
+                        <a href="./permissions.html">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-monument me-2"></i>Role and Permission
+                            </li>
+                        </a>
+                        <a href="./permissions.html">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-square me-2"></i>Menu
+                            </li>
+                        </a>
+                        <a href="">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-money-check-dollar me-2"></i> Table and
+                                Section
+                            </li>
+                        </a>
+                        <a href="">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-cart-plus me-2"></i> Taxes And Fees
+                            </li>
+                        </a>
+                        <a href="">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-users-rectangle me-2"></i> Orders
+                            </li>
+                        </a>
+                        <a href="">
+                            <li class="nav-item">
+                                <i class="fa-solid fa-users-rectangle me-2"></i> Customers
+                            </li>
+                        </a>
                     </ul>
                 </div>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - PizzaShop.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="col-lg-10 main-section p-0">
+                <!-- navbar -->
+                @* <nav class="navbar navbar-expanded-lg justify-content-end align-items-center navbar-light fixed-top"
+                    style="height: 50px;position:static;">
+                    <img src="~/images/icons/menu-bar.svg" alt="toggle-btn" class="mx-2" id="menu-icon"
+                        data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="offcanvasWithBothOptions" />
+                    <div class="btn-group">
+                        <div class="btn-group dropstart">
+                            <i class="fa fa-user-circle me-2 fs-2" style="color: white;" aria-hidden="true"
+                                data-bs-toggle="dropdown" aria-expanded="false"></i>
+                            <ul class="dropdown-menu">
+                                <li>
+
+                                    <div class="d-flex m-2">
+                                        <img src="~/images/icons/customer.svg" alt="User-icon" class="me-3" />
+                                        <p id="email" class="m-0">@UserEmail</p>
+                                    </div>
+
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="/User/Profile"><i class="fa fa-user-circle me-2"
+                                            aria-hidden="true"></i>My Profile</a></li>
+                                <li><a class="dropdown-item" href="/User/ChangePassword"><i class="fa fa-refresh me-2"
+                                            aria-hidden="true"></i>Change Password</a></li>
+                                <li data-bs-toggle="modal" data-bs-target="#LogoutModel"><a class="dropdown-item"><i
+                                            class="fa fa-sign-out me-2" aria-hidden="true"></i>Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav> *@
+                <nav class="navbar navbar-expand-lg d-flex justify-content-between align-item-center fixed-top py-0">
+                    <div class="d-flex my-0">
+                        <div class="d-flex flex-row justify-content-center align-item-center mt-2 fs-3">
+                            <img src="~/images/menu-bar.svg" alt="toggle-btn" class="mx-2" id="menu-icon"
+                                data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+                                aria-controls="offcanvasWithBothOptions" />
+                            <img src="~/images/pizzashop_logo.png" alt="pizashop-logo" class="img-fliud pizza-logo" />
+                            <div class="brand-name-nav fs-5 mt-2"><b>PIZZASHOP</b></div>
+                        </div>
+                    </div>
+                    <div class="mx-5">
+                        <a class="nav-link profile" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <img src="~/images/Default_pfp.svg.png" alt="avatar" width="44" height="44">
+                        </a>
+                        <ul class="dropdown-menu end-0">
+                            <li><a class="dropdown-item" href="#">
+                                    <img src="~/images/icons/customer.svg" alt="User-icon" class="me-3" />
+                                    @TempData["Email"]
+                                </a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" asp-action="Profile" asp-controller="User"><i
+                                        class="fa fa-user-circle me-2" aria-hidden="true"></i>My Profile</a></li>
+                            <li><a class="dropdown-item" asp-action="ChangePassword" asp-controller="User">
+                                    <i class="fa-solid fa-rotate-right me-2"></i>Change Password</a>
+                            </li>
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal"><i
+                                        class="fa fa-sign-out me-2" aria-hidden="true"></i>Logout</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- Logout Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">
+                                    Delete Confirmation
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="d-flex justify-content-center align-item-center mt-5 mb-3">
+                                <i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: #ffd43b"></i>
+                            </div>
+                            <div class="modal-body d-flex justify-content-center">
+                                Are You sure you want to Logout ?
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <a href="@Url.Action("Logout", "Home")">
+                                    <button type="button" class="fill-btn px-3 py-2 border-0 rounded"
+                                        data-bs-dismiss="modal">
+                                        Yes
+                                    </button>
+                                </a>
+                                <button type="button" class="border-btn px-3" data-bs-dismiss="modal">
+                                    No
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- main content -->
+                <div class="px-4">
+                    <main role="main" class="">
+                        @RenderBody()
+                    </main>
+                </div>
+
+
+            </div>
         </div>
-    </footer>
+    </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
+
 </html>

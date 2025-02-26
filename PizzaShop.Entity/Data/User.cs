@@ -45,6 +45,12 @@ public partial class User
 
     public string? Password { get; set; }
 
+    public Guid? Token { get; set; }
+
+    public DateTime? TokenExpiry { get; set; }
+
+    public bool? IsFirstLogin { get; set; }
+
     public virtual ICollection<Account> AccountCreatedByNavigations { get; set; } = new List<Account>();
 
     public virtual ICollection<Account> AccountModifiedByNavigations { get; set; } = new List<Account>();

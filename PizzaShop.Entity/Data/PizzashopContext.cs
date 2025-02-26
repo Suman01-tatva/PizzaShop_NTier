@@ -977,6 +977,7 @@ public partial class PizzashopContext : DbContext
             entity.Property(e => e.IsDeleted)
                 .HasDefaultValueSql("false")
                 .HasColumnName("is_deleted");
+            entity.Property(e => e.IsFirstLogin).HasColumnName("is_first_login");
             entity.Property(e => e.LastName)
                 .HasMaxLength(50)
                 .HasColumnName("last_name");
@@ -993,6 +994,8 @@ public partial class PizzashopContext : DbContext
                 .HasColumnName("profile_image");
             entity.Property(e => e.RoleId).HasColumnName("role_id");
             entity.Property(e => e.StateId).HasColumnName("state_id");
+            entity.Property(e => e.Token).HasColumnName("token");
+            entity.Property(e => e.TokenExpiry).HasColumnName("token_expiry");
             entity.Property(e => e.Username)
                 .HasMaxLength(50)
                 .HasColumnName("username");
