@@ -1,0 +1,15 @@
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\bin\Debug\net7.0\PizzaShop.Repository.deps.json
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\bin\Debug\net7.0\PizzaShop.Repository.dll
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\bin\Debug\net7.0\PizzaShop.Repository.pdb
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\bin\Debug\net7.0\PizzaShop.Entity.dll
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\bin\Debug\net7.0\PizzaShop.Entity.pdb
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\obj\Debug\net7.0\PizzaShop.Repository.csproj.AssemblyReference.cache
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\obj\Debug\net7.0\PizzaShop.Repository.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\obj\Debug\net7.0\PizzaShop.Repository.AssemblyInfoInputs.cache
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\obj\Debug\net7.0\PizzaShop.Repository.AssemblyInfo.cs
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\obj\Debug\net7.0\PizzaShop.Repository.csproj.CoreCompileInputs.cache
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\obj\Debug\net7.0\PizzaShop.Repository.csproj.CopyComplete
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\obj\Debug\net7.0\PizzaShop.Repository.dll
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\obj\Debug\net7.0\refint\PizzaShop.Repository.dll
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\obj\Debug\net7.0\PizzaShop.Repository.pdb
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Repository\obj\Debug\net7.0\ref\PizzaShop.Repository.dll
