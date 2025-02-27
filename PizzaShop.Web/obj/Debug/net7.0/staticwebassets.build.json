@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qcOqbtx8S0U4aJA0l50Djg4G21wm6bFTyT7XWN49I+E=",
+  "Hash": "W5x3kZM898/JDhskttt0msUea/SzL8cJSFM8H8pnLw8=",
   "Source": "PizzaShop.Web",
   "BasePath": "_content/PizzaShop.Web",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\PizzaShop.Web.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\css\\dashboard.css",
+      "SourceId": "PizzaShop.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
+      "BasePath": "_content/PizzaShop.Web",
+      "RelativePath": "css/dashboard.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\dashboard.css"
     },
     {
       "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\css\\login.css",
@@ -236,6 +253,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\eye-open.png"
+    },
+    {
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\graph1.png",
+      "SourceId": "PizzaShop.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
+      "BasePath": "_content/PizzaShop.Web",
+      "RelativePath": "images/graph1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\graph1.png"
+    },
+    {
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\graph2.png",
+      "SourceId": "PizzaShop.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
+      "BasePath": "_content/PizzaShop.Web",
+      "RelativePath": "images/graph2.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\graph2.png"
     },
     {
       "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\customer.svg",

@@ -6,17 +6,22 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PizzaShop.Entity.Data;
+using PizzaShop.Entity.ViewModels;
 using PizzaShop.Repository.Implementations;
 using PizzaShop.Repository.Interfaces;
 using PizzaShop.Service.Interfaces;
+using PizzaShop.Service.Utils;
 
 public class AuthService : IAuthService
 {
     private readonly IAuthRepository _authRepository;
 
-    public AuthService(IAuthRepository authRepository)
+    private readonly IUserRepository _userRepository;
+
+    public AuthService(IAuthRepository authRepository, IUserRepository userRepository)
     {
         _authRepository = authRepository;
+        _userRepository = userRepository;
     }
 
     public async Task<User?> AuthenticateUser(string email, string password)  //Account instead of User
@@ -43,11 +48,11 @@ public class AuthService : IAuthService
         body = body.Replace("{{reset_link}}", resetLink);
         if (user != null)
         {
-            SendMail(email, resetLink, body);
+            SendMail(email, body);
         }
     }
 
-    private void SendMail(string toEmail, string resetLink, string body)
+    private void SendMail(string toEmail, string body)
     {
         string senderMail = "test.dotnet@etatvasoft.com";
         string senderPassword = "P}N^{z-]7Ilp";
@@ -57,20 +62,37 @@ public class AuthService : IAuthService
         {
             Port = port,
             Credentials = new NetworkCredential(senderMail, senderPassword),
-            // EnableSsl = true,
         };
 
         var mailMessage = new MailMessage
         {
             From = new MailAddress(senderMail),
             Subject = "To Reset Your Password",
-            // Body = $"Click <a href = '{resetLink}' > here </a> to reset your password",
             Body = body,
             IsBodyHtml = true,
         };
         mailMessage.To.Add(toEmail);
 
         smtpClient.Send(mailMessage);
+    }
+
+    public async Task<bool> ResetPassword(ResetPasswordModel model, string email)
+    {
+        var user = await _authRepository.GetUserByEmail(email);
+
+        if (user != null)
+        {
+            if (model.NewPassword != null && model.ConfirmNewPassword != null)
+            {
+                if (model.NewPassword == model.ConfirmNewPassword)
+                {
+                    user.Password = PasswordUtills.HashPassword(model.NewPassword);
+                    await _userRepository.UpdateUser(user);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public async Task<Role?> CheckRole(string role)

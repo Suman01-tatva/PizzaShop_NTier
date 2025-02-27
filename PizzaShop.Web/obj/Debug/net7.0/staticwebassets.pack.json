@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\PizzaShop.Web.bundle.scp.css"
     },
     {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\css\\dashboard.css",
+      "PackagePath": "staticwebassets\\css\\dashboard.css"
+    },
+    {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\css\\login.css",
       "PackagePath": "staticwebassets\\css\\login.css"
     },
@@ -51,6 +55,14 @@
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\eye-open.png",
       "PackagePath": "staticwebassets\\images\\eye-open.png"
+    },
+    {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\graph1.png",
+      "PackagePath": "staticwebassets\\images\\graph1.png"
+    },
+    {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\graph2.png",
+      "PackagePath": "staticwebassets\\images\\graph2.png"
     },
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\customer.svg",

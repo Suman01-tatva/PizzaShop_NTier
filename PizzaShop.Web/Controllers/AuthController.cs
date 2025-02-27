@@ -42,7 +42,7 @@ public class AuthController : Controller
 
             if (user == null)
             {
-                ModelState.AddModelError("", "Please enter valid credentials");
+                ModelState.AddModelError("InvalidCredentials", "Please enter valid credentials");
                 return View("Login");
             }
 
@@ -121,9 +121,85 @@ public class AuthController : Controller
         return View();
     }
 
-    public IActionResult RestPassword(Token token)
+    [HttpGet]
+    public IActionResult ResetPassword(string token)
     {
+        string userEmail = DecryptToken(token);
+        TempData["Email"] = userEmail;
+        if (userEmail == null)
+        {
+            TempData["ToastMessage"] = "Reset Password Link is expired!!!";
+            TempData["ToastType"] = "error";
+            TempData["ToastTitle"] = "!";
+            return RedirectToAction("ForgotPassword", "Auth");
+        }
         return View();
+    }
+
+    private string DecryptToken(string token)
+    {
+        try
+        {
+            byte[] inputBytes = Convert.FromBase64String(token);
+
+            string SecretKey = "hello7hisisP1zzaShop";
+            using (var aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(SecretKey.PadRight(32));
+                aes.IV = new byte[16];
+
+                var decryptor = aes.CreateDecryptor();
+                byte[] decryptedBytes = decryptor.TransformFinalBlock(inputBytes, 0, inputBytes.Length);
+                string data = Encoding.UTF8.GetString(decryptedBytes);
+
+                string[] parts = data.Split('|');
+                if (parts.Length != 2 || DateTime.UtcNow > DateTime.Parse(parts[1]))
+                {
+                    return null;
+                }
+                return parts[0];
+            }
+        }
+        catch (Exception ex)
+        {
+            ViewBag.ErrorMessage = ex.Message;
+            return null;
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ResetPassword(ResetPasswordModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            string? email = TempData["Email"]?.ToString();
+            if (email == null)
+            {
+                TempData["ErrorMessage"] = "Reset Password Link is expired or invalid.";
+                return RedirectToAction("ForgotPassword", "Auth");
+            }
+
+            var isResetPassword = await _authService.ResetPassword(model, email);
+            if (isResetPassword)
+            {
+                TempData["SeccessMessage"] = "Password reset successfully. Please login with your new password.";
+                return RedirectToAction("Login", "Auth");
+            }
+            else
+            {
+                TempData["FailMessage"] = "Failed to reset password. Please try again.";
+                return View(model);
+            }
+        }
+        return View(model);
+    }
+
+    public IActionResult Logout()
+    {
+        Response.Cookies.Delete("Token");
+        Response.Cookies.Delete("UserData");
+        Response.Cookies.Delete("email");
+        return RedirectToAction("Login", "Auth");
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

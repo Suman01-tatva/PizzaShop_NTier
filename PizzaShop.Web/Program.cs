@@ -17,6 +17,8 @@ builder.Services.AddDbContext<PizzashopContext>(options =>
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IUserRepository, UserRepostory>();
+
 
 // builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddDataProtection().SetApplicationName("PizzaShop");

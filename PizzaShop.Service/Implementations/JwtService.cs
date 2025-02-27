@@ -49,7 +49,6 @@ public class JwtService : IJwtService
         throw new NotImplementedException();
     }
 
-
     public ClaimsPrincipal? ValidateToken(string token)
     {
         if (string.IsNullOrEmpty(token))
