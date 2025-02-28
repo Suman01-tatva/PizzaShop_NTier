@@ -1,14 +1,15 @@
+@using System.Security.Claims;
 @{
     ViewData["Title"] = "Profile";
-    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+    var Email = User.FindFirst(ClaimTypes.Email)?.Value;
 }
 
-@model PizzaShop.Entity.ViewModels.ProfileViewModel;
+@model PizzaShop.Entity.ViewModels.UserViewModel;
 
-<div class="col-12 pt-5 content-bg">
+<div class="col-12 content-bg">
     <!-- Add User header -->
-    <div class="row align-items-center d-flex flex-wrap ">
-        <h1 class="fs-2  col-md-4 text-primary font-weight-bold">My Profile</h1>
+    <div class="page-title">
+        <h1>My Profile</h1>
     </div>
     <!-- Form -->
     <div class="shadow card container-fluid p-3 shadow">
@@ -30,14 +31,13 @@
                         <p>@ViewData["role"]</p>
                     </div>
                     <div class="col-md-3">
-                        <p>
-                            @ViewData["email"]
-                        </p>
+                        @Email
                     </div>
                 </div>
-                <div>
+                <div class="mt-5">
+                    <input type="text" asp-for="Email" hidden>
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6">
                             <div class="form-floating">
                                 <input type="firstName" class="form-control" id="firstName" placeholder="firstName"
                                     name="FirstName" asp-for="FirstName" />
@@ -45,7 +45,7 @@
                             </div>
                             <span class="text-danger fs-6 ms-2" asp-validation-for="FirstName"></span>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6">
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="lastName" placeholder="lastName"
                                     name="LastName" asp-for="LastName" />
@@ -56,15 +56,15 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="userName" placeholder="name" name="UserName"
-                                asp-for="UserName" />
+                            <input type="text" class="form-control" id="userName" placeholder="name" name="Username"
+                                asp-for="Username" />
                             <label for="userName">User Name</label>
                         </div>
-                        <span class="text-danger fs-6 ms-2" asp-validation-for="UserName"></span>
+                        <span class="text-danger fs-6 ms-2" asp-validation-for="Username"></span>
                     </div>
-                    <div class="col-md-6 mb-3">
+                    <div class="col-md-6">
                         <div class="form-floating">
                             <input type="tel" class="form-control" id="phone" placeholder="name" name="Phone"
                                 asp-for="Phone" />
@@ -75,66 +75,23 @@
                 </div>
                 <div>
                     <div class="row">
-                        @* <div class="form-floating col">
-                            <select id="CountryId" name="CountryId" class="form-control"
+                        <div class="form-floating col-md-4 mb-3">
+                            <select id="CountryId" name="CountryId" class="form-control" asp-for="CountryId"
                                 asp-items="ViewBag.Countries"></select>
                             <label for="CountryId" class="float">Country</label>
+                            <span asp-validation-for="CountryId" style="color: red;"></span>
                         </div>
-                        <div class="form-floating col">
-                            <select id="StateId" name="StateId" class="form-control"
+                        <div class="form-floating col-md-4 mb-3">
+                            <select id="StateId" name="StateId" class="form-control" asp-for="StateId"
                                 asp-items="ViewBag.States"></select>
                             <label for="StateId" class="float">State</label>
+                            <span asp-validation-for="StateId" style="color: red;"></span>
                         </div>
-                        <div class="form-floating col">
-                            <select id="CityId" name="CityId" class="form-control" asp-items="ViewBag.Cities"></select>
+                        <div class="form-floating col-md-4 mb-3">
+                            <select id="CityId" name="CityId" class="form-control" asp-for="CityId"
+                                asp-items="ViewBag.Cities"></select>
                             <label for="CityId" class="float">City</label>
-                        </div> *@
-
-                        <div class="col-md-4 mb-3">
-                            <div class="form-floating">
-                                <select id="CountryId" class="form-select" asp-for="Country" id="select-country"
-                                    aria-label="Select Country">
-                                    @foreach (var country in ViewBag.AllCountries)
-                                    {
-                                        <option value="@country.Id">
-                                            @country.Name
-                                        </option>
-                                    }
-                                </select>
-                                <label for="select-country">Country</label>
-                            </div>
-                            <span class="text-danger fs-6 ms-2" asp-validation-for="Country"></span>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="form-floating">
-                                <select id="StateId" asp-for="State" class="form-select" id="select-state"
-                                    aria-label="Select State">
-                                    @foreach (var state in ViewBag.AllStates)
-                                    {
-                                        <option value="@state.Id">
-                                            @state.Name
-                                        </option>
-                                    }
-                                </select>
-                                <label for="select-state">State</label>
-                            </div>
-                            <span class="text-danger fs-6 ms-2" asp-validation-for="State"></span>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <div class="form-floating">
-                                <select id="CityId" asp-for="City" class="form-select" id="select-city"
-                                    aria-label="Select City">
-
-                                    @foreach (var city in ViewBag.AllCities)
-                                    {
-                                        <option value="@city.Id">
-                                            @city.Name
-                                        </option>
-                                    }
-                                </select>
-                                <label for="select-city">City</label>
-                            </div>
-                            <span class="text-danger fs-6 ms-2" asp-validation-for="City"></span>
+                            <span asp-validation-for="CityId" style="color: red;"></span>
                         </div>
                     </div>
                 </div>
@@ -150,19 +107,19 @@
                     <div class="col-md-6 mb-3">
                         <div class="form-floating">
                             <input type="text" class="form-control" id="ZipCode" placeholder="ZipCode" name="ZipCode"
-                                asp-for="ZipCode" />
+                                asp-for="Zipcode" />
                             <label for="ZipCode">ZipCode</label>
                         </div>
-                        <span class="text-danger fs-6 ms-2" asp-validation-for="ZipCode"></span>
+                        <span class="text-danger fs-6 ms-2" asp-validation-for="Zipcode"></span>
                     </div>
                 </div>
                 <div>
-                    <div class="mt-2 d-flex justify-content-end">
-                        <button class="btn btn-primary me-3" type="submit">
+                    <div class="mt-2 gap-3 d-flex justify-content-end">
+                        <button class="fill-btn" type="submit">
                             Update
                         </button>
-                        <button class="btn btn-outline-primary" type="button" id="Cancel"
-                            onclick="location.href='@Url.Action("Index", "Home")'">Cancel</button>
+                        <button class="outline-btn" type="button" id="Cancel"
+                            onclick="location.href='@Url.Action("AdminDashboard", "Home")'">Cancel</button>
                     </div>
                     <span class="text-success">@ViewData["ProfileSuccessMessage"]</span>
                 </div>
@@ -174,7 +131,7 @@
         $(document).ready(function () {
             $('#CountryId').change(function () {
                 var countryId = $(this).val();
-                $.getJSON('@Url.Action("GetStates", "Home")', { countryId: countryId }, function (data) {
+                $.getJSON('@Url.Action("GetStates", "User")', { countryId: countryId }, function (data) {
                     var stateSelect = $('#StateId');
                     stateSelect.empty();
                     $.each(data, function (index, state) {
@@ -183,13 +140,13 @@
                             text: state.name
                         }));
                     });
-                    stateSelect.val(data[0]?.id).change();
+                    stateSelect.val('@Model.StateId').change();
                 });
             });
 
             $('#StateId').change(function () {
                 var stateId = $(this).val();
-                $.getJSON('@Url.Action("GetCities", "Home")', { stateId: stateId }, function (data) {
+                $.getJSON('@Url.Action("GetCities", "User")', { stateId: stateId }, function (data) {
                     var citySelect = $('#CityId');
                     citySelect.empty();
                     $.each(data, function (index, city) {
@@ -198,10 +155,11 @@
                             text: city.name
                         }));
                     });
-                    citySelect.val(data[0]?.id);
+                    citySelect.val('@Model.CityId');
                 });
             });
 
+            // Trigger the change event to populate the states and cities on page load
             $('#CountryId').change();
         });
     </script>

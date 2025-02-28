@@ -12,15 +12,69 @@ public class UserRepostory : IUserRepository
     {
         _context = context;
     }
-
-    public async Task UpdateUser(User user)
+    public async Task<User?> GetUserByEmailAsync(string email)
+    {
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+    }
+    public async Task UpdateUserAsync(User user)
     {
         _context.Users.Update(user);
         await _context.SaveChangesAsync();
     }
 
-    public async Task<Role?> CheckRole(string role)
+    public IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize, out int count)
     {
-        return await _context.Roles.FirstOrDefaultAsync(r => r.Name == role);
+        var userQuery = _context.Users.Where(u => u.IsDeleted == false);
+
+        switch (sortOrder)
+        {
+            case "username_asc":
+                userQuery = userQuery.OrderBy(u => u.FirstName);
+                break;
+
+            case "username_desc":
+                userQuery = userQuery.OrderByDescending(u => u.FirstName);
+                break;
+
+            case "role_asc":
+                userQuery = userQuery.OrderBy(u => u.Role.Name);
+                break;
+
+            case "role_desc":
+                userQuery = userQuery.OrderByDescending(u => u.Role.Name);
+                break;
+
+            default:
+                userQuery = userQuery.OrderBy(u => u.Id);
+                break;
+        }
+
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            userQuery = userQuery.Where(u => u.FirstName.ToLower().Contains(searchString.ToLower()) || u.LastName.Contains(searchString));
+        }
+
+        count = userQuery.Count();
+
+        return userQuery
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
     }
+
+    public User GetUserById(int id)
+    {
+        return _context.Users.Find(id);
+    }
+
+    public void DeleteUser(int id)
+    {
+        var user = _context.Users.Find(id);
+        if (user != null)
+        {
+            user.IsDeleted = true;
+            _context.SaveChanges();
+        }
+    }
+
 }

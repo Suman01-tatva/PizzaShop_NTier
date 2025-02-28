@@ -44,12 +44,6 @@ a {
   text-decoration: none;
 }
 
-.fill-btn {
-  background-color: #006098;
-  color: white;
-  border-radius: 3px;
-}
-
 .validation-summary-errors ul li {
   list-style-type: none;
   color: red;
@@ -82,4 +76,14 @@ a {
   .login-icon {
     color: black;
   }
+}
+
+.fill-btn {
+  background-color: var(--textBlue);
+  color: white;
+  border-radius: 6px;
+  padding: 10px;
+  padding-inline: 20px;
+  border: 0;
+  outline: none;
 }

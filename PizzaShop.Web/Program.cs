@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
+using Pizzashop.Service.Implementations;
 using PizzaShop.Entity.Data;
 using PizzaShop.Repository.Implementations;
 using PizzaShop.Repository.Interfaces;
@@ -18,6 +19,12 @@ builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUserRepository, UserRepostory>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITokenDataService, TokenDataService>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<ICityRepository, CityRepository>();
+builder.Services.AddScoped<IStateRepository, StateRepository>();
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 
 
 // builder.Services.AddTransient<IEmailSender, EmailSender>();
@@ -36,13 +43,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 builder.Services.AddAuthorization();
 
-// // Add session services
-// builder.Services.AddSession(options =>
-// {
-//     options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
-//     options.Cookie.HttpOnly = true;
-//     options.Cookie.IsEssential = true;
-// });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

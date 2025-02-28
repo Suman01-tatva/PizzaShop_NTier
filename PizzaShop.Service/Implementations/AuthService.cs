@@ -14,19 +14,19 @@ using PizzaShop.Service.Utils;
 
 public class AuthService : IAuthService
 {
-    private readonly IAuthRepository _authRepository;
+    // private readonly IAuthRepository _authRepository;
 
     private readonly IUserRepository _userRepository;
 
     public AuthService(IAuthRepository authRepository, IUserRepository userRepository)
     {
-        _authRepository = authRepository;
+        // _authRepository = authRepository;
         _userRepository = userRepository;
     }
 
     public async Task<User?> AuthenticateUser(string email, string password)  //Account instead of User
     {
-        var user = await _authRepository.GetUserByEmail(email);
+        var user = await _userRepository.GetUserByEmailAsync(email);
 
         if (user == null || !Utils.PasswordUtills.VerifyPassword(password, user.Password))
             return null;
@@ -36,13 +36,13 @@ public class AuthService : IAuthService
 
     public async Task<User?> GetUser(string email)
     {
-        var user = await _authRepository.GetUserByEmail(email);
+        var user = await _userRepository.GetUserByEmailAsync(email);
         return user;
     }
 
     public async Task SendForgotPasswordEmailAsync(string email, string resetLink, string filePath)
     {
-        var user = await _authRepository.GetUserByEmail(email);
+        var user = await _userRepository.GetUserByEmailAsync(email);
 
         string body = await System.IO.File.ReadAllTextAsync(filePath);
         body = body.Replace("{{reset_link}}", resetLink);
@@ -78,7 +78,7 @@ public class AuthService : IAuthService
 
     public async Task<bool> ResetPassword(ResetPasswordModel model, string email)
     {
-        var user = await _authRepository.GetUserByEmail(email);
+        var user = await _userRepository.GetUserByEmailAsync(email);
 
         if (user != null)
         {
@@ -87,16 +87,11 @@ public class AuthService : IAuthService
                 if (model.NewPassword == model.ConfirmNewPassword)
                 {
                     user.Password = PasswordUtills.HashPassword(model.NewPassword);
-                    await _userRepository.UpdateUser(user);
+                    await _userRepository.UpdateUserAsync(user);
                     return true;
                 }
             }
         }
         return false;
-    }
-
-    public async Task<Role?> CheckRole(string role)
-    {
-        return await _authRepository.CheckRole(role);
     }
 }

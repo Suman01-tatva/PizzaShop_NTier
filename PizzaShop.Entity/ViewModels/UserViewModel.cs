@@ -1,49 +1,56 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PizzaShop.Entity.ViewModels;
-
-public class UserViewModel
+namespace PizzaShop.Entity.ViewModels
 {
-    public int Id { get; set; }
+    public class UserViewModel
+    {
+        public int Id { get; set; }
 
-    public string? Email { get; set; }
+        [Required(ErrorMessage = "First name is required.")]
+        public string? FirstName { get; set; }
 
-    public int RoleId { get; set; }
+        [Required(ErrorMessage = "Last name is required.")]
+        public string? LastName { get; set; }
 
-    public string? FirstName { get; set; }
+        [Required(ErrorMessage = "User name is required.")]
+        public string? Username { get; set; }
 
-    public string? LastName { get; set; }
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email format.")]
+        public string? Email { get; set; }
 
-    [Required(ErrorMessage = "Username is required")]
-    public string Username { get; set; } = null!;
+        public string? Password { get; set; }
 
-    [Required(ErrorMessage = "Phone number is required")]
-    public string Phone { get; set; }
+        [Required(ErrorMessage = "Phone number is required.")]
+        public string? Phone { get; set; }
 
-    public string? ProfileImage { get; set; }
+        [Required(ErrorMessage = "Role is required.")]
+        public int RoleId { get; set; }
 
-    public string? Password { get; set; }
+        public string? RoleName { get; set; }
 
-    public int? CountryId { get; set; }
+        public string? ProfileImg { get; set; }
 
-    public int? StateId { get; set; }
+        [Required(ErrorMessage = "Zipcode is required.")]
+        public string? Zipcode { get; set; }
 
-    public int? CityId { get; set; }
+        [Required(ErrorMessage = "Address is required.")]
+        public string? Address { get; set; }
 
-    public string? Zipcode { get; set; }
+        [Required(ErrorMessage = "Country is required.")]
+        public int? CountryId { get; set; }
 
-    public string? Address { get; set; }
 
-    public string? RoleName { get; set; }
+        [Required(ErrorMessage = "State is required.")]
+        public int? StateId { get; set; }
 
-    public string? CountryName { get; set; }
+        [Required(ErrorMessage = "City is required.")]
+        public int? CityId { get; set; }
 
-    public string? StateName { get; set; }
+        public bool IsDeleted { get; set; }
 
-    public string? CityName { get; set; }
-
-    public bool? IsDeleted { get; set; }
-
-    public bool? IsActive { get; set; }
-
+        public bool IsActive { get; set; }
+    }
 }

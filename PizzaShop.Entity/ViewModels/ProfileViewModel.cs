@@ -17,17 +17,23 @@ public class ProfileViewModel
     public string? Phone { get; set; }
 
     [Required(ErrorMessage = "Country is required")]
-    public string Country { get; set; } = null!;
+    public int CountryId { get; set; }
 
     [Required(ErrorMessage = "State is required")]
-    public string State { get; set; } = null!;
+    public int StateId { get; set; }
 
     [Required(ErrorMessage = "City is required")]
-    public string City { get; set; } = null!;
+    public int CityId { get; set; }
 
     [Required(ErrorMessage = "Address is required")]
     public string Address { get; set; } = null!;
 
     [Required(ErrorMessage = "ZipCode is required")]
     public string ZipCode { get; set; } = null!;
+
+    [Required(ErrorMessage = "ZipCode is required")]
+    public int RoleId { get; set; }
+
+    [Required(ErrorMessage = "ZipCode is required")]
+    public string Email { get; set; } = null!;
 }

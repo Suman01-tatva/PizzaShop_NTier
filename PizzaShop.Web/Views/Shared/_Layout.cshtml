@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/login.css" asp-append-version=" true" />
+    <link rel="stylesheet" href="~/css/user.css" asp-append-version=" true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -112,9 +113,8 @@
                             <li><a class="dropdown-item" asp-action="ChangePassword" asp-controller="User">
                                     <i class="fa-solid fa-rotate-right me-2"></i>Change Password</a>
                             </li>
-                            <li><a class="dropdown-item" asp-action="Login" asp-controller="Auth" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal"><i class="fa fa-sign-out me-2"
-                                        aria-hidden="true"></i>Logout</a></li>
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#LogoutModel"><i
+                                        class="fa fa-sign-out me-2" aria-hidden="true"></i>Logout</a></li>
                         </ul>
                     </div>
                 </nav>
@@ -127,41 +127,13 @@
             </div>
         </div>
     </div>
-    @* Delete model *@
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
-                        Delete Confirmation
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="d-flex justify-content-center align-item-center mt-5 mb-3">
-                    <i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: #ffd43b"></i>
-                </div>
-                <div class="modal-body d-flex justify-content-center">
-                    Are You sure you want to Logout ?
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <a href="@Url.Action("Logout", "Home")">
-                        <button type="button" class="fill-btn px-3 py-2 border-0 rounded" data-bs-dismiss="modal">
-                            Yes
-                        </button>
-                    </a>
-                    <button type="button" class="border-btn px-3" data-bs-dismiss="modal">
-                        No
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!-- Logout Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="LogoutModel" tabindex="-1" aria-labelledby="LogoutModel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">
+                    <h5 class="modal-title" id="LogoutModel">
                         Logout Confirmation
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -173,12 +145,12 @@
                     Are you sure you want to logout?
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <a href="@Url.Action("Logout", "Home")">
+                    <a href="@Url.Action("Logout", "Auth")">
                         <button type="button" class="fill-btn px-3 py-2 border-0 rounded" data-bs-dismiss="modal">
                             Yes
                         </button>
                     </a>
-                    <button type="button" class="border-btn px-3" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-outline-secondary border-btn px-3" data-bs-dismiss="modal">
                         No
                     </button>
                 </div>
