@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PizzaShop.Entity.Data;
+using PizzaShop.Entity.ViewModels;
 using PizzaShop.Repository.Interfaces;
 
 namespace PizzaShop.Repository.Implementations;
@@ -18,6 +19,7 @@ public class UserRepostory : IUserRepository
     }
     public async Task UpdateUserAsync(User user)
     {
+        if (user == null) return;
         _context.Users.Update(user);
         await _context.SaveChangesAsync();
     }
@@ -75,6 +77,12 @@ public class UserRepostory : IUserRepository
             user.IsDeleted = true;
             _context.SaveChanges();
         }
+    }
+
+    public async Task AddUserAsync(User user)
+    {
+        await _context.Users.AddAsync(user);
+        await _context.SaveChangesAsync();
     }
 
 }

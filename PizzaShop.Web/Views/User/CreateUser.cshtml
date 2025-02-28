@@ -34,6 +34,8 @@
                 <div class="form-floating col">
                     <select id="RoleId" name="RoleId" class="form-control" asp-items="ViewBag.Roles"></select>
                     <label for="RoleId" class="float">Role</label>
+                    <span asp-validation-for="RoleId" class="text-danger"></span>
+
                 </div>
             </div>
         </div>
@@ -72,14 +74,18 @@
                 <div class="form-floating col">
                     <select id="CountryId" name="CountryId" class="form-control" asp-items="ViewBag.Countries"></select>
                     <label for="CountryId" class="float">Country</label>
+                    <span asp-validation-for="CountryId" class="text-danger"></span>
                 </div>
                 <div class="form-floating col">
                     <select id="StateId" name="StateId" class="form-control"></select>
                     <label for="StateId" class="float">State</label>
+                    <span asp-validation-for="StateId" class="text-danger"></span>
+
                 </div>
                 <div class="form-floating col">
                     <select id="CityId" name="CityId" class="form-control"></select>
                     <label for="CityId" class="float">City</label>
+                    <span asp-validation-for="CityId" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -90,10 +96,14 @@
                 <div class="form-floating col">
                     <input type="text" class="form-control twoc" id="Zipcode" asp-for="Zipcode">
                     <label for="Zipcode" class="float">ZipCode</label>
+                    <span asp-validation-for="CityId" class="text-danger"></span>
+
                 </div>
                 <div class="form-floating col">
                     <input type="text" class="form-control twoc" id="Address" asp-for="Address">
                     <label for="Address" class="float">Address</label>
+                    <span asp-validation-for="CityId" class="text-danger"></span>
+
                 </div>
                 <div class="form-floating col">
                     <input type="text" class="form-control twoc" id="Phone" asp-for="Phone">

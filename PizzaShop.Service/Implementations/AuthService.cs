@@ -17,11 +17,13 @@ public class AuthService : IAuthService
     // private readonly IAuthRepository _authRepository;
 
     private readonly IUserRepository _userRepository;
+    private readonly IMailService _mailService;
 
-    public AuthService(IAuthRepository authRepository, IUserRepository userRepository)
+    public AuthService(IAuthRepository authRepository, IUserRepository userRepository, IMailService mailService)
     {
         // _authRepository = authRepository;
         _userRepository = userRepository;
+        _mailService = mailService;
     }
 
     public async Task<User?> AuthenticateUser(string email, string password)  //Account instead of User
@@ -48,32 +50,8 @@ public class AuthService : IAuthService
         body = body.Replace("{{reset_link}}", resetLink);
         if (user != null)
         {
-            SendMail(email, body);
+            _mailService.SendMail(email, body);
         }
-    }
-
-    private void SendMail(string toEmail, string body)
-    {
-        string senderMail = "test.dotnet@etatvasoft.com";
-        string senderPassword = "P}N^{z-]7Ilp";
-        string host = "mail.etatvasoft.com";
-        int port = 587;
-        var smtpClient = new SmtpClient(host)
-        {
-            Port = port,
-            Credentials = new NetworkCredential(senderMail, senderPassword),
-        };
-
-        var mailMessage = new MailMessage
-        {
-            From = new MailAddress(senderMail),
-            Subject = "To Reset Your Password",
-            Body = body,
-            IsBodyHtml = true,
-        };
-        mailMessage.To.Add(toEmail);
-
-        smtpClient.Send(mailMessage);
     }
 
     public async Task<bool> ResetPassword(ResetPasswordModel model, string email)

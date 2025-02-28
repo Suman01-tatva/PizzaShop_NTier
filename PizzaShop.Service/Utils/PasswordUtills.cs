@@ -10,7 +10,6 @@ namespace PizzaShop.Service.Utils
         {
             using var sha256 = SHA256.Create();
             var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-            // var hashedBytes = BCrypt.Net.BCrypt.HashPassword(password);
             return Convert.ToBase64String(hashedBytes);
         }
 
@@ -18,5 +17,11 @@ namespace PizzaShop.Service.Utils
         {
             return HashPassword(inputPassword) == storedHash;
         }
+
+        internal static string VerifyPassword(string? password)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

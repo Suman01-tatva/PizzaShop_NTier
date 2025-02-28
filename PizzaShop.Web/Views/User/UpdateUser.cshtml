@@ -118,25 +118,38 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $("#CountryId").change(function () {
-                $.getJSON('/User/GetStates', { countryId: $(this).val() }, function (data) {
-                    var stateDropdown = $("#StateId");
-                    stateDropdown.empty().append('<option>Select State</option>');
-                    $.each(data, function (i, state) {
-                        stateDropdown.append('<option value="' + state.id + '">' + state.name + '</option>');
+            $('#CountryId').change(function () {
+                var countryId = $(this).val();
+                $.getJSON('@Url.Action("GetStates", "User")', { countryId: countryId }, function (data) {
+                    var stateSelect = $('#StateId');
+                    stateSelect.empty();
+                    $.each(data, function (index, state) {
+                        stateSelect.append($('<option>', {
+                            value: state.id,
+                            text: state.name
+                        }));
                     });
+                    stateSelect.val('@Model.StateId').change();
                 });
             });
 
-            $("#StateId").change(function () {
-                $.getJSON('/User/GetCities', { stateId: $(this).val() }, function (data) {
-                    var cityDropdown = $("#CityId");
-                    cityDropdown.empty().append('<option>Select City</option>');
-                    $.each(data, function (i, city) {
-                        cityDropdown.append('<option value="' + city.id + '">' + city.name + '</option>');
+            $('#StateId').change(function () {
+                var stateId = $(this).val();
+                $.getJSON('@Url.Action("GetCities", "User")', { stateId: stateId }, function (data) {
+                    var citySelect = $('#CityId');
+                    citySelect.empty();
+                    $.each(data, function (index, city) {
+                        citySelect.append($('<option>', {
+                            value: city.id,
+                            text: city.name
+                        }));
                     });
+                    citySelect.val('@Model.CityId');
                 });
             });
+
+            // Trigger the change event to populate the states and cities on page load
+            $('#CountryId').change();
         });
     </script>
 }

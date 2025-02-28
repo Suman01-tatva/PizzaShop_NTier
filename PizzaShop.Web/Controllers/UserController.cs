@@ -13,11 +13,15 @@ public class UserController : Controller
 
     private readonly ITokenDataService _tokenDataService;
 
-    public UserController(IUserService userService, ITokenDataService tokenDataService)
+    private readonly IMailService _mailService;
+
+    public UserController(IUserService userService, ITokenDataService tokenDataService, IMailService mailService)
     {
         _userService = userService;
 
         _tokenDataService = tokenDataService;
+
+        _mailService = mailService;
     }
 
     public IActionResult ChangePassword()
@@ -99,7 +103,7 @@ public class UserController : Controller
 
     public IActionResult UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")
     {
-        var users = _userService.GetUsers(searchString, sortOrder, pageIndex, pageSize, out int count);
+        var users = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize, out int count);
 
         ViewData["UsernameSortParam"] = sortOrder == "username_asc" ? "username_desc" : "username_asc";
         ViewData["RoleSortParam"] = sortOrder == "role_asc" ? "role_desc" : "role_asc";
@@ -120,11 +124,83 @@ public class UserController : Controller
         return View();
     }
 
+    public async Task<IActionResult> CreateUser()
+    {
+        await PopulateDropdowns();
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateUser(UserViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+
+            if (await _userService.UserExistsAsync(model.Email))
+            {
+                ViewBag.UserExistError = "User Already Exist";
+                await PopulateDropdowns();
+                return View(model);
+            }
+
+            var token = Request.Cookies["Token"];
+            var currentUserEmail = await _tokenDataService.GetEmailFromToken(token);
+            await _userService.AddUserAsync(model, currentUserEmail);
+            _mailService.SendMail(model.Email, "Welcome To Pizza Shop");
+
+            return RedirectToAction("UserList");
+        }
+        else
+        {
+            await PopulateDropdowns();
+            return View(model);
+        }
+    }
+
+    private async Task PopulateDropdowns()
+    {
+        var countries = await _userService.GetAllCountriesAsync();
+        var roles = await _userService.GetAllRolesAsync();
+
+        ViewBag.Countries = new SelectList(countries, "Id", "Name");
+        ViewBag.Roles = new SelectList(roles, "Id", "Name");
+    }
+
     [HttpPost]
     public IActionResult DeleteUser(int id)
     {
         _userService.DeleteUser(id);
         return RedirectToAction(nameof(UserList));
+    }
+
+    public async Task<IActionResult> UpdateUser(int id)
+    {
+        ViewBag.Roles = new SelectList(await _userService.GetAllRolesAsync(), "Id", "Name");
+
+        var model = await _userService.GetUserByIdForUpdate(id);
+        if (model == null)
+        {
+            return NotFound();
+        }
+
+        ViewBag.Roles = new SelectList(await _userService.GetAllRolesAsync(), "Id", "Name");
+        ViewBag.Countries = new SelectList(await _userService.GetAllCountriesAsync(), "Id", "Name", model.CountryId);
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateUser(UserViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            await _userService.UpdateUserAsync(model);
+            return RedirectToAction("UserList");
+        }
+
+        ViewBag.Roles = new SelectList(await _userService.GetAllRolesAsync(), "Id", "Name");
+        ViewBag.Countries = new SelectList(await _userService.GetAllCountriesAsync(), "Id", "Name", model.CountryId);
+
+        return View(model);
     }
 
     [HttpGet]

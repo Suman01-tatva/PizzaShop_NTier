@@ -11,7 +11,12 @@ public interface IUserService
     Task<List<Country>> GetAllCountriesAsync();
     Task<List<State>> GetStatesByCountryIdAsync(int? countryId);
     Task<List<City>> GetCitiesByStateIdAsync(int? stateId);
-    IEnumerable<User> GetUsers(string searchString, string sortOrder, int pageIndex, int pageSize, out int count);
+    IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize, out int count);
     User GetUserById(int id);
+    Task<UserViewModel> GetUserByIdForUpdate(int id);
     void DeleteUser(int id);
+    Task<bool> UserExistsAsync(string email);
+    Task AddUserAsync(UserViewModel model, string currentUserEmail);
+    Task<IEnumerable<Role>> GetAllRolesAsync();
+    Task UpdateUserAsync(UserViewModel model);
 }

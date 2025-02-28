@@ -21,6 +21,7 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IUserRepository, UserRepostory>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITokenDataService, TokenDataService>();
+builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<IStateRepository, StateRepository>();
