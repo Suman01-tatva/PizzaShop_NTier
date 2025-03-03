@@ -27,6 +27,21 @@
   border-radius: 20px;
 }
 
+.inActive-status {
+  display: flex;
+  justify-content: center;
+  background-color: #ca3030;
+  color: white;
+  width: 70px;
+  padding: 1px;
+  border-radius: 20px;
+}
+
+.icon-disable {
+  pointer-events: none;
+  color: gray;
+}
+
 .search-bar {
   max-width: 500px;
   margin: auto auto;

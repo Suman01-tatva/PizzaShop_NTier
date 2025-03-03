@@ -99,11 +99,11 @@ public class UserService : IUserService
         _userRepository.DeleteUser(id);
     }
 
-    public async Task<UserViewModel> GetUserByIdForUpdate(int id)
+    public async Task<UserUpdateViewModel> GetUserByIdForUpdate(int id)
     {
         var user = _userRepository.GetUserById(id);
 
-        var userViewModel = new UserViewModel
+        var userViewModel = new UserUpdateViewModel
         {
             FirstName = user.FirstName,
             LastName = user.LastName,
@@ -116,12 +116,13 @@ public class UserService : IUserService
             Address = user.Address,
             RoleId = user.RoleId,
             Email = user.Email,
+            IsActive = (bool)user.IsActive
         };
 
         return userViewModel;
     }
 
-    public async Task UpdateUserAsync(UserViewModel model)
+    public async Task UpdateUserAsync(UserUpdateViewModel model)
     {
         var user = await _userRepository.GetUserByEmailAsync(model.Email);
         if (user == null) return;
@@ -136,8 +137,7 @@ public class UserService : IUserService
         user.Address = model.Address;
         user.Zipcode = model.Zipcode;
         user.RoleId = model.RoleId;
-        user.Password = PasswordUtills.HashPassword(model.Password);
-
+        user.IsActive = model.IsActive;
         await _userRepository.UpdateUserAsync(user);
     }
     public async Task<List<Country>> GetAllCountriesAsync()
@@ -190,5 +190,11 @@ public class UserService : IUserService
     public async Task<IEnumerable<Role>> GetAllRolesAsync()
     {
         return await _roleRepository.GetAllRolesAsync();
+    }
+
+    public async Task<User?> GetUserByEmailAsync(string email)
+    {
+        var user = await _userRepository.GetUserByEmailAsync(email);
+        return user;
     }
 }

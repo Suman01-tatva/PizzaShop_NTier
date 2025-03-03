@@ -91,7 +91,7 @@
                             }
                             else
                             {
-                                <div class="status-value">Inactive</div>
+                                <div class="inActive-status">InActive</div>
                             }
                         </td>
                         <td>
@@ -101,6 +101,10 @@
                                     <a asp-action="UpdateUser" asp-controller="User" asp-route-id="@user.Id">
                                         <i class="fa-solid fa-pen-clip"></i>
                                     </a>
+                                }
+                                else
+                                {
+                                    <i class="fa-solid fa-pen-clip icon-disable"></i>
                                 }
                                 <a class="bi bi-trash m-1" href="javascript:void(0)" onclick="confirmDelete(@user.Id)">
                                     <i class="fa-solid fa-trash"></i>
@@ -139,12 +143,12 @@
                     {
                         <option selected value="15">15</option>
                     }
-                    else
+                    elset
                     {
-                        <option value="15">15</option>
+                    <option value="15">15</option>
                     }
                 </select>
-                Showing @pageIndex out of <span>@totalPage</span>
+                Showing @pageIndex out of<span> @totalPage</span>
                 @if (pageIndex > 1)
                 {
                     <a href="?pageIndex=@(pageIndex-1)&pageSize=@pageSize&searchString=@searchString"
@@ -154,7 +158,7 @@
                 }
                 else
                 {
-                    <a class="bg-llight border-1 bg-light mx-2 px-2 btn btn-outline-dark" disabled>
+                    <a class="bg-llight border-1 bg-light mx-2 px-2 btn btn-outline-dark" hidden>
                         <i class="fa-solid fa-less-than"></i>
                     </a>
                 }
@@ -168,11 +172,10 @@
                 }
                 else
                 {
-                    <a class="bg-llight border-1 bg-light px-2 btn btn-outline-dark" disabled>
+                    <a class="bg-llight border-1 bg-light px-2 btn btn-outline-dark" hidden>
                         <i class="fa-solid fa-greater-than"></i>
                     </a>
                 }
-
             </form>
         </div>
     </div>

@@ -1,0 +1,63 @@
+.tab-link.active {
+  color: #006098 !important;
+  border-bottom: 2px solid #006098;
+}
+
+.tab-link:hover {
+  color: #006098 !important;
+}
+.tab-link {
+  color: black;
+  font-size: large;
+}
+
+.category-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.item-category-btn {
+  color: gray;
+  transition: 0.4s ease;
+}
+.item-category-btn:hover {
+  color: #006098;
+  background-color: white;
+}
+.item-category-btn:hover > .edit-delete-icon {
+  display: block;
+}
+.edit-delete-icon {
+  display: none;
+  height: 20px;
+}
+.edit-delete-icon > i {
+  cursor: pointer;
+}
+
+.category-btn-icon {
+  transform: rotate(90deg);
+  margin-right: 3px;
+}
+.menu-table > td {
+  display: flex !important;
+  justify-content: center;
+  margin: auto;
+  color: gray;
+}
+
+.dining-menu-icon {
+  height: 40px;
+  width: 40px;
+}
+
+/* Modifier */
+.modifier-table td {
+  height: 55px !important;
+  color: gray !important;
+  align-items: center;
+}
+
+.modifier-section {
+  height: 550px;
+}

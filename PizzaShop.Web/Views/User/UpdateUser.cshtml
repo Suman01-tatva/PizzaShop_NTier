@@ -1,13 +1,13 @@
-@model PizzaShop.Entity.ViewModels.UserViewModel;
+@model PizzaShop.Entity.ViewModels.UserUpdateViewModel;
 
 @{
     ViewData["Title"] = "Edit User";
 }
 
-<h2 class="dt p-2">Edit User</h2>
+<h2 class="page-title">Edit User</h2>
 
 <div class="form rounded bg-light">
-    <form asp-controller="User" asp-action="UpdateUser" method="post" enctype="multipart/form-data">
+    <form asp-controller="User" asp-action="UpdateUser" method="post">
         <div class="col-xl-12">
             <div class="row">
                 <div class="form-floating col">
@@ -48,7 +48,7 @@
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating col">
-                    <select id="Status" name="Status" class="form-control" asp-for="IsActive">
+                    <select id="Status" class="form-control" asp-for="IsActive">
                         <option value="true">Active</option>
                         <option value="false">Inactive</option>
                     </select>
@@ -67,7 +67,6 @@
             </label>
             <input id="files" type="file" class="input-file" hidden />
         </div>
-
         <br>
 
         <div class="col-xl-12">

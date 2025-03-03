@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="~/css/dashboard.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/login.css" asp-append-version=" true" />
     <link rel="stylesheet" href="~/css/user.css" asp-append-version=" true" />
+    <link rel="stylesheet" href="~/css/menu.css" asp-append-version=" true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -26,65 +27,65 @@
     <div class="container-fluid">
         <div class="row main-container">
             <!-- sidebar -->
-            <div class="col-md-3 col-lg-2 sidebar" id="sidebar">
-                <div class="offcanvas-lg offcanvas-start">
-                    <div class="d-flex flex-row justify-content-center align-item-center mt-2 fs-3">
-                        <img src="~/images/pizzashop_logo.png" alt="pizashop-logo" class="img-fluid pizza-logo" />
-                        <div class="brand-name fs-5 mt-2"><b>PIZZASHOP</b></div>
-                        <button class="btn btn-close close-btn" type="button" data-bs-toggle="offcanvas"
-                            data-bs-target="#sidebar" aria-controls="offcanvasWithBothOptions"></button>
-                    </div>
-                    <ul class="nav d-flex justify-content-between align-items-left flex-column mt-4">
-                        <a asp-action="AdminDashboard" asp-controller="Home">
-                            <li class="nav-item sidebar-active cursor-pointer">
-                                <i class="fa-solid fa-table-cells-large me-2"></i>
-                                Dashboard
-                            </li>
-                        </a>
-                        <a asp-action="UserList" asp-controller="User">
-                            <li class="nav-item">
-                                <i class="fa-solid fa-users me-2"></i> Users
-                            </li>
-                        </a>
-                        <a href="./permissions.html">
-                            <li class="nav-item">
-                                <i class="fa-solid fa-monument me-2"></i>Role and Permission
-                            </li>
-                        </a>
-                        <a href="./permissions.html">
-                            <li class="nav-item">
-                                <i class="fa-solid fa-square me-2"></i>Menu
-                            </li>
-                        </a>
-                        <a href="">
-                            <li class="nav-item">
-                                <i class="fa-solid fa-money-check-dollar me-2"></i> Table and
-                                Section
-                            </li>
-                        </a>
-                        <a href="">
-                            <li class="nav-item">
-                                <i class="fa-solid fa-cart-plus me-2"></i> Taxes And Fees
-                            </li>
-                        </a>
-                        <a href="">
-                            <li class="nav-item">
-                                <i class="fa-solid fa-users-rectangle me-2"></i> Orders
-                            </li>
-                        </a>
-                        <a href="">
-                            <li class="nav-item">
-                                <i class="fa-solid fa-users-rectangle me-2"></i> Customers
-                            </li>
-                        </a>
-                    </ul>
+            <div class="col-lg-2 offcanvas-lg offcanvas-start sidebar" id="sidebar">
+                @* <div class="offcanvas-lg offcanvas-start"> *@
+                <div class="d-flex flex-row justify-content-center align-item-center mt-2 fs-3">
+                    <img src="~/images/pizzashop_logo.png" alt="pizashop-logo" class="img-fluid pizza-logo" />
+                    <div class="brand-name fs-5 mt-2"><b>PIZZASHOP</b></div>
+                    <button class="btn btn-close close-btn" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#sidebar" aria-controls="offcanvasWithBothOptions"></button>
                 </div>
+                <ul class="nav d-flex justify-content-between align-items-left flex-column mt-4">
+                    <a asp-action="AdminDashboard" asp-controller="Home">
+                        <li class="nav-item sidebar-active cursor-pointer">
+                            <i class="fa-solid fa-table-cells-large me-2"></i>
+                            Dashboard
+                        </li>
+                    </a>
+                    <a asp-action="UserList" asp-controller="User">
+                        <li class="nav-item">
+                            <i class="fa-solid fa-users me-2"></i> Users
+                        </li>
+                    </a>
+                    <a asp-action="Role" asp-controller="RolePermission">
+                        <li class="nav-item">
+                            <i class="fa-solid fa-monument me-2"></i>Role and Permission
+                        </li>
+                    </a>
+                    <a asp-action="Menu" asp-controller="Menu">
+                        <li class="nav-item">
+                            <i class="fa-solid fa-square me-2"></i>Menu
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="nav-item">
+                            <i class="fa-solid fa-money-check-dollar me-2"></i> Table and
+                            Section
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="nav-item">
+                            <i class="fa-solid fa-cart-plus me-2"></i> Taxes And Fees
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="nav-item">
+                            <i class="fa-solid fa-users-rectangle me-2"></i> Orders
+                        </li>
+                    </a>
+                    <a href="">
+                        <li class="nav-item">
+                            <i class="fa-solid fa-users-rectangle me-2"></i> Customers
+                        </li>
+                    </a>
+                </ul>
+                @* </div> *@
             </div>
 
             <div class="col-lg-10 main-section p-0">
                 <!-- navbar -->
-                <nav class="navbar navbar-expand-lg d-flex justify-content-between align-item-center fixed-top py-0">
-                    <div class="d-flex my-0">
+                <nav class="navbar navbar-expand-lg d-flex justify-content-between align-item-center py-0">
+                    <div class="d-flex my-0  nav-title">
                         <div class="d-flex flex-row justify-content-center align-item-center mt-2 fs-3">
                             <img src="~/images/menu-bar.svg" alt="toggle-btn" class="mx-2" id="menu-icon"
                                 data-bs-toggle="offcanvas" data-bs-target="#sidebar"

@@ -1,0 +1,132 @@
+@model List<PizzaShop.Entity.ViewModels.RolePermissionViewModel>
+
+@{
+    ViewData["Title"] = "Permissions";
+}
+
+<h2>Manage Role Permissions</h2>
+
+@* <form asp-action="Permission" asp-controller="RolePermission" method="post">
+    <div class="col-md-4">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="role" value="@Model.First().RoleName" readonly />
+            <label for="floatingInput">Role</label>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" id="selectAll" />
+                    Permission
+                </th>
+                <th>Can View</th>
+                <th>Can Add/Edit</th>
+                <th>Can Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" asp-for="@Model[i].Id" />
+                        <input type="hidden" asp-for="@Model[i].Permissionid" />
+                        <input type="hidden" asp-for="@Model[i].RoleId" />
+                        <input type="hidden" asp-for="@Model[i].PermissionName" />
+                        <input type="hidden" asp-for="@Model[i].RoleName" />
+
+                        <input type="checkbox" class="form-check-input permission-checkbox switch-btn mt-0"
+                               name="selectedPermissions" value="@Model[i].Id" data-index="@i"
+                               @(Model[i].CanView || Model[i].CanEdit || Model[i].CanDelete ? "checked" : "") />
+                        @Model[i].PermissionName
+                    </td>
+                    <td>
+                        <div class="form-check form-switch mb-0">
+                            <input type="checkbox" asp-for="@Model[i].CanView" class="form-check-input permission-field can-view mt-0"
+                                   data-index="@i" value="true" checked="@Model[i].CanView" />
+                            <input type="hidden" name="[@i].Canview" value="false" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-check form-switch mb-0">
+                            <input type="checkbox" asp-for="@Model[i].CanEdit" class="form-check-input permission-field can-addedit"
+                                   data-index="@i" value="true" checked="@Model[i].CanEdit" />
+                            <input type="hidden" name="[@i].Canaddedit" value="false" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-check form-switch mb-0">
+                            <input type="checkbox" asp-for="@Model[i].CanDelete" class="form-check-input permission-field can-delete"
+                                   data-index="@i" value="true"checked="@Model[i].CanDelete" />
+                            <input type="hidden" name="[@i].Candelete" value="false" />
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="button" class="btn btn-secondary" onclick="window.location.href='@Url.Action("Index", "Role")'">Cancel</button>
+</form>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const permissionCheckboxes = document.querySelectorAll(".permission-checkbox");
+
+        permissionCheckboxes.forEach(checkbox => {
+            togglePermissionFields(checkbox.dataset.index, checkbox.checked);
+            checkbox.addEventListener("change", function () {
+                togglePermissionFields(this.dataset.index, this.checked);
+            });
+        });
+
+        function togglePermissionFields(index, isChecked) {
+            const canView = document.querySelector(`.can-view[data-index='${index}']`);
+            const canAddEdit = document.querySelector(`.can-addedit[data-index='${index}']`);
+            const canDelete = document.querySelector(`.can-delete[data-index='${index}']`);
+
+            if (isChecked) {
+                canView.disabled = false;
+                canAddEdit.disabled = false;
+                canDelete.disabled = false;
+            } else {
+                canView.checked = false;
+                canAddEdit.checked = false;
+                canDelete.checked = false;
+                canView.disabled = true;
+                canAddEdit.disabled = true;
+                canDelete.disabled = true;
+            }
+        }
+
+        document.getElementById("selectAll").addEventListener("change", function () {
+            permissionCheckboxes.forEach(chk => {
+                chk.checked = this.checked;
+                togglePermissionFields(chk.dataset.index, this.checked);
+            });
+        });
+
+        document.querySelectorAll("input[type='checkbox']").forEach(chk => {
+            chk.addEventListener("change", function () {
+                let hiddenInput = this.nextElementSibling;
+                if (hiddenInput && hiddenInput.type === "hidden") {
+                    hiddenInput.value = this.checked ? "true" : "false";
+                }
+            });
+        });
+
+        $(function () {
+            var successMessage = '@Html.Raw(TempData["SuccessUpdate"])';
+            if (successMessage.trim() !== '') {
+                toastr.success(successMessage, "Success", {
+                    closeButton: true,
+                    progressBar: true,
+                    timeOut: 2000,
+                    positionClass: "toast-bottom-right"
+                });
+            }
+        });
+    });
+</script> *@

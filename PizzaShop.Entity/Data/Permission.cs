@@ -9,9 +9,9 @@ public partial class Permission
 
     public string Name { get; set; } = null!;
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
 
-    public int CreatedBy { get; set; }
+    public int? CreatedBy { get; set; }
 
     public DateTime? ModifiedAt { get; set; }
 

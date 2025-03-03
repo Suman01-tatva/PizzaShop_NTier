@@ -640,25 +640,6 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Authentication.JwtBearer/7.0.7": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.15.1"
-        },
-        "compile": {
-          "lib/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
-            "related": ".xml"
-          }
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
-      },
       "Microsoft.AspNetCore.Razor.Language/6.0.11": {
         "type": "package",
         "compile": {
@@ -3849,7 +3830,6 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
-          "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration": "7.0.10",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "7.0.11",
@@ -4647,21 +4627,6 @@
         "lib/netstandard1.0/zh-Hant/Humanizer.resources.dll",
         "lib/netstandard2.0/zh-Hant/Humanizer.resources.dll",
         "logo.png"
-      ]
-    },
-    "Microsoft.AspNetCore.Authentication.JwtBearer/7.0.7": {
-      "sha512": "V3ftCQYDWxHogvrZ3XEr3TNCACqoxMuBwnCI5kq+GeuFGh6u0VYDMrRwvXvFKxdFHgFwS9CFxq4/p1csSVPI8g==",
-      "type": "package",
-      "path": "microsoft.aspnetcore.authentication.jwtbearer/7.0.7",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "THIRD-PARTY-NOTICES.TXT",
-        "lib/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll",
-        "lib/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.xml",
-        "microsoft.aspnetcore.authentication.jwtbearer.7.0.7.nupkg.sha512",
-        "microsoft.aspnetcore.authentication.jwtbearer.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Razor.Language/6.0.11": {
@@ -10757,11 +10722,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
+      "projectUniqueName": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
       "projectName": "PizzaShop.Repository",
-      "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
+      "projectPath": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
       "packagesPath": "C:\\Users\\pci93\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\obj\\",
+      "outputPath": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pci93\\AppData\\Roaming\\NuGet\\NuGet.Config"

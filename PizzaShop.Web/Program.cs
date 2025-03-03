@@ -23,9 +23,15 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITokenDataService, TokenDataService>();
 builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IRolePermissionRepository, RolePermissionRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<IStateRepository, StateRepository>();
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
+
+builder.Services.AddScoped<IMenuService, MenuService>();
+builder.Services.AddScoped<IMenuCategoryRepository, MenuCategoryRepository>();
+builder.Services.AddScoped<IMenuItemsRepository, MenuItemRepository>();
 
 
 // builder.Services.AddTransient<IEmailSender, EmailSender>();

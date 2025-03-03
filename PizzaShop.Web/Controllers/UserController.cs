@@ -189,7 +189,7 @@ public class UserController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> UpdateUser(UserViewModel model)
+    public async Task<IActionResult> UpdateUser(UserUpdateViewModel model)
     {
         if (ModelState.IsValid)
         {

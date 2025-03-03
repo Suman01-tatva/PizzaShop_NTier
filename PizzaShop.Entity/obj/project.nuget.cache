@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Fw0WsDrdZpppIBByCFS4SbvxiXdMU6YCJqK+W9v95yZgkMHXJaetJGOfukTiHDCtAwvMMhgTS00kPB2rt2zUbA==",
+  "dgSpecHash": "KCk98dC8/ta/zRBTmhTNzoVBXQQJuKJUxNsfa17sLiiBCLYw4Gy9UQUw+UchRmsdGACtym43UopH/dUM8MQ0Zg==",
   "success": true,
   "projectFilePath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Entity\\PizzaShop.Entity.csproj",
   "expectedPackageFiles": [
@@ -56,7 +56,6 @@
     "C:\\Users\\pci93\\.nuget\\packages\\humanizer.core.zh-cn\\2.14.1\\humanizer.core.zh-cn.2.14.1.nupkg.sha512",
     "C:\\Users\\pci93\\.nuget\\packages\\humanizer.core.zh-hans\\2.14.1\\humanizer.core.zh-hans.2.14.1.nupkg.sha512",
     "C:\\Users\\pci93\\.nuget\\packages\\humanizer.core.zh-hant\\2.14.1\\humanizer.core.zh-hant.2.14.1.nupkg.sha512",
-    "C:\\Users\\pci93\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.7\\microsoft.aspnetcore.authentication.jwtbearer.7.0.7.nupkg.sha512",
     "C:\\Users\\pci93\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.11\\microsoft.aspnetcore.razor.language.6.0.11.nupkg.sha512",
     "C:\\Users\\pci93\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\pci93\\.nuget\\packages\\microsoft.build\\17.3.2\\microsoft.build.17.3.2.nupkg.sha512",
