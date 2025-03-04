@@ -8,5 +8,5 @@ public interface IRolePermissionRepository
     public List<Permission>? GetAllPermissions();
     public List<RolePermissionViewModel>? GetRolePermissionByRoleId(int roleId);
 
-    public bool UpdateRolePermission(List<RolePermissionViewModel> model, string email);
+    Task<bool> UpdateRolePermissionAsync(List<RolePermissionViewModel> model, string email);
 }

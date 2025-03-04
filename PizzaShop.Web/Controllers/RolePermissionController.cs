@@ -22,22 +22,21 @@ public class RolePermissionController : Controller
     [HttpGet]
     public async Task<IActionResult> Role()
     {
-        var email = Request.Cookies["email"];
-        var AuthToken = Request.Cookies["Token"];
-        if (String.IsNullOrEmpty(AuthToken))
-        {
-            return RedirectToAction("Login", "Auth");
-        }
+        // var email = Request.Cookies["email"];
+        // var AuthToken = Request.Cookies["Token"];
+        // if (String.IsNullOrEmpty(AuthToken))
+        // {
+        //     return RedirectToAction("Login", "Auth");
+        // }
 
-        if (string.IsNullOrEmpty(AuthToken))
-            return RedirectToAction("Login", "Auth");
+        // if (string.IsNullOrEmpty(AuthToken))
+        //     return RedirectToAction("Login", "Auth");
 
-        var user = _user.GetUserByEmailAsync(email);
+        // var user = _user.GetUserByEmailAsync(email);
         // if (user == null || user.RoleId != 1)
         //     return RedirectToAction("Dashboard", "Dashboard");
 
-        List<Role> roles = await _rolePermission.GetAllRoles();
-        Console.WriteLine(roles[0].Name);
+        var roles = await _rolePermission.GetAllRoles();
         return View(roles);
     }
 
@@ -57,7 +56,7 @@ public class RolePermissionController : Controller
     }
 
     [HttpPost]
-    public IActionResult Permission(List<RolePermissionViewModel> model)
+    public async Task<IActionResult> Permission(List<RolePermissionViewModel> model)
     {
         if (ModelState.IsValid)
         {
@@ -68,7 +67,7 @@ public class RolePermissionController : Controller
                 return RedirectToAction("Login", "Auth");
             }
 
-            bool updateRolePermission = _rolePermission.UpdateRolePermission(model, email);
+            bool updateRolePermission = await _rolePermission.UpdateRolePermission(model, email);
             if (updateRolePermission)
             {
                 TempData["SuccessUpdate"] = "Role And Permissions Updated Successfully";

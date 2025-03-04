@@ -22,9 +22,4 @@ public class RoleRepository : IRoleRepository
     {
         return await _context.Roles.ToListAsync();
     }
-
-    public async Task<List<Role>> GetAllRoles()
-    {
-        return await _context.Roles.ToListAsync();
-    }
 }

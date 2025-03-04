@@ -18,9 +18,9 @@ public class RolePermissionService : IRolePermissionService
         _rolePermission = rolePermission;
     }
 
-    public async Task<List<Role>> GetAllRoles()
+    public async Task<IEnumerable<Role>> GetAllRoles()
     {
-        return await _role.GetAllRoles();
+        return await _role.GetAllRolesAsync();
     }
 
     public List<RolePermissionViewModel>? GetRolePermissionByRoleId(int roleId)
@@ -31,9 +31,9 @@ public class RolePermissionService : IRolePermissionService
         return null;
     }
 
-    public bool UpdateRolePermission(List<RolePermissionViewModel> model, string email)
+    public async Task<bool> UpdateRolePermission(List<RolePermissionViewModel> model, string email)
     {
-        bool isRolePermission = _rolePermission.UpdateRolePermission(model, email);
+        bool isRolePermission = await _rolePermission.UpdateRolePermissionAsync(model, email);
         return isRolePermission;
     }
 }

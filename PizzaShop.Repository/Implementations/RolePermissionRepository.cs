@@ -1,5 +1,7 @@
 namespace PizzaShop.Repository.Implementations
 {
+    using Microsoft.EntityFrameworkCore;
+
     using PizzaShop.Entity.Data;
     using PizzaShop.Entity.ViewModels;
     using PizzaShop.Repository.Interfaces;
@@ -55,24 +57,24 @@ namespace PizzaShop.Repository.Implementations
             return null;
         }
 
-        public bool UpdateRolePermission(List<RolePermissionViewModel> model, string email)
+        public async Task<bool> UpdateRolePermissionAsync(List<RolePermissionViewModel> model, string email)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Email == email);
-            var role = _role.GetRoleByIdAsync(user.RoleId);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var role = await _role.GetRoleByIdAsync(user.RoleId);
 
             foreach (var rp in model)
             {
-                var rolePermission = _context.RolePermissions.FirstOrDefault(x => x.Id == rp.Id);
+                var rolePermission = await _context.RolePermissions.FirstOrDefaultAsync(x => x.Id == rp.Id);
                 if (rolePermission != null)
                 {
                     rolePermission.CanEdit = rp.CanEdit;
                     rolePermission.CanView = rp.CanView;
                     rolePermission.CanDelete = rp.CanDelete;
-                    rolePermission.ModifiedAt = DateTime.Now;
+                    rolePermission.ModifiedAt = DateTime.UtcNow;
                     rolePermission.ModifiedBy = user.Id;
-                    _context.SaveChanges();
                 }
             }
+            await _context.SaveChangesAsync();
             return true;
         }
     }
