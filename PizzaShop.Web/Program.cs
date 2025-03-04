@@ -29,9 +29,9 @@ builder.Services.AddScoped<IStateRepository, StateRepository>();
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
 
-builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IMenuCategoryRepository, MenuCategoryRepository>();
 builder.Services.AddScoped<IMenuItemsRepository, MenuItemRepository>();
+builder.Services.AddScoped<IMenuService, MenuService>();
 
 
 // builder.Services.AddTransient<IEmailSender, EmailSender>();

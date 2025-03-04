@@ -12,21 +12,18 @@ public partial class MenuCategoryViewModel
 
     public string? Description { get; set; }
 
-    public bool IsDeleted { get; set; }
+    public bool? IsDeleted { get; set; }
 
     public DateTime? CreatedAt { get; set; }
 
-    public int CreatedBy { get; set; }
+    public int? CreatedBy { get; set; }
 
     public DateTime? ModifiedAt { get; set; }
 
     public int? ModifiedBy { get; set; }
 
-    public virtual User CreatedByNavigation { get; set; } = null!;
-
     public virtual ICollection<MenuItem> MenuItems { get; set; } = new List<MenuItem>();
 
     public virtual User? ModifiedByNavigation { get; set; }
 
-    public List<MenuItemViewModel> ItemList { get; set; }
 }
