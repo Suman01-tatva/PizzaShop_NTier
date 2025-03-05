@@ -112,9 +112,9 @@ namespace PizzaShop.Service.Implementations
             return itemTabViewModel;
         }
 
-        public bool AddNewCategory(MenuCategoryViewModel model)
+        public bool AddNewCategory(string Name, string Description)
         {
-            return _menuCategoryRepository.AddNewCategory(model);
+            return _menuCategoryRepository.AddNewCategory(Name, Description);
         }
 
         public async Task<MenuCategoryViewModel> GetCategoryDetailById(int id)
@@ -150,7 +150,13 @@ namespace PizzaShop.Service.Implementations
 
         public async Task<List<MenuItemViewModel>> GetItemsByCategory(int categoryId)
         {
-            return await _menuItemRepository.GetItemsByCategory(categoryId);
+            var Items = await _menuItemRepository.GetItemsByCategory(categoryId);
+            return Items;
+        }
+
+        public bool SoftDeleteCategory(int id)
+        {
+            return _menuCategoryRepository.DeleteCategory(id);
         }
     }
 }

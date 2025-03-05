@@ -9,10 +9,12 @@ public interface IMenuService
 
     Task<List<MenuItemViewModel>> GetItemsByCategory(int categoryId);
 
-    public bool AddNewCategory(MenuCategoryViewModel model);
+    public bool AddNewCategory(string Name, string Description);
 
     public Task<MenuCategoryViewModel> GetCategoryDetailById(int id);
     public Task<bool> EditCategory(MenuCategoryViewModel model, int categoryId);
 
     public Task<ItemTabViewModel> GetItemTabDetails(int categoryId);
+
+    public bool SoftDeleteCategory(int id);
 }

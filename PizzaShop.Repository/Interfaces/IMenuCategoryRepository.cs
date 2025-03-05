@@ -6,10 +6,13 @@ namespace PizzaShop.Repository.Interfaces;
 public interface IMenuCategoryRepository
 {
     Task<List<MenuCategoryViewModel>> GetAllMenuCategoriesAsync();
-    public bool AddNewCategory(MenuCategoryViewModel model);
+    public bool AddNewCategory(string Name, string Description);
 
     public Task<bool> UpdateCategoryBy(MenuCategory menuCategory);
 
     public Task<MenuCategory> GetCategoryByIdAsync(int id);
+
+    public bool DeleteCategory(int id);
+
 
 }

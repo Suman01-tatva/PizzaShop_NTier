@@ -17,6 +17,7 @@ public class MenuCategoryRepository : IMenuCategoryRepository
     public async Task<List<MenuCategoryViewModel>> GetAllMenuCategoriesAsync()
     {
         return await _context.MenuCategories
+            .Where(c => c.IsDeleted == false)
             .Select(c => new MenuCategoryViewModel
             {
                 Id = c.Id,
@@ -25,16 +26,16 @@ public class MenuCategoryRepository : IMenuCategoryRepository
             }).ToListAsync();
     }
 
-    public bool AddNewCategory(MenuCategoryViewModel model)
+    public bool AddNewCategory(string Name, string Description)
     {
         try
         {
             MenuCategory menuCategory = new MenuCategory
             {
-                Name = model.Name,
-                Description = model.Description,
+                Name = Name,
+                Description = Description,
                 CreatedAt = DateTime.UtcNow,
-                CreatedBy = model.CreatedBy
+                // CreatedBy = model.CreatedBy
             };
 
             _context.MenuCategories.Add(menuCategory);
@@ -59,5 +60,19 @@ public class MenuCategoryRepository : IMenuCategoryRepository
     public async Task<MenuCategory> GetCategoryByIdAsync(int id)
     {
         return await _context.MenuCategories.FirstOrDefaultAsync(mc => mc.Id == id);
+    }
+    public bool DeleteCategory(int id)
+    {
+        var category = _context.MenuCategories.FirstOrDefault(c => c.Id == id);
+        if (category != null)
+        {
+            category.IsDeleted = true;
+            _context.SaveChanges();
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

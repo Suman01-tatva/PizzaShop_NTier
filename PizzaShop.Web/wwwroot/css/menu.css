@@ -1,3 +1,14 @@
+.title {
+  color: #006098;
+  margin-left: 20px;
+}
+
+.search-icon {
+  right: 0;
+  margin-top: 8px;
+  margin-right: 6px;
+}
+
 .tab-link.active {
   color: #006098 !important;
   border-bottom: 2px solid #006098;

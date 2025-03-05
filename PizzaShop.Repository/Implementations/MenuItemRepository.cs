@@ -16,7 +16,7 @@ public class MenuItemRepository : IMenuItemsRepository
 
     public async Task<List<MenuItemViewModel>> GetItemsByCategory(int categoryId)
     {
-        return await _context.MenuItems
+        var itmes = await _context.MenuItems
             .Select(c => new MenuItemViewModel
             {
                 Id = c.Id,
@@ -30,5 +30,7 @@ public class MenuItemRepository : IMenuItemsRepository
                 IsAvailable = c.IsAvailable,
                 ShortCode = c.ShortCode,
             }).Where(c => c.CategoryId == categoryId).ToListAsync();
+
+        return itmes;
     }
 }

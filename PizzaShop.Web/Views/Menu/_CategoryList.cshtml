@@ -3,22 +3,57 @@
 <div class="category-list">
     @foreach (var category in Model)
     {
-        <div class="d-flex flex-wrap justify-content-between align-items-center item-category-btn p-2 my-2">
-            <a href="@Url.Action("Menu", "Menu", new { categoryId = category.Id })" class="category-btn border-0 bg-light"
-                data-category-id="@category.Id">
+        <div class="d-flex flex-wrap justify-content-between align-items-center item-category-btn p-2 my-2 itemCategory"
+            data-id="@category.Id">
+            <div class="category-btn border-0 bg-light">
+                @* href="@Url.Action("Menu", "Menu", new { categoryId = category.Id })" *@
                 <h6 class=" mb-0">
                     <i class="fa-solid fa-grip-vertical"></i>
                     @category.Name
                 </h6>
-            </a>
+            </div>
             <span class="edit-delete-icon">
                 <a href="javascript:void(0);" data-id="@category.Id" class="edit-btn edit-category"
                     style="text-decoration: none; color: inherit;">
-                    <i class="fa-solid fa-pencil m-1" data-bs-toggle="modal" data-bs-target="#editModal"></i>
+                    <i class="fa-solid fa-pencil m-1" data-bs-toggle="modal" data-bs-target="#EditCategoryModal"></i>
                 </a>
-                <i class="fa-regular fa-trash-can mx-2" data-bs-target="#deleteCategoryModal" data-bs-toggle="modal"
-                    id="deleteCategory" data-category-id="@category.Id"></i>
+                <i class="fa-regular fa-trash-can mx-2 delete-category" data-bs-target="#deleteCategoryModal"
+                    data-bs-toggle="modal" id="deleteCategory" data-id="@category.Id"></i>
             </span>
         </div>
     }
+</div>
+
+<div class="container mt-5">
+    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Category</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center p-1">
+                    <form asp-action="AddNewCategory" asp-controller="Menu" class="p-3" id="addNewCategoryForm">
+                        <div class="form-floating mb-3 p-0">
+                            <input type="text" class="form-control" id="categoryName" name="Name"
+                                placeholder="Category" />
+                            <label for="categoryName">Name</label>
+                        </div>
+
+                        <div class="form-floating p-0">
+                            <textarea class="form-control" name="Description" placeholder="Description"
+                                id="categoryDescription"></textarea>
+                            <label for="categoryDescription">Description</label>
+                        </div>
+
+                        <div class="modal-footer d-flex justify-content-end border-0">
+                            <button type="submit" class="btn btn-primary" id="submitNewCategory">Save</button>
+                            <button type="button" class="btn btn-outline-primary"
+                                data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
