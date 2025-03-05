@@ -13,6 +13,4 @@ public interface IMenuCategoryRepository
     public Task<MenuCategory> GetCategoryByIdAsync(int id);
 
     public bool DeleteCategory(int id);
-
-
 }

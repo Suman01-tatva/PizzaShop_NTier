@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+using PizzaShop.Entity.Data;
 
-namespace PizzaShop.Entity.Data;
+namespace PizzaShop.Entity.ViewModels;
 
-public partial class Modifier
+public class MenuModifierViewModel
 {
     public int Id { get; set; }
 

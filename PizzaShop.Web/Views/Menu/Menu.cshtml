@@ -31,6 +31,10 @@
       <div class="tab-pane fade show active mt-2" id="nav-item" role="tabpanel" aria-labelledby="nav-item-tab">
         @Html.Partial("_ItemTab", Model.ItemTab)
       </div>
+      <!-- Modifier Tab -->
+      <div class="tab-pane fade mt-4" id="nav-modifier" role="tabpanel" aria-labelledby="nav-modifier-tab">
+        @Html.Partial("_ModifierTab", Model.ModifierTab)
+      </div>
     </div>
 
     <!-- AddNewCategory Modal -->
@@ -90,6 +94,7 @@
 </div>
 
 @section Scripts {
+  @* ItemTab Scripts *@
   <script>
     $('.itemCategory').click(function () {
       var categoryId = $(this).data("id");
