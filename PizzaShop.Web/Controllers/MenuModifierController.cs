@@ -1,10 +1,12 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PizzaShop.Entity.ViewModels;
 using PizzaShop.Service.Interfaces;
 
 namespace PizzaShop.Web.Controllers;
 
-public class MenuModifierController
+public class MenuModifierController : Controller
 {
     private readonly IMenuModifierService _menuModifierService;
 
@@ -13,20 +15,29 @@ public class MenuModifierController
         _menuModifierService = menuModifierService;
     }
 
-    // [HttpGet]
-    // public async Task<IActionResult> Mo(int? categoryId)
+    // [HttpPost]
+    // public IActionResult AddNewModifier(string Name, string Description)
     // {
-    //     var modifierGroups = await _menuModifierService.GetAllMenuModifierGroupAsync();
+    //     // if (ModelState.IsValid)
+    //     // {
+    //     //     bool result = _menuService.AddNewCategory(Name, Description);
+    //     //     if (result)
+    //     //     {
+    //     //         return Json(new { success = true, message = "New Category Added" });
+    //     //         // return View("Menu", "Menu");
+    //     //     }
+    //     //     else
+    //     //     {
+    //     //         return Json(new { success = false, message = "An error occurred while adding the category." });
+    //     //     }
+    //     // }
 
-    //     var validCategoryId = categoryId ?? categories.First().Id;
-    //     var itemTabDetails = await _menuService.GetItemTabDetails(validCategoryId);
-
-    //     var model = new MenuViewModel
-    //     {
-    //         ItemTab = itemTabDetails
-    //     };
-
-    //     return View(model);
     // }
 
+    [HttpGet]
+    public async Task<IActionResult> GetModifiersByModifierGroup(int modifierGroupId)
+    {
+        List<MenuModifierViewModel> filteredModifiers = await _menuModifierService.GetModifiersByModifierGroup(modifierGroupId);
+        return PartialView("_Modifier", filteredModifiers);
+    }
 }

@@ -20,7 +20,7 @@ public class MenuModifierRepository : IMenuModifierRepository
             .Select(c => new MenuModifierViewModel
             {
                 Id = c.Id,
-                UnitId = c.UnitId,
+                UnitName = c.Unit.ShortName,
                 ModifierGroupId = c.ModifierGroupId,
                 Name = c.Name,
                 Description = c.Description,

@@ -14,23 +14,26 @@ public class MenuItemRepository : IMenuItemsRepository
         _context = context;
     }
 
-    public async Task<List<MenuItemViewModel>> GetItemsByCategory(int categoryId)
+    public async Task<List<MenuItem>> GetItemsByCategory(int categoryId, int pageSize, int pageIndex, string? searchString)
     {
-        var itmes = await _context.MenuItems
-            .Select(c => new MenuItemViewModel
-            {
-                Id = c.Id,
-                UnitId = c.UnitId,
-                CategoryId = c.CategoryId,
-                Name = c.Name,
-                Description = c.Description,
-                Type = c.Type,
-                Rate = c.Rate,
-                Quantity = c.Quantity,
-                IsAvailable = c.IsAvailable,
-                ShortCode = c.ShortCode,
-            }).Where(c => c.CategoryId == categoryId).ToListAsync();
+        var itmes = _context.MenuItems.Where(c => c.CategoryId == categoryId);
 
-        return itmes;
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            itmes = itmes.Where(i => i.Name.ToLower().Contains(searchString.ToLower()));
+        }
+
+        var itemList = itmes.OrderBy(u => u.Id)
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        return itemList;
+    }
+
+    public int GetItemsCountByCId(int cId)
+    {
+        int count = _context.MenuItems.Where(i => i.CategoryId == cId).Count();
+        return count;
     }
 }

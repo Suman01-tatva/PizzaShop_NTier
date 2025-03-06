@@ -5,5 +5,8 @@ namespace PizzaShop.Repository.Interfaces;
 
 public interface IMenuItemsRepository
 {
-    Task<List<MenuItemViewModel>> GetItemsByCategory(int categoryId);
+    Task<List<MenuItem>> GetItemsByCategory(int categoryId, int pageSize, int pageIndex, string? searchString);
+
+    public int GetItemsCountByCId(int cId);
+
 }

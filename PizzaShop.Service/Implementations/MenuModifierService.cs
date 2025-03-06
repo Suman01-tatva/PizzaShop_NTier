@@ -20,4 +20,26 @@ public class MenuModifierService : IMenuModifierService
         var modifierGroups = await _menuModifierGroupRepository.GetAllMenuModifierGroupsAsync();
         return modifierGroups;
     }
+
+    public async Task<List<MenuModifierViewModel>> GetModifiersByModifierGroup(int id)
+    {
+        var modifiers = await _menuModifierRepository.GetModifiersByModifierGroupAsync(id);
+        return modifiers;
+    }
+
+    public async Task<ModifierTabViewModel> GetModifierTabDetails(int id)
+    {
+        var modifierGroups = await _menuModifierGroupRepository.GetAllMenuModifierGroupsAsync();
+
+        List<MenuModifierViewModel> modifierList;
+
+        modifierList = await _menuModifierRepository.GetModifiersByModifierGroupAsync(id);
+
+        var modifierTabViewModel = new ModifierTabViewModel
+        {
+            modifierGroup = modifierGroups,
+            modifier = modifierList
+        };
+        return modifierTabViewModel;
+    }
 }

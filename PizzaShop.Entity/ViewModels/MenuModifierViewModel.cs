@@ -8,7 +8,7 @@ public class MenuModifierViewModel
 
     public int ModifierGroupId { get; set; }
 
-    public int UnitId { get; set; }
+    public string? UnitName { get; set; }
 
     public string Name { get; set; } = null!;
 

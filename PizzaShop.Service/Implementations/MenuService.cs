@@ -88,26 +88,29 @@ namespace PizzaShop.Service.Implementations
             return await _menuCategoryRepository.GetAllMenuCategoriesAsync();
         }
 
-        public async Task<ItemTabViewModel> GetItemTabDetails(int categoryId)
+        public async Task<ItemTabViewModel> GetItemTabDetails(int categoryId, int pageSize, int pageIndex, string? searchString)
         {
             var categories = await _menuCategoryRepository.GetAllMenuCategoriesAsync();
 
-            List<MenuItemViewModel> itemList;
-            // if (categoryId <= 0)
-            // {
-            //     itemList = await _menuItemRepository.GetItemsByCategory(1);
-            // }
-            // else
-            // {
-            //     itemList = await _menuItemRepository.GetItemsByCategory(categoryId);
-            // }
-
-            itemList = await _menuItemRepository.GetItemsByCategory(categoryId);
-
+            var itemList = await _menuItemRepository.GetItemsByCategory(categoryId, pageSize, pageIndex, searchString);
+            var filteredItems = itemList.Select(c => new MenuItemViewModel
+            {
+                Id = c.Id,
+                UnitId = c.UnitId,
+                CategoryId = c.CategoryId,
+                Name = c.Name,
+                Description = c.Description,
+                Type = c.Type,
+                Rate = c.Rate,
+                Quantity = c.Quantity,
+                IsAvailable = c.IsAvailable,
+                ShortCode = c.ShortCode,
+                IsDeleted = c.IsDeleted == null ? false : true,
+            }).ToList(); ;
             var itemTabViewModel = new ItemTabViewModel
             {
                 categoryList = categories,
-                itemList = itemList
+                itemList = filteredItems
             };
             return itemTabViewModel;
         }
@@ -148,15 +151,34 @@ namespace PizzaShop.Service.Implementations
             return await _menuCategoryRepository.UpdateCategoryBy(category);
         }
 
-        public async Task<List<MenuItemViewModel>> GetItemsByCategory(int categoryId)
+        public async Task<List<MenuItemViewModel>> GetItemsByCategory(int categoryId, int pageSize, int pageIndex, string? searchString)
         {
-            var Items = await _menuItemRepository.GetItemsByCategory(categoryId);
-            return Items;
+            var Items = await _menuItemRepository.GetItemsByCategory(categoryId, pageSize, pageIndex, searchString);
+            var filteredItems = Items.Select(c => new MenuItemViewModel
+            {
+                Id = c.Id,
+                UnitId = c.UnitId,
+                CategoryId = c.CategoryId,
+                Name = c.Name,
+                Description = c.Description,
+                Type = c.Type,
+                Rate = c.Rate,
+                Quantity = c.Quantity,
+                IsAvailable = c.IsAvailable,
+                ShortCode = c.ShortCode,
+                IsDeleted = c.IsDeleted == null ? false : true,
+            }).ToList(); ;
+            return filteredItems;
         }
 
         public bool SoftDeleteCategory(int id)
         {
             return _menuCategoryRepository.DeleteCategory(id);
+        }
+
+        public int GetItemsCountByCId(int cId)
+        {
+            return _menuItemRepository.GetItemsCountByCId(cId);
         }
     }
 }

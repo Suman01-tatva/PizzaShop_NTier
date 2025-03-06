@@ -32,6 +32,10 @@ builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
 builder.Services.AddScoped<IMenuCategoryRepository, MenuCategoryRepository>();
 builder.Services.AddScoped<IMenuItemsRepository, MenuItemRepository>();
 builder.Services.AddScoped<IMenuService, MenuService>();
+builder.Services.AddScoped<IMenuModifierGroupRepository, MenuModifierGroupRepository>();
+builder.Services.AddScoped<IMenuModifierRepository, MenuModifierRepository>();
+builder.Services.AddScoped<IMenuModifierService, MenuModifierService>();
+
 
 
 // builder.Services.AddTransient<IEmailSender, EmailSender>();

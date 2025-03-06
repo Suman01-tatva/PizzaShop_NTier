@@ -1,5 +1,10 @@
 @model PizzaShop.Entity.ViewModels.ItemTabViewModel
-
+@{
+    var PageSize = Model.PageSize;
+    var PageIndex = Model.PageIndex;
+    var TotalPage = Model.TotalPage;
+    var SearchString = Model.SearchString;
+}
 <section>
     <div class="row mx-0">
         <aside class="col-md-3" style="background-color: #f5f5f5">
@@ -12,7 +17,9 @@
                 </button>
             </div>
             <!-- Category list -->
-            @Html.Partial("_CategoryList", Model.categoryList)
+            <div id="categoryList">
+                @Html.Partial("_CategoryList", Model.categoryList)
+            </div>
         </aside>
         <div class="col-md-9 border-start border-primary bg-light">
             <div>
@@ -20,8 +27,8 @@
                 <h5 class="p-2 mb-0 text-primary">Items</h5>
                 <div class="d-flex justify-content-end align-items-center mb-3">
                     <div class="form-input-div d-flex justify-content-between me-3 position-relative">
-                        <input type="text" placeholder="Search" class="form-control p-2 d-none d-sm-block" name="search"
-                            minlength="5" required id="searchItem" />
+                        <input type="text" placeholder="Search" class="form-control p-2 d-none d-sm-block "
+                            name="search" minlength="5" required id="searchString" />
                         <span class="form-input-icon position-absolute search-icon"><i class="fa-solid fa-search"
                                 id="eye-icon" style="color: gray"></i>
                         </span>
@@ -60,61 +67,47 @@
                 </section>
                 <div class="d-flex justify-content-end align-items-center mt-2">
                     <p class="mb-0">Items Per page</p>
-                    <select class="ms-3" aria-label="Default select example">
-                        <option selected>5</option>
-                        <option value="10">10</option>
-                        <option value="15">15</option>
+                    <select class="ms-3" aria-label="Default select example" id="pageSize">
+                        <option value="5" selected="@(PageSize == 5 ? true : false)">5</option>
+                        <option value="10" selected="@(PageSize == 10 ? true : false)">10</option>
+                        <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
                     </select>
-                    <p class="mb-0 ms-2 me-2">Select 1 out of 5</p>
-                    <button class="btn btn-outline-secondary me-1 px-3 py-0">
-                        <i class="fa-solid fa-less-than fa-sm" style="height: 15px"></i>
-                    </button>
-                    <button class="btn btn-outline-secondary px-3 py-0">
-                        <i class="fa-solid fa-greater-than fa-sm"></i>
-                    </button>
+
+                    <p class="mb-0 ms-2 me-2">Select @PageIndex out of <span>@TotalPage</span></p>
+                    @if (PageIndex > 1)
+                    {
+                        <span class="btn btn-outline-secondary me-1 px-3 py-0" name="PageIndex" id="Previous">
+                            <i class="fa-solid fa-less-than fa-sm" style="height: 15px"></i>
+                        </span>
+                    }
+                    else
+                    {
+                        <button class="btn btn-outline-secondary me-1 px-3 py-0" name="PageIndex" disabled>
+                            <i class="fa-solid fa-less-than fa-sm" style="height: 15px"></i>
+                        </button>
+                    }
+
+                    @if (PageIndex < TotalPage)
+                    {
+                        <a class="btn btn-outline-secondary px-3 py-0" name="PageIndex" id="Next">
+                            <i class="fa-solid fa-greater-than fa-sm"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <button class="btn btn-outline-secondary px-3 py-0" name="PageIndex" disabled>
+                            <i class="fa-solid fa-greater-than fa-sm"></i>
+                        </button>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- AddNewCategory Modal -->
-<div class="container mt-5">
-    <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-0">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Category</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body text-center p-1">
-                    <form asp-action="AddNewCategory" asp-controller="Menu" class="p-3" id="addNewCategoryForm">
-                        <div class="form-floating mb-3 p-0">
-                            <input type="text" class="form-control" id="categoryName" placeholder="Category" />
-                            <label for="categoryName">Name</label>
-                        </div>
-
-                        <div class="form-floating p-0">
-                            <textarea class="form-control" placeholder="Description"
-                                id="categoryDescription"></textarea>
-                            <label for="categoryDescription">Description</label>
-                        </div>
-
-                        <div class="modal-footer d-flex justify-content-end border-0">
-                            <button type="submit" class="btn btn-primary" id="submitNewCategory">Save</button>
-                            <button type="button" class="btn btn-outline-primary"
-                                data-bs-dismiss="modal">Cancel</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 @section Scripts {
     <script>
-        $(document).ready(function () {
+        @* $(document).ready(function () {
             $("#addNewCategoryForm").submit(function (event) {
                 event.preventDefault(); // Prevent default form submission
 
@@ -131,7 +124,7 @@
                         if (response.success) {
                             $('#addCategoryModal').modal('hide');
                             console.log(response.message);
-                            @* toastr.success(response.message); *@
+                            toastr.success(response.message);
                                 location.reload(); // Reload the page to show the new category
                         } else {
                             toastr.error(response.message);
@@ -142,7 +135,32 @@
                     }
                 });
             });
-        });
+        }); *@
+            $("#submitNewCategory").click(function () {
+
+                var formData = new FormData();
+                formData.append("Name", categoryName);
+                formData.append("Description", categoryDescription);
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Menu/AddNewCategory',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.success) {
+                            $('#addCategoryModal').modal('hide');
+                            $('#categoryList').html(response);
+                        } else {
+                            toastr.error(response.message);
+                        }
+                    },
+                    error: function () {
+                        toastr.error("An error occurred while adding the category. Please try again.");
+                    }
+                });
+            });
 
         $("#itemCategory").click(function () {
             var categoryId = $(this).data("id");
@@ -155,7 +173,54 @@
                     $("#itemList").html(response);
                 }
             })
+        })                                                                                                                                                      
+    </script>
+
+    <script>
+        var pageIndex = @Model.PageIndex;
+        function GetFilteredItems() {
+            var SearchString = $("#searchString").val();
+            var pageSize = $("#pageSize").val();
+            console.log($("#searchString").val())
+            $.ajax({
+                url: "/Menu/GetItemsByCategoryId",
+                type: "GET",
+                data: {
+                    id: categoryId,
+                    pageIndex: pageIndex,
+                    pageSize: pageSize,
+                    searchString: SearchString
+                },
+                success: function (data) {
+                    $("#menuItems").html(data);
+                }
+            })
+        }
+
+        $('#pageSize').change(function () {
+            var pageSize = @Model.PageSize
+                                        var pageIndex = 1
+            GetFilteredItems();
         })
-                                                                            });
+
+        $('#searchString').keyup(function () {
+            pageIndex = 1
+            pageSize = @Model.PageSize
+
+                GetFilteredItems();
+        })
+
+        $("#Previous").click(function () {
+            console.log("prev")
+            pageIndex -= 1;
+            GetFilteredItems()
+        })
+
+        $('#Next').click(function () {
+            $("#PreviousBtn").attr('disabled', false)
+            console.log("next")
+            pageIndex += 1;
+            GetFilteredItems()
+        })
     </script>
 }
