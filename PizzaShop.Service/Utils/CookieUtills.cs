@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Http;
 using PizzaShop.Entity.Data;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace PizzaShop.Service.Utils
 {
@@ -25,13 +27,13 @@ namespace PizzaShop.Service.Utils
 
         public static void SaveUserData(HttpResponse response, User user)
         {
-            var options = new JsonSerializerOptions { ReferenceHandler = ReferenceHandler.Preserve };
+            var options = new JsonSerializerOptions { ReferenceHandler = ReferenceHandler.IgnoreCycles };
             string userData = JsonSerializer.Serialize(user, options);
 
             // Store user details in a cookie for 3 days
             var cookieOptions = new CookieOptions
             {
-                Expires = DateTime.UtcNow.AddDays(3),
+                Expires = DateTime.UtcNow.AddDays(30),
                 HttpOnly = true,
                 Secure = true,
                 IsEssential = true
@@ -39,26 +41,37 @@ namespace PizzaShop.Service.Utils
             response.Cookies.Append("UserData", userData, cookieOptions);
         }
 
-        public static Account? GetUserData(HttpRequest request)
+        public static User? GetUserData(HttpRequest request)
         {
-            var options = new JsonSerializerOptions { ReferenceHandler = ReferenceHandler.Preserve };
+            var options = new JsonSerializerOptions { ReferenceHandler = ReferenceHandler.IgnoreCycles };
 
             // Store user details in a cookie for 3 days
             var cookieOptions = new CookieOptions
             {
-                Expires = DateTime.UtcNow.AddDays(3),
+                Expires = DateTime.UtcNow.AddDays(30),
                 HttpOnly = true,
                 Secure = true,
                 IsEssential = true
             };
             var data = request.Cookies["userData"];
-            return string.IsNullOrEmpty(data) ? null : JsonSerializer.Deserialize<Account>(data, options);
+            return string.IsNullOrEmpty(data) ? null : JsonSerializer.Deserialize<User>(data, options);
         }
 
-        public static void ClearCookies(HttpContext httpContext)
+        public static string GenerateTokenForResetPassword(string email)
         {
-            httpContext.Response.Cookies.Delete("SuperSecretAuthToken");
-            httpContext.Response.Cookies.Delete("UserData");
+            string data = $"{email}|{DateTime.UtcNow.AddHours(1)}";
+            string SecretKey = "hello7hisisP1zzaShop";
+            using (var aes = Aes.Create())
+            {
+                aes.Key = Encoding.UTF8.GetBytes(SecretKey.PadRight(32));
+                aes.IV = new byte[16];
+
+                var encryptor = aes.CreateEncryptor();
+                byte[] inputBytes = Encoding.UTF8.GetBytes(data);
+                byte[] encryptedBytes = encryptor.TransformFinalBlock(inputBytes, 0, inputBytes.Length);
+
+                return Convert.ToBase64String(encryptedBytes);
+            }
         }
     }
 }

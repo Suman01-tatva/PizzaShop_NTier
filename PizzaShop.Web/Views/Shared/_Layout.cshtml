@@ -1,4 +1,8 @@
-﻿@{
+﻿@using System.Security.Claims
+@{
+    var email = User.FindFirst(ClaimTypes.Email)?.Value;
+}
+@{
     ViewData["Title"] = "Dashboard";
 }
 
@@ -21,6 +25,7 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" type="image/x-icon" href="~/images/pizzashop_logo.png" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -28,7 +33,6 @@
         <div class="row main-container">
             <!-- sidebar -->
             <div class="col-lg-2 offcanvas-lg offcanvas-start sidebar" id="sidebar">
-                @* <div class="offcanvas-lg offcanvas-start"> *@
                 <div class="d-flex flex-row justify-content-center align-item-center mt-2 fs-3">
                     <img src="~/images/pizzashop_logo.png" alt="pizashop-logo" class="img-fluid pizza-logo" />
                     <div class="brand-name fs-5 mt-2"><b>PIZZASHOP</b></div>
@@ -103,7 +107,7 @@
                             <li>
                                 <a class="dropdown-item" href="#">
                                     <img src="~/images/icons/customer.svg" alt="User-icon" class="me-3" />
-                                    @TempData["Email"]
+                                    @email
                                 </a>
                             </li>
                             <li>
@@ -164,6 +168,29 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        $(function () {
+            var message = '@Html.Raw(TempData["ToastrMessage"])';
+            var type = '@Html.Raw(TempData["ToastrType"])';
+            if (message.trim() !== '') {
+                switch (type) {
+                    case 'success':
+                        toastr.success(message)
+                        break;
+                    case 'error':
+                        toastr.error(message)
+                        break;
+                    case 'warning':
+                        toastr.warning(message)
+                        break;
+                    case 'info':
+                        toastr.info(message)
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

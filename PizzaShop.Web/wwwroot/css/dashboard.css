@@ -4,11 +4,11 @@
 
 /* Sidebar */
 #sidebar {
-  /* height: 100vh; */
+  height: 100vh;
   background-color: #fff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-  z-index: 1040;
+  z-index: 1050;
 }
 
 #sidebar ul {
@@ -96,6 +96,8 @@
 
 .dropdown-menu[data-bs-popper] {
   left: auto;
+  --bs-dropdown-link-active-bg: var(--textBlue);
+  cursor: pointer;
 }
 
 /* Dashboard Design */

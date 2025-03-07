@@ -25,8 +25,9 @@ public class AuthController : Controller
     public IActionResult Login()
     {
         var token = Request.Cookies["Token"];
+        var user = Request.Cookies["UserData"];
         var ValidateToken = _jwtService?.ValidateToken(token!);
-        if (ValidateToken != null)
+        if (ValidateToken != null && user != null)
         {
             return RedirectToAction("AdminDashBoard", "Home");
         }
@@ -38,7 +39,7 @@ public class AuthController : Controller
     {
         if (ModelState.IsValid)
         {
-            var user = await _authService.AuthenticateUser(model.Email, model.Password);
+            var user = await _authService!.AuthenticateUser(model.Email.Trim(), model.Password);
 
             if (user == null)
             {
@@ -46,20 +47,17 @@ public class AuthController : Controller
                 return View("Login");
             }
 
-            // Generate JWT Token
-            var token = _jwtService.GenerateJwtToken(user.Id.ToString(), user.Email, user.RoleId.ToString());
+            var token = _jwtService!.GenerateJwtToken(user.Id.ToString(), user.Email, user.RoleId.ToString());
 
-            // Store token in cookie
             CookieUtils.SaveJWTToken(Response, token);
-            Response.Cookies.Append("email", user.Email);
 
-            // Save User Data to Cookie for Remember Me functionality.
             if (model.RememberMe)
             {
                 CookieUtils.SaveUserData(Response, user);
             }
             TempData["Email"] = user.Email;
-
+            TempData["ToastrMessage"] = "User LogedIn Successfully";
+            TempData["ToastrType"] = "success";
             if (user.RoleId == 1)
             {
                 return RedirectToAction("AdminDashboard", "Home");
@@ -77,42 +75,24 @@ public class AuthController : Controller
         return View();
     }
 
-
     [HttpPost]
     public async Task<IActionResult> ForgotPassword(ForgotPasswordModel model)
     {
         if (ModelState.IsValid)
         {
-            string token = GenerateToken(model.Email);
-            string resetLink = Url.Action("ResetPassword", "Auth", new { token }, Request.Scheme);
+            string token = CookieUtils.GenerateTokenForResetPassword(model.Email);
+            string resetLink = Url.Action("ResetPassword", "Auth", new { token }, Request.Scheme)!;
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/templates/ResetPasswordEmail.html");
 
             if (!System.IO.File.Exists(filePath))
             {
                 ModelState.AddModelError(string.Empty, "Email body template not found");
             }
-            await _authService.SendForgotPasswordEmailAsync(model.Email, resetLink, filePath);
+            await _authService!.SendForgotPasswordEmailAsync(model.Email, resetLink, filePath);
 
             return View("ForgotPasswordConfirmation");
         }
         return View();
-    }
-
-    private string GenerateToken(string email)
-    {
-        string data = $"{email}|{DateTime.UtcNow.AddHours(1)}";
-        string SecretKey = "hello7hisisP1zzaShop";
-        using (var aes = Aes.Create())
-        {
-            aes.Key = Encoding.UTF8.GetBytes(SecretKey.PadRight(32));
-            aes.IV = new byte[16];
-
-            var encryptor = aes.CreateEncryptor();
-            byte[] inputBytes = Encoding.UTF8.GetBytes(data);
-            byte[] encryptedBytes = encryptor.TransformFinalBlock(inputBytes, 0, inputBytes.Length);
-
-            return Convert.ToBase64String(encryptedBytes);
-        }
     }
 
     [AllowAnonymous]
@@ -128,9 +108,8 @@ public class AuthController : Controller
         TempData["Email"] = userEmail;
         if (userEmail == null)
         {
-            TempData["ToastMessage"] = "Reset Password Link is expired!!!";
-            TempData["ToastType"] = "error";
-            TempData["ToastTitle"] = "!";
+            TempData["ToastrMessage"] = "Reset Password Link is expired!!!";
+            TempData["ToastrType"] = "error";
             return RedirectToAction("ForgotPassword", "Auth");
         }
         return View();
@@ -155,7 +134,8 @@ public class AuthController : Controller
                 string[] parts = data.Split('|');
                 if (parts.Length != 2 || DateTime.UtcNow > DateTime.Parse(parts[1]))
                 {
-                    return null;
+                    TempData["ErrorMessage"] = "Reset Password Link is expired or invalid.";
+                    return "null";
                 }
                 return parts[0];
             }
@@ -163,7 +143,7 @@ public class AuthController : Controller
         catch (Exception ex)
         {
             ViewBag.ErrorMessage = ex.Message;
-            return null;
+            return "null";
         }
     }
 
@@ -179,7 +159,7 @@ public class AuthController : Controller
                 return RedirectToAction("ForgotPassword", "Auth");
             }
 
-            var isResetPassword = await _authService.ResetPassword(model, email);
+            var isResetPassword = await _authService!.ResetPassword(model, email);
             if (isResetPassword)
             {
                 TempData["SeccessMessage"] = "Password reset successfully. Please login with your new password.";
@@ -196,9 +176,10 @@ public class AuthController : Controller
 
     public IActionResult Logout()
     {
+        TempData["ToastrMessage"] = "Successfully Logout";
+        TempData["ToastrType"] = "success";
         Response.Cookies.Delete("Token");
         Response.Cookies.Delete("UserData");
-        Response.Cookies.Delete("email");
         return RedirectToAction("Login", "Auth");
     }
 

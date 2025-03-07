@@ -7,6 +7,7 @@ using PizzaShop.Repository.Implementations;
 using PizzaShop.Repository.Interfaces;
 using PizzaShop.Service.Implementations;
 using PizzaShop.Service.Interfaces;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +29,6 @@ builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<IStateRepository, StateRepository>();
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<IRolePermissionService, RolePermissionService>();
-
 builder.Services.AddScoped<IMenuCategoryRepository, MenuCategoryRepository>();
 builder.Services.AddScoped<IMenuItemsRepository, MenuItemRepository>();
 builder.Services.AddScoped<IMenuService, MenuService>();
@@ -36,9 +36,6 @@ builder.Services.AddScoped<IMenuModifierGroupRepository, MenuModifierGroupReposi
 builder.Services.AddScoped<IMenuModifierRepository, MenuModifierRepository>();
 builder.Services.AddScoped<IMenuModifierService, MenuModifierService>();
 
-
-
-// builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.AddDataProtection().SetApplicationName("PizzaShop");
 builder.Services.AddControllersWithViews();
 // builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
@@ -68,6 +65,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Add the authentication middleware
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

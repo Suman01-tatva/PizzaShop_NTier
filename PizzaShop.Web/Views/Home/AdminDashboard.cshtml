@@ -116,3 +116,25 @@
         <p class="card-title">New Customers</p>
     </div>
 </div>
+
+<script>
+    $(function () {
+        var message = '@Html.Raw(TempData["ToastrMessage"])';
+        var type = '@Html.Raw(TempData["ToastrType"])';
+        if (message.trim() !== '') {
+            switch (type) {
+                case 'success':
+                    toastr.success(message)
+                    break;
+                case 'error':
+                    toastr.error(message)
+                    break;
+                case 'warning':
+                    toastr.warning(message)
+                    break;
+                case 'info':
+                    toastr.info(message)
+            }
+        }
+    });
+</script>
