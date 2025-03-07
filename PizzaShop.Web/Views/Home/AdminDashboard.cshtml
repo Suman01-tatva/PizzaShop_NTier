@@ -1,12 +1,29 @@
 @{
     ViewData["Title"] = "AdminDashboard";
 }
-<div class="page-title">
-    <h2 class="text-center">Dashboard</h2>
+<div class="dashboard-title d-flex justify-content-between">
+    <div>
+        <h2 class="text-center">Dashboard</h2>
+    </div>
+    <div><select class="form-select form-select-md mb-3" aria-label=".form-select-lg example">
+            <option selected>Current Month</option>
+            <option value="January">January</option>
+            <option value="Fabruary">Fabruary</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+            <option value="May">May</option>
+            <option value="June">June</option>
+            <option value="July">July</option>
+            <option value="Augest">Augest</option>
+            <option value="September">September</option>
+            <option value="Octomber">Octomber</option>
+            <option value="November">November</option>
+            <option value="December">December</option>
+        </select></div>
 </div>
 
 <!-- Stats Cards -->
-<div class="container">
+<div class="container-fluid">
     <div class="row g-3">
         <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="dashboard-card">
@@ -40,7 +57,7 @@
 </div>
 
 <!-- Graphs -->
-<div class="container mt-4">
+<div class="container-fluid mt-4">
     <div class="row g-3">
         <div class="col-md-6">
             <div class="dashboard-card">
@@ -51,72 +68,73 @@
         <div class="col-md-6">
             <div class="dashboard-card">
                 <h4 class="card-heading">Customer Growth</h4>
-                <img src="~/images/graph2.png" alt="Customer Growth Graph" class="img-fluid">
+                <img src="~/images/graph-2.png" alt="Customer Growth Graph" class="img-fluid">
             </div>
         </div>
     </div>
 </div>
 
-<!-- Top Selling and Least Selling Items -->
-<div class="dashboard-container m-3 p-3">
-    <div class="dashboard-card">
-        <h4 class="card-heading">Top Selling Items</h4>
-        <hr>
-        <table class="item-table">
-            <tr>
-                <td>#1</td>
-                <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Grilled Burger" class="item-img"></td>
-                <td>
-                    <p class="item-name">Grilled Burger</p>
-                    <span class="order-count"><i class="fa-solid fa-caret-up"></i> 1 Order</span>
-                </td>
-            </tr>
-            <tr>
-                <td>#2</td>
-                <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Margherita" class="item-img"></td>
-                <td>
-                    <p class="item-name">Margherita</p>
-                    <span class="order-count"><i class="fa-solid fa-caret-up"></i> 1 Order</span>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="dashboard-card">
-        <h4 class="card-heading">Least Selling Items</h4>
-        <hr>
-        <table class="item-table">
-            <tr>
-                <td>#1</td>
-                <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Grilled Burger" class="item-img"></td>
-                <td>
-                    <p class="item-name">Grilled Burger</p>
-                    <span class="order-count"><i class="fa-solid fa-caret-down"></i>1 Order</span>
-                </td>
-            </tr>
-            <tr>
-                <td>#2</td>
-                <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Margherita" class="item-img"></td>
-                <td>
-                    <p class="item-name">Margherita</p>
-                    <span class="order-count"><i class="fa-solid fa-caret-down"></i> 1 Order</span>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="dashboard-card">
-        <div class="icon-container icon-waiting-list"><img src="@Url.Content("~/images/icons/waiting-list.svg")"></img>
+<div class="container-fluid mt-4">
+    <div class="row gap-3">
+        <div class="dashboard-card col-lg-3 col-md-6 col-sm-12 mb-3">
+            <h4 class="card-heading">Top Selling Items</h4>
+            <table class="item-table">
+                <tr>
+                    <td>#1</td>
+                    <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Grilled Burger" class="item-img"></td>
+                    <td>
+                        <p class="item-name">Grilled Burger</p>
+                        <span class="order-count"><i class="fa-solid fa-caret-up"></i> 1 Order</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>#2</td>
+                    <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Margherita" class="item-img"></td>
+                    <td>
+                        <p class="item-name">Margherita</p>
+                        <span class="order-count"><i class="fa-solid fa-caret-up"></i> 1 Order</span>
+                    </td>
+                </tr>
+            </table>
         </div>
-        <h3 class="card-value">12</h3>
-        <p class="card-title">Waiting List Count</p>
-    </div>
-    <div class="dashboard-card">
-        <div class="icon-container icon-customer"><img src="@Url.Content("~/images/icons/customer.svg")"></img></div>
-        <h3 class="card-value">5</h3>
-        <p class="card-title">New Customers</p>
+
+        <div class="dashboard-card col-lg-3 col-md-6 col-sm-12 mb-3">
+            <h4 class="card-heading">Least Selling Items</h4>
+            <table class="item-table">
+                <tr>
+                    <td>#1</td>
+                    <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Grilled Burger" class="item-img"></td>
+                    <td>
+                        <p class="item-name">Grilled Burger</p>
+                        <span class="order-count"><i class="fa-solid fa-caret-down"></i>1 Order</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>#2</td>
+                    <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Margherita" class="item-img"></td>
+                    <td>
+                        <p class="item-name">Margherita</p>
+                        <span class="order-count"><i class="fa-solid fa-caret-down"></i> 1 Order</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="dashboard-card col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="icon-container icon-waiting-list">
+                <img src="@Url.Content("~/images/icons/waiting-list.svg")" alt="Waiting List Count">
+            </div>
+            <h3 class="card-value">12</h3>
+            <p class="card-title">Waiting List Count</p>
+        </div>
+        <div class="dashboard-card col-lg-3 col-md-6 col-sm-12 mb-3">
+            <div class="icon-container icon-customer">
+                <img src="@Url.Content("~/images/icons/customer.svg")" alt="New Customers">
+            </div>
+            <h3 class="card-value">5</h3>
+            <p class="card-title">New Customers</p>
+        </div>
     </div>
 </div>
-
 <script>
     $(function () {
         var message = '@Html.Raw(TempData["ToastrMessage"])';

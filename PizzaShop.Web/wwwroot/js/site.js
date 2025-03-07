@@ -15,3 +15,14 @@ function togglePassword(fieldId, icon) {
     icon.classList.add("fa-eye");
   }
 }
+
+const currentPath = window.location.pathname;
+const navLinks = sidebar.querySelectorAll(".nav-item");
+
+navLinks.forEach((link) => {
+  if (link.getAttribute("href") === currentPath) {
+    link.classList.add("active-navicon");
+  } else {
+    link.classList.remove("active-navicon");
+  }
+});

@@ -12,29 +12,29 @@
         <h1>My Profile</h1>
     </div>
     <!-- Form -->
-    <div class="shadow card container-fluid p-3 shadow">
-        <form asp-controller="User" asp-action="Profile" class="row needs-validation">
+    <div class="shadow card container-fluid profile-card shadow p-0">
+        <div>
+            <img class="profile-bg" src="~/images/profile_div_bg.jpg" alt="profile-bg">
+        </div>
+        <div class="row mx-2">
+            <div class="col-md-2 d-flex justify-content-center p-0">
+                <img src="~/images/Default_pfp.svg.png" class="profile-img" alt="profile-img">
+                <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                <button id="changeImageButton"
+                    class="position-absolute bg-white camera-position z-3 rounded-circle border z-2 shadow-sm">
+                    <i class="fa fa-camera p-2 " for="imageInput" aria-hidden="true"></i></button>
+            </div>
+            <div class="col-md-7 p-0 mt-3">
+                <h3>@Model.FirstName @Model.LastName</h3>
+                <p>@Model.RoleName</p>
+            </div>
+            <div class="col-md-3">
+                @Model.Email
+            </div>
+        </div>
+        <form asp-controller="User" asp-action="Profile" class="row needs-validation mt-1 mb-3 mx-2">
             <div>
-                <div>
-                    <img class="profile-bg" src="~/images/profile_div_bg.jpg" alt="profile-bg">
-                </div>
-                <div class="row">
-                    <div class="col-md-2 d-flex justify-content-center">
-                        <img src="~/images/Default_pfp.svg.png" class="profile-img" alt="profile-img">
-                        <input type="file" id="imageInput" accept="image/*" style="display: none;">
-                        <button id="changeImageButton"
-                            class="position-absolute bg-white camera-position z-3 rounded-circle border z-2 shadow-sm">
-                            <i class="fa fa-camera p-2 " for="imageInput" aria-hidden="true"></i></button>
-                    </div>
-                    <div class="col-md-7">
-                        <h3>@ViewData["FirstName"] @ViewData["LastName"]</h3>
-                        <p>@ViewData["role"]</p>
-                    </div>
-                    <div class="col-md-3">
-                        @Email
-                    </div>
-                </div>
-                <div class="mt-5">
+                <div class="">
                     <input type="text" asp-for="Email" hidden>
                     <div class="row">
                         <div class="col-md-6">
@@ -76,19 +76,19 @@
                 <div>
                     <div class="row">
                         <div class="form-floating col-md-4 mb-3">
-                            <select id="CountryId" name="CountryId" class="form-control" asp-for="CountryId"
+                            <select id="CountryId" name="CountryId" class="form-select" asp-for="CountryId"
                                 asp-items="ViewBag.Countries"></select>
                             <label for="CountryId" class="float">Country</label>
                             <span asp-validation-for="CountryId" style="color: red;"></span>
                         </div>
                         <div class="form-floating col-md-4 mb-3">
-                            <select id="StateId" name="StateId" class="form-control" asp-for="StateId"
+                            <select id="StateId" name="StateId" class="form-select" asp-for="StateId"
                                 asp-items="ViewBag.States"></select>
                             <label for="StateId" class="float">State</label>
                             <span asp-validation-for="StateId" style="color: red;"></span>
                         </div>
                         <div class="form-floating col-md-4 mb-3">
-                            <select id="CityId" name="CityId" class="form-control" asp-for="CityId"
+                            <select id="CityId" name="CityId" class="form-select" asp-for="CityId"
                                 asp-items="ViewBag.Cities"></select>
                             <label for="CityId" class="float">City</label>
                             <span asp-validation-for="CityId" style="color: red;"></span>

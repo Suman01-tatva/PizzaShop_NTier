@@ -148,18 +148,18 @@
                     <option value="15">15</option>
                     }
                 </select>
-                Showing @pageIndex out of<span> @totalPage</span>
+                <span class="mx-2">Showing @pageIndex out of @totalPage </span>
                 @if (pageIndex > 1)
                 {
                     <a href="?pageIndex=@(pageIndex-1)&pageSize=@pageSize&searchString=@searchString"
                         class="bg-llight border-1 bg-light mx-2 px-2 btn btn-outline-dark">
-                        <i class="fa-solid fa-less-than"></i>
+                        <i class="fa fa-chevron-left"></i>
                     </a>
                 }
                 else
                 {
                     <a class="bg-llight border-1 bg-light mx-2 px-2 btn btn-outline-dark" hidden>
-                        <i class="fa-solid fa-less-than"></i>
+                        <i class="fa fa-chevron-left"></i>
                     </a>
                 }
 
@@ -167,13 +167,13 @@
                 {
                     <a href="?pageIndex=@(pageIndex+1)&pageSize=@pageSize&searchString=@searchString"
                         class="bg-llight border-1 bg-light px-2 btn btn-outline-dark">
-                        <i class="fa-solid fa-greater-than"></i>
+                        <i class="fa fa-chevron-right"></i>
                     </a>
                 }
                 else
                 {
                     <a class="bg-llight border-1 bg-light px-2 btn btn-outline-dark" hidden>
-                        <i class="fa-solid fa-greater-than"></i>
+                        <i class="fa fa-chevron-right"></i>
                     </a>
                 }
             </form>

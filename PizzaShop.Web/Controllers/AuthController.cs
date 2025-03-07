@@ -135,7 +135,7 @@ public class AuthController : Controller
                 if (parts.Length != 2 || DateTime.UtcNow > DateTime.Parse(parts[1]))
                 {
                     TempData["ErrorMessage"] = "Reset Password Link is expired or invalid.";
-                    return "null";
+                    return "";
                 }
                 return parts[0];
             }

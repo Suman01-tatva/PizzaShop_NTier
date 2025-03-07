@@ -47,6 +47,7 @@ public class UserService : IUserService
     public async Task<UserViewModel> GetUserProfileAsync(string email)
     {
         var user = await _userRepository.GetUserByEmailAsync(email);
+        var role = await _roleRepository.GetRoleByIdAsync(user!.RoleId);
 
         var userViewModel = new UserViewModel
         {
@@ -60,6 +61,7 @@ public class UserService : IUserService
             Zipcode = user.Zipcode,
             Address = user.Address,
             RoleId = user.RoleId,
+            RoleName = role.Name,
             Email = email
         };
 

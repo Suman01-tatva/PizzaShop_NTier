@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\PizzaShop.Web.csproj": {}
+    "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\PizzaShop.Web.csproj": {}
   },
   "projects": {
     "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Entity\\PizzaShop.Entity.csproj": {
@@ -87,14 +87,14 @@
         }
       }
     },
-    "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj": {
+    "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
+        "projectUniqueName": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
         "projectName": "PizzaShop.Repository",
-        "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
+        "projectPath": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
         "packagesPath": "C:\\Users\\pci93\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\obj\\",
+        "outputPath": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pci93\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -144,14 +144,14 @@
         }
       }
     },
-    "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\PizzaShop.Service.csproj": {
+    "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\PizzaShop.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\PizzaShop.Service.csproj",
+        "projectUniqueName": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\PizzaShop.Service.csproj",
         "projectName": "PizzaShop.Service",
-        "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\PizzaShop.Service.csproj",
+        "projectPath": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\PizzaShop.Service.csproj",
         "packagesPath": "C:\\Users\\pci93\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\obj\\",
+        "outputPath": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pci93\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -169,8 +169,8 @@
               "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Entity\\PizzaShop.Entity.csproj": {
                 "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Entity\\PizzaShop.Entity.csproj"
               },
-              "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj": {
-                "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj"
+              "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj": {
+                "projectPath": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj"
               }
             }
           }
@@ -214,14 +214,14 @@
         }
       }
     },
-    "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\PizzaShop.Web.csproj": {
+    "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\PizzaShop.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\PizzaShop.Web.csproj",
+        "projectUniqueName": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\PizzaShop.Web.csproj",
         "projectName": "PizzaShop.Web",
-        "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\PizzaShop.Web.csproj",
+        "projectPath": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\PizzaShop.Web.csproj",
         "packagesPath": "C:\\Users\\pci93\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\obj\\",
+        "outputPath": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\pci93\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -239,8 +239,8 @@
               "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Entity\\PizzaShop.Entity.csproj": {
                 "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Entity\\PizzaShop.Entity.csproj"
               },
-              "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\PizzaShop.Service.csproj": {
-                "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\PizzaShop.Service.csproj"
+              "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\PizzaShop.Service.csproj": {
+                "projectPath": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\PizzaShop.Service.csproj"
               }
             }
           }

@@ -76,6 +76,12 @@ a {
   .login-icon {
     color: black;
   }
+  .login-container {
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 40px;
+    border-radius: 20px;
+    color: black;
+  }
 }
 
 .fill-btn {

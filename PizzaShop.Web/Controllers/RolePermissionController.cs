@@ -12,11 +12,14 @@ public class RolePermissionController : Controller
 {
     private readonly IUserService _user;
     private readonly IRolePermissionService _rolePermission;
+    private readonly ITokenDataService _tokenDataService;
 
-    public RolePermissionController(IUserService user, IRolePermissionService rolePermission)
+
+    public RolePermissionController(IUserService user, IRolePermissionService rolePermission, ITokenDataService tokenDataService)
     {
         _user = user;
         _rolePermission = rolePermission;
+        _tokenDataService = tokenDataService;
     }
 
     [HttpGet]
@@ -60,7 +63,8 @@ public class RolePermissionController : Controller
     {
         if (ModelState.IsValid)
         {
-            var email = Request.Cookies["email"];
+            var token = Request.Cookies["Token"];
+            var email = await _tokenDataService.GetEmailFromToken(token);
             var AuthToken = Request.Cookies["Token"];
             if (String.IsNullOrEmpty(AuthToken))
             {

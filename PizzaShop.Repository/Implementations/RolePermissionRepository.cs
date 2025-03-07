@@ -60,7 +60,7 @@ namespace PizzaShop.Repository.Implementations
         public async Task<bool> UpdateRolePermissionAsync(List<RolePermissionViewModel> model, string email)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-            var role = await _role.GetRoleByIdAsync(user.RoleId);
+            // var role = await _role.GetRoleByIdAsync(user!.RoleId);
 
             foreach (var rp in model)
             {
@@ -71,7 +71,7 @@ namespace PizzaShop.Repository.Implementations
                     rolePermission.CanView = rp.CanView;
                     rolePermission.CanDelete = rp.CanDelete;
                     rolePermission.ModifiedAt = DateTime.UtcNow;
-                    rolePermission.ModifiedBy = user.Id;
+                    rolePermission.ModifiedBy = user!.Id;
                 }
             }
             await _context.SaveChangesAsync();
