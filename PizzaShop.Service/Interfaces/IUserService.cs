@@ -5,9 +5,9 @@ using PizzaShop.Entity.ViewModels;
 
 public interface IUserService
 {
-    Task<bool> ChangePasswordAsync(ChangePasswordViewModel model, string userEmail);
-    Task<UserViewModel> GetUserProfileAsync(string email);
-    Task UpdateUserProfileAsync(UserViewModel model, string email);
+    Task<string> ChangePasswordAsync(ChangePasswordViewModel model, string userEmail);
+    Task<ProfileViewModel> GetUserProfileAsync(string email);
+    Task UpdateUserProfileAsync(ProfileViewModel model, string email);
     Task<List<Country>> GetAllCountriesAsync();
     Task<List<State>> GetStatesByCountryIdAsync(int? countryId);
     Task<List<City>> GetCitiesByStateIdAsync(int? stateId);
@@ -19,6 +19,5 @@ public interface IUserService
     Task AddUserAsync(UserViewModel model, string currentUserEmail);
     Task<IEnumerable<Role>> GetAllRolesAsync();
     Task UpdateUserAsync(UserUpdateViewModel model);
-
     Task<User?> GetUserByEmailAsync(string email);
 }

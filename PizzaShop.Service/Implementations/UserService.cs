@@ -1,7 +1,9 @@
 namespace PizzaShop.Service.Implementations;
 
 using System.Diagnostics.Metrics;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.HttpResults;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Repository.Interfaces;
@@ -30,7 +32,7 @@ public class UserService : IUserService
         _cityRepository = cityRepository;
     }
 
-    public async Task<bool> ChangePasswordAsync(ChangePasswordViewModel model, string userEmail)
+    public async Task<string> ChangePasswordAsync(ChangePasswordViewModel model, string userEmail)
     {
         var user = await _userRepository.GetUserByEmailAsync(userEmail);
         var hashPassword = PasswordUtills.HashPassword(model.CurrentPassword);
@@ -39,17 +41,20 @@ public class UserService : IUserService
             string changedPassword = PasswordUtills.HashPassword(model.NewPassword);
             user.Password = changedPassword;
             await _userRepository.UpdateUserAsync(user);
-            return true;
+            return "success";
         }
-        return false;
+        else
+        {
+            return "current password is incorrect";
+        }
     }
 
-    public async Task<UserViewModel> GetUserProfileAsync(string email)
+    public async Task<ProfileViewModel> GetUserProfileAsync(string email)
     {
         var user = await _userRepository.GetUserByEmailAsync(email);
         var role = await _roleRepository.GetRoleByIdAsync(user!.RoleId);
 
-        var userViewModel = new UserViewModel
+        var profileViewModel = new ProfileViewModel
         {
             FirstName = user.FirstName,
             LastName = user.LastName,
@@ -62,13 +67,14 @@ public class UserService : IUserService
             Address = user.Address,
             RoleId = user.RoleId,
             RoleName = role.Name,
-            Email = email
+            Email = email,
+            ProfileImg = user.ProfileImage
         };
 
-        return userViewModel;
+        return profileViewModel;
     }
 
-    public async Task UpdateUserProfileAsync(UserViewModel model, string email)
+    public async Task UpdateUserProfileAsync(ProfileViewModel model, string email)
     {
         var user = await _userRepository.GetUserByEmailAsync(email);
         if (user == null) return;
@@ -82,6 +88,7 @@ public class UserService : IUserService
         user.CountryId = model.CountryId;
         user.Address = model.Address;
         user.Zipcode = model.Zipcode;
+        user.ProfileImage = model.ProfileImg;
 
         await _userRepository.UpdateUserAsync(user);
     }
@@ -131,7 +138,7 @@ public class UserService : IUserService
 
         user.FirstName = model.FirstName;
         user.LastName = model.LastName;
-        user.Username = model.Username;
+        user.Username = model.Username!;
         user.Phone = model.Phone;
         user.CityId = model.CityId;
         user.StateId = model.StateId;
@@ -140,6 +147,7 @@ public class UserService : IUserService
         user.Zipcode = model.Zipcode;
         user.RoleId = model.RoleId;
         user.IsActive = model.IsActive;
+        user.ProfileImage = model.ProfileImg;
         await _userRepository.UpdateUserAsync(user);
     }
     public async Task<List<Country>> GetAllCountriesAsync()
@@ -183,7 +191,7 @@ public class UserService : IUserService
             ProfileImage = model.ProfileImg,
             Email = model.Email,
             Password = hashPassword,
-            CreatedBy = currentUser.Id
+            CreatedBy = currentUser.Id,
         };
 
         await _userRepository.AddUserAsync(newUser);

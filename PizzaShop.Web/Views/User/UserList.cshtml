@@ -1,4 +1,4 @@
-@model PizzaShop.Entity.Data.User;
+@model List<PizzaShop.Entity.Data.User>;
 @{
     ViewData["Title"] = "UserList";
     var count = ViewBag.Count;
@@ -11,22 +11,23 @@
 
 <div class="col-md-12">
     <div class="d-flex align-items-center justify-content-between">
-        <h2 class="page-title">User</h2>
+        <h2 class="page-title">Users</h2>
         <div class="d-flex gap-3">
             <div class="search-bar">
                 <form method="get">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search..." name="searchString"
-                            value="@searchString" aria-label="Search" aria-describedby="search-addon" />
-                        <button class="btn btn-outline-secondary" type="submit" id="search-addon">
-                            <i class="fas fa-search"></i>
-                        </button>
+                    <div class="form-input-div d-flex justify-content-between me-3 position-relative">
+                        <input type="text" placeholder="Search..." name="searchString"
+                            value="@searchString" aria-label="Search" aria-describedby="search-addon" class="form-control p-2 d-none d-sm-block "
+                        id="searchString" />
+                        <span class="form-input-icon position-absolute search-icon"><i class="fa-solid fa-search"
+                                id="eye-icon" style="color: gray"></i>
+                        </span>
                     </div>
                 </form>
             </div>
             <a asp-action="CreateUser" asp-controller="User">
                 <button class="border-0 p-2 fill-btn rounded shadow">
-                    <i class="fa-solid fa-plus"></i>
+                    <i class="fa-solid fa-plus" style="color: white;"></i>
                     Add User
                 </button>
             </a>
@@ -59,12 +60,12 @@
             </thead>
             <tbody>
                 <p>@ErrorMessage</p>
-                @foreach (var user in ViewBag.UserList)
+                @foreach (var user in Model)
                 {
                     <tr id="@user.Id">
                         <td>
                             <div class="d-flex gap-3 align-items-center">
-                                <img src="~/images/Default_pfp.svg.png" alt="user profile img" class="user-profile-img" />
+                                <img src="~/images/@(user.ProfileImage !=null ? user.ProfileImage : "Default_pfp.svg.png")" alt="user profile img" class="user-profile-img" />
                                 @user.FirstName @user.LastName
                             </div>
                         </td>
@@ -85,7 +86,7 @@
                             }
                         </td>
                         <td>
-                            @if (@user.IsActive)
+                            @if ((bool)@user.IsActive)
                             {
                                 <div class="active-status">Active</div>
                             }
@@ -96,7 +97,7 @@
                         </td>
                         <td>
                             <div class="d-flex gap-4 align-items-center">
-                                @if (user.IsActive)
+                                @if ((bool)user.IsActive)
                                 {
                                     <a asp-action="UpdateUser" asp-controller="User" asp-route-id="@user.Id">
                                         <i class="fa-solid fa-pen-clip"></i>

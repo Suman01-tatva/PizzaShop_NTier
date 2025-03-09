@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Elfie.Model.Strings;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Service.Interfaces;
@@ -34,22 +35,20 @@ public class UserController : Controller
     {
         if (ModelState.IsValid)
         {
-            // var userEmailClaim = User.FindFirst(ClaimTypes.Email);
-            // if (userEmailClaim == null)
-            // {
-            //     return Unauthorized("Email not found in token");
-            // }
+            var token = Request.Cookies["Token"];
+            var email = await _tokenDataService.GetEmailFromToken(token);
+            string isPasswordChanged = await _userService.ChangePasswordAsync(model, email);
 
-            // string userEmail = userEmailClaim.Value;
-            string userEmail = Request.Cookies["email"];
-            bool isPasswordChanged = await _userService.ChangePasswordAsync(model, userEmail);
-
-            if (isPasswordChanged)
+            if (isPasswordChanged == "success")
             {
+                TempData["ToastrMessage"] = "Password Changes Successfully";
+                TempData["ToastrType"] = "success";
                 return RedirectToAction("AdminDashboard", "Home");
             }
-            else
+            else if (isPasswordChanged == "current password is incorrect")
             {
+                TempData["ToastrMessage"] = "Current Password is Incorrect";
+                TempData["ToastrType"] = "error";
                 ModelState.AddModelError("", "Please Enter valid password");
                 return View();
             }
@@ -60,13 +59,14 @@ public class UserController : Controller
     [HttpGet]
     public async Task<IActionResult> Profile()
     {
-        // var email = Request.Cookies["email"];
         var token = Request.Cookies["Token"];
         var email = await _tokenDataService.GetEmailFromToken(token);
 
         if (string.IsNullOrEmpty(email))
         {
-            return RedirectToAction("Index", "Home");
+            TempData["ToastrMessage"] = "Session expired! Please log in again.";
+            TempData["ToastrType"] = "error";
+            return RedirectToAction("Login", "Auth");
         }
 
         var userViewModel = await _userService.GetUserProfileAsync(email);
@@ -87,18 +87,42 @@ public class UserController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Profile(UserViewModel model)
+    public async Task<IActionResult> Profile(ProfileViewModel model)
     {
         if (ModelState.IsValid)
         {
-            var email = Request.Cookies["email"];
+            var token = Request.Cookies["Token"];
+            var email = await _tokenDataService.GetEmailFromToken(token);
+            string ProfileImagePath = null;
+            if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
+            {
+                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                var filename = Guid.NewGuid().ToString() + Path.GetExtension(model.ProfileImagePath.FileName);
+                var filePath = Path.Combine(folderPath, filename);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileImagePath.CopyTo(stream);
+                }
+                ProfileImagePath = "/ProfileImages/" + filename;
+            }
+            if (ProfileImagePath != null)
+                model.ProfileImg = ProfileImagePath;
+
             await _userService.UpdateUserProfileAsync(model, email);
 
-            ViewData["ProfileSuccessMessage"] = "Profile Updated Successfully";
+            TempData["ToastrMessage"] = "Profile Updated Successfully";
+            TempData["ToastrType"] = "success";
             return RedirectToAction("AdminDashboard", "Home");
         }
-
-        return View(model);
+        else
+        {
+            await PopulateDropdowns();
+            return View(model);
+        }
     }
 
     public IActionResult UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")
@@ -121,7 +145,7 @@ public class UserController : Controller
         }
 
         ViewBag.UserList = users;
-        return View();
+        return View(users);
     }
 
     public async Task<IActionResult> CreateUser()
@@ -139,14 +163,35 @@ public class UserController : Controller
             if (await _userService.UserExistsAsync(model.Email))
             {
                 ViewBag.UserExistError = "User Already Exist";
+                TempData["ToastrMessage"] = "User Already Exist!";
+                TempData["ToastrType"] = "error";
                 await PopulateDropdowns();
                 return View(model);
             }
-
             var token = Request.Cookies["Token"];
             var currentUserEmail = await _tokenDataService.GetEmailFromToken(token);
+
+            string ProfileImagePath = null;
+            if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
+            {
+                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                var filename = Guid.NewGuid().ToString() + Path.GetExtension(model.ProfileImagePath.FileName);
+                var filePath = Path.Combine(folderPath, filename);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileImagePath.CopyTo(stream);
+                }
+                ProfileImagePath = "/ProfileImages/" + filename;
+            }
+            if (ProfileImagePath != null)
+                model.ProfileImg = ProfileImagePath;
+
             await _userService.AddUserAsync(model, currentUserEmail);
-            _mailService.SendMail(model.Email, "Welcome To Pizza Shop");
+            // _mailService.SendMail(model.Email, "Welcome To Pizza Shop");
 
             return RedirectToAction("UserList");
         }
@@ -193,7 +238,29 @@ public class UserController : Controller
     {
         if (ModelState.IsValid)
         {
+            string ProfileImagePath = null;
+            if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
+            {
+                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                var filename = Guid.NewGuid().ToString() + Path.GetExtension(model.ProfileImagePath.FileName);
+                var filePath = Path.Combine(folderPath, filename);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileImagePath.CopyTo(stream);
+                }
+                ProfileImagePath = "/ProfileImages/" + filename;
+            }
+            if (ProfileImagePath != null)
+                model.ProfileImg = ProfileImagePath;
+
+            TempData["ToastrMessage"] = "User Updated Successfully";
+            TempData["ToastrType"] = "success";
             await _userService.UpdateUserAsync(model);
+
             return RedirectToAction("UserList");
         }
 
@@ -201,6 +268,19 @@ public class UserController : Controller
         ViewBag.Countries = new SelectList(await _userService.GetAllCountriesAsync(), "Id", "Name", model.CountryId);
 
         return View(model);
+    }
+
+    [HttpGet]
+    public async Task<JsonResult> GetProfileDetail()
+    {
+        var token = Request.Cookies["Token"];
+        var currentUserEmail = await _tokenDataService.GetEmailFromToken(token!);
+        var user = await _userService.GetUserByEmailAsync(currentUserEmail);
+        if (user != null)
+        {
+            return Json(new { profileImage = user!.ProfileImage, userName = user.Username });
+        }
+        return null;
     }
 
     [HttpGet]

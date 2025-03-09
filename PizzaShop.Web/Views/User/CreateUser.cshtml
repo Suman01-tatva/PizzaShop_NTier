@@ -4,19 +4,19 @@
     ViewData["Title"] = "Create User";
 }
 
-<h2 class="page-title mx-4">Add User</h2>
+<h2 class="page-title mx-4">Add New User</h2>
 
 <div class="form rounded bg-light">
     <form asp-controller="User" asp-action="CreateUser" method="post" enctype="multipart/form-data">
         <div class="col-xl-12">
             <div class="row">
-                <div class="form-floating col">
-                    <input type="text" class="form-control twoc" id="FirstName" asp-for="FirstName">
+                <div class="form-floating col-md-6 my-2">
+                    <input type="text" class="form-control" id="FirstName" asp-for="FirstName" placeholder="FirstName">
                     <label for="FirstName" class="float">First Name</label>
                     <span asp-validation-for="FirstName" class="text-danger"></span>
                 </div>
-                <div class="form-floating col">
-                    <input type="text" class="form-control twoc" id="LastName" asp-for="LastName">
+                <div class="form-floating col-md-6 my-2">
+                    <input type="text" class="form-control" id="LastName" asp-for="LastName"  placeholder="LastName">
                     <label for="LastName" class="float">Last Name</label>
                     <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
@@ -26,12 +26,12 @@
 
         <div class="col-xl-12">
             <div class="row">
-                <div class="form-floating col">
+                <div class="form-floating col-md-6 my-2">
                     <input type="text" class="form-control twoc" id="Username" asp-for="Username">
                     <label for="Username" class="float">User Name</label>
                     <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
-                <div class="form-floating col">
+                <div class="form-floating col-md-6 my-2">
                     <select id="RoleId" name="RoleId" class="form-control" asp-items="ViewBag.Roles"></select>
                     <label for="RoleId" class="float">Role</label>
                     <span asp-validation-for="RoleId" class="text-danger"></span>
@@ -44,12 +44,12 @@
 
         <div class="col-xl-12">
             <div class="row">
-                <div class="form-floating col">
+                <div class="form-floating col-md-6 my-2">
                     <input type="text" class="form-control twoc" id="Email" asp-for="Email">
                     <label for="Email" class="float">Email</label>
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                <div class="form-floating col">
+                <div class="form-floating col-md-6 my-2">
                     <input type="password" class="form-control twoc" id="password" asp-for="Password">
                     <label for="password" class="float">Password</label>
                     <span asp-validation-for="Password" class="text-danger"></span>
@@ -59,31 +59,37 @@
 
         <br>
         <div class="mb-3 upload-container d-flex flex-col">
-            <label for="files" class="mx-1">
+            <label for="imageInput" class="mx-1">
                 <img src="~/images/cloud-upload.svg" alt="upload-icon" class="mx-4" />
                 <br />
                 Browse File
             </label>
-            <input id="files" type="file" class="input-file" hidden />
+            <input id="imageInput" asp-for="ProfileImagePath" type="file" name="ProfileImagePath" accept="image/*"
+                class="input-file" hidden />
         </div>
-
         <br>
 
         <div class="col-xl-12">
             <div class="row">
-                <div class="form-floating col">
-                    <select id="CountryId" name="CountryId" class="form-control" asp-items="ViewBag.Countries"></select>
+                <div class="form-floating col-md-4 my-2">
+                    <select id="CountryId" name="CountryId" class="form-control" asp-items="ViewBag.Countries">
+                        <option>Select Country</option>
+                    </select>
                     <label for="CountryId" class="float">Country</label>
                     <span asp-validation-for="CountryId" class="text-danger"></span>
                 </div>
-                <div class="form-floating col">
-                    <select id="StateId" name="StateId" class="form-control"></select>
+                <div class="form-floating col-md-4 my-2">
+                    <select id="StateId" name="StateId" class="form-control">
+                        <option>Select State</option>
+                    </select>
                     <label for="StateId" class="float">State</label>
                     <span asp-validation-for="StateId" class="text-danger"></span>
 
                 </div>
-                <div class="form-floating col">
-                    <select id="CityId" name="CityId" class="form-control"></select>
+                <div class="form-floating col-md-4 my-2">
+                    <select id="CityId" name="CityId" class="form-control">
+                        <option>Select City</option>
+                    </select>
                     <label for="CityId" class="float">City</label>
                     <span asp-validation-for="CityId" class="text-danger"></span>
                 </div>
@@ -93,20 +99,22 @@
         <br>
         <div class="col-xl-12">
             <div class="row">
-                <div class="form-floating col">
-                    <input type="text" class="form-control twoc" id="Zipcode" asp-for="Zipcode">
+                <div class="form-floating col-md-4 my-2">
+                    <input type="number" class="form-control twoc" maxlength="6" minlength="6" id="Zipcode"
+                        asp-for="Zipcode" pattern="[0-9]{6}">
                     <label for="Zipcode" class="float">ZipCode</label>
-                    <span asp-validation-for="CityId" class="text-danger"></span>
+                    <span asp-validation-for="Zipcode" class="text-danger"></span>
 
                 </div>
-                <div class="form-floating col">
+                <div class="form-floating col-md-4 my-2">
                     <input type="text" class="form-control twoc" id="Address" asp-for="Address">
                     <label for="Address" class="float">Address</label>
-                    <span asp-validation-for="CityId" class="text-danger"></span>
+                    <span asp-validation-for="Address" class="text-danger"></span>
 
                 </div>
-                <div class="form-floating col">
-                    <input type="text" class="form-control twoc" id="Phone" asp-for="Phone">
+                <div class="form-floating col-md-4 my-2">
+                    <input type="number" maxlength="10" minlength="10" class="form-control twoc" id="Phone"
+                        asp-for="Phone" pattern="[0-9]{10}">
                     <label for="Phone" class="float">Phone</label>
                     <span asp-validation-for="Phone" class="text-danger"></span>
                 </div>
