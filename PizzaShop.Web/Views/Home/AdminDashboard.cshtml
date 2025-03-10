@@ -75,63 +75,73 @@
 </div>
 
 <div class="container-fluid mt-4">
-    <div class="row gap-3">
-        <div class="dashboard-card col-lg-3 col-md-6 col-sm-12 mb-3">
-            <h4 class="card-heading">Top Selling Items</h4>
-            <table class="item-table">
-                <tr>
-                    <td>#1</td>
-                    <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Grilled Burger" class="item-img"></td>
-                    <td>
-                        <p class="item-name">Grilled Burger</p>
-                        <span class="order-count"><i class="fa-solid fa-caret-up"></i> 1 Order</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>#2</td>
-                    <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Margherita" class="item-img"></td>
-                    <td>
-                        <p class="item-name">Margherita</p>
-                        <span class="order-count"><i class="fa-solid fa-caret-up"></i> 1 Order</span>
-                    </td>
-                </tr>
-            </table>
+    <div class="row g-3">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="dashboard-card">
+                <h4 class="card-heading">Top Selling Items</h4>
+                <table class="item-table">
+                    <tr>
+                        <td>#1</td>
+                        <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Grilled Burger" class="item-img">
+                        </td>
+                        <td>
+                            <p class="item-name">Grilled Burger</p>
+                            <span class="order-count"><i class="fa-solid fa-caret-up"></i> 1 Order</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#2</td>
+                        <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Margherita" class="item-img"></td>
+                        <td>
+                            <p class="item-name">Margherita</p>
+                            <span class="order-count"><i class="fa-solid fa-caret-up"></i> 1 Order</span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
-        <div class="dashboard-card col-lg-3 col-md-6 col-sm-12 mb-3">
-            <h4 class="card-heading">Least Selling Items</h4>
-            <table class="item-table">
-                <tr>
-                    <td>#1</td>
-                    <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Grilled Burger" class="item-img"></td>
-                    <td>
-                        <p class="item-name">Grilled Burger</p>
-                        <span class="order-count"><i class="fa-solid fa-caret-down"></i>1 Order</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>#2</td>
-                    <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Margherita" class="item-img"></td>
-                    <td>
-                        <p class="item-name">Margherita</p>
-                        <span class="order-count"><i class="fa-solid fa-caret-down"></i> 1 Order</span>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="dashboard-card col-lg-3 col-md-6 col-sm-12 mb-3">
-            <div class="icon-container icon-waiting-list">
-                <img src="@Url.Content("~/images/icons/waiting-list.svg")" alt="Waiting List Count">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="dashboard-card">
+                <h4 class="card-heading">Least Selling Items</h4>
+                <table class="item-table">
+                    <tr>
+                        <td>#1</td>
+                        <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Grilled Burger" class="item-img">
+                        </td>
+                        <td>
+                            <p class="item-name">Grilled Burger</p>
+                            <span class="order-count"><i class="fa-solid fa-caret-down"></i>1 Order</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#2</td>
+                        <td><img src="@Url.Content("~/images/dining-menu.png")" alt="Margherita" class="item-img"></td>
+                        <td>
+                            <p class="item-name">Margherita</p>
+                            <span class="order-count"><i class="fa-solid fa-caret-down"></i> 1 Order</span>
+                        </td>
+                    </tr>
+                </table>
             </div>
-            <h3 class="card-value">12</h3>
-            <p class="card-title">Waiting List Count</p>
         </div>
-        <div class="dashboard-card col-lg-3 col-md-6 col-sm-12 mb-3">
-            <div class="icon-container icon-customer">
-                <img src="@Url.Content("~/images/icons/customer.svg")" alt="New Customers">
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="dashboard-card">
+                <div class="icon-container icon-waiting-list">
+                    <img src="@Url.Content("~/images/icons/waiting-list.svg")" alt="Waiting List Count">
+                </div>
+                <h3 class="card-value">12</h3>
+                <p class="card-title">Waiting List Count</p>
             </div>
-            <h3 class="card-value">5</h3>
-            <p class="card-title">New Customers</p>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="dashboard-card">
+                <div class="icon-container icon-customer">
+                    <img src="@Url.Content("~/images/icons/customer.svg")" alt="New Customers">
+                </div>
+                <h3 class="card-value">5</h3>
+                <p class="card-title">New Customers</p>
+            </div>
         </div>
     </div>
 </div>

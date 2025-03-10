@@ -11662,19 +11662,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\SUMAN PANKHANIYA\\.nuget\\packages\\": {}
+    "C:\\Users\\pci93\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\PizzaShop.Web.csproj",
+      "projectUniqueName": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\PizzaShop.Web.csproj",
       "projectName": "PizzaShop.Web",
-      "projectPath": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\PizzaShop.Web.csproj",
-      "packagesPath": "C:\\Users\\SUMAN PANKHANIYA\\.nuget\\packages\\",
-      "outputPath": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\obj\\",
+      "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\PizzaShop.Web.csproj",
+      "packagesPath": "C:\\Users\\pci93\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\SUMAN PANKHANIYA\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\pci93\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -11686,11 +11686,11 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Entity\\PizzaShop.Entity.csproj": {
-              "projectPath": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Entity\\PizzaShop.Entity.csproj"
+            "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Entity\\PizzaShop.Entity.csproj": {
+              "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Entity\\PizzaShop.Entity.csproj"
             },
-            "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Service\\PizzaShop.Service.csproj": {
-              "projectPath": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Service\\PizzaShop.Service.csproj"
+            "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\PizzaShop.Service.csproj": {
+              "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Service\\PizzaShop.Service.csproj"
             }
           }
         }

@@ -557,3 +557,6 @@ E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Web\obj\Debug\net7.0\ref\Pizza
 E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Web\bin\Debug\net7.0\Microsoft.Extensions.ObjectPool.dll
 E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Web\bin\Debug\net7.0\System.Text.Encodings.Web.dll
 E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Web\bin\Debug\net7.0\runtimes\browser\lib\net7.0\System.Text.Encodings.Web.dll
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Web\bin\Debug\net7.0\Microsoft.Extensions.ObjectPool.dll
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Web\bin\Debug\net7.0\System.Text.Encodings.Web.dll
+D:\Projects\NTier Projects\PizzaShop\PizzaShop.Web\bin\Debug\net7.0\runtimes\browser\lib\net7.0\System.Text.Encodings.Web.dll

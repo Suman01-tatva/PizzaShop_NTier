@@ -16,7 +16,7 @@
                     <span asp-validation-for="FirstName" class="text-danger"></span>
                 </div>
                 <div class="form-floating col-md-6 my-2">
-                    <input type="text" class="form-control" id="LastName" asp-for="LastName"  placeholder="LastName">
+                    <input type="text" class="form-control" id="LastName" asp-for="LastName" placeholder="LastName">
                     <label for="LastName" class="float">Last Name</label>
                     <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
@@ -27,12 +27,15 @@
         <div class="col-xl-12">
             <div class="row">
                 <div class="form-floating col-md-6 my-2">
-                    <input type="text" class="form-control twoc" id="Username" asp-for="Username">
+                    <input type="text" class="form-control twoc" id="Username" asp-for="Username"
+                        placeholder="LastName">
                     <label for="Username" class="float">User Name</label>
                     <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
                 <div class="form-floating col-md-6 my-2">
-                    <select id="RoleId" name="RoleId" class="form-control" asp-items="ViewBag.Roles"></select>
+                    <select id="RoleId" name="RoleId" class="form-control" asp-items="ViewBag.Roles">
+                        <option value="Select Role">Select Role</option>
+                    </select>
                     <label for="RoleId" class="float">Role</label>
                     <span asp-validation-for="RoleId" class="text-danger"></span>
 

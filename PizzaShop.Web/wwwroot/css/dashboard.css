@@ -41,7 +41,6 @@
 
 #sidebar li {
   list-style-type: none;
-  /* margin: 10px 0px 10px 0px; */
   height: 43px;
   border-radius: 5px;
   text-align: left;
@@ -72,10 +71,6 @@
   justify-content: end;
 }
 
-/* #sidebar {
-    z-index: 2000;
-  } */
-
 #alert-icon {
   width: 5px;
   height: 5px;
@@ -100,12 +95,29 @@
   }
 }
 
-@media (max-width: 992px) {
+@media (max-width: 991px) {
   .offcanvas-lg.offcanvas-start {
-    width: 240px;
+    width: 200px;
   }
   .close-btn {
     display: inline;
+  }
+}
+
+@media (max-width: 1180px) {
+  .pizza-logo {
+    height: 35px !important;
+    width: 45px !important;
+    margin-top: 8px;
+  }
+  .brand-name {
+    font-size: medium;
+  }
+  .sidebar li {
+    font-size: small;
+  }
+  .sidebar ul {
+    gap: 10px;
   }
 }
 
@@ -122,6 +134,10 @@
 
   .brand-name-nav {
     display: none;
+  }
+
+  .profile-img {
+    position: relative !important;
   }
 }
 
@@ -170,9 +186,10 @@
 
 .dashboard-card {
   flex: 1;
-  min-width: 180px;
+  min-width: 170px;
+  min-height: 200px;
   background: white;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   position: relative;
   text-align: left;
@@ -275,15 +292,6 @@
   margin-left: 10px;
   display: flex;
   justify-content: start;
-}
-
-.dashboard-card {
-  background: white;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  min-height: 120px;
 }
 
 .card-value {

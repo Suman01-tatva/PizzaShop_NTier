@@ -191,7 +191,9 @@ public class UserController : Controller
                 model.ProfileImg = ProfileImagePath;
 
             await _userService.AddUserAsync(model, currentUserEmail);
-            // _mailService.SendMail(model.Email, "Welcome To Pizza Shop");
+            _mailService.SendMail(model.Email, "Welcome To Pizza Shop");
+            TempData["ToastrMessage"] = "User Created Successfully";
+            TempData["ToastrType"] = "success";
 
             return RedirectToAction("UserList");
         }
@@ -215,6 +217,8 @@ public class UserController : Controller
     public IActionResult DeleteUser(int id)
     {
         _userService.DeleteUser(id);
+        TempData["ToastrMessage"] = "User Deleted Successfully";
+        TempData["ToastrType"] = "success";
         return RedirectToAction(nameof(UserList));
     }
 

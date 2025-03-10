@@ -22,6 +22,7 @@ public class AuthController : Controller
         _jwtService = jwtService;
     }
 
+    [AllowAnonymous]
     public IActionResult Login()
     {
         var token = Request.Cookies["Token"];
@@ -45,6 +46,13 @@ public class AuthController : Controller
             {
                 ModelState.AddModelError("InvalidCredentials", "Please enter valid credentials");
                 return View("Login");
+            }
+
+            if (user.IsActive == false)
+            {
+                TempData["ToastrMessage"] = "Your account is inactive. Please contact support team to reactivate your account.";
+                TempData["ToastrType"] = "error";
+                return View();
             }
 
             var token = _jwtService!.GenerateJwtToken(user.Id.ToString(), user.Email, user.RoleId.ToString());
@@ -72,6 +80,13 @@ public class AuthController : Controller
 
     public IActionResult ForgotPassword()
     {
+        var token = Request.Cookies["Token"];
+        var user = Request.Cookies["UserData"];
+        var ValidateToken = _jwtService?.ValidateToken(token!);
+        if (ValidateToken != null && user != null)
+        {
+            return RedirectToAction("AdminDashBoard", "Home");
+        }
         return View();
     }
 
@@ -80,6 +95,13 @@ public class AuthController : Controller
     {
         if (ModelState.IsValid)
         {
+            var user = await _authService!.GetUser(model.Email);
+            if (user == null)
+            {
+                TempData["ToastrMessage"] = "User not Exist!!";
+                TempData["ToastrType"] = "error";
+                return View();
+            }
             string token = CookieUtils.GenerateTokenForResetPassword(model.Email);
             string resetLink = Url.Action("ResetPassword", "Auth", new { token }, Request.Scheme)!;
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/templates/ResetPasswordEmail.html");
@@ -95,9 +117,15 @@ public class AuthController : Controller
         return View();
     }
 
-    [AllowAnonymous]
     public IActionResult ForgotPasswordConfirmation()
     {
+        var token = Request.Cookies["Token"];
+        var user = Request.Cookies["UserData"];
+        var ValidateToken = _jwtService?.ValidateToken(token!);
+        if (ValidateToken != null && user != null)
+        {
+            return RedirectToAction("AdminDashBoard", "Home");
+        }
         return View();
     }
 
@@ -106,9 +134,9 @@ public class AuthController : Controller
     {
         string userEmail = DecryptToken(token);
         TempData["Email"] = userEmail;
-        if (userEmail == null)
+        if (userEmail == "")
         {
-            TempData["ToastrMessage"] = "Reset Password Link is expired!!!";
+            TempData["ToastrMessage"] = "Reset Password Link is expired Try Again!!";
             TempData["ToastrType"] = "error";
             return RedirectToAction("ForgotPassword", "Auth");
         }
