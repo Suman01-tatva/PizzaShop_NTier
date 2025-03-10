@@ -125,7 +125,8 @@ public class UserService : IUserService
             Address = user.Address,
             RoleId = user.RoleId,
             Email = user.Email,
-            IsActive = (bool)user.IsActive
+            IsActive = (bool)user.IsActive,
+            ProfileImg = user.ProfileImage
         };
 
         return userViewModel;
