@@ -85,6 +85,10 @@
       "PackagePath": "staticwebassets\\images\\ProfileImages\\f9146544-3929-4119-a105-771fdc26e53a.png"
     },
     {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\fa56ff67-cb9a-40d2-937d-851286d4c068.png",
+      "PackagePath": "staticwebassets\\images\\ProfileImages\\fa56ff67-cb9a-40d2-937d-851286d4c068.png"
+    },
+    {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\QR.png",
       "PackagePath": "staticwebassets\\images\\QR.png"
     },

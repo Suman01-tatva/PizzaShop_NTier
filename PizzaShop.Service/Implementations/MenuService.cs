@@ -106,11 +106,18 @@ namespace PizzaShop.Service.Implementations
                 IsAvailable = c.IsAvailable,
                 ShortCode = c.ShortCode,
                 IsDeleted = c.IsDeleted == null ? false : true,
-            }).ToList(); ;
+            }).ToList();
+
+            var totalCountOfItems = _menuItemRepository.GetItemsCountByCId(categoryId);
+
             var itemTabViewModel = new ItemTabViewModel
             {
                 categoryList = categories,
-                itemList = filteredItems
+                itemList = filteredItems,
+                PageSize = pageSize,
+                PageIndex = pageIndex,
+                TotalPage = totalCountOfItems,
+                SearchString = searchString
             };
             return itemTabViewModel;
         }

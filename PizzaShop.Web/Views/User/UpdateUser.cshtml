@@ -66,8 +66,9 @@
                 <br />
                 Browse File
             </label>
-            <input id="imageInput" asp-for="ProfileImagePath" type="file" name="ProfileImagePath" accept="image/*"
-                class="input-file" hidden />
+            <span id="file-upload-name"></span>
+            <input id="imageInput" asp-for="ProfileImagePath" type="file" name="ProfileImagePath"
+                onchange="showFileName()" accept="image/*" class="input-file" id="fileInput" hidden />
             <input type="hidden" asp-for="ProfileImg">
         </div>
         <br>
@@ -153,5 +154,16 @@
             // Trigger the change event to populate the states and cities on page load
             $('#CountryId').change();
         });
+        function showFileName() {
+            var input = document.getElementById('fileInput');
+            var fileNameSpan = document.getElementById('file-upload-name');
+            console.log(input.files[0])
+            if (input.files && input.files[0]) {
+                fileNameSpan.textContent = input.files[0].name;
+                fileNameSpan.style.display = 'block';
+            } else {
+                fileNameSpan.style.display = 'none';
+            }
+        }
     </script>
 }

@@ -23,6 +23,7 @@ public class AuthController : Controller
     }
 
     [AllowAnonymous]
+    // [Route("/[controller]/login")]
     public IActionResult Login()
     {
         var token = Request.Cookies["Token"];

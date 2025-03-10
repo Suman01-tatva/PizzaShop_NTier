@@ -17,7 +17,7 @@ public class MenuController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Menu(int? id, int pageSize, int pageIndex, string? searchString)
+    public async Task<IActionResult> Menu(int? id, int pageSize = 5, int pageIndex = 1, string searchString = "")
     {
         var categories = await _menuService.GetAllMenuCategoriesAsync();
         if (!categories.Any())
@@ -26,7 +26,7 @@ public class MenuController : Controller
         }
 
         var validCategoryId = id ?? categories.First().Id;
-        var itemTabDetails = await _menuService.GetItemTabDetails(validCategoryId, pageSize == 0 ? 5 : pageSize, pageIndex == 0 ? 1 : pageIndex, searchString);
+        var itemTabDetails = await _menuService.GetItemTabDetails(validCategoryId, pageSize, pageIndex, searchString);
 
         //modifierTab data
         var modifierGroups = await _menuModifierService.GetAllMenuModifierGroupAsync();
@@ -122,17 +122,17 @@ public class MenuController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetItemsByCategory(int categoryId, int pageSize, int pageIndex, string? searchString)
+    public async Task<IActionResult> GetItemsByCategory(int categoryId, int pageSize, int pageIndex, string searchString = "")
     {
-        List<MenuItemViewModel> items = await _menuService.GetItemsByCategory(categoryId, pageSize, pageIndex, searchString);
-        var tp = _menuService.GetItemsCountByCId(categoryId);
+        List<MenuItemViewModel> items = await _menuService.GetItemsByCategory(categoryId, pageSize == 0 ? 5 : pageSize, pageIndex == 0 ? 1 : pageIndex, searchString);
+        var totalPage = _menuService.GetItemsCountByCId(categoryId);
         var model = new ItemTabViewModel
         {
             itemList = items,
             PageSize = pageSize,
             PageIndex = pageIndex,
             SearchString = searchString,
-            TotalPage = (int)Math.Ceiling(tp / (double)pageSize)
+            TotalPage = (int)Math.Ceiling(totalPage / (double)pageSize)
         };
         return PartialView("_ItemListPartial", model);
     }

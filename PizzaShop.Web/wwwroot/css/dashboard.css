@@ -417,3 +417,19 @@
   height: 20px;
   width: 40px;
 }
+
+.permission {
+  min-width: 200px;
+}
+
+.canView {
+  min-width: 150px;
+}
+
+.canEdit {
+  min-width: 150px;
+}
+
+.canDelete {
+  min-width: 150px;
+}

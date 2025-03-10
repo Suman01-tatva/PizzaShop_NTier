@@ -194,5 +194,34 @@
         }
       })
     })
+
+    var categoryId = 1;
+    function GetFilteredItems() {
+      var SearchString = $("#searchString").val();
+      var pageSize = $("#pageSize").val();
+      console.log($("#searchString").val())
+      $.ajax({
+        url: "/Menu/GetItemsByCategory",
+        type: "GET",
+        data: {
+          categoryId: categoryId,
+          pageIndex: 1,
+          pageSize: pageSize,
+          searchString: SearchString
+        },
+        success: function (data) {
+          console.log("items", data);
+          $("#itemList").html(data);
+        }
+      })
+    }
+
+    $('#pageSize').change(function () {
+      console.log("pageSize");
+      var pageSize = @Model.ItemTab.PageSize
+                                                                    var pageIndex = 1
+      GetFilteredItems();
+    })
+
   </script>
 }

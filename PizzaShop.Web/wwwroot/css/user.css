@@ -189,3 +189,10 @@ a i {
     align-items: center;
   }
 }
+th:nth-child(4) {
+  min-width: 80px;
+}
+
+th:first-child {
+  min-width: 180px;
+}

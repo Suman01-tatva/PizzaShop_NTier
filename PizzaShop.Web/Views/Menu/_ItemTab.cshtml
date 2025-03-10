@@ -18,7 +18,7 @@
             </div>
             <!-- Category list -->
             <div id="categoryList">
-                @Html.Partial("_CategoryList", Model.categoryList)
+                <partial name="_CategoryList" model="Model.categoryList" />
             </div>
         </aside>
         <div class="col-md-9 border-start border-primary bg-light">
@@ -42,7 +42,7 @@
                 </div>
 
                 <!-- Items Table -->
-                <section class="table-responsive">
+                @* <section class="table-responsive">
                     <table class="table user-table mb-0 menu-table">
                         <thead>
                             <tr>
@@ -59,47 +59,49 @@
                                 <th scope="col">Available</th>
                                 <th scope="col">Action</th>
                             </tr>
-                        </thead>
-                        <tbody class="table-group-divider menuItems" id="itemList">
-                            @Html.Partial("_ItemListPartial", Model.itemList)
-                        </tbody>
-                    </table>
-                </section>
-                <div class="d-flex justify-content-end align-items-center mt-2">
-                    <p class="mb-0">Items Per page</p>
-                    <select class="ms-3" aria-label="Default select example" id="pageSize">
-                        <option value="5" selected="@(PageSize == 5 ? true : false)">5</option>
-                        <option value="10" selected="@(PageSize == 10 ? true : false)">10</option>
-                        <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
-                    </select>
-
-                    <p class="mb-0 ms-2 me-2">Select @PageIndex out of <span>@TotalPage</span></p>
-                    @if (PageIndex > 1)
-                    {
-                        <span class="btn btn-outline-secondary me-1 px-3 py-0" name="PageIndex" id="Previous">
-                            <i class="fa-solid fa-less-than fa-sm" style="height: 15px"></i>
-                        </span>
-                    }
-                    else
-                    {
-                        <button class="btn btn-outline-secondary me-1 px-3 py-0" name="PageIndex" disabled>
-                            <i class="fa-solid fa-less-than fa-sm" style="height: 15px"></i>
-                        </button>
-                    }
-
-                    @if (PageIndex < TotalPage)
-                    {
-                        <a class="btn btn-outline-secondary px-3 py-0" name="PageIndex" id="Next">
-                            <i class="fa-solid fa-greater-than fa-sm"></i>
-                        </a>
-                    }
-                    else
-                    {
-                        <button class="btn btn-outline-secondary px-3 py-0" name="PageIndex" disabled>
-                            <i class="fa-solid fa-greater-than fa-sm"></i>
-                        </button>
-                    }
+                        </thead>*@
+                @* <tbody class="table-group-divider menuItems" id="itemList"> *@
+                <div id="itemList">
+                    <partial name="_ItemListPartial" model="Model" />
                 </div>
+                @* </tbody> *@
+                @* </table>
+</section>
+<div class="d-flex justify-content-end align-items-center mt-2">
+    <p class="mb-0">Items Per page</p>
+    <select class="ms-3" aria-label="Default select example" id="pageSize">
+        <option value="5" selected="@(PageSize == 5 ? true : false)">5</option>
+        <option value="10" selected="@(PageSize == 10 ? true : false)">10</option>
+        <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
+    </select>
+
+    <p class="mb-0 ms-2 me-2">Select @PageIndex out of <span>@TotalPage</span></p>
+    @if (PageIndex > 1)
+    {
+        <span class="btn btn-outline-secondary me-1 px-3 py-0" name="PageIndex" id="Previous">
+            <i class="fa-solid fa-less-than fa-sm" style="height: 15px"></i>
+        </span>
+    }
+    else
+    {
+        <button class="btn btn-outline-secondary me-1 px-3 py-0" name="PageIndex" disabled>
+            <i class="fa-solid fa-less-than fa-sm" style="height: 15px"></i>
+        </button>
+    }
+
+    @if (PageIndex < TotalPage)
+    {
+        <a class="btn btn-outline-secondary px-3 py-0" name="PageIndex" id="Next">
+            <i class="fa-solid fa-greater-than fa-sm"></i>
+        </a>
+    }
+    else
+    {
+        <button class="btn btn-outline-secondary px-3 py-0" name="PageIndex" disabled>
+            <i class="fa-solid fa-greater-than fa-sm"></i>
+        </button>
+    }
+</div> *@
             </div>
         </div>
     </div>
@@ -168,8 +170,9 @@
             $.ajax({
                 url: '/Menu/GetItemsByCategory',
                 type: 'GET',
-                data: { id: categoryId },
+                data: { id: categoryId, pageSize: @PageSize, pageIndex: @PageIndex, SearchString: @SearchString },
                 success: function (response) {
+                    console.log(response);
                     $("#itemList").html(response);
                 }
             })
@@ -178,12 +181,12 @@
 
     <script>
         var pageIndex = @Model.PageIndex;
-        function GetFilteredItems() {
+        @* function GetFilteredItems() {
             var SearchString = $("#searchString").val();
             var pageSize = $("#pageSize").val();
             console.log($("#searchString").val())
             $.ajax({
-                url: "/Menu/GetItemsByCategoryId",
+                url: "/Menu/GetItemsByCategory",
                 type: "GET",
                 data: {
                     id: categoryId,
@@ -192,23 +195,24 @@
                     searchString: SearchString
                 },
                 success: function (data) {
-                    $("#menuItems").html(data);
+                    console.log("items", data);
+                    $("#itemList").html(data);
                 }
             })
         }
 
         $('#pageSize').change(function () {
             var pageSize = @Model.PageSize
-                                        var pageIndex = 1
+                        var pageIndex = 1
             GetFilteredItems();
-        })
+        }) *@
 
-        $('#searchString').keyup(function () {
-            pageIndex = 1
-            pageSize = @Model.PageSize
+            $('#searchString').keyup(function () {
+                pageIndex = 1
+                pageSize = @Model.PageSize
 
-                GetFilteredItems();
-        })
+                    GetFilteredItems();
+            })
 
         $("#Previous").click(function () {
             console.log("prev")
