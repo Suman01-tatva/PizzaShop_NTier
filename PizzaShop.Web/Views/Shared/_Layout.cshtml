@@ -101,13 +101,14 @@
                     <div class="mx-5 r-0 ">
                         <a class="nav-link profile" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            <img src="~/images/Default_pfp.svg.png" alt="avatar" width="44" height="44">
+                            <img src="~/images/Default_pfp.svg.png" class="profile-avatar rounded-circle" alt="avatar"
+                                width="44" height="44">
                         </a>
                         <ul class="dropdown-menu end-0">
                             <li>
                                 <a class="dropdown-item" href="#">
                                     <img src="~/images/icons/customer.svg" alt="User-icon" class="me-3" />
-                                    @email
+                                    <samp id="userName"></samp>
                                 </a>
                             </li>
                             <li>
@@ -188,6 +189,22 @@
                     case 'info':
                         toastr.info(message)
                 }
+            }
+        });
+
+        $.ajax({
+            url: '/User/GetProfileDetail',
+            method: 'GET',
+            success: function (data) {
+                console.log(data);
+                if (data.profileImage != null) {
+                    imgPath = "/images/" + data.profileImage;
+                    $('.profile-avatar').attr('src', imgPath);
+                }
+                $('#userName').html(data.userName)
+            },
+            error: function () {
+                console.error('Failed to load profile photo.');
             }
         });
     </script>

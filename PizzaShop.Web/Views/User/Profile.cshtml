@@ -4,7 +4,7 @@
     var Email = User.FindFirst(ClaimTypes.Email)?.Value;
 }
 
-@model PizzaShop.Entity.ViewModels.UserViewModel;
+@model PizzaShop.Entity.ViewModels.ProfileViewModel;
 
 <div class="col-12 content-bg">
     <!-- Add User header -->
@@ -16,23 +16,28 @@
         <div>
             <img class="profile-bg" src="~/images/profile_div_bg.jpg" alt="profile-bg">
         </div>
-        <div class="row mx-2">
-            <div class="col-md-2 d-flex justify-content-center p-0">
-                <img src="~/images/Default_pfp.svg.png" class="profile-img" alt="profile-img">
-                <input type="file" id="imageInput" accept="image/*" style="display: none;">
-                <button id="changeImageButton"
-                    class="position-absolute bg-white camera-position z-3 rounded-circle border z-2 shadow-sm">
-                    <i class="fa fa-camera p-2 " for="imageInput" aria-hidden="true"></i></button>
+        <form asp-controller="User" asp-action="Profile" class="row needs-validation mt-1 mb-3 mx-2"
+            enctype="multipart/form-data">
+            <div class="row mx-2">
+                <div class="col-md-2 d-flex justify-content-center p-0">
+                    <img src="~/images/@(Model?.ProfileImg ?? "Default_pfp.svg.png")"
+                        class="profile-img profile-photo rounded-circle" alt="profile-img">
+                    <input type="file" asp-for="ProfileImagePath" name="ProfileImagePath" id="imageInput"
+                        accept="image/*" style="display: none;">
+                    <input type="hidden" asp-for="ProfileImg" name="ProfileImg">
+                    <label id="changeImageButton" for="imageInput"
+                        class="position-absolute bg-white camera-position z-3 rounded-circle border z-2 shadow-sm">
+                        <i class="fa fa-camera p-2 " aria-hidden="true"></i>
+                    </label>
+                </div>
+                <div class="col-md-7 p-0 mt-3">
+                    <h3>@Model.FirstName @Model.LastName</h3>
+                    <p>@Model.RoleName</p>
+                </div>
+                <div class="col-md-3">
+                    @Model.Email
+                </div>
             </div>
-            <div class="col-md-7 p-0 mt-3">
-                <h3>@Model.FirstName @Model.LastName</h3>
-                <p>@Model.RoleName</p>
-            </div>
-            <div class="col-md-3">
-                @Model.Email
-            </div>
-        </div>
-        <form asp-controller="User" asp-action="Profile" class="row needs-validation mt-1 mb-3 mx-2">
             <div>
                 <div class="">
                     <input type="text" asp-for="Email" hidden>
@@ -66,8 +71,11 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="tel" class="form-control" id="phone" placeholder="name" name="Phone"
-                                asp-for="Phone" />
+                            @* <input type="number" class="form-control" id="phone" placeholder="name" name="Phone"
+                                asp-for="Phone" /> *@
+                            <input type="number" id="phone" class="form-control" asp-for="Phone" pattern="[0-9]{10}"
+                                maxlength="10" required>
+
                             <label for="phone">Phone</label>
                         </div>
                         <span class="text-danger fs-6 ms-2" asp-validation-for="Phone"></span>
@@ -106,8 +114,8 @@
                     </div>
                     <div class="col-md-6 mb-3">
                         <div class="form-floating">
-                            <input type="text" class="form-control" id="ZipCode" placeholder="ZipCode" name="ZipCode"
-                                asp-for="Zipcode" />
+                            <input type="number" class="form-control" maxlength="6" minlength="6" id="ZipCode"
+                                placeholder="ZipCode" asp-for="Zipcode" />
                             <label for="ZipCode">ZipCode</label>
                         </div>
                         <span class="text-danger fs-6 ms-2" asp-validation-for="Zipcode"></span>
@@ -161,6 +169,21 @@
 
             // Trigger the change event to populate the states and cities on page load
             $('#CountryId').change();
-        });
+
+            @* $.ajax({
+                url: '/Profile/GetProfilePhoto',
+                method: 'GET',
+                success: function (data) {
+                    console.log(data);
+                    if (data.profileImage != "" | data.profileImage != null) {
+                        imgPath = "/images/" + data.profileImage;
+                        $('.profile-photo').attr('src', imgPath);
+                        console.log(data);
+                    }                                                                    },
+                error: function () {
+                    console.error('Failed to load profile photo.');
+                }
+            }); *@
+                        });
     </script>
 }

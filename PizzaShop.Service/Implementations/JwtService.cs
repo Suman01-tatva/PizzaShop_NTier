@@ -43,7 +43,7 @@ public class JwtService : IJwtService
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
-
+    
     public object GenerateJwtToken(string email)
     {
         throw new NotImplementedException();

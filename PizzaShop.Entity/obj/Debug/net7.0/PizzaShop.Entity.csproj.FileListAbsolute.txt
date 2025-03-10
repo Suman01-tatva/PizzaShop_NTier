@@ -12,3 +12,17 @@ D:\Projects\NTier Projects\PizzaShop\PizzaShop.Entity\obj\Debug\net7.0\refint\Pi
 D:\Projects\NTier Projects\PizzaShop\PizzaShop.Entity\obj\Debug\net7.0\PizzaShop.Entity.pdb
 D:\Projects\NTier Projects\PizzaShop\PizzaShop.Entity\obj\Debug\net7.0\PizzaShop.Entity.genruntimeconfig.cache
 D:\Projects\NTier Projects\PizzaShop\PizzaShop.Entity\obj\Debug\net7.0\ref\PizzaShop.Entity.dll
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\bin\Debug\net7.0\PizzaShop.Entity.deps.json
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\bin\Debug\net7.0\PizzaShop.Entity.runtimeconfig.json
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\bin\Debug\net7.0\PizzaShop.Entity.dll
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\bin\Debug\net7.0\PizzaShop.Entity.pdb
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\obj\Debug\net7.0\PizzaShop.Entity.csproj.AssemblyReference.cache
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\obj\Debug\net7.0\PizzaShop.Entity.GeneratedMSBuildEditorConfig.editorconfig
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\obj\Debug\net7.0\PizzaShop.Entity.AssemblyInfoInputs.cache
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\obj\Debug\net7.0\PizzaShop.Entity.AssemblyInfo.cs
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\obj\Debug\net7.0\PizzaShop.Entity.csproj.CoreCompileInputs.cache
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\obj\Debug\net7.0\PizzaShop.Entity.dll
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\obj\Debug\net7.0\refint\PizzaShop.Entity.dll
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\obj\Debug\net7.0\PizzaShop.Entity.pdb
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\obj\Debug\net7.0\PizzaShop.Entity.genruntimeconfig.cache
+E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Entity\obj\Debug\net7.0\ref\PizzaShop.Entity.dll
