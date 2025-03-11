@@ -36,4 +36,19 @@ public class MenuItemRepository : IMenuItemsRepository
         int count = _context.MenuItems.Where(i => i.CategoryId == cId).Count();
         return count;
     }
+
+    public bool AddNewItem(MenuItem model)
+    {
+        try
+        {
+            _context.MenuItems.Add(model);
+            _context.SaveChanges();
+            return true;
+        }
+        catch (Exception Error)
+        {
+            Console.WriteLine(Error);
+            return false;
+        }
+    }
 }

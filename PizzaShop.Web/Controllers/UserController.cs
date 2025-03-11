@@ -116,13 +116,14 @@ public class UserController : Controller
 
             TempData["ToastrMessage"] = "Profile Updated Successfully";
             TempData["ToastrType"] = "success";
-            return RedirectToAction("AdminDashboard", "Home");
         }
         else
         {
-            await PopulateDropdowns();
-            return View(model);
+            TempData["ToastrMessage"] = "Due to some isuue your profile is not updated";
+            TempData["ToastrType"] = "error";
         }
+        await PopulateDropdowns();
+        return View(model);
     }
 
     public IActionResult UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")

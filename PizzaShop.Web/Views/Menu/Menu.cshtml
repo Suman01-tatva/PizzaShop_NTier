@@ -195,7 +195,7 @@
       })
     })
 
-    var categoryId = 1;
+    @* var categoryId = 1;
     function GetFilteredItems() {
       var SearchString = $("#searchString").val();
       var pageSize = $("#pageSize").val();
@@ -210,7 +210,7 @@
           searchString: SearchString
         },
         success: function (data) {
-          console.log("items", data);
+          console.log("items dgdfgdgdf", data);
           $("#itemList").html(data);
         }
       })
@@ -219,9 +219,9 @@
     $('#pageSize').change(function () {
       console.log("pageSize");
       var pageSize = @Model.ItemTab.PageSize
-                                                                    var pageIndex = 1
+                                                                        var pageIndex = 1
       GetFilteredItems();
-    })
+    }) *@
 
   </script>
 }

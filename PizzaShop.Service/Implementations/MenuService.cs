@@ -1,74 +1,10 @@
-// using PizzaShop.Service.Interfaces;
-// using PizzaShop.Entity.ViewModels;
-// using PizzaShop.Repository.Interfaces;
-// using PizzaShop.Entity.Data;
-
-// namespace PizzaShop.Service.Implementations;
-
-// public class MenuService : IMenuService
-// {
-//     private readonly IMenuCategoryRepository _menuCategoryRepository;
-//     private readonly IMenuItemsRepository _menuItemRepository;
-
-//     public MenuService(IMenuCategoryRepository menuCategoryRepository, IMenuItemsRepository menuItemsRepository)
-//     {
-//         _menuCategoryRepository = menuCategoryRepository;
-//         _menuItemRepository = menuItemsRepository;
-//     }
-
-//     public async Task<List<MenuCategoryViewModel>> GetAllMenuCategoriesAsync()
-//     {
-//         return await _menuCategoryRepository.GetAllMenuCategoriesAsync();
-//     }
-
-//     public bool AddNewCategory(MenuCategoryViewModel model)
-//     {
-//         bool result = _menuCategoryRepository.AddNewCategory(model);
-//         return result;
-//     }
-
-//     public async Task<MenuCategoryViewModel> GetCategoryDetailById(int id)
-//     {
-//         var category = await _menuCategoryRepository.GetCategoryByIdAsync(id);
-//         if (category == null)
-//         {
-//             return null;
-//         }
-
-//         return new MenuCategoryViewModel
-//         {
-//             Id = category.Id,
-//             Name = category.Name,
-//             Description = category.Description
-//         };
-//     }
-
-//     public async Task<bool> EditCategory(MenuCategoryViewModel model, int categoryId)
-//     {
-//         var category = await _menuCategoryRepository.GetCategoryByIdAsync(categoryId);
-
-//         if (category == null)
-//         {
-//             return false;
-//         }
-
-//         category.Name = model.Name;
-//         category.Description = model.Description;
-
-//         return await _menuCategoryRepository.UpdateCategoryBy(category);
-//     }
-
-//     public async Task<List<MenuItemViewModel>> GetItemsByCategory(int categoryId)
-//     {
-//         return await _menuItemRepository.GetItemsByCategory(categoryId);
-//     }
-// }
 using PizzaShop.Service.Interfaces;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using PizzaShop.Entity.Data;
 
 namespace PizzaShop.Service.Implementations
 {
@@ -77,10 +13,13 @@ namespace PizzaShop.Service.Implementations
         private readonly IMenuCategoryRepository _menuCategoryRepository;
         private readonly IMenuItemsRepository _menuItemRepository;
 
-        public MenuService(IMenuCategoryRepository menuCategoryRepository, IMenuItemsRepository menuItemsRepository)
+        private readonly IUnitRepository _unitRepository;
+
+        public MenuService(IMenuCategoryRepository menuCategoryRepository, IMenuItemsRepository menuItemsRepository, IUnitRepository unitRepository)
         {
             _menuCategoryRepository = menuCategoryRepository ?? throw new ArgumentNullException(nameof(menuCategoryRepository));
             _menuItemRepository = menuItemsRepository ?? throw new ArgumentNullException(nameof(menuItemsRepository));
+            _unitRepository = unitRepository ?? throw new ArgumentNullException(nameof(unitRepository));
         }
 
         public async Task<List<MenuCategoryViewModel>> GetAllMenuCategoriesAsync()
@@ -122,9 +61,28 @@ namespace PizzaShop.Service.Implementations
             return itemTabViewModel;
         }
 
-        public bool AddNewCategory(string Name, string Description)
+        // public bool AddNewCategory(string Name, string Description)
+        // {
+        //     return _menuCategoryRepository.AddNewCategory(Name, Description);
+        // }
+
+        public async Task<bool> AddNewCategory(string category, MenuCategoryViewModel model)
         {
-            return _menuCategoryRepository.AddNewCategory(Name, Description);
+            bool isCategory = _menuCategoryRepository.GetCategoryByName(category);
+
+            if (isCategory == false)
+            {
+                var newCategory = new MenuCategory
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    CreatedBy = 1,
+                    CreatedAt = DateTime.Now
+                };
+
+                return _menuCategoryRepository.AddNewCategory(newCategory);
+            }
+            return false;
         }
 
         public async Task<MenuCategoryViewModel> GetCategoryDetailById(int id)
@@ -178,6 +136,16 @@ namespace PizzaShop.Service.Implementations
             return filteredItems;
         }
 
+        public bool FindCategoryByName(string name)
+        {
+            bool isCategory = _menuCategoryRepository.GetCategoryByName(name);
+            if (isCategory)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool SoftDeleteCategory(int id)
         {
             return _menuCategoryRepository.DeleteCategory(id);
@@ -187,5 +155,11 @@ namespace PizzaShop.Service.Implementations
         {
             return _menuItemRepository.GetItemsCountByCId(cId);
         }
+
+        public List<Unit> GetAllUnits()
+        {
+            return _unitRepository.GetAllUnits();
+        }
+
     }
 }

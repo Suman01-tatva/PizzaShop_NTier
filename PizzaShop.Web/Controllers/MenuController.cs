@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Service.Interfaces;
 
@@ -43,50 +44,31 @@ public class MenuController : Controller
         return View(model);
     }
 
-    // [HttpPost]
-    // public IActionResult AddNewCategory(string Name, string Description)
-    // {
-    //     if (ModelState.IsValid)
-    //     {
-    //         bool result = _menuService.AddNewCategory(Name, Description);
-    //         if (result)
-    //         {
-    //             return Json(new { success = true, message = "New Category Added" });
-    //             // return View("Menu", "Menu");
-    //         }
-    //         else
-    //         {
-    //             return Json(new { success = false, message = "An error occurred while adding the category." });
-    //         }
-    //     }
-    //     return View();
-    // }
-
     [HttpPost]
-    public async Task<IActionResult> AddNewCategory(string Name, string Description)
+    public async Task<IActionResult> AddCategory(MenuCategoryViewModel model)
     {
-        // bool categoryExists = _menuService.GetAllMenuCategoriesAsync();
-        // if (categoryExists)
+        if (ModelState.IsValid)
+        {
+            var category = await _menuService.AddNewCategory(model.Name, model);
+
+            if (category)
+            {
+                TempData["SuccessMessage"] = "Category created successfully.";
+                return RedirectToAction(nameof(Menu));
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "A category with this name already exists.";
+            }
+        }
+
+        var categories = await _menuService.GetAllMenuCategoriesAsync();
+        // var updatedodel = new MenuViewModel
         // {
-        //     Console.WriteLine("Category already exists!");
-        //     return false;
-        // }
-        if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Description))
-        {
-            return Json(new { success = false, message = "Invalid input values." });
-        }
-
-        bool result = _menuService.AddNewCategory(Name, Description);
-
-        if (result)
-        {
-            List<MenuCategoryViewModel> categories = await _menuService.GetAllMenuCategoriesAsync();
-            return PartialView("_CategoryList", categories);
-        }
-
-        return Json(new { success = false, message = "An error occurred while adding the category." });
+        //     ItemTab = 
+        // };
+        return RedirectToAction("Menu", "Menu");
     }
-
     [HttpGet]
     public async Task<IActionResult> EditCategory(int id)
     {
@@ -149,5 +131,25 @@ public class MenuController : Controller
         {
             return Json(new { success = false, message = "Failed to delete category." });
         }
+    }
+
+    [HttpGet]
+    public JsonResult GetAllUnits()
+    {
+        var units = Json(_menuService.GetAllUnits());
+        return units;
+    }
+
+    [HttpGet]
+    public async Task<JsonResult> GetAllCategory()
+    {
+        var categories = Json(await _menuService.GetAllMenuCategoriesAsync());
+        return categories;
+    }
+
+    [HttpGet]
+    public IActionResult AddItem()
+    {
+        return PartialView("_AddItem", new MenuItemViewModel());
     }
 }

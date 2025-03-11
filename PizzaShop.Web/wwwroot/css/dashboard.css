@@ -108,7 +108,6 @@
   .pizza-logo {
     height: 35px !important;
     width: 45px !important;
-    margin-top: 8px;
   }
   .brand-name {
     font-size: medium;
@@ -169,6 +168,8 @@
   box-shadow: 0 0 0 5px rgb(255, 255, 255);
   outline: 1px solid rgba(0, 0, 0, 0.4);
   outline-offset: 5px;
+  margin-top: 10px;
+  margin-right: 15px;
 }
 .dashboard-container {
   display: flex;
@@ -187,7 +188,7 @@
 .dashboard-card {
   flex: 1;
   min-width: 170px;
-  min-height: 200px;
+  min-height: 150px;
   background: white;
   padding: 10px;
   border-radius: 10px;

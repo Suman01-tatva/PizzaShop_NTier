@@ -37,10 +37,10 @@
                         <input type="hidden" asp-for="@Model[i].PermissionName" />
                         <input type="hidden" asp-for="@Model[i].RoleName" />
 
-                        <input type="checkbox" class="form-check-input permission-checkbox switch-btn mt-0"
+                        <input type="checkbox" class="form-check-input permission-checkbox switch-btn mt-1"
                                name="selectedPermissions" value="@Model[i].Id" data-index="@i"
                                @(Model[i].CanView || Model[i].CanEdit || Model[i].CanDelete ? "checked" : "") />
-                        @Model[i].PermissionName
+                        <span class="p-4">@Model[i].PermissionName</span>
                     </td>
                     <td class="canView">
                         <div class="form-check form-switch mb-0">
