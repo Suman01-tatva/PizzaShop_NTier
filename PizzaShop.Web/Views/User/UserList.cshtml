@@ -12,7 +12,7 @@
 <div class="col-md-12">
     <div class="d-flex align-items-center justify-content-between">
         <h2 class="page-title">Users</h2>
-        <div class="d-flex gap-3">
+        @* <div class="d-flex gap-3">
             <div class="search-bar">
                 <form method="get">
                     <div class="form-input-div d-flex justify-content-between me-3 position-relative">
@@ -29,6 +29,19 @@
                 <button class="border-0 p-2 fill-btn rounded shadow">
                     <i class="fa-solid fa-plus" style="color: white;"></i>
                     Add User
+                </button>
+            </a>
+        </div> *@
+        <div class="d-flex" style="gap: 10px; margin-right: 12px;">
+            <form method="get" class="search-container">
+                <i class="icon fa fa-search"></i>
+                <input id="searchString" type="text" name="searchString" value="@searchString" placeholder="Search..."
+                    class="form-control mb-3" style="height: 50px; width: 250px; border: none; border-radius: 5%;">
+            </form>
+            <a asp-action="CreateUser" asp-controller="User" style="text-decoration: none;">
+                <button class="border-0 p-2 fill-btn rounded shadow add-user-btn">
+                    <span class="span1">Add User</span>
+                    <span class="span2">+</span>
                 </button>
             </a>
         </div>
@@ -63,7 +76,8 @@
                     <tr id="@user.Id">
                         <td>
                             <div class="d-flex gap-3 align-items-center">
-                                <img src="~/images/@(user.ProfileImage !=null ? user.ProfileImage : "Default_pfp.svg.png")" alt="user profile img" class="user-profile-img rounded-circle" />
+                                <img src="~/images/@(user.ProfileImage !=null ? user.ProfileImage : "Default_pfp.svg.png")"
+                                    alt="user profile img" class="user-profile-img rounded-circle" />
                                 @user.FirstName @user.LastName
                             </div>
                         </td>
@@ -105,11 +119,13 @@
                                 {
                                     <i class="fa-solid fa-pen-clip icon-disable"></i>
                                 }
-                                <a class="bi bi-trash m-1" href="javascript:void(0)" onclick="confirmDelete(@user.Id)">
+                                <a class="bi bi-trash m-1" href="javascript:void(0)"
+                                    onclick="confirmDelete(@user.Id,@user.RoleId)">
                                     <i class="fa-solid fa-trash"></i>
                                 </a>
-                                <form id="deleteForm-@user.Id" method="post"
-                                    action="@Url.Action("DeleteUser", "User", new { id = user.Id })" style="display:none;">
+                                <form id="deleteForm-@user.Id-@user.RoleId" method="post"
+                                    action="@Url.Action("DeleteUser", "User", new { id = user.Id, roleId = user.RoleId })"
+                                    style="display:none;">
                                 </form>
                             </div>
                         </td>
@@ -199,10 +215,10 @@
 
 @section Scripts {
         <script>
-            function confirmDelete(userId) {
+            function confirmDelete(userId, roleId) {
                 const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
                 document.getElementById("confirmDeleteButton").onclick = function () {
-                    document.getElementById(`deleteForm-${userId}`).submit();
+                    document.getElementById(`deleteForm-${userId}-${roleId}`).submit();
                 };
                 modal.show();
             }

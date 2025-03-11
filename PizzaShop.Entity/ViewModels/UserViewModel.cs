@@ -23,7 +23,7 @@ namespace PizzaShop.Entity.ViewModels
         public string? Username { get; set; }
 
         [Required(ErrorMessage = "Email is required.")]
-        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Email can only contain letters, numbers, dots, underscores, and special characters like %, +, and -.")]
+        [RegularExpression(@"^[a-z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Email can only contain small letters, numbers, dots, underscores, and special characters like %, +, and -.")]
         [EmailAddress(ErrorMessage = "Invalid email format.")]
         public string? Email { get; set; }
 
