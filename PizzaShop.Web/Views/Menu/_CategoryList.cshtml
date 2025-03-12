@@ -23,6 +23,7 @@
         </div>
     }
 </div>
+<partial name="_AddCategory" model="new PizzaShop.Entity.ViewModels.MenuCategoryViewModel()"></partial>
 <script>
     var categoryId = @Model.First().Id;   
 </script>
@@ -35,7 +36,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center p-1">
-                    <form asp-action="AddNewCategory" asp-controller="Menu" class="p-3" id="addNewCategoryForm">
+                    <form asp-action="AddCategory" asp-controller="Menu" class="p-3" id="addNewCategoryForm">
                         <div class="form-floating mb-3 p-0">
                             <input type="text" class="form-control" id="categoryName" name="Name"
                                 placeholder="Category" />
@@ -59,7 +60,7 @@
         </div>
     </div>
 </div> *@
-<div class="container mt-5">
+@* <div class="container mt-5">
     <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
@@ -87,4 +88,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@

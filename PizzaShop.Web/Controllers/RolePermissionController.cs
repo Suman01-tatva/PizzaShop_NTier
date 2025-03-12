@@ -64,7 +64,7 @@ public class RolePermissionController : Controller
         if (ModelState.IsValid)
         {
             var token = Request.Cookies["Token"];
-            var email = await _tokenDataService.GetEmailFromToken(token);
+            var (email, id) = await _tokenDataService.GetEmailFromToken(token);
             var AuthToken = Request.Cookies["Token"];
             if (String.IsNullOrEmpty(AuthToken))
             {

@@ -38,7 +38,7 @@
                     </td>
                     <td class="d-flex align-items-center">
                         <span class="me-2">
-                            <img src="~/images/dining-menu.png" alt="dining-menu" class="dining-menu-icon" /></span><span>
+                            <img src="/images/@(Model.itemList[i].Image != null ? Model.itemList[i].Image : "dining-menu.png")" alt="dining-menu" class="dining-menu-icon" /></span><span>
                             @Model.itemList[i].Name
                         </span>
                     </td>
@@ -63,8 +63,8 @@
                         </div>
                     </td>
                     <td>
-                        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                            <i class="fa-solid fa-pen me-3"></i>
+                        <button type="button" class="btn editItemBtn" data-itemid="@Model.itemList[i].Id">
+                            <i class="fa-solid fa-pen me-3 " ></i>
                         </button>
                         <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#deleteModal">
                             <i class="fa-regular fa-trash-can"></i>
@@ -111,3 +111,5 @@
         </button>
     }
 </div>
+<partial name="_AddItem" model="new PizzaShop.Entity.ViewModels.MenuItemViewModel()"></partial>
+<partial name="_EditItem" model="new PizzaShop.Entity.ViewModels.MenuItemViewModel()"></partial>

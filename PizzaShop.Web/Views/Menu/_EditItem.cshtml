@@ -1,6 +1,6 @@
 @model PizzaShop.Entity.ViewModels.MenuItemViewModel;
 
-<div class="modal fade align-content-center" id="addItemModal" data-bs-backdrop="static" data-bs-keyboard="false"
+<div class="modal fade align-content-center" id="editItemModal" data-bs-backdrop="static" data-bs-keyboard="false"
     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content rounded-1">
@@ -11,14 +11,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-secondary">
-                <form asp-action="AddItem" asp-controller="Menu" method="post" id="addItemForm">
+                <form asp-action="EditMenuItem" asp-controller="Menu" method="post" id="addItemForm">
                     <input asp-for="Id" type="hidden">
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-floating">
-                                        <select asp-for="CategoryId" class="form-select" id="addIetmCategories"
+                                        <select asp-for="@Model.CategoryId" class="form-select" id="addIetmCategories"
                                             aria-label="Floating label select example" required>
                                             <option selected disabled hidden>Select Category
                                             </option>
@@ -199,53 +199,21 @@
             });
         });
 
-        @* $(document).on('click', '#submitAddItem', function (e) {
-            e.preventDefault();
-            console.log("submit add item");
-
-            var form = $('#addItemForm');
-            $("#addItemForm").submit(); *@
-            @* $.ajax({
-                url: form.attr('action'),
-                type: form.attr('method'),
-                data: form.serialize(),
+        $("#ModifierGroups").change(function () {
+            var id = $(this).val();
+            console.log("modifierGroup selected: " + id);
+            $.ajax({
+                url: '@Url.Action("GetModifiersByModifierGroup", "MenuModifier")',
+                type: 'GET',
+                data: { modifierGroupId: id },
                 success: function (response) {
-                    if (response.success) {
-                        console.log("success add item");
-                        $('#addItemModal').modal('hide');
-                        loadItems(response.categoryId);
-                        toastr.success("Item added succesfully");
-                        @* @Location.reload(); 
-                    } else {
-                        console.log("error");
-                        $('#add-item-partial-view').html(response);
-                        $('#addItemModal').removeClass('fade');
-                        $('.modal-backdrop').remove();
-                        $('#addItemModal').modal('show');
-                    }
+                    console.log(response);
+                    $(".listModifiers").append(response);
                 },
                 error: function (error) {
-                    // Handle error
                     console.log(error);
                 }
-            }); *@
-            @* }); *@
-
-            $("#ModifierGroups").change(function () {
-                var id = $(this).val();
-                console.log("modifierGroup selected: " + id);
-                $.ajax({
-                    url: '@Url.Action("GetModifiersByModifierGroup", "MenuModifier")',
-                    type: 'GET',
-                    data: { modifierGroupId: id },
-                    success: function (response) {
-                        console.log(response);
-                        $(".listModifiers").append(response);
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
             });
+        });
     })
 </script>

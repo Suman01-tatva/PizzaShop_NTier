@@ -53,50 +53,26 @@
 <div id="AddItemPartial">
 
 </div>
+<div id="EditItemPartial">
+
+</div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    $("#submitNewCategory").click(function () {
-
-        var formData = new FormData();
-        formData.append("Name", categoryName);
-        formData.append("Description", categoryDescription);
-        $.ajax({
-            type: "POST",
-            url: '/Menu/AddNewCategory',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                if (response.success) {
-                    $('#addCategoryModal').modal('hide');
-                    $('#categoryList').html(response);
-                } else {
-                    toastr.error(response.message);
-                }
-            },
-            error: function () {
-                toastr.error("An error occurred while adding the category. Please try again.");
-            }
-        });
-    });
-
     $(".itemCategory").click(function () {
         categoryId = $(this).data("id");
         console.log("id" + categoryId);
         $.ajax({
             url: '/Menu/GetItemsByCategory',
             type: 'GET',
-            data: { id: categoryId, pageSize: @PageSize, pageIndex: @PageIndex, SearchString: @SearchString }
+            data: { id: categoryId, pageSize: @PageSize, pageIndex: @PageIndex, SearchString: "" },
             success: function (response) {
                 console.log(response);
                 $("#itemList").html(response);
             }
         })
-    })                                                                                                                                                      
-</script>
+    })
 
-<script>
     var pageIndex = @Model.PageIndex;
 
     function GetFilteredItems() {
@@ -108,7 +84,7 @@
             url: "/Menu/GetItemsByCategory",
             type: "GET",
             data: {
-                id: categoryId,
+                categoryId: categoryId,
                 pageIndex: pageIndex,
                 pageSize: pageSize,
                 searchString: SearchString
@@ -144,14 +120,36 @@
         pageIndex += 1;
         GetFilteredItems()
     })
-</script>
 
+    @* AddItem popup *@
+        $(".addItemBtn").click(function () {
+            $.get('@Url.Action("AddItem", "Menu")', function (data) {
+                $("#AddItemPartial").html(data);
+                $("#addItemModal").modal('show');
+            })
+        })
 
-<script>
-    $(".addItemBtn").click(function () {
-        $.get('@Url.Action("AddItem", "Menu")', function (data) {
+    $("#submitNewCategory").click(function () {
+        console.log("AddCategory");
+        $("#addNewCategoryForm").submit();
+    });
+
+    @* $(".editItemBtn").click(function () {
+        console.log("editItemBtn")
+        id = $(this).data('itemid');
+        $.get('@Url.Action("EditItem", "Menu")', new { itemId = id }, function (data) {
             $("#AddItemPartial").html(data);
             $("#addItemModal").modal('show');
         })
-    })
+    }) *@
+        $(document).on('click', ".editItemBtn", function () {
+            console.log("edit-item");
+            var itemId = $(this).data("itemid");
+            console.log("itemId = ", itemId);
+            $.get('@Url.Action("EditMenuItem", "Menu")', { itemId: itemId }, function (data) {
+                console.log("edititems", data);
+                $('#EditItemPartial').html(data);
+                $('#editItemModal').modal('show');
+            });
+        });
 </script>

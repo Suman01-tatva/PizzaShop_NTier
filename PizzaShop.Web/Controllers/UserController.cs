@@ -36,7 +36,7 @@ public class UserController : Controller
         if (ModelState.IsValid)
         {
             var token = Request.Cookies["Token"];
-            var email = await _tokenDataService.GetEmailFromToken(token);
+            var (email, id) = await _tokenDataService.GetEmailFromToken(token);
             string isPasswordChanged = await _userService.ChangePasswordAsync(model, email);
 
             if (isPasswordChanged == "success")
@@ -60,7 +60,7 @@ public class UserController : Controller
     public async Task<IActionResult> Profile()
     {
         var token = Request.Cookies["Token"];
-        var email = await _tokenDataService.GetEmailFromToken(token);
+        var (email, id) = await _tokenDataService.GetEmailFromToken(token);
 
         if (string.IsNullOrEmpty(email))
         {
@@ -92,7 +92,7 @@ public class UserController : Controller
         if (ModelState.IsValid)
         {
             var token = Request.Cookies["Token"];
-            var email = await _tokenDataService.GetEmailFromToken(token);
+            var (email, id) = await _tokenDataService.GetEmailFromToken(token);
             string ProfileImagePath = null;
             if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
             {
@@ -170,7 +170,7 @@ public class UserController : Controller
                 return View(model);
             }
             var token = Request.Cookies["Token"];
-            var currentUserEmail = await _tokenDataService.GetEmailFromToken(token);
+            var (currentUserEmail, id) = await _tokenDataService.GetEmailFromToken(token);
 
             string ProfileImagePath = null;
             if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
@@ -286,7 +286,7 @@ public class UserController : Controller
     public async Task<JsonResult> GetProfileDetail()
     {
         var token = Request.Cookies["Token"];
-        var currentUserEmail = await _tokenDataService.GetEmailFromToken(token!);
+        var (currentUserEmail, id) = await _tokenDataService.GetEmailFromToken(token!);
         var user = await _userService.GetUserByEmailAsync(currentUserEmail);
         if (user != null)
         {

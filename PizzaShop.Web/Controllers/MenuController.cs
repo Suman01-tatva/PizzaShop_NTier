@@ -11,10 +11,12 @@ public class MenuController : Controller
 {
     private readonly IMenuService _menuService;
     private readonly IMenuModifierService _menuModifierService;
-    public MenuController(IMenuService menuService, IMenuModifierService menuModifierService)
+    private readonly ITokenDataService _tokenDataService;
+    public MenuController(IMenuService menuService, IMenuModifierService menuModifierService, ITokenDataService tokenDataService)
     {
         _menuService = menuService;
         _menuModifierService = menuModifierService;
+        _tokenDataService = tokenDataService;
     }
 
     [HttpGet]
@@ -54,19 +56,17 @@ public class MenuController : Controller
             if (category)
             {
                 TempData["SuccessMessage"] = "Category created successfully.";
-                return RedirectToAction(nameof(Menu));
+                return RedirectToAction("Menu", "Menu");
             }
             else
             {
                 TempData["ErrorMessage"] = "A category with this name already exists.";
+                return RedirectToAction("Menu", "Menu");
             }
         }
 
         var categories = await _menuService.GetAllMenuCategoriesAsync();
-        // var updatedodel = new MenuViewModel
-        // {
-        //     ItemTab = 
-        // };
+
         return RedirectToAction("Menu", "Menu");
     }
     [HttpGet]
@@ -108,6 +108,7 @@ public class MenuController : Controller
     {
         List<MenuItemViewModel> items = await _menuService.GetItemsByCategory(categoryId, pageSize == 0 ? 5 : pageSize, pageIndex == 0 ? 1 : pageIndex, searchString);
         var totalPage = _menuService.GetItemsCountByCId(categoryId);
+        Console.WriteLine("Totalpage:", totalPage);
         var model = new ItemTabViewModel
         {
             itemList = items,
@@ -152,4 +153,88 @@ public class MenuController : Controller
     {
         return PartialView("_AddItem", new MenuItemViewModel());
     }
+
+    [HttpPost]
+    public async Task<IActionResult> AddItem(MenuItemViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var token = Request.Cookies["Token"];
+            var (email, id) = await _tokenDataService.GetEmailFromToken(token!);
+
+            // bool isItemExist = _menuService.IsItemExist(model.Name, model.CategoryId);
+            // if (isItemExist)
+            // {
+            //     TempData["ToastrMessage"] = "Item Already Exist";
+            //     TempData["ToastrType"] = "error";
+            //     return RedirectToAction("Menu", "Menu");
+            // }
+
+            // ItemTabViewModel MenuItemTab = _menuService.GetCategoryItem(5, 1, "");
+
+            try
+            {
+                var response = _menuService.AddNewItem(model, int.Parse(id));
+            }
+            catch (Exception e)
+            {
+                TempData["ToastrMessage"] = "Error While Add New Item!";
+                TempData["ToastrType"] = "error";
+                return RedirectToAction("Menu", "Menu");
+            }
+            TempData["ToastrMessage"] = "Item Added Successfully";
+            TempData["ToastrType"] = "success";
+            return RedirectToAction("Menu", "Menu");
+        }
+        else
+        {
+            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+            {
+                Console.WriteLine(error.ErrorMessage);
+            }
+            TempData["ToastrMessage"] = "Item Not Added";
+            TempData["ToastrType"] = "error";
+            // ItemTabViewModel MenuItemTab = _menuService.GetCategoryItem(5, 1, "");
+            return RedirectToAction("Menu", "Menu");
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> EditMenuItem(int itemId)
+    {
+        var token = Request.Cookies["Token"];
+        if (token == null | token == "")
+            return RedirectToAction("Login", "Auth");
+
+        var menuItem = _menuService.GetMenuItemById(itemId);
+        return PartialView("_EditItem", menuItem);
+    }
+
+    // public IActionResult? EditMenuItem(int itemId, int categoryId, int pageSize, int pageIndex, string? searchString)
+    // {
+    //     var AuthToken = Request.Cookies["AuthToken"];
+    //     if (string.IsNullOrEmpty(AuthToken))
+    //         return null;
+
+    //     var (userEmail, role) = _jwtService.ValidateToken(AuthToken);
+    //     if (userEmail == null)
+    //         return null;
+
+    //     var menuItem = _menuService.GetMenuItemById(itemId);
+    //     List<ItemsViewModel> Items = _menuService.GetItemsByCategoryId(categoryId, pageSize, pageIndex, searchString);
+    //     var tp = _menuItemRepository.GetItemsCountByCId(categoryId);
+
+    //     var ItemTab = new ItemTabViewModel
+    //     {
+    //         AddEditItem = menuItem,
+    //         ListCategories = menuItem.Categories,
+    //         ListItems = Items,
+    //         PageSize = pageSize,
+    //         PageIndex = pageIndex,
+    //         SearchString = searchString,
+    //         TotalPage = (int)Math.Ceiling(tp / (double)pageSize)
+    //     };
+
+    //     return PartialView("_Items", ItemTab);
+    // }
 }

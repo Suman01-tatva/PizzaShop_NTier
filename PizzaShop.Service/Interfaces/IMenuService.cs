@@ -23,4 +23,11 @@ public interface IMenuService
     public bool FindCategoryByName(string name);
 
     public List<Unit> GetAllUnits();
+
+    public bool AddNewItem(MenuItemViewModel item, int userId);
+
+    public bool IsItemExist(string name, int catId);
+
+    public MenuItemViewModel GetMenuItemById(int itemId);
+
 }

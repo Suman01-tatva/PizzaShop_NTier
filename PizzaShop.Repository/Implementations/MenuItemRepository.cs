@@ -51,4 +51,25 @@ public class MenuItemRepository : IMenuItemsRepository
             return false;
         }
     }
+
+    public bool IsItemExist(string name, int catId)
+    {
+        var item = _context.MenuItems.Where(i => i.Name == name && i.CategoryId == catId && i.IsDeleted == false);
+        if (item != null)
+            return true;
+        return false;
+    }
+
+    public MenuItem GetMenuItemById(int id)
+    {
+        var item = _context.MenuItems.FirstOrDefault(i => i.Id == id);
+        return item!;
+    }
+
+    public void EditMenuItem(MenuItemViewModel model)
+    {
+        var menuItem = _context.MenuItems.FirstOrDefault(i => i.Id == model.Id);
+
+        _context.SaveChanges();
+    }
 }

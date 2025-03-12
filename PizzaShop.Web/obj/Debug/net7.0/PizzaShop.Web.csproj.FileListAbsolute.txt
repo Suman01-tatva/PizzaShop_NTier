@@ -560,3 +560,4 @@ E:\TatvaProjects\N tire\PizzaShop_NTier\PizzaShop.Web\bin\Debug\net7.0\runtimes\
 D:\Projects\NTier Projects\PizzaShop\PizzaShop.Web\bin\Debug\net7.0\Microsoft.Extensions.ObjectPool.dll
 D:\Projects\NTier Projects\PizzaShop\PizzaShop.Web\bin\Debug\net7.0\System.Text.Encodings.Web.dll
 D:\Projects\NTier Projects\PizzaShop\PizzaShop.Web\bin\Debug\net7.0\runtimes\browser\lib\net7.0\System.Text.Encodings.Web.dll
+d:\Projects\NTier Projects\PizzaShop\PizzaShop.Web\obj\Debug\net7.0\PizzaShop.Web.MvcApplicationPartsAssemblyInfo.cs

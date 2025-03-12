@@ -62,7 +62,13 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
+app.UseStatusCodePages(async context =>
+   {
+       if (context.HttpContext.Response.StatusCode == 404)
+       {
+           context.HttpContext.Response.Redirect("/Home/NotFound");
+       }
+   });
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

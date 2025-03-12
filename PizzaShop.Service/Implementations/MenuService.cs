@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using PizzaShop.Entity.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PizzaShop.Service.Implementations
 {
@@ -76,8 +77,8 @@ namespace PizzaShop.Service.Implementations
                 {
                     Name = model.Name,
                     Description = model.Description,
-                    CreatedBy = 1,
-                    CreatedAt = DateTime.Now
+                    // CreatedBy = 1,
+                    // CreatedAt = DateTime.Now
                 };
 
                 return _menuCategoryRepository.AddNewCategory(newCategory);
@@ -155,11 +156,87 @@ namespace PizzaShop.Service.Implementations
         {
             return _menuItemRepository.GetItemsCountByCId(cId);
         }
-
         public List<Unit> GetAllUnits()
         {
             return _unitRepository.GetAllUnits();
         }
 
+        public bool AddNewItem(MenuItemViewModel model, int userId)
+        {
+            string ProfileImagePath = null;
+            if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
+            {
+                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                var filename = Guid.NewGuid().ToString() + Path.GetExtension(model.ProfileImagePath.FileName);
+                var filePath = Path.Combine(folderPath, filename);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileImagePath.CopyTo(stream);
+                }
+                ProfileImagePath = "/ProfileImages/" + filename;
+            }
+            if (ProfileImagePath != null)
+                model.Image = ProfileImagePath;
+
+            // MenuItemModel
+            var menuItem = new MenuItem
+            {
+                Name = model.Name,
+                CategoryId = model.CategoryId,
+                Type = model.Type,
+                Rate = model.Rate,
+                Quantity = model.Quantity,
+                IsAvailable = model.IsAvailable,
+                IsDeleted = false,
+                UnitId = model.UnitId,
+                IsDefaultTax = model.IsDefaultTax,
+                TaxPercentage = model.TaxPercentage,
+                ShortCode = model.ShortCode,
+                Description = model.Description,
+                Image = model.Image,
+                // Createddate = DateTime.Now,
+                CreatedBy = userId
+            };
+
+            bool item = _menuItemRepository.AddNewItem(menuItem);
+            if (!item) return false;
+            return true;
+        }
+
+        public bool IsItemExist(string name, int catId)
+        {
+            return _menuItemRepository.IsItemExist(name, catId);
+        }
+
+        [HttpGet]
+        public MenuItemViewModel GetMenuItemById(int itemId)
+        {
+            MenuItem item = _menuItemRepository.GetMenuItemById(itemId);
+            var menuItem = new MenuItemViewModel
+            {
+                Id = item.Id,
+                CategoryId = (int)item.CategoryId,
+                Name = item.Name,
+                Type = item.Type,
+                Rate = item.Rate,
+                Quantity = item.Quantity,
+                IsAvailable = (bool)(item.IsAvailable == null ? false : item.IsAvailable),
+                IsDefaultTax = (bool)(item.IsDefaultTax == null ? false : item.IsDefaultTax),
+                UnitId = (int)(item.UnitId == null ? 0 : item.UnitId),
+                TaxPercentage = item.TaxPercentage,
+                ShortCode = item.ShortCode,
+                // ModifierGroupIds = item.ModifierGroupId,
+                Description = item.Description,
+                // ModifierGroups = modifierGroups,
+                // Units = units,
+                Image = item.Image,
+                // Categories = categoryList
+            };
+            return menuItem;
+        }
     }
 }
