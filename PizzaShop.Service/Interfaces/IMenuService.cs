@@ -30,4 +30,8 @@ public interface IMenuService
 
     public MenuItemViewModel GetMenuItemById(int itemId);
 
+    public void DeleteMenuItem(int id);
+
+    public bool MultiDeleteMenuItem(int[] itemIds);
+
 }

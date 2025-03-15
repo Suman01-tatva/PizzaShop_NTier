@@ -33,7 +33,7 @@
                                 id="eye-icon" style="color: gray"></i>
                         </span>
                     </div>
-                    <button class="btn btn-outline-secondary me-3">
+                    <button class="btn btn-outline-secondary me-3" id="multiDeleteBtn">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                     <button class="btn btn-primary me-3 addItemBtn">
@@ -90,14 +90,14 @@
                 searchString: SearchString
             },
             success: function (data) {
-                console.log("items gfhfghgf", data);
                 $("#itemList").html(data);
             }
         })
     }
 
-    $('#pageSize').change(function () {
+    $('#pageSizedropdown').change(function () {
         var pageSize = @Model.PageSize
+            console.log("pagesize " + pageSize);
         var pageIndex = 1
         GetFilteredItems();
     })

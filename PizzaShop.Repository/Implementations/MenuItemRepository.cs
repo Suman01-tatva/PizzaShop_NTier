@@ -16,7 +16,7 @@ public class MenuItemRepository : IMenuItemsRepository
 
     public async Task<List<MenuItem>> GetItemsByCategory(int categoryId, int pageSize, int pageIndex, string? searchString)
     {
-        var itmes = _context.MenuItems.Where(c => c.CategoryId == categoryId);
+        var itmes = _context.MenuItems.Where(c => c.CategoryId == categoryId && c.IsDeleted == false);
 
         if (!string.IsNullOrEmpty(searchString))
         {
@@ -70,6 +70,13 @@ public class MenuItemRepository : IMenuItemsRepository
     {
         var menuItem = _context.MenuItems.FirstOrDefault(i => i.Id == model.Id);
 
+        _context.SaveChanges();
+    }
+
+    public void DeleteMenuItem(int id)
+    {
+        var menuItem = _context.MenuItems.FirstOrDefault(i => i.Id == id);
+        menuItem!.IsDeleted = true;
         _context.SaveChanges();
     }
 }

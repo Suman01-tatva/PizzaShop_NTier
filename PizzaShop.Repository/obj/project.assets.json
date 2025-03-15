@@ -10920,19 +10920,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\pci93\\.nuget\\packages\\": {}
+    "C:\\Users\\SUMAN PANKHANIYA\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
+      "projectUniqueName": "e:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
       "projectName": "PizzaShop.Repository",
-      "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
-      "packagesPath": "C:\\Users\\pci93\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\obj\\",
+      "projectPath": "e:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
+      "packagesPath": "C:\\Users\\SUMAN PANKHANIYA\\.nuget\\packages\\",
+      "outputPath": "e:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Repository\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\pci93\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\SUMAN PANKHANIYA\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
@@ -10944,8 +10944,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Entity\\PizzaShop.Entity.csproj": {
-              "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Entity\\PizzaShop.Entity.csproj"
+            "e:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Entity\\PizzaShop.Entity.csproj": {
+              "projectPath": "e:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Entity\\PizzaShop.Entity.csproj"
             }
           }
         }

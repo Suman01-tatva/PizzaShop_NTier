@@ -238,5 +238,28 @@ namespace PizzaShop.Service.Implementations
             };
             return menuItem;
         }
+
+        public void DeleteMenuItem(int id)
+        {
+            _menuItemRepository.DeleteMenuItem(id);
+        }
+
+
+        public bool MultiDeleteMenuItem(int[] itemIds)
+        {
+            try
+            {
+                foreach (var item in itemIds)
+                {
+                    _menuItemRepository.DeleteMenuItem(item);
+                }
+                return true;
+            }
+            catch (System.Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+        }
     }
 }

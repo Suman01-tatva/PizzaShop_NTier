@@ -107,15 +107,15 @@ public class MenuController : Controller
     public async Task<IActionResult> GetItemsByCategory(int categoryId, int pageSize, int pageIndex, string searchString = "")
     {
         List<MenuItemViewModel> items = await _menuService.GetItemsByCategory(categoryId, pageSize == 0 ? 5 : pageSize, pageIndex == 0 ? 1 : pageIndex, searchString);
-        var totalPage = _menuService.GetItemsCountByCId(categoryId);
-        Console.WriteLine("Totalpage:", totalPage);
+        var totalItemCount = _menuService.GetItemsCountByCId(categoryId);
+        Console.WriteLine("Totalpage:", totalItemCount);
         var model = new ItemTabViewModel
         {
             itemList = items,
             PageSize = pageSize,
             PageIndex = pageIndex,
             SearchString = searchString,
-            TotalPage = (int)Math.Ceiling(totalPage / (double)pageSize)
+            TotalPage = (int)Math.Ceiling(totalItemCount / (double)pageSize)
         };
         return PartialView("_ItemListPartial", model);
     }
@@ -237,4 +237,44 @@ public class MenuController : Controller
 
     //     return PartialView("_Items", ItemTab);
     // }
+
+    [HttpPost]
+    public async Task<IActionResult>? DeleteMenuItem(int id)
+    {
+        var token = Request.Cookies["Token"];
+        if (token == null)
+            return RedirectToAction("Login", "Auth");
+        var (email, userId) = await _tokenDataService.GetEmailFromToken(token!);
+        if (email == null)
+            return null!;
+        try
+        {
+            _menuService.DeleteMenuItem(id);
+            return Json(new { isSuccess = true, message = "Item Deleted Successfully" });
+        }
+        catch (System.Exception)
+        {
+            return Json(new { isSuccess = false, message = "Error While Delete Item" });
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult>? MultiDeleteMenuItem(int[] itemIds)
+    {
+        var token = Request.Cookies["Token"];
+        if (token == null)
+            return RedirectToAction("Login", "Auth");
+        var (email, userId) = await _tokenDataService.GetEmailFromToken(token!);
+        if (email == null)
+            return null!;
+        try
+        {
+            _menuService.MultiDeleteMenuItem(itemIds);
+            return Json(new { isSuccess = true, message = "Items Deleted Successfully" });
+        }
+        catch (System.Exception)
+        {
+            return Json(new { isSuccess = false, message = "Error While Delete Item" });
+        }
+    }
 }

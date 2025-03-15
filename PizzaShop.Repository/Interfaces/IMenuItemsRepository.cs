@@ -17,4 +17,5 @@ public interface IMenuItemsRepository
 
     public void EditMenuItem(MenuItemViewModel model);
 
+    public void DeleteMenuItem(int id);
 }
