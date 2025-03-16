@@ -1,10 +1,5 @@
 @model PizzaShop.Entity.ViewModels.ItemTabViewModel
-@{
-    var PageSize = Model.PageSize;
-    var PageIndex = Model.PageIndex;
-    var TotalPage = Model.TotalPage;
-    var SearchString = Model.SearchString;
-}
+
 <section>
     <div class="row mx-0">
         <aside class="col-md-3" style="background-color: #f5f5f5">
@@ -21,7 +16,7 @@
                 <partial name="_CategoryList" model="Model.categoryList" />
             </div>
         </aside>
-        <div class="col-md-9 border-start border-primary bg-light">
+        <div class="col-md-9 border-start border-primary bg-white">
             <div>
                 <!-- Item header -->
                 <h5 class="p-2 mb-0 text-primary">Items</h5>
@@ -59,68 +54,6 @@
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    $(".itemCategory").click(function () {
-        categoryId = $(this).data("id");
-        console.log("id" + categoryId);
-        $.ajax({
-            url: '/Menu/GetItemsByCategory',
-            type: 'GET',
-            data: { id: categoryId, pageSize: @PageSize, pageIndex: @PageIndex, SearchString: "" },
-            success: function (response) {
-                console.log(response);
-                $("#itemList").html(response);
-            }
-        })
-    })
-
-    var pageIndex = @Model.PageIndex;
-
-    function GetFilteredItems() {
-        console.log("getfilteritem", categoryId)
-        var SearchString = $("#searchString").val();
-        var pageSize = $("#pageSize").val();
-        console.log($("#searchString").val())
-        $.ajax({
-            url: "/Menu/GetItemsByCategory",
-            type: "GET",
-            data: {
-                categoryId: categoryId,
-                pageIndex: pageIndex,
-                pageSize: pageSize,
-                searchString: SearchString
-            },
-            success: function (data) {
-                $("#itemList").html(data);
-            }
-        })
-    }
-
-    $('#pageSizedropdown').change(function () {
-        var pageSize = @Model.PageSize
-            console.log("pagesize " + pageSize);
-        var pageIndex = 1
-        GetFilteredItems();
-    })
-
-    $('#searchString').keyup(function () {
-        pageIndex = 1
-        pageSize = @Model.PageSize
-            GetFilteredItems();
-    })
-
-    $("#Previous").click(function () {
-        console.log("prev")
-        pageIndex -= 1;
-        GetFilteredItems()
-    })
-
-    $('#Next').click(function () {
-        $("#PreviousBtn").attr('disabled', false)
-        console.log("next")
-        pageIndex += 1;
-        GetFilteredItems()
-    })
-
     @* AddItem popup *@
         $(".addItemBtn").click(function () {
             $.get('@Url.Action("AddItem", "Menu")', function (data) {
@@ -134,22 +67,29 @@
         $("#addNewCategoryForm").submit();
     });
 
-    @* $(".editItemBtn").click(function () {
-        console.log("editItemBtn")
-        id = $(this).data('itemid');
-        $.get('@Url.Action("EditItem", "Menu")', new { itemId = id }, function (data) {
-            $("#AddItemPartial").html(data);
-            $("#addItemModal").modal('show');
-        })
-    }) *@
-        $(document).on('click', ".editItemBtn", function () {
-            console.log("edit-item");
-            var itemId = $(this).data("itemid");
-            console.log("itemId = ", itemId);
-            $.get('@Url.Action("EditMenuItem", "Menu")', { itemId: itemId }, function (data) {
-                console.log("edititems", data);
-                $('#EditItemPartial').html(data);
+    $(document).on('click', ".editItemBtn", function () {
+        console.log("edit-item");
+        var itemId = $(this).data("itemid");
+        console.log("itemId = ", itemId);
+        $.get('@Url.Action("EditMenuItem", "Menu")', { itemId: itemId }, function (d) {
+            console.log("edititems", d.data);
+            @* $('#EditItemPartial').html(data); *@
+                var data = d.data;
+            setTimeout(function () {
+                $('#editItemModal #editItemCategories').val(data.categoryId);
+                $('#editItemModal #name').val(data.name);
+                $('#editItemModal #itemType').val(data.type);
+                $('#editItemModal #rate').val(data.rate);
+                $('#editItemModal #quantity').val(data.quantity);
+                $('#editItemModal #editItemUnits').val(data.unitId);
+                $('#editItemModal #taxPercentage').val(data.taxPercentage);
+                $('#editItemModal #shortCode').val(data.shortCode);
+                $('#editItemModal #description').val(data.description);
+                // Checkboxes
+                $('#editItemModal #available').prop('checked', data.isAvailable);
+                $('#editItemModal #defaultTax').prop('checked', data.isDefaultTax);
                 $('#editItemModal').modal('show');
-            });
+            }, 500);
         });
+    });
 </script>

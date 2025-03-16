@@ -33,7 +33,7 @@ public class MenuItemRepository : IMenuItemsRepository
 
     public int GetItemsCountByCId(int cId)
     {
-        int count = _context.MenuItems.Where(i => i.CategoryId == cId).Count();
+        int count = _context.MenuItems.Where(i => i.CategoryId == cId && i.IsDeleted == false).Count();
         return count;
     }
 

@@ -8,16 +8,147 @@
             </div>
         </td>
         <td class="">@modifier.Name</td>
-        <td>@modifier.Unit</td>
+        <td>@modifier.UnitName</td>
         <td>@modifier.Rate</td>
         <td>@modifier.Quantity</td>
         <td>
-            <button type="button" class="btn p-0 me-4" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            <button type="button" class="btn p-0 me-4 editModifierBtn" data-id="@modifier.Id" data-bs-toggle="modal" data-bs-target="#deleteModal">
                 <i class="fa-solid fa-pen"></i>
             </button>
-            <button type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            <button type="button" class="btn p-0" data-bs-toggle="modal" data-id="@modifier.Id" data-bs-target="#deleteModifiersModal">
                 <i class="fa-regular fa-trash-can"></i>
             </button>
         </td>
     </tr>
 }
+<div id="AddModifierPartial">
+</div>
+<div id="EditModifierPartial">
+</div>
+<partial name="_AddModifier" model="new PizzaShop.Entity.ViewModels.MenuModifierViewModel()"></partial>
+<partial name="_EditModifier" model="new PizzaShop.Entity.ViewModels.MenuModifierViewModel()"></partial>
+
+<!-- delete Modifier Modal -->
+<div class="modal fade" id="deleteModifiersModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="text-center">
+                <i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: #FFD43B;"></i>
+            </div>
+            <div class="modal-body text-center p-1">
+                <p class="fw-bold mb-0">Are you sure you want to delete this modifier?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center border-0">
+                <button type="button" class="btn btn-primary" id="confirmDeleteCategoryBtn">Yes</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- delete Modifier Modal -->
+<div class="modal fade" id="multiDeleteModifiersModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="text-center">
+                <i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: #FFD43B;"></i>
+            </div>
+            <div class="modal-body text-center p-1">
+                <p class="fw-bold mb-0">Are you sure you want to delete this modifiers?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center border-0">
+                <button type="button" class="btn btn-primary" id="confirmDeleteCategoryBtn">Yes</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    @* Delete Item Script *@
+    var deleteItemId;
+    $(".deleteItem").click(function(){
+        deleteItemId = $(this).val();
+        $('#deleteItemModal').modal('show');
+    })
+    $('#deleteItemBtn').click(function(){
+        $.ajax({
+            url: '/Menu/DeleteMenuItem',
+            type: 'post',
+            data: {id:deleteItemId},
+            success:function(response){
+               if (response == null)
+                    window.location.href = "/Authentication/Login";
+                if (response.isSuccess) {
+                    @* GetFilteredItems(); *@
+                    toastr.success(response.message, {
+                        closeButton: true,
+                        progressBar: true,
+                        timeOut: 2000,
+                        positionClass: "toast-top-right"
+                    });
+
+                } else {
+                    toastr.error(response.message, {
+                        closeButton: true,
+                        progressBar: true,
+                        timeOut: 2000,
+                        positionClass: "toast-top-right"
+                    });
+                }
+                $("#deleteItemModal").modal('hide');
+            }
+        })
+    })
+
+    var deleteItemIds = [];
+    $('#itemsList').on("click",".itemCheckBox",function(){
+        var itemId = $(this).val();
+        if(this.checked == true)
+        {
+            deleteItemIds.push(parseInt(itemId));
+        }
+        else
+        {
+            deleteItemIds = deleteItemIds.filter(id => id != parseInt(itemId));
+        }
+    })
+    $('#multiDeleteBtn').click(function(){
+        if (deleteItemIds.length == 0) {
+            toastr.info("Select at Least One Item");
+        }else{
+            $('#deleteMultipleItemModal').modal('show');
+        }
+    })
+    $('#multiDeleteItemBtn').click(function(){
+        $.ajax({
+            url: "/Menu/MultiDeleteMenuItem",
+            type: 'POST',
+            data: {
+                itemIds: deleteItemIds
+            },
+            success: function (response) {
+                if (response == null)
+                    window.location.href = "/Auth/Login"
+                if (response.isSuccess) {
+                    @* GetFilteredItems(); *@
+                    toastr.success(response.message);
+
+                } else {
+                    toastr.error(response.message);
+                }
+                $("#deleteMultipleItemModal").modal('hide');
+            }
+        })
+    })
+</script>

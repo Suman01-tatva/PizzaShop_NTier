@@ -115,7 +115,7 @@ public class MenuController : Controller
             PageSize = pageSize,
             PageIndex = pageIndex,
             SearchString = searchString,
-            TotalPage = (int)Math.Ceiling(totalItemCount / (double)pageSize)
+            TotalPage = totalItemCount
         };
         return PartialView("_ItemListPartial", model);
     }
@@ -202,12 +202,13 @@ public class MenuController : Controller
     [HttpGet]
     public async Task<IActionResult> EditMenuItem(int itemId)
     {
-        var token = Request.Cookies["Token"];
-        if (token == null | token == "")
-            return RedirectToAction("Login", "Auth");
+        // var token = Request.Cookies["Token"];
+        // if (token == null | token == "")
+        //     return RedirectToAction("Login", "Auth");
 
         var menuItem = _menuService.GetMenuItemById(itemId);
-        return PartialView("_EditItem", menuItem);
+        // return PartialView("_EditItem", menuItem);
+        return Json(new { data = menuItem });
     }
 
     // public IActionResult? EditMenuItem(int itemId, int categoryId, int pageSize, int pageIndex, string? searchString)
@@ -276,5 +277,18 @@ public class MenuController : Controller
         {
             return Json(new { isSuccess = false, message = "Error While Delete Item" });
         }
+    }
+
+
+    [HttpGet]
+    public IActionResult AddModifier()
+    {
+        return PartialView("_AddModifier", new MenuModifierViewModel());
+    }
+
+    [HttpGet]
+    public IActionResult EditModifier()
+    {
+        return PartialView("_EditModifier", new MenuModifierViewModel());
     }
 }

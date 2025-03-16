@@ -6,7 +6,7 @@
         <div class="modal-content rounded-1">
             <div class="modal-header border-0">
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                    Add New Menu Item
+                    Edit Menu Item
                 </h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -18,7 +18,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-floating">
-                                        <select asp-for="@Model.CategoryId" class="form-select" id="addIetmCategories"
+                                        <select asp-for="@Model.CategoryId" class="form-select" id="editItemCategories"
                                             aria-label="Floating label select example" required>
                                             <option selected disabled hidden>Select Category
                                             </option>
@@ -29,9 +29,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input asp-for="Name" type="text" class="form-control" id="name" placeholder=""
-                                            required>
-                                        <label asp-for="Name">Name*</label>
+                                        <input asp-for="@Model.Name" type="text" class="form-control" id="name"
+                                            placeholder="" required>
+                                        <label>Name*</label>
                                         <span asp-validation-for="Name"
                                             class="add-cat-name-validation text-danger"></span>
                                     </div>
@@ -39,7 +39,7 @@
 
                                 <div class="col-lg-3 col-md-6 mb-3">
                                     <div class="form-floating">
-                                        <select asp-for="Type" class="form-select" id="itemType" required>
+                                        <select asp-for="@Model.Type" class="form-select" id="itemType" required>
                                             <option selected disabled hidden>Select a type
                                             </option>
                                             <option value="true">Vegetarian</option>
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input asp-for="Rate" type="number" class="form-control" id="rate"
+                                        <input asp-for="@Model.Rate" type="number" class="form-control" id="rate"
                                             placeholder="" min="0" required>
                                         <label asp-for="Rate">Rate*</label>
                                         <span asp-validation-for="Rate"
@@ -62,8 +62,8 @@
                                 </div>
                                 <div class="col-lg-3 col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input asp-for="Quantity" type="number" class="form-control" id="quantity"
-                                            placeholder="" min="0" required>
+                                        <input asp-for="@Model.Quantity" type="number" class="form-control"
+                                            id="quantity" placeholder="" min="0" required>
                                         <label asp-for="Quantity">Quantity*</label>
                                         <span asp-validation-for="Quantity"
                                             class="add-cat-name-validation text-danger"></span>
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="col-lg-3 col-md-6 mb-3">
                                     <div class="form-floating">
-                                        <select asp-for="UnitId" class="form-select" id="addIetmUnits"
+                                        <select asp-for="@Model.UnitId" class="form-select" id="editItemUnits"
                                             aria-label="Floating label select example">
                                             <option selected disabled hidden>Select a unit
                                             </option>
@@ -102,23 +102,23 @@
                                 </div>
                                 <div class="col-lg-3 col-md-6 mb-3">
                                     <div class="form-floating">
-                                        <input asp-for="TaxPercentage" type="number" class="form-control"
-                                            id="taxPercentage" placeholder="">
+                                        <input asp-for="TaxPercentage" asp-for="@Model.TaxPercentage" type="number"
+                                            class="form-control" id="taxPercentage" placeholder="">
                                         <label asp-for="TaxPercentage">Tax Percentage</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 mb-3">
                                     <div class="form-floating">
-                                        <input asp-for="ShortCode" type="text" class="form-control" id="shortCode"
-                                            placeholder="">
+                                        <input asp-for="ShortCode" asp-for="@Model.ShortCode" type="text"
+                                            class="form-control" id="shortCode" placeholder="">
                                         <label asp-for="ShortCode">Short Code</label>
                                     </div>
                                 </div>
 
                                 <div class="col-12 mb-3">
                                     <div class="form-floating">
-                                        <textarea asp-for="Description" class="form-control" id="description"
-                                            placeholder=""></textarea>
+                                        <textarea asp-for="Description" asp-for="@Model.Description"
+                                            class="form-control" id="description" placeholder=""></textarea>
                                         <label asp-for="Description">Description</label>
                                     </div>
                                 </div>
@@ -141,7 +141,7 @@
                         </div>
                         <div class="col-md-4 bg-warning-subtle py-2">
                             <div>
-                                <select class="form-select" id="ModifierGroups"
+                                <select class="form-select" id="EditItemModifierGroups"
                                     aria-label="Floating label select example" required>
                                     <option selected disabled hidden>Select Category
                                     </option>
@@ -153,8 +153,8 @@
                         </div>
                     </div>
                     <div class="modal-footer border-0">
-                        <button type="submit" class="btn fill-btn" id="submitAddItem">Save</button>
-                        <button type="button" class="btn outline-btn" data-bs-dismiss="modal">Cancle</button>
+                        <button type="submit" class="fill-btn" id="submitAddItem">Save</button>
+                        <button type="button" class="outline-btn" data-bs-dismiss="modal">Cancle</button>
                     </div>
                 </form>
             </div>
@@ -162,17 +162,13 @@
     </div>
 </div>
 
-
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
     $(document).ready(function () {
         $.getJSON('@Url.Action("GetAllUnits", "Menu")', function (units) {
-            $('#addIetmUnits').empty().append('<option selected disabled hidden>Select Unit</option>');
+            $('#editItemUnits').empty().append('<option selected disabled hidden>Select Unit</option>');
 
             $.each(units, function (i, unit) {
-                $('#addIetmUnits').append($('<option>', {
+                $('#editItemUnits').append($('<option>', {
                     value: unit.id,
                     text: unit.name
                 }));
@@ -180,9 +176,9 @@
         });
 
         $.getJSON('@Url.Action("GetAllCategory", "Menu")', function (category) {
-            $('#addIetmCategories').empty().append('<option selected disabled hidden>Select Category</option>');
+            $('#editItemCategories').empty().append('<option selected disabled hidden>Select Category</option>');
             $.each(category, function (i, c) {
-                $('#addIetmCategories').append($('<option>', {
+                $('#editItemCategories').append($('<option>', {
                     value: c.id,
                     text: c.name
                 }));
@@ -190,16 +186,16 @@
         });
 
         $.getJSON('@Url.Action("GetAllModifierGroups", "MenuModifier")', function (ModifierGroups) {
-            $('#ModifierGroups').empty().append('<option selected disabled hidden>Select ModifierGroup</option>');
+            $('#EditItemModifierGroups').empty().append('<option selected disabled hidden>Select ModifierGroup</option>');
             $.each(ModifierGroups, function (i, m) {
-                $('#ModifierGroups').append($('<option>', {
+                $('#EditItemModifierGroups').append($('<option>', {
                     value: m.id,
                     text: m.name
                 }));
             });
         });
 
-        $("#ModifierGroups").change(function () {
+        $("#EditItemModifierGroups").change(function () {
             var id = $(this).val();
             console.log("modifierGroup selected: " + id);
             $.ajax({

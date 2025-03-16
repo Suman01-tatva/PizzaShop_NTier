@@ -72,42 +72,44 @@
                     </td>
                 </tr>
 }
- }
+}
 </tbody>
                 </table>
 </section>
 <div class="d-flex justify-content-end align-items-center mt-2">
     <p class="mb-0">Items Per page</p>
-    <select class="ms-3" aria-label="Default select example" id="pageSizedropdown">
+    @* <p>PageSize: @Model.PageSize</p> *@
+    <select class="ms-3 form-select w-auto" aria-label="Default select example" id="pageSizedropdown">
         <option value="5" selected="@(PageSize == 5 ? true : false)">5</option>
         <option value="10" selected="@(PageSize == 10 ? true : false)">10</option>
         <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
     </select>
-
-    <p class="mb-0 ms-2 me-2">Select @PageIndex out of <span>@TotalPage</span></p>
+    @* <p>PageIndex : @Model.PageIndex</p>
+    <p>TotalPage : @Model.TotalPage</p> *@
+    <p class="mb-0 ms-2 me-2">Showing @Model.PageIndex - @Model.PageSize Of <span>@Model.TotalPage</span></p>
     @if (PageIndex > 1)
     {
-        <span class="btn btn-outline-secondary me-1 px-3 py-0" name="PageIndex" id="Previous">
-            <i class="fa-solid fa-less-than fa-sm" style="height: 15px"></i>
+        <span class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="Previous">
+            <i class="fa fa-chevron-left"></i>
         </span>
     }
     else
     {
-        <button class="btn btn-outline-secondary me-1 px-3 py-0" name="PageIndex" disabled>
-            <i class="fa-solid fa-less-than fa-sm" style="height: 15px"></i>
+        <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
+            <i class="fa fa-chevron-left"></i>
         </button>
     }
 
     @if (PageIndex < TotalPage)
     {
-        <a class="btn btn-outline-secondary px-3 py-0" name="PageIndex" id="Next">
-            <i class="fa-solid fa-greater-than fa-sm"></i>
+        <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="Next">
+            <i class="fa fa-chevron-right"></i>
         </a>
     }
     else
     {
-        <button class="btn btn-outline-secondary px-3 py-0" name="PageIndex" disabled>
-            <i class="fa-solid fa-greater-than fa-sm"></i>
+        <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
+            <i class="fa fa-chevron-right"></i>
         </button>
     }
 </div>
@@ -240,5 +242,75 @@
                 $("#deleteMultipleItemModal").modal('hide');
             }
         })
+    })
+
+
+
+    @* Pagination Script *@
+        $(".itemCategory").click(function () {
+        categoryId = $(this).data("id");
+        console.log("id" + categoryId);
+        console.log("pageIndex" + @Model.PageIndex);
+        console.log("PAgeSize" + @Model.PageSize);
+
+        $.ajax({
+            url: '/Menu/GetItemsByCategory',
+            type: 'GET',
+            data: { categoryId: categoryId, pageSize: @Model.PageSize, pageIndex: @Model.PageIndex, searchString: "" },
+            success: function (response) {
+                console.log(response);
+                $("#itemList").html(response);
+            }
+        })
+    })
+
+    var pageIndex = @Model.PageIndex;
+
+    function GetFilteredItems() {
+        console.log("getfilteritem", categoryId)
+        var SearchString = $("#searchString").val();
+        var pageSize = $("#pageSizedropdown").val();
+        console.log($("#searchString").val())
+        $.ajax({
+            url: "/Menu/GetItemsByCategory",
+            type: "GET",
+            data: {
+                categoryId: categoryId,
+                pageIndex: pageIndex,
+                pageSize: pageSize,
+                searchString: SearchString
+            },
+            success: function (data) {
+                $("#itemList").html(data);
+            }
+        })
+    }
+
+    $('#pageSizedropdown').change(function () {
+        var pageSize = $(this).val();
+        console.log("pagesize " + pageSize);
+        console.log("CategoryId", categoryId)
+        console.log("PAgeIndex", @Model.PageIndex);
+
+        GetFilteredItems();
+    })
+
+    $('#searchString').keyup(function () {
+        pageIndex = 1
+        pageSize = @Model.PageSize
+            GetFilteredItems();
+    })
+
+    $("#Previous").click(function () {
+        console.log("prev")
+        pageIndex -= 1;
+        GetFilteredItems()
+    })
+
+    $('#Next').click(function () {
+        $("#PreviousBtn").attr('disabled', false)
+        console.log("next")
+        pageIndex += 1;
+        GetFilteredItems()
     })
 </script>

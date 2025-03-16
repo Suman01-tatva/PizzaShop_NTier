@@ -16,9 +16,62 @@
                     style="text-decoration: none; color: inherit;">
                     <i class="fa-solid fa-pencil m-1" data-bs-toggle="modal" data-bs-target="#EditCategoryModal"></i>
                 </a>
-                <i class="fa-regular fa-trash-can mx-2 delete-category" data-bs-target="#deleteCategoryModal"
-                    data-bs-toggle="modal" id="deleteCategory" data-id="@modifierGroup.Id"></i>
+                <i class="fa-regular fa-trash-can mx-2 delete-modifiergroup" data-bs-target="#deleteModifierGroupModal"
+                    data-bs-toggle="modal" id="deleteModifierGroup" data-id="@modifierGroup.Id"></i>
             </span>
         </div>
     }
 </div>
+
+<!-- Delete Modifier Group Modal -->
+<div class="modal fade" id="deleteModifierGroupModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="text-center">
+                <i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: #FFD43B;"></i>
+            </div>
+            <div class="modal-body text-center p-1">
+                <p class="fw-bold mb-0">Are you sure you want to delete this modifiergroup?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center border-0">
+                <button type="button" class="btn btn-primary" id="confirmDeleteCategoryBtn">Yes</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).on('click', '.delete-modifiergroup', function () {
+        modifierId = $(this).data("id");
+        console.log("Delete", modifierId)
+        $('#deleteModifierGroupModal').modal('show');
+    });
+
+    $('#confirmDeleteCategoryBtn').click(function () {
+        console.log("Click")
+        $.ajax({
+            type: "POST",
+            url: '/Menu/DeleteCategory',
+            data: { id: categoryIdToDelete },
+            success: function (response) {
+                console.log("Click")
+                if (response.success) {
+                    $('#deleteCategoryModal').modal('hide');
+                    @* toastr.success(response.message); *@
+                        window.location.reload(); // Reload the page to show the updated category
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("An error occurred while deleting the category. Please try again.");
+            }
+        });
+    });
+</script>

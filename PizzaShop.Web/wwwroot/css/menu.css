@@ -76,3 +76,11 @@
 .veg-icon {
   height: 20px;
 }
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.1) !important; /* Light opacity */
+}
+
+.bg-white {
+  background-color: white;
+}

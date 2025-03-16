@@ -57,6 +57,7 @@ namespace PizzaShop.Service.Implementations
                 PageSize = pageSize,
                 PageIndex = pageIndex,
                 TotalPage = totalCountOfItems,
+                // (int)Math.Ceiling(totalCountOfItems / (double)pageSize)
                 SearchString = searchString
             };
             return itemTabViewModel;
