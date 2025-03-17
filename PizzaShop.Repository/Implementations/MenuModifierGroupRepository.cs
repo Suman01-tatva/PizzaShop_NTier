@@ -22,7 +22,7 @@ public class MenuModifierGroupRepository : IMenuModifierGroupRepository
             Id = c.Id,
             Name = c.Name,
             Description = c.Description
-        }).ToListAsync();
+        }).OrderBy(m => m.Name).ToListAsync();
 
         return modifierGroups;
     }

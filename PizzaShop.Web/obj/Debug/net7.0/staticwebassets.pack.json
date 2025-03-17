@@ -89,6 +89,10 @@
       "PackagePath": "staticwebassets\\images\\ProfileImages\\a9719d5b-1858-469b-8c92-f9564b5c815f.jpg"
     },
     {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\bb0e2da4-d096-4036-a00c-26fa9b36b9e2.png",
+      "PackagePath": "staticwebassets\\images\\ProfileImages\\bb0e2da4-d096-4036-a00c-26fa9b36b9e2.png"
+    },
+    {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\bdab031f-4311-4e88-8e3c-c9af6c38b453.png",
       "PackagePath": "staticwebassets\\images\\ProfileImages\\bdab031f-4311-4e88-8e3c-c9af6c38b453.png"
     },
@@ -103,6 +107,14 @@
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\ec9c6ec3-12ee-4bc1-a850-7cf81908485f.png",
       "PackagePath": "staticwebassets\\images\\ProfileImages\\ec9c6ec3-12ee-4bc1-a850-7cf81908485f.png"
+    },
+    {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\f6452b05-f80c-45a0-a282-36b56cf00b92.png",
+      "PackagePath": "staticwebassets\\images\\ProfileImages\\f6452b05-f80c-45a0-a282-36b56cf00b92.png"
+    },
+    {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\f696d92f-7e90-43c9-a64d-48f332ecacc1.png",
+      "PackagePath": "staticwebassets\\images\\ProfileImages\\f696d92f-7e90-43c9-a64d-48f332ecacc1.png"
     },
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\f9146544-3929-4119-a105-771fdc26e53a.png",
@@ -491,6 +503,10 @@
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\templates\\NewUserEmail.html",
+      "PackagePath": "staticwebassets\\templates\\NewUserEmail.html"
     },
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\templates\\ResetPasswordEmail.html",

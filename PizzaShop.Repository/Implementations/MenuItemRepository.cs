@@ -78,4 +78,19 @@ public class MenuItemRepository : IMenuItemsRepository
         menuItem!.IsDeleted = true;
         _context.SaveChanges();
     }
+
+    public bool UpdateMenuItem(MenuItem item)
+    {
+        try
+        {
+            var updatedItem = _context.MenuItems.Update(item);
+            _context.SaveChanges();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
+    }
 }

@@ -23,7 +23,7 @@ public class MenuCategoryRepository : IMenuCategoryRepository
                 Id = c.Id,
                 Name = c.Name,
                 Description = c.Description
-            }).ToListAsync();
+            }).OrderBy(c => c.Name).ToListAsync();
     }
 
     public bool AddNewCategory(MenuCategory menuCategory)

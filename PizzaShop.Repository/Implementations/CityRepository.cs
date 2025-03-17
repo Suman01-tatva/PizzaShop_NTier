@@ -20,6 +20,6 @@ public class CityRepository : ICityRepository
 
     public async Task<List<City>> GetCitiesByStateIdAsync(int? stateId)
     {
-        return await _context.Cities.Where(c => c.StateId == stateId).ToListAsync();
+        return await _context.Cities.Where(c => c.StateId == stateId).OrderBy(c => c.Name).ToListAsync();
     }
 }

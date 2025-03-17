@@ -11,8 +11,9 @@ public class LoginViewModel
 
     [PasswordPropertyText]
     [Required(ErrorMessage = "Password is required")]
-    [StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
-    [DataType(DataType.Password)]
+    [DataType(DataType.Password), MinLength(6)]
+    [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&]).{6,}$",
+            ErrorMessage = "Password must be at least 6 characters long and include uppercase, lowercase, number, and special character.")]
     public string Password { get; set; } = null!;
 
     public bool RememberMe { get; set; }

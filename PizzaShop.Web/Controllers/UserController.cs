@@ -41,9 +41,11 @@ public class UserController : Controller
 
             if (isPasswordChanged == "success")
             {
-                TempData["ToastrMessage"] = "Password Changes Successfully";
+                TempData["ToastrMessage"] = "Password Changed Successfully";
                 TempData["ToastrType"] = "success";
-                return RedirectToAction("AdminDashboard", "Home");
+                Response.Cookies.Delete("Token");
+                Response.Cookies.Delete("UserData");
+                return RedirectToAction("Login", "Auth");
             }
             else if (isPasswordChanged == "current password is incorrect")
             {
@@ -192,7 +194,18 @@ public class UserController : Controller
                 model.ProfileImg = ProfileImagePath;
 
             await _userService.AddUserAsync(model, currentUserEmail);
-            _mailService.SendMail(model.Email, "Welcome To Pizza Shop");
+
+            // Send Mail
+            string templateFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/templates/NewUserEmail.html");
+            if (!System.IO.File.Exists(templateFilePath))
+            {
+                ModelState.AddModelError(string.Empty, "Email body template not found");
+            }
+            string body = await System.IO.File.ReadAllTextAsync(templateFilePath);
+            body = body.Replace("{{Email}}", model.Email);
+            body = body.Replace("{{PasswordHash}}", model.Password);
+            _mailService.SendMail(model.Email, body);
+
             TempData["ToastrMessage"] = "User Created Successfully";
             TempData["ToastrType"] = "success";
 

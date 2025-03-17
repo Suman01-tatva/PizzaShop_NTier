@@ -65,7 +65,7 @@ public class AuthController : Controller
                 CookieUtils.SaveUserData(Response, user);
             }
             TempData["Email"] = user.Email;
-            TempData["ToastrMessage"] = "User LogedIn Successfully";
+            TempData["ToastrMessage"] = "LogedIn Successfully";
             TempData["ToastrType"] = "success";
             if (user.RoleId == 1)
             {
@@ -205,7 +205,7 @@ public class AuthController : Controller
 
     public IActionResult Logout()
     {
-        TempData["ToastrMessage"] = "Successfully Logout";
+        TempData["ToastrMessage"] = "Logout Successfully";
         TempData["ToastrType"] = "success";
         Response.Cookies.Delete("Token");
         Response.Cookies.Delete("UserData");

@@ -11,14 +11,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body text-secondary">
-                <form asp-action="EditMenuItem" asp-controller="Menu" method="post" id="addItemForm">
+                <form asp-action="EditMenuItem" asp-controller="Menu" method="post" id="editItemForm">
                     <input asp-for="Id" type="hidden">
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-floating">
-                                        <select asp-for="@Model.CategoryId" class="form-select" id="editItemCategories"
+                                        <select asp-for="CategoryId" class="form-select" id="editItemCategories"
                                             aria-label="Floating label select example" required>
                                             <option selected disabled hidden>Select Category
                                             </option>
@@ -29,8 +29,8 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
-                                        <input asp-for="@Model.Name" type="text" class="form-control" id="name"
-                                            placeholder="" required>
+                                        <input asp-for="Name" type="text" class="form-control" id="name" placeholder=""
+                                            required>
                                         <label>Name*</label>
                                         <span asp-validation-for="Name"
                                             class="add-cat-name-validation text-danger"></span>
@@ -40,11 +40,17 @@
                                 <div class="col-lg-3 col-md-6 mb-3">
                                     <div class="form-floating">
                                         <select asp-for="@Model.Type" class="form-select" id="itemType" required>
-                                            <option selected disabled hidden>Select a type
+                                            <option selected disabled>Select a type
                                             </option>
-                                            <option value="true">Vegetarian</option>
-                                            <option value="false">Non-Vegetarian</option>
-                                            <option value="null">Vegan</option>
+                                            @if (@Model.Type == true)
+                                            {
+                                                <option value="true">Vegetarian</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="false">Non-Vegetarian</option>
+                                            }
+                                            @* <option value="null">Vegan</option> *@
                                         </select>
                                         <label for="itemType">Item Type*</label>
                                         <span asp-validation-for="Type"

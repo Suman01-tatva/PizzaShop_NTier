@@ -20,7 +20,7 @@ public class CountryRepository : ICountryRepository
 
     public async Task<List<Country>> GetAllCountriesAsync()
     {
-        return await _context.Countries.ToListAsync();
+        return await _context.Countries.OrderBy(c => c.Name).ToListAsync();
     }
 
 }

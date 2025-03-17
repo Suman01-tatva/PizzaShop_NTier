@@ -14,7 +14,7 @@ public class UnitRepository : IUnitRepository
 
     public List<Unit> GetAllUnits()
     {
-        var units = _context.Units.ToList();
+        var units = _context.Units.OrderBy(u => u.Name).ToList();
         return units;
     }
 

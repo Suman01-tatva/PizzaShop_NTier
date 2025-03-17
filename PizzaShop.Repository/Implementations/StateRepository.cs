@@ -21,6 +21,6 @@ public class StateRepository : IStateRepository
 
     public async Task<List<State>> GetStatesByCountryIdAsync(int? countryId)
     {
-        return await _context.States.Where(s => s.CountryId == countryId).ToListAsync();
+        return await _context.States.Where(s => s.CountryId == countryId).OrderBy(s => s.Name).ToListAsync();
     }
 }

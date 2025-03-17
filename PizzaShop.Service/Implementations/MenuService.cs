@@ -13,14 +13,15 @@ namespace PizzaShop.Service.Implementations
     {
         private readonly IMenuCategoryRepository _menuCategoryRepository;
         private readonly IMenuItemsRepository _menuItemRepository;
-
         private readonly IUnitRepository _unitRepository;
+        private readonly IUserRepository _userRepository;
 
-        public MenuService(IMenuCategoryRepository menuCategoryRepository, IMenuItemsRepository menuItemsRepository, IUnitRepository unitRepository)
+        public MenuService(IMenuCategoryRepository menuCategoryRepository, IMenuItemsRepository menuItemsRepository, IUnitRepository unitRepository, IUserRepository userRepository)
         {
             _menuCategoryRepository = menuCategoryRepository ?? throw new ArgumentNullException(nameof(menuCategoryRepository));
             _menuItemRepository = menuItemsRepository ?? throw new ArgumentNullException(nameof(menuItemsRepository));
             _unitRepository = unitRepository ?? throw new ArgumentNullException(nameof(unitRepository));
+            _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
         public async Task<List<MenuCategoryViewModel>> GetAllMenuCategoriesAsync()
@@ -56,7 +57,7 @@ namespace PizzaShop.Service.Implementations
                 itemList = filteredItems,
                 PageSize = pageSize,
                 PageIndex = pageIndex,
-                TotalPage = totalCountOfItems,
+                TotalPage = (int)Math.Ceiling(totalCountOfItems / (double)pageSize),
                 // (int)Math.Ceiling(totalCountOfItems / (double)pageSize)
                 SearchString = searchString
             };
@@ -214,6 +215,7 @@ namespace PizzaShop.Service.Implementations
         }
 
         [HttpGet]
+        // EditItem
         public MenuItemViewModel GetMenuItemById(int itemId)
         {
             MenuItem item = _menuItemRepository.GetMenuItemById(itemId);
@@ -238,6 +240,56 @@ namespace PizzaShop.Service.Implementations
                 // Categories = categoryList
             };
             return menuItem;
+        }
+
+        public async Task<bool> EditItemAsync(MenuItemViewModel model, string userEmail)
+        {
+            var userId = await _userRepository.GetUserByEmailAsync(userEmail);
+            var item = _menuItemRepository.GetMenuItemById(model.Id);
+
+            item.CategoryId = model.CategoryId;
+            item.Name = model.Name;
+            item.Type = model.Type;
+            item.Rate = model.Rate;
+            item.Quantity = model.Quantity;
+            item.IsAvailable = model.IsAvailable;
+            item.Description = model.Description;
+            item.ShortCode = model.ShortCode;
+            item.IsFavourite = model.IsFavourite;
+            item.IsDefaultTax = model.IsDefaultTax;
+            item.UnitId = model.UnitId;
+            item.Image = model.Image;
+
+            // if (!string.IsNullOrEmpty(model.RemovedGroups))
+            // {
+            //     var removedGroupIds = model.RemovedGroups.Split(',').Where(id => !string.IsNullOrEmpty(id)).Select(int.Parse).ToList();
+            //     foreach (var groupId in removedGroupIds)
+            //     {
+            //         var existingMapping = await _menuRepository.GetItemModifierMappingAsync(item.Id, groupId);
+            //         if (existingMapping != null)
+            //         {
+            //             await _menuRepository.RemoveItemModifierAsync(existingMapping);
+            //         }
+            //     }
+            // }
+
+            // foreach (var modifierGroupId in model.ModifierGroupIds)
+            // {
+            //     var existingMapping = await _menuRepository.GetItemModifierMappingAsync(item.Id, modifierGroupId);
+            //     if (existingMapping == null)
+            //     {
+            //         var itemModifier = new MappingMenuItemsWithModifier
+            //         {
+            //             MenuItemId = item.Id,
+            //             ModifierGroupId = modifierGroupId,
+            //             CreatedBy = userId
+            //         };
+
+            //         await _menuRepository.AddItemModifierAsync(itemModifier);
+            //     }
+            // }
+
+            return _menuItemRepository.UpdateMenuItem(item);
         }
 
         public void DeleteMenuItem(int id)

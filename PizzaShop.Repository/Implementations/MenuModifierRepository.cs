@@ -26,7 +26,7 @@ public class MenuModifierRepository : IMenuModifierRepository
                 Description = c.Description,
                 Rate = c.Rate,
                 Quantity = c.Quantity,
-            }).Where(c => c.ModifierGroupId == id).ToListAsync();
+            }).Where(c => c.ModifierGroupId == id).OrderBy(m => m.Name).ToListAsync();
 
         return itmes;
     }

@@ -118,7 +118,7 @@ public class MenuController : Controller
             PageSize = pageSize,
             PageIndex = pageIndex,
             SearchString = searchString,
-            TotalPage = totalItemCount
+            TotalPage = (int)Math.Ceiling(totalItemCount / (double)pageSize)
         };
         return PartialView("_ItemListPartial", model);
     }
@@ -209,27 +209,24 @@ public class MenuController : Controller
     [HttpGet]
     public async Task<IActionResult> EditMenuItem(int itemId)
     {
-        // var token = Request.Cookies["Token"];
-        // if (token == null | token == "")
-        //     return RedirectToAction("Login", "Auth");
-
         var menuItem = _menuService.GetMenuItemById(itemId);
         // return PartialView("_EditItem", menuItem);
         return Json(new { data = menuItem });
     }
 
-    // public IActionResult? EditMenuItem(int itemId, int categoryId, int pageSize, int pageIndex, string? searchString)
+    // [HttpPost]
+    // public async Task<IActionResult?> EditMenuItem()
     // {
-    //     var AuthToken = Request.Cookies["AuthToken"];
+    //     var AuthToken = Request.Cookies["Token"];
     //     if (string.IsNullOrEmpty(AuthToken))
     //         return null;
 
-    //     var (userEmail, role) = _jwtService.ValidateToken(AuthToken);
+    //     var (userEmail, role) = await _tokenDataService.GetEmailFromToken(AuthToken);
     //     if (userEmail == null)
     //         return null;
 
     //     var menuItem = _menuService.GetMenuItemById(itemId);
-    //     List<ItemsViewModel> Items = _menuService.GetItemsByCategoryId(categoryId, pageSize, pageIndex, searchString);
+    //     List<ItemsViewModel> Items = _menuService.GetItemsByCategory(categoryId, pageSize, pageIndex, searchString);
     //     var tp = _menuItemRepository.GetItemsCountByCId(categoryId);
 
     //     var ItemTab = new ItemTabViewModel
@@ -245,6 +242,55 @@ public class MenuController : Controller
 
     //     return PartialView("_Items", ItemTab);
     // }
+
+    [HttpPost]
+    public async Task<IActionResult> EditMenuItem(MenuItemViewModel menuItemViewModel)
+    {
+        if (!ModelState.IsValid)
+        {
+            // ViewBag.Categories = new SelectList(await _menuService.GetAllCategories(), "Id", "Name", menuItemViewModel.CategoryId);
+            // ViewBag.Units = new SelectList(await _unitService.GetAllUnits(), "Id", "Name", menuItemViewModel.UnitId);
+            // ViewBag.ModifierGroups = new SelectList(await _modifierService.GetAllModifiers(), "Id", "Name");
+            return PartialView("_EditItem", menuItemViewModel);
+        }
+
+        try
+        {
+            var AuthToken = Request.Cookies["Token"];
+            if (string.IsNullOrEmpty(AuthToken))
+                return null;
+
+            var (userEmail, role) = await _tokenDataService.GetEmailFromToken(AuthToken);
+            if (userEmail == null)
+                return null;
+
+            var result = await _menuService.EditItemAsync(menuItemViewModel, userEmail);
+
+            if (result)
+            {
+                TempData["ToastrMessage"] = "Item edited successfully.";
+                TempData["ToastrType"] = "success";
+                return Json(new { success = true, redirectUrl = Url.Action("MenuList") });
+            }
+            else
+            {
+                TempData["ToastrMessage"] = "Failed to update item.";
+                TempData["ToastrType"] = "error";
+            }
+        }
+        catch (Exception ex)
+        {
+            // _logger.LogError(ex, "Error editing item");
+            Console.WriteLine(ex);
+            ModelState.AddModelError("", "Error editing item.");
+        }
+
+        // ViewBag.Categories = new SelectList(await _menuService.GetAllCategories(), "Id", "Name", menuItemViewModel.CategoryId);
+        // ViewBag.Units = new SelectList(await _unitService.GetAllUnits(), "Id", "Name", menuItemViewModel.UnitId);
+        // ViewBag.ModifierGroups = new SelectList(await _modifierService.GetAllModifiers(), "Id", "Name");
+
+        return PartialView("_EditItem", menuItemViewModel);
+    }
 
     [HttpPost]
     public async Task<IActionResult>? DeleteMenuItem(int id)
@@ -285,7 +331,6 @@ public class MenuController : Controller
             return Json(new { isSuccess = false, message = "Error While Delete Item" });
         }
     }
-
 
     [HttpGet]
     public IActionResult AddModifier()

@@ -53,6 +53,8 @@
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
     @* AddItem popup *@
         $(".addItemBtn").click(function () {
@@ -65,10 +67,11 @@
     $("#submitNewCategory").click(function () {
         console.log("AddCategory");
         $("#addNewCategoryForm").submit();
+        toastr.success("edited")
+        @* $(".modal-backdrop").remove(); *@
     });
 
     $(document).on('click', ".editItemBtn", function () {
-        console.log("edit-item");
         var itemId = $(this).data("itemid");
         console.log("itemId = ", itemId);
         $.get('@Url.Action("EditMenuItem", "Menu")', { itemId: itemId }, function (d) {
@@ -88,7 +91,7 @@
                 $('#editItemModal #available').prop('checked', data.isAvailable);
                 $('#editItemModal #defaultTax').prop('checked', data.isDefaultTax);
                 $('#editItemModal').modal('show');
-            }, 500);
+            }, 200);
         });
     });
 </script>
