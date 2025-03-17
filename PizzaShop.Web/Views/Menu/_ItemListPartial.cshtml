@@ -316,27 +316,32 @@
     })
 
     @* EditItem *@
-        $('#editItemForm').on('submit', function (e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-            $.ajax({
-                type: "POST",
-                url: $(this).attr('action'),
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response.success) {
-                        toastr.success(response.message);
-                        $('#editItemModal').modal('hide');
-                    } else {
-                        toastr.error(response.message);
+        $(document).ready(function () {
+            $('#editItemForm').on('submit', function (e) {
+                e.preventDefault();
+                var formData = new FormData(this);
+                console.log("EditITemFormData", formData)
+                $.ajax({
+                    type: "POST",
+                    url: $(this).attr('action'),
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                            $('#editItemModal').modal('hide');
+                            // Optionally, you can refresh the page or update a part of the page to reflect the changes
+                            // location.reload(); // Uncomment this line to reload the page
+                        } else {
+                            toastr.error(response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error while editing the item:", status, error);
+                        toastr.error("An error occurred while editing the item.");
                     }
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error while editing the item:", status, error);
-                    toastr.error("An error occurred while editing the item.");
-                }
+                });
             });
         });
 </script>

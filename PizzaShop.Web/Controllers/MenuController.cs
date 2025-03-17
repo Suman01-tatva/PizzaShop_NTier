@@ -260,7 +260,7 @@ public class MenuController : Controller
             if (string.IsNullOrEmpty(AuthToken))
                 return null;
 
-            var (userEmail, role) = await _tokenDataService.GetEmailFromToken(AuthToken);
+            var (userEmail, id) = await _tokenDataService.GetEmailFromToken(AuthToken);
             if (userEmail == null)
                 return null;
 

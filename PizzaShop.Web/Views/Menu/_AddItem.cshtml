@@ -20,18 +20,16 @@
                                     <div class="form-floating">
                                         <select asp-for="CategoryId" class="form-select" id="addIetmCategories"
                                             aria-label="Floating label select example" required>
-                                            <option selected disabled hidden>Select Category
-                                            </option>
+                                            <option selected disabled hidden>Select Category</option>
                                         </select>
                                         <label for="category">Category*</label>
-                                        </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating mb-3">
                                         <input asp-for="Name" type="text" class="form-control" id="name" placeholder=""
                                             required>
-                                        <label asp-for="Name">Name*</label>
+                                        <label>Name*</label>
                                         <span asp-validation-for="Name"
                                             class="add-cat-name-validation text-danger"></span>
                                     </div>
@@ -40,11 +38,9 @@
                                 <div class="col-lg-3 col-md-6 mb-3">
                                     <div class="form-floating">
                                         <select asp-for="Type" class="form-select" id="itemType" required>
-                                            <option selected disabled hidden>Select a type
-                                            </option>
+                                            <option selected disabled hidden>Select a type</option>
                                             <option value="true">Vegetarian</option>
                                             <option value="false">Non-Vegetarian</option>
-                                            <option value="null">Vegan</option>
                                         </select>
                                         <label for="itemType">Item Type*</label>
                                         <span asp-validation-for="Type"
@@ -73,11 +69,7 @@
                                     <div class="form-floating">
                                         <select asp-for="UnitId" class="form-select" id="addIetmUnits"
                                             aria-label="Floating label select example">
-                                            <option selected disabled hidden>Select a unit
-                                            </option>
-                                            @* <option value="1">pcs</option>
-                                                <option value="2">gram</option>
-                                                <option value="3">Kg</option> *@
+                                            <option selected disabled hidden>Select a unit</option>
                                         </select>
                                         <label for="role">Unit*</label>
                                         <span asp-validation-for="UnitId"
@@ -87,17 +79,16 @@
 
                                 <div class="col-lg-3 col-6 mb-3 align-content-center">
                                     <div class="form-check form-switch text-center">
-                                        <input for="IsAvailable" class="form-check-input" type="checkbox"
+                                        <input asp-for="IsAvailable" class="form-check-input" type="checkbox"
                                             id="available">
-                                        <label class="" asp-for="IsAvailable">Available</label>
+                                        <label asp-for="IsAvailable">Available</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-6 mb-3 align-content-center">
                                     <div class="form-check form-switch text-center">
-                                        <input for="IsDefaultTax" class="form-check-input" type="checkbox"
+                                        <input asp-for="IsDefaultTax" class="form-check-input" type="checkbox"
                                             id="defaultTax">
-                                        <label asp-for="IsDefaultTax" class="defaultTax">Default
-                                            Tax</label>
+                                        <label asp-for="IsDefaultTax" class="defaultTax">Default Tax</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6 mb-3">
@@ -132,8 +123,7 @@
                                         <label for="imageInput" id="file-item-add-label border-doted"
                                             class="h-100 w-100 text-center align-content-center">
                                             <span class="icon-upload"><img src="~/images/cloud-upload.svg" alt="">
-                                                Browse
-                                                files</span>
+                                                Browse files</span>
                                         </label>
                                     </div>
                                 </div>
@@ -143,18 +133,17 @@
                             <div>
                                 <select class="form-select" id="ModifierGroups"
                                     aria-label="Floating label select example" required>
-                                    <option selected disabled hidden>Select Category
-                                    </option>
+                                    <option selected disabled hidden>Select Category</option>
                                 </select>
                                 <div class="listModifiers">
-
+                                    <!-- Modifier groups will be populated via JavaScript -->
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer border-0">
                         <button type="submit" class="fill-btn" id="submitAddItem">Save</button>
-                        <button type="button" class="outline-btn" data-bs-dismiss="modal">Cancle</button>
+                        <button type="button" class="outline-btn" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
             </div>
