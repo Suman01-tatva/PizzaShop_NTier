@@ -26,25 +26,16 @@ public class MenuCategoryRepository : IMenuCategoryRepository
             }).ToListAsync();
     }
 
-    public bool AddNewCategory(string Name, string Description)
+    public bool AddNewCategory(MenuCategory menuCategory)
     {
         try
         {
-            MenuCategory menuCategory = new MenuCategory
-            {
-                Name = Name,
-                Description = Description,
-                CreatedAt = DateTime.UtcNow,
-                // CreatedBy = model.CreatedBy
-            };
-
             _context.MenuCategories.Add(menuCategory);
             _context.SaveChanges();
             return true;
         }
         catch (Exception ex)
         {
-            // Log the exception
             Console.WriteLine(ex.Message);
             return false;
         }
@@ -74,5 +65,15 @@ public class MenuCategoryRepository : IMenuCategoryRepository
         {
             return false;
         }
+    }
+
+    public bool GetCategoryByName(string name)
+    {
+        var category = _context.MenuCategories.FirstOrDefault(c => c.Name == name);
+        if (category != null)
+        {
+            return true;
+        }
+        return false;
     }
 }

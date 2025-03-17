@@ -9,4 +9,13 @@ public interface IMenuItemsRepository
 
     public int GetItemsCountByCId(int cId);
 
+    public bool AddNewItem(MenuItem model);
+
+    public bool IsItemExist(string name, int catId);
+
+    public MenuItem GetMenuItemById(int id);
+
+    public void EditMenuItem(MenuItemViewModel model);
+
+    public void DeleteMenuItem(int id);
 }

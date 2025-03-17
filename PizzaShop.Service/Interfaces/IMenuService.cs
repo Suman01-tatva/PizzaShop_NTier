@@ -9,7 +9,7 @@ public interface IMenuService
 
     Task<List<MenuItemViewModel>> GetItemsByCategory(int categoryId, int pageSize, int pageIndex, string? searchString);
 
-    public bool AddNewCategory(string Name, string Description);
+    Task<bool> AddNewCategory(string category, MenuCategoryViewModel model);
 
     public Task<MenuCategoryViewModel> GetCategoryDetailById(int id);
     public Task<bool> EditCategory(MenuCategoryViewModel model, int categoryId);
@@ -19,4 +19,19 @@ public interface IMenuService
     public bool SoftDeleteCategory(int id);
 
     public int GetItemsCountByCId(int cId);
+
+    public bool FindCategoryByName(string name);
+
+    public List<Unit> GetAllUnits();
+
+    public bool AddNewItem(MenuItemViewModel item, int userId);
+
+    public bool IsItemExist(string name, int catId);
+
+    public MenuItemViewModel GetMenuItemById(int itemId);
+
+    public void DeleteMenuItem(int id);
+
+    public bool MultiDeleteMenuItem(int[] itemIds);
+
 }

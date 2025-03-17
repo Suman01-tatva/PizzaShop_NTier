@@ -78,9 +78,16 @@ a {
   }
   .login-container {
     background-color: rgba(255, 255, 255, 0.6);
-    padding: 40px;
+    padding: 16px;
     border-radius: 20px;
     color: black;
+    width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    width: 100%;
   }
 }
 

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Permissions";
 }
 
-<h2>Manage Role Permissions</h2>
+<h2 class="page-title">Manage Role Permissions</h2>
 
 <form asp-action="Permission" asp-controller="RolePermission" method="post">
     <div class="col-md-4">
@@ -13,6 +13,7 @@
             <label for="floatingInput">Role</label>
         </div>
     </div>
+    <div class="table-responsive-md">
     <table class="table">
         <thead>
             <tr>
@@ -29,33 +30,33 @@
             @for (var i = 0; i < Model.Count; i++)
             {
                 <tr>
-                    <td>
+                    <td class="permission">
                         <input type="hidden" asp-for="@Model[i].Id" />
                         <input type="hidden" asp-for="@Model[i].Permissionid" />
                         <input type="hidden" asp-for="@Model[i].RoleId" />
                         <input type="hidden" asp-for="@Model[i].PermissionName" />
                         <input type="hidden" asp-for="@Model[i].RoleName" />
 
-                        <input type="checkbox" class="form-check-input permission-checkbox switch-btn mt-0"
+                        <input type="checkbox" class="form-check-input permission-checkbox switch-btn mt-1"
                                name="selectedPermissions" value="@Model[i].Id" data-index="@i"
                                @(Model[i].CanView || Model[i].CanEdit || Model[i].CanDelete ? "checked" : "") />
-                        @Model[i].PermissionName
+                        <span class="p-4">@Model[i].PermissionName</span>
                     </td>
-                    <td>
+                    <td class="canView">
                         <div class="form-check form-switch mb-0">
                             <input type="checkbox" asp-for="@Model[i].CanView" class="form-check-input permission-field can-view mt-0"
                                    data-index="@i" value="true" checked="@Model[i].CanView" />
                             <input type="hidden" name="[@i].Canview" value="false" />
                         </div>
                     </td>
-                    <td>
+                    <td class="canEdit">
                         <div class="form-check form-switch mb-0">
                             <input type="checkbox" asp-for="@Model[i].CanEdit" class="form-check-input permission-field can-addedit"
                                    data-index="@i" value="true" checked="@Model[i].CanEdit" />
                             <input type="hidden" name="[@i].Canaddedit" value="false" />
                         </div>
                     </td>
-                    <td>
+                    <td class="canDelete">
                         <div class="form-check form-switch mb-0">
                             <input type="checkbox" asp-for="@Model[i].CanDelete" class="form-check-input permission-field can-delete"
                                    data-index="@i" value="true"checked="@Model[i].CanDelete" />
@@ -66,7 +67,7 @@
             }
         </tbody>
     </table>
-
+   </div>
    <div class="d-flex justify-content-end gap-2">
      <button type="submit" class="fill-btn">Save</button>
     <button type="button" class="border-btn" onclick="window.location.href='@Url.Action("Role", "RolePermission")'">Cancel</button></form>

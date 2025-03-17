@@ -1,27 +1,22 @@
 @model PizzaShop.Entity.ViewModels.ItemTabViewModel
-@{
-    var PageSize = Model.PageSize;
-    var PageIndex = Model.PageIndex;
-    var TotalPage = Model.TotalPage;
-    var SearchString = Model.SearchString;
-}
+
 <section>
     <div class="row mx-0">
         <aside class="col-md-3" style="background-color: #f5f5f5">
             <!-- Category header -->
             <div class="d-flex flex-wrap justify-content-between align-items-center p-2">
                 <h5>Categories</h5>
-                <button class="btn btn-outline-primary" id="Addcategory" data-bs-target="#addCategoryModal"
+                <button class="fill-btn py-1 px-2" id="Addcategory" data-bs-target="#addCategoryModal"
                     data-bs-toggle="modal">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
             <!-- Category list -->
             <div id="categoryList">
-                @Html.Partial("_CategoryList", Model.categoryList)
+                <partial name="_CategoryList" model="Model.categoryList" />
             </div>
         </aside>
-        <div class="col-md-9 border-start border-primary bg-light">
+        <div class="col-md-9 border-start border-primary bg-white">
             <div>
                 <!-- Item header -->
                 <h5 class="p-2 mb-0 text-primary">Items</h5>
@@ -33,194 +28,67 @@
                                 id="eye-icon" style="color: gray"></i>
                         </span>
                     </div>
-                    <button class="btn btn-outline-secondary me-3">
+                    <button class="btn btn-outline-secondary me-3" id="multiDeleteBtn">
                         <i class="fa-solid fa-trash"></i>
                     </button>
-                    <button class="btn btn-primary me-3">
+                    <button class="fill-btn addItemBtn">
                         <i class="fa-solid fa-plus"></i>New Item
                     </button>
                 </div>
 
                 <!-- Items Table -->
-                <section class="table-responsive">
-                    <table class="table user-table mb-0 menu-table">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value=""
-                                            id="flexCheckDefault" />
-                                    </div>
-                                </th>
-                                <th scope="col">Name</th>
-                                <th scope="col">ItemType</th>
-                                <th scope="col">Rate</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Available</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-group-divider menuItems" id="itemList">
-                            @Html.Partial("_ItemListPartial", Model.itemList)
-                        </tbody>
-                    </table>
-                </section>
-                <div class="d-flex justify-content-end align-items-center mt-2">
-                    <p class="mb-0">Items Per page</p>
-                    <select class="ms-3" aria-label="Default select example" id="pageSize">
-                        <option value="5" selected="@(PageSize == 5 ? true : false)">5</option>
-                        <option value="10" selected="@(PageSize == 10 ? true : false)">10</option>
-                        <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
-                    </select>
-
-                    <p class="mb-0 ms-2 me-2">Select @PageIndex out of <span>@TotalPage</span></p>
-                    @if (PageIndex > 1)
-                    {
-                        <span class="btn btn-outline-secondary me-1 px-3 py-0" name="PageIndex" id="Previous">
-                            <i class="fa-solid fa-less-than fa-sm" style="height: 15px"></i>
-                        </span>
-                    }
-                    else
-                    {
-                        <button class="btn btn-outline-secondary me-1 px-3 py-0" name="PageIndex" disabled>
-                            <i class="fa-solid fa-less-than fa-sm" style="height: 15px"></i>
-                        </button>
-                    }
-
-                    @if (PageIndex < TotalPage)
-                    {
-                        <a class="btn btn-outline-secondary px-3 py-0" name="PageIndex" id="Next">
-                            <i class="fa-solid fa-greater-than fa-sm"></i>
-                        </a>
-                    }
-                    else
-                    {
-                        <button class="btn btn-outline-secondary px-3 py-0" name="PageIndex" disabled>
-                            <i class="fa-solid fa-greater-than fa-sm"></i>
-                        </button>
-                    }
+                <div id="itemList">
+                    <partial name="_ItemListPartial" model="Model" />
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-@section Scripts {
-    <script>
-        @* $(document).ready(function () {
-            $("#addNewCategoryForm").submit(function (event) {
-                event.preventDefault(); // Prevent default form submission
+<div id="AddItemPartial">
 
-                var categoryName = $("#categoryName").val();
-                var categoryDescription = $("#categoryDescription").val();
-                $.ajax({
-                    type: "POST",
-                    url: '/Menu/AddNewCategory',
-                    data: {
-                        Name: categoryName,
-                        Description: categoryDescription
-                    },
-                    success: function (response) {
-                        if (response.success) {
-                            $('#addCategoryModal').modal('hide');
-                            console.log(response.message);
-                            toastr.success(response.message);
-                                location.reload(); // Reload the page to show the new category
-                        } else {
-                            toastr.error(response.message);
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        toastr.error("An error occurred while adding the category. Please try again.");
-                    }
-                });
-            });
-        }); *@
-            $("#submitNewCategory").click(function () {
+</div>
+<div id="EditItemPartial">
 
-                var formData = new FormData();
-                formData.append("Name", categoryName);
-                formData.append("Description", categoryDescription);
-
-                $.ajax({
-                    type: "POST",
-                    url: '/Menu/AddNewCategory',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        if (response.success) {
-                            $('#addCategoryModal').modal('hide');
-                            $('#categoryList').html(response);
-                        } else {
-                            toastr.error(response.message);
-                        }
-                    },
-                    error: function () {
-                        toastr.error("An error occurred while adding the category. Please try again.");
-                    }
-                });
-            });
-
-        $("#itemCategory").click(function () {
-            var categoryId = $(this).data("id");
-            console.log("id" + categoryId);
-            $.ajax({
-                url: '/Menu/GetItemsByCategory',
-                type: 'GET',
-                data: { id: categoryId },
-                success: function (response) {
-                    $("#itemList").html(response);
-                }
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    @* AddItem popup *@
+        $(".addItemBtn").click(function () {
+            $.get('@Url.Action("AddItem", "Menu")', function (data) {
+                $("#AddItemPartial").html(data);
+                $("#addItemModal").modal('show');
             })
-        })                                                                                                                                                      
-    </script>
-
-    <script>
-        var pageIndex = @Model.PageIndex;
-        function GetFilteredItems() {
-            var SearchString = $("#searchString").val();
-            var pageSize = $("#pageSize").val();
-            console.log($("#searchString").val())
-            $.ajax({
-                url: "/Menu/GetItemsByCategoryId",
-                type: "GET",
-                data: {
-                    id: categoryId,
-                    pageIndex: pageIndex,
-                    pageSize: pageSize,
-                    searchString: SearchString
-                },
-                success: function (data) {
-                    $("#menuItems").html(data);
-                }
-            })
-        }
-
-        $('#pageSize').change(function () {
-            var pageSize = @Model.PageSize
-                                        var pageIndex = 1
-            GetFilteredItems();
         })
 
-        $('#searchString').keyup(function () {
-            pageIndex = 1
-            pageSize = @Model.PageSize
+    $("#submitNewCategory").click(function () {
+        console.log("AddCategory");
+        $("#addNewCategoryForm").submit();
+    });
 
-                GetFilteredItems();
-        })
-
-        $("#Previous").click(function () {
-            console.log("prev")
-            pageIndex -= 1;
-            GetFilteredItems()
-        })
-
-        $('#Next').click(function () {
-            $("#PreviousBtn").attr('disabled', false)
-            console.log("next")
-            pageIndex += 1;
-            GetFilteredItems()
-        })
-    </script>
-}
+    $(document).on('click', ".editItemBtn", function () {
+        console.log("edit-item");
+        var itemId = $(this).data("itemid");
+        console.log("itemId = ", itemId);
+        $.get('@Url.Action("EditMenuItem", "Menu")', { itemId: itemId }, function (d) {
+            console.log("edititems", d.data);
+            @* $('#EditItemPartial').html(data); *@
+                var data = d.data;
+            setTimeout(function () {
+                $('#editItemModal #editItemCategories').val(data.categoryId);
+                $('#editItemModal #name').val(data.name);
+                $('#editItemModal #itemType').val(data.type);
+                $('#editItemModal #rate').val(data.rate);
+                $('#editItemModal #quantity').val(data.quantity);
+                $('#editItemModal #editItemUnits').val(data.unitId);
+                $('#editItemModal #taxPercentage').val(data.taxPercentage);
+                $('#editItemModal #shortCode').val(data.shortCode);
+                $('#editItemModal #description').val(data.description);
+                $('#editItemModal #available').prop('checked', data.isAvailable);
+                $('#editItemModal #defaultTax').prop('checked', data.isDefaultTax);
+                $('#editItemModal').modal('show');
+            }, 500);
+        });
+    });
+</script>

@@ -2,6 +2,8 @@ namespace PizzaShop.Entity.ViewModels;
 
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using PizzaShop.Entity.Data;
 
 
@@ -25,6 +27,8 @@ public partial class MenuItemViewModel
 
     public string? Image { get; set; }
 
+    public IFormFile? ProfileImagePath { get; set; } = null!;
+
     public string? Description { get; set; }
 
     public decimal? TaxPercentage { get; set; }
@@ -45,15 +49,15 @@ public partial class MenuItemViewModel
 
     public int? ModifiedBy { get; set; }
 
-    public virtual MenuCategory Category { get; set; } = null!;
+    // public virtual MenuCategory Category { get; set; } = null!;
 
-    public virtual User CreatedByNavigation { get; set; } = null!;
+    // public virtual User CreatedByNavigation { get; set; } = null!;
 
-    public virtual ICollection<MappingMenuItemsWithModifier> MappingMenuItemsWithModifiers { get; set; } = new List<MappingMenuItemsWithModifier>();
+    // public virtual ICollection<MappingMenuItemsWithModifier> MappingMenuItemsWithModifiers { get; set; } = new List<MappingMenuItemsWithModifier>();
 
-    public virtual User? ModifiedByNavigation { get; set; }
+    // public virtual User? ModifiedByNavigation { get; set; }
 
-    public virtual ICollection<OrderedItem> OrderedItems { get; set; } = new List<OrderedItem>();
+    // public virtual ICollection<OrderedItem> OrderedItems { get; set; } = new List<OrderedItem>();
 
-    public virtual Unit Unit { get; set; } = null!;
+    // public virtual Unit Unit { get; set; } = null!;
 }

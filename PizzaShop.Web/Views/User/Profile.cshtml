@@ -30,11 +30,11 @@
                         <i class="fa fa-camera p-2 " aria-hidden="true"></i>
                     </label>
                 </div>
-                <div class="col-md-7 p-0 mt-3">
+                <div class="col-md-7 text-center text-md-start p-0 mt-3">
                     <h3>@Model.FirstName @Model.LastName</h3>
                     <p>@Model.RoleName</p>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3 text-center mb-3">
                     @Model.Email
                 </div>
             </div>
@@ -169,21 +169,18 @@
 
             // Trigger the change event to populate the states and cities on page load
             $('#CountryId').change();
-
-            @* $.ajax({
-                url: '/Profile/GetProfilePhoto',
-                method: 'GET',
-                success: function (data) {
-                    console.log(data);
-                    if (data.profileImage != "" | data.profileImage != null) {
-                        imgPath = "/images/" + data.profileImage;
-                        $('.profile-photo').attr('src', imgPath);
-                        console.log(data);
-                    }                                                                    },
-                error: function () {
-                    console.error('Failed to load profile photo.');
+        }
+                document.getElementById('imageInput').addEventListener('change', function (event) {
+            var file = event.target.files[0];
+            console.log(file)
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    console.log(e.target.result);
+                    document.querySelector(".profile-img").src = e.target.result;
                 }
-            }); *@
-                        });
+                reader.readAsDataURL(file);
+            }
+        });
     </script>
 }

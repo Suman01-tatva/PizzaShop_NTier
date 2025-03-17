@@ -11,7 +11,7 @@
 
   <!-- Menu content -->
   <section class="p-3">
-    <nav class="bg-light p-2">
+    <nav class="p-2 bg-white">
       <div class="nav nav-underline" id="nav-tab" role="tablist">
         <button class="nav-link active tab-link pe-1" id="nav-item-tab" data-bs-toggle="tab" data-bs-target="#nav-item"
           type="button" role="tab" aria-controls="nav-item" aria-selected="true">
@@ -80,12 +80,15 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Confirmation</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
+          <div class="text-center">
+            <i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: #FFD43B;"></i>
+          </div>
           <div class="modal-body text-center p-1">
             <p class="fw-bold mb-0">Are you sure you want to delete this Category?</p>
           </div>
           <div class="modal-footer d-flex justify-content-center border-0">
-            <button type="button" class="btn btn-primary" id="confirmDeleteCategoryBtn">Yes</button>
-            <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">No</button>
+            <button type="button" class="fill-btn" id="confirmDeleteCategoryItemBtn">Yes</button>
+            <button type="button" class="outline-btn" data-bs-dismiss="modal">No</button>
           </div>
         </div>
       </div>
@@ -96,19 +99,6 @@
 @section Scripts {
   @* ItemTab Scripts *@
   <script>
-    $('.itemCategory').click(function () {
-      var categoryId = $(this).data("id");
-      console.log("id" + categoryId);
-      $.ajax({
-        url: '/Menu/GetItemsByCategory',
-        type: 'GET',
-        data: { categoryId: categoryId },
-        success: function (response) {
-          $('#itemList').html(response);
-        }
-      })
-    })
-
     $(document).ready(function () {
       $('.edit-category').click(function () {
         var categoryId = $(this).data("id");
@@ -118,8 +108,8 @@
           type: 'GET',
           data: { id: categoryId },
           success: function (response) {
-            $("#editCategoryModalContent").html(response); // Update the modal content with the response
-            $("#EditCategoryModal").modal('show'); // Show the modal
+            $("#editCategoryModalContent").html(response);
+            $("#EditCategoryModal").modal('show');
           },
           error: function (xhr, status, error) {
             alert("An error occurred while fetching the category details. Please try again.");
@@ -139,10 +129,10 @@
             if (response.success) {
               $('#EditCategoryModal').modal('hide');
               toastr.success(TempData["SuccessMessage"]);
-              setTimeout(function () {
+              @* setTimeout(function () { *@
                 window.location.reload();
-              }, 1000);  // Reload the page to show the updated category
-            } else {
+              @* }, 1000);  // Reload the page to show the updated category *@
+              } else {
               alert(response.message);
             }
           },
@@ -158,7 +148,7 @@
         $('#deleteCategoryModal').modal('show');
       });
 
-      $('#confirmDeleteCategoryBtn').click(function () {
+      $('#confirmDeleteCategoryItemBtn').click(function () {
         console.log("Click")
         $.ajax({
           type: "POST",
@@ -194,5 +184,6 @@
         }
       })
     })
+
   </script>
 }

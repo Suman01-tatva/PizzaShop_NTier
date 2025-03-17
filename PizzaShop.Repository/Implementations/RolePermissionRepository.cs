@@ -42,7 +42,7 @@ namespace PizzaShop.Repository.Implementations
                     {
                         Id = rp.Id,
                         RoleId = rp.RoleId,
-                        RoleName = role?.Name,
+                        RoleName = role?.Name!,
                         Permissionid = rp.PermissionId,
                         PermissionName = _context.Permissions.FirstOrDefault(p => p.Id == rp.PermissionId)?.Name,
                         CanEdit = rp.CanEdit,

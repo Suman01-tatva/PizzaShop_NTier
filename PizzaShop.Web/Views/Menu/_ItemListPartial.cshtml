@@ -1,44 +1,320 @@
-@model List<PizzaShop.Entity.ViewModels.MenuItemViewModel>
-@foreach (var item in Model)
-{
-    <tr>
-        <td>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-            </div>
-        </td>
-        <td class="d-flex align-items-center">
-            <span class="me-2">
-                <img src="~/images/dining-menu.png" alt="dining-menu" class="dining-menu-icon" /></span><span>
-                @item.Name
-            </span>
-        </td>
-        <td>
-            <div class="">
-                @if ((bool)item.Type)
-                {
-                    <img src="~/images/icons/veg-icon.svg" class="veg-icon" alt="veg-icon" />
-                }
-                else
-                {
-                    <img src="~/images/icons/non-veg-icon.svg" class="veg-icon" alt="veg-icon" />
-                }
-            </div>
-        </td>
-        <td>@item.Rate</td>
-        <td>@item.Quantity</td>
-        <td>
-            <div class="form-check form-switch">
-                <input class="form-check-input switch-btn" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-            </div>
-        </td>
-        <td>
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                <i class="fa-solid fa-pen me-3"></i>
-            </button>
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                <i class="fa-regular fa-trash-can"></i>
-            </button>
-        </td>
-    </tr>
+@model PizzaShop.Entity.ViewModels.ItemTabViewModel
+@{
+    var PageSize = Model.PageSize;
+    var PageIndex = Model.PageIndex;
+    var TotalPage = Model.TotalPage;
+    var SearchString = Model.SearchString;
 }
+<section class="table-responsive">
+    <table class="table user-table mb-0 menu-table">
+        <thead>
+            <tr>
+                <th>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                    </div>
+                </th>
+                <th scope="col">Name</th>
+                <th scope="col">ItemType</th>
+                <th scope="col">Rate</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Available</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider menuItems" id="itemsList">
+            @if (Model.itemList.Count == 0)
+            {
+                <tr>
+                    <p>Items Not Found</p>
+                </tr>
+            }
+            else
+            {
+                @for (var i = 0; i < Model.itemList.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input itemCheckBox" value="@Model.itemList[i].Id" type="checkbox"
+                                    value="" id="flexCheckDefault" />
+                            </div>
+                        </td>
+                        <td class="">
+                            <span class="me-2">
+                                <img src="/images/@(Model.itemList[i].Image != null ? Model.itemList[i].Image : "dining-menu.png")"
+                                    alt="dining-menu" class="dining-menu-icon" /></span><span>
+                                @Model.itemList[i].Name
+                            </span>
+                        </td>
+                        <td>
+                            <div class="">
+                                @if ((bool)Model.itemList[i].Type)
+                                {
+                                    <img src="~/images/icons/veg-icon.svg" class="veg-icon" alt="veg-icon" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/icons/non-veg-icon.svg" class="veg-icon" alt="veg-icon" />
+                                }
+                            </div>
+                        </td>
+                        <td>@Model.itemList[i].Rate</td>
+                        <td>@Model.itemList[i].Quantity</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input switch-btn" type="checkbox" role="switch"
+                                    id="flexSwitchCheckDefault" />
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn editItemBtn" data-itemid="@Model.itemList[i].Id">
+                                <i class="fa-solid fa-pen me-3 "></i>
+                            </button>
+                            <button type="button" class="btn deleteItem" value="@Model.itemList[i].Id">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</section>
+<div class="d-flex justify-content-end align-items-center mt-2">
+    <p class="mb-0">Items Per page</p>
+    @* <p>PageSize: @Model.PageSize</p> *@
+    <select class="ms-3 form-select w-auto" aria-label="Default select example" id="pageSizedropdown">
+        <option value="5" selected="@(PageSize == 5 ? true : false)">5</option>
+        <option value="10" selected="@(PageSize == 10 ? true : false)">10</option>
+        <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
+    </select>
+    @* <p>PageIndex : @Model.PageIndex</p>
+    <p>TotalPage : @Model.TotalPage</p> *@
+    <p class="mb-0 ms-2 me-2">Showing @Model.PageIndex - @Model.PageSize Of <span>@Model.TotalPage</span></p>
+    @if (PageIndex > 1)
+    {
+        <span class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="Previous">
+            <i class="fa fa-chevron-left"></i>
+        </span>
+    }
+    else
+    {
+        <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
+            <i class="fa fa-chevron-left"></i>
+        </button>
+    }
+
+    @if (PageIndex < TotalPage)
+    {
+        <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="Next">
+            <i class="fa fa-chevron-right"></i>
+        </a>
+    }
+    else
+    {
+        <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
+            <i class="fa fa-chevron-right"></i>
+        </button>
+    }
+</div>
+<partial name="_AddItem" model="new PizzaShop.Entity.ViewModels.MenuItemViewModel()"></partial>
+<partial name="_EditItem" model="new PizzaShop.Entity.ViewModels.MenuItemViewModel()"></partial>
+@* DeleteItemModel*@
+<div class="modal fade" id="deleteItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Delete Confirmation
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center p-1">
+                <img src="~/images/toppng.com-warning-icon-2400x2400.png" alt="alert-icon" id="alert-icon" />
+                <p class="fw-bold mb-0">
+                    Are you sure you want to delete this Item?
+                </p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center border-0">
+                <button type="button" id="deleteItemBtn" class="btn btn-primary">Yes</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Delete Multiple Item Model*@
+<div class="modal fade" id="deleteMultipleItemModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                    Delete Confirmation
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center p-1">
+                <img src="~/images/toppng.com-warning-icon-2400x2400.png" alt="alert-icon" id="alert-icon" />
+                <p class="fw-bold mb-0">
+                    Are you sure you want to delete this Item?
+                </p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center border-0">
+                <button type="button" id="multiDeleteItemBtn" class="btn btn-primary">Yes</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    @* Delete Item Script *@
+    var deleteItemId;
+    $(".deleteItem").click(function () {
+        deleteItemId = $(this).val();
+        $('#deleteItemModal').modal('show');
+    })
+    $('#deleteItemBtn').click(function () {
+        $.ajax({
+            url: '/Menu/DeleteMenuItem',
+            type: 'post',
+            data: { id: deleteItemId },
+            success: function (response) {
+                if (response == null)
+                    window.location.href = "/Authentication/Login";
+                if (response.isSuccess) {
+                    @* GetFilteredItems(); *@
+                        toastr.success(response.message, {
+                            closeButton: true,
+                            progressBar: true,
+                            timeOut: 2000,
+                            positionClass: "toast-top-right"
+                        });
+
+                } else {
+                    toastr.error(response.message, {
+                        closeButton: true,
+                        progressBar: true,
+                        timeOut: 2000,
+                        positionClass: "toast-top-right"
+                    });
+                }
+                $("#deleteItemModal").modal('hide');
+            }
+        })
+    })
+
+    var deleteItemIds = [];
+    $('#itemsList').on("click", ".itemCheckBox", function () {
+        var itemId = $(this).val();
+        if (this.checked == true) {
+            deleteItemIds.push(parseInt(itemId));
+        }
+        else {
+            deleteItemIds = deleteItemIds.filter(id => id != parseInt(itemId));
+        }
+    })
+    $('#multiDeleteBtn').click(function () {
+        if (deleteItemIds.length == 0) {
+            toastr.info("Select at Least One Item");
+        } else {
+            $('#deleteMultipleItemModal').modal('show');
+        }
+    })
+    $('#multiDeleteItemBtn').click(function () {
+        $.ajax({
+            url: "/Menu/MultiDeleteMenuItem",
+            type: 'POST',
+            data: {
+                itemIds: deleteItemIds
+            },
+            success: function (response) {
+                if (response == null)
+                    window.location.href = "/Auth/Login"
+                if (response.isSuccess) {
+                    @* GetFilteredItems(); *@
+                        toastr.success(response.message);
+
+                } else {
+                    toastr.error(response.message);
+                }
+                $("#deleteMultipleItemModal").modal('hide');
+            }
+        })
+    })
+
+
+
+    @* Pagination Script *@
+        $(".itemCategory").click(function () {
+            categoryId = $(this).data("id");
+            console.log("id" + categoryId);
+            console.log("pageIndex" + @Model.PageIndex);
+            console.log("PAgeSize" + @Model.PageSize);
+
+            $.ajax({
+                url: '/Menu/GetItemsByCategory',
+                type: 'GET',
+                data: { categoryId: categoryId, pageSize: @Model.PageSize, pageIndex: @Model.PageIndex, searchString: "" },
+                success: function (response) {
+                    console.log(response);
+                    $("#itemList").html(response);
+                }
+            })
+        })
+
+    var pageIndex = @Model.PageIndex;
+
+    function GetFilteredItems() {
+        console.log("getfilteritem", categoryId)
+        var SearchString = $("#searchString").val();
+        var pageSize = $("#pageSizedropdown").val();
+        console.log($("#searchString").val())
+        $.ajax({
+            url: "/Menu/GetItemsByCategory",
+            type: "GET",
+            data: {
+                categoryId: categoryId,
+                pageIndex: pageIndex,
+                pageSize: pageSize,
+                searchString: SearchString
+            },
+            success: function (data) {
+                $("#itemList").html(data);
+            }
+        })
+    }
+
+    $('#pageSizedropdown').change(function () {
+        var pageSize = $(this).val();
+        console.log("pagesize " + pageSize);
+        console.log("CategoryId", categoryId)
+        console.log("PAgeIndex", @Model.PageIndex);
+
+        GetFilteredItems();
+    })
+
+    $('#searchString').keyup(function () {
+        pageIndex = 1
+        pageSize = @Model.PageSize
+            GetFilteredItems();
+    })
+
+    $("#Previous").click(function () {
+        console.log("prev")
+        pageIndex -= 1;
+        GetFilteredItems()
+    })
+
+    $('#Next').click(function () {
+        $("#PreviousBtn").attr('disabled', false)
+        console.log("next")
+        pageIndex += 1;
+        GetFilteredItems()
+    })
+</script>

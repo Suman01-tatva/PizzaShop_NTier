@@ -1,0 +1,215 @@
+@model PizzaShop.Entity.ViewModels.MenuItemViewModel;
+
+<div class="modal fade align-content-center" id="editItemModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content rounded-1">
+            <div class="modal-header border-0">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                    Edit Menu Item
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-secondary">
+                <form asp-action="EditMenuItem" asp-controller="Menu" method="post" id="addItemForm">
+                    <input asp-for="Id" type="hidden">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        <select asp-for="@Model.CategoryId" class="form-select" id="editItemCategories"
+                                            aria-label="Floating label select example" required>
+                                            <option selected disabled hidden>Select Category
+                                            </option>
+                                        </select>
+                                        <label for="category">Category*</label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="@Model.Name" type="text" class="form-control" id="name"
+                                            placeholder="" required>
+                                        <label>Name*</label>
+                                        <span asp-validation-for="Name"
+                                            class="add-cat-name-validation text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        <select asp-for="@Model.Type" class="form-select" id="itemType" required>
+                                            <option selected disabled hidden>Select a type
+                                            </option>
+                                            <option value="true">Vegetarian</option>
+                                            <option value="false">Non-Vegetarian</option>
+                                            <option value="null">Vegan</option>
+                                        </select>
+                                        <label for="itemType">Item Type*</label>
+                                        <span asp-validation-for="Type"
+                                            class="add-cat-name-validation text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="@Model.Rate" type="number" class="form-control" id="rate"
+                                            placeholder="" min="0" required>
+                                        <label asp-for="Rate">Rate*</label>
+                                        <span asp-validation-for="Rate"
+                                            class="add-cat-name-validation text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6">
+                                    <div class="form-floating mb-3">
+                                        <input asp-for="@Model.Quantity" type="number" class="form-control"
+                                            id="quantity" placeholder="" min="0" required>
+                                        <label asp-for="Quantity">Quantity*</label>
+                                        <span asp-validation-for="Quantity"
+                                            class="add-cat-name-validation text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        <select asp-for="@Model.UnitId" class="form-select" id="editItemUnits"
+                                            aria-label="Floating label select example">
+                                            <option selected disabled hidden>Select a unit
+                                            </option>
+                                            @* <option value="1">pcs</option>
+                                                <option value="2">gram</option>
+                                                <option value="3">Kg</option> *@
+                                        </select>
+                                        <label for="role">Unit*</label>
+                                        <span asp-validation-for="UnitId"
+                                            class="add-cat-name-validation text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-6 mb-3 align-content-center">
+                                    <div class="form-check form-switch text-center">
+                                        <input for="IsAvailable" class="form-check-input" type="checkbox"
+                                            id="available">
+                                        <label class="" asp-for="IsAvailable">Available</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-6 mb-3 align-content-center">
+                                    <div class="form-check form-switch text-center">
+                                        <input for="IsDefaultTax" class="form-check-input" type="checkbox"
+                                            id="defaultTax">
+                                        <label asp-for="IsDefaultTax" class="defaultTax">Default
+                                            Tax</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        <input asp-for="TaxPercentage" asp-for="@Model.TaxPercentage" type="number"
+                                            class="form-control" id="taxPercentage" placeholder="">
+                                        <label asp-for="TaxPercentage">Tax Percentage</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 mb-3">
+                                    <div class="form-floating">
+                                        <input asp-for="ShortCode" asp-for="@Model.ShortCode" type="text"
+                                            class="form-control" id="shortCode" placeholder="">
+                                        <label asp-for="ShortCode">Short Code</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 mb-3">
+                                    <div class="form-floating">
+                                        <textarea asp-for="Description" asp-for="@Model.Description"
+                                            class="form-control" id="description" placeholder=""></textarea>
+                                        <label asp-for="Description">Description</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <h6 class="text-start">Upload Image</h6>
+                                    <div class="rounded mb-3 upload-container">
+                                        <input type="file" asp-for="ProfileImagePath" name="ProfileImagePath"
+                                            id="imageInput" accept="image/*" style="display: none;">
+                                        <input type="hidden" asp-for="Image" name="ProfileImg">
+                                        <label for="imageInput" id="file-item-add-label border-doted"
+                                            class="h-100 w-100 text-center align-content-center">
+                                            <span class="icon-upload"><img src="~/images/cloud-upload.svg" alt="">
+                                                Browse
+                                                files</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 bg-warning-subtle py-2">
+                            <div>
+                                <select class="form-select" id="EditItemModifierGroups"
+                                    aria-label="Floating label select example" required>
+                                    <option selected disabled hidden>Select Category
+                                    </option>
+                                </select>
+                                <div class="listModifiers">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0">
+                        <button type="submit" class="fill-btn" id="submitAddItem">Save</button>
+                        <button type="button" class="outline-btn" data-bs-dismiss="modal">Cancle</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $.getJSON('@Url.Action("GetAllUnits", "Menu")', function (units) {
+            $('#editItemUnits').empty().append('<option selected disabled hidden>Select Unit</option>');
+
+            $.each(units, function (i, unit) {
+                $('#editItemUnits').append($('<option>', {
+                    value: unit.id,
+                    text: unit.name
+                }));
+            });
+        });
+
+        $.getJSON('@Url.Action("GetAllCategory", "Menu")', function (category) {
+            $('#editItemCategories').empty().append('<option selected disabled hidden>Select Category</option>');
+            $.each(category, function (i, c) {
+                $('#editItemCategories').append($('<option>', {
+                    value: c.id,
+                    text: c.name
+                }));
+            });
+        });
+
+        $.getJSON('@Url.Action("GetAllModifierGroups", "MenuModifier")', function (ModifierGroups) {
+            $('#EditItemModifierGroups').empty().append('<option selected disabled hidden>Select ModifierGroup</option>');
+            $.each(ModifierGroups, function (i, m) {
+                $('#EditItemModifierGroups').append($('<option>', {
+                    value: m.id,
+                    text: m.name
+                }));
+            });
+        });
+
+        $("#EditItemModifierGroups").change(function () {
+            var id = $(this).val();
+            console.log("modifierGroup selected: " + id);
+            $.ajax({
+                url: '@Url.Action("GetModifiersByModifierGroup", "MenuModifier")',
+                type: 'GET',
+                data: { modifierGroupId: id },
+                success: function (response) {
+                    console.log(response);
+                    $(".listModifiers").append(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    })
+</script>

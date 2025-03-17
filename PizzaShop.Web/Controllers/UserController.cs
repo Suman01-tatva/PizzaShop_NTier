@@ -36,7 +36,7 @@ public class UserController : Controller
         if (ModelState.IsValid)
         {
             var token = Request.Cookies["Token"];
-            var email = await _tokenDataService.GetEmailFromToken(token);
+            var (email, id) = await _tokenDataService.GetEmailFromToken(token);
             string isPasswordChanged = await _userService.ChangePasswordAsync(model, email);
 
             if (isPasswordChanged == "success")
@@ -60,7 +60,7 @@ public class UserController : Controller
     public async Task<IActionResult> Profile()
     {
         var token = Request.Cookies["Token"];
-        var email = await _tokenDataService.GetEmailFromToken(token);
+        var (email, id) = await _tokenDataService.GetEmailFromToken(token);
 
         if (string.IsNullOrEmpty(email))
         {
@@ -92,7 +92,7 @@ public class UserController : Controller
         if (ModelState.IsValid)
         {
             var token = Request.Cookies["Token"];
-            var email = await _tokenDataService.GetEmailFromToken(token);
+            var (email, id) = await _tokenDataService.GetEmailFromToken(token);
             string ProfileImagePath = null;
             if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
             {
@@ -116,13 +116,14 @@ public class UserController : Controller
 
             TempData["ToastrMessage"] = "Profile Updated Successfully";
             TempData["ToastrType"] = "success";
-            return RedirectToAction("AdminDashboard", "Home");
         }
         else
         {
-            await PopulateDropdowns();
-            return View(model);
+            TempData["ToastrMessage"] = "Due to some isuue your profile is not updated";
+            TempData["ToastrType"] = "error";
         }
+        await PopulateDropdowns();
+        return View(model);
     }
 
     public IActionResult UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")
@@ -169,7 +170,7 @@ public class UserController : Controller
                 return View(model);
             }
             var token = Request.Cookies["Token"];
-            var currentUserEmail = await _tokenDataService.GetEmailFromToken(token);
+            var (currentUserEmail, id) = await _tokenDataService.GetEmailFromToken(token);
 
             string ProfileImagePath = null;
             if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
@@ -191,7 +192,9 @@ public class UserController : Controller
                 model.ProfileImg = ProfileImagePath;
 
             await _userService.AddUserAsync(model, currentUserEmail);
-            // _mailService.SendMail(model.Email, "Welcome To Pizza Shop");
+            _mailService.SendMail(model.Email, "Welcome To Pizza Shop");
+            TempData["ToastrMessage"] = "User Created Successfully";
+            TempData["ToastrType"] = "success";
 
             return RedirectToAction("UserList");
         }
@@ -212,9 +215,18 @@ public class UserController : Controller
     }
 
     [HttpPost]
-    public IActionResult DeleteUser(int id)
+    [Route("User/DeleteUser/{id}/{roleId}")]
+    public IActionResult DeleteUser(int id, int roleId)
     {
+        if (roleId == 1)
+        {
+            TempData["ToastrMessage"] = "You don't have access to delete the Admin user";
+            TempData["ToastrType"] = "error";
+            return RedirectToAction(nameof(UserList));
+        }
         _userService.DeleteUser(id);
+        TempData["ToastrMessage"] = "User Deleted Successfully";
+        TempData["ToastrType"] = "success";
         return RedirectToAction(nameof(UserList));
     }
 
@@ -274,7 +286,7 @@ public class UserController : Controller
     public async Task<JsonResult> GetProfileDetail()
     {
         var token = Request.Cookies["Token"];
-        var currentUserEmail = await _tokenDataService.GetEmailFromToken(token!);
+        var (currentUserEmail, id) = await _tokenDataService.GetEmailFromToken(token!);
         var user = await _userService.GetUserByEmailAsync(currentUserEmail);
         if (user != null)
         {

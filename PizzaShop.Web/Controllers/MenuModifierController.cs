@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -39,5 +40,12 @@ public class MenuModifierController : Controller
     {
         List<MenuModifierViewModel> filteredModifiers = await _menuModifierService.GetModifiersByModifierGroup(modifierGroupId);
         return PartialView("_Modifier", filteredModifiers);
+    }
+
+    [HttpGet]
+    public async Task<JsonResult> GetAllModifierGroups()
+    {
+        var modifiers = await _menuModifierService.GetAllMenuModifierGroupAsync();
+        return Json(modifiers);
     }
 }

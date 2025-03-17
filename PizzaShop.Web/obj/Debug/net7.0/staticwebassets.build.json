@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/O2SQ/qvvE1f0egPpcUscLJZyYgmdtecwL+zZv5I4Bs=",
+  "Hash": "7cP8D0XuJPsj6kSRIn0Lndek3MtRpB1Fy9i0E5fZJzA=",
   "Source": "PizzaShop.Web",
   "BasePath": "_content/PizzaShop.Web",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "PizzaShop.Web\\wwwroot",
       "Source": "PizzaShop.Web",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\obj\\Debug\\net7.0\\scopedcss\\bundle\\PizzaShop.Web.styles.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\obj\\Debug\\net7.0\\scopedcss\\bundle\\PizzaShop.Web.styles.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Computed",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\obj\\Debug\\net7.0\\scopedcss\\bundle\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "PizzaShop.Web.styles.css",
       "AssetKind": "All",
@@ -31,13 +31,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\obj\\Debug\\net7.0\\scopedcss\\bundle\\PizzaShop.Web.styles.css"
+      "OriginalItemSpec": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\obj\\Debug\\net7.0\\scopedcss\\bundle\\PizzaShop.Web.styles.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\PizzaShop.Web.bundle.scp.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\PizzaShop.Web.bundle.scp.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Computed",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "PizzaShop.Web.bundle.scp.css",
       "AssetKind": "All",
@@ -48,13 +48,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\PizzaShop.Web.bundle.scp.css"
+      "OriginalItemSpec": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\PizzaShop.Web.bundle.scp.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\css\\dashboard.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\css\\dashboard.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "css/dashboard.css",
       "AssetKind": "All",
@@ -68,10 +68,10 @@
       "OriginalItemSpec": "wwwroot\\css\\dashboard.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\css\\login.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\css\\login.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "css/login.css",
       "AssetKind": "All",
@@ -85,10 +85,10 @@
       "OriginalItemSpec": "wwwroot\\css\\login.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\css\\menu.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\css\\menu.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "css/menu.css",
       "AssetKind": "All",
@@ -102,10 +102,10 @@
       "OriginalItemSpec": "wwwroot\\css\\menu.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\css\\site.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\css\\site.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -119,10 +119,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\css\\user.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\css\\user.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "css/user.css",
       "AssetKind": "All",
@@ -136,10 +136,10 @@
       "OriginalItemSpec": "wwwroot\\css\\user.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\favicon.ico",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\favicon.ico",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -153,10 +153,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\cancel.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\cancel.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/cancel.svg",
       "AssetKind": "All",
@@ -170,10 +170,10 @@
       "OriginalItemSpec": "wwwroot\\images\\cancel.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\cloud-upload.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\cloud-upload.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/cloud-upload.svg",
       "AssetKind": "All",
@@ -187,10 +187,10 @@
       "OriginalItemSpec": "wwwroot\\images\\cloud-upload.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\Default_pfp.svg.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\Default_pfp.svg.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/Default_pfp.svg.png",
       "AssetKind": "All",
@@ -204,10 +204,10 @@
       "OriginalItemSpec": "wwwroot\\images\\Default_pfp.svg.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\dining-menu.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\dining-menu.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/dining-menu.png",
       "AssetKind": "All",
@@ -221,10 +221,10 @@
       "OriginalItemSpec": "wwwroot\\images\\dining-menu.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\dominos_background.jpg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\dominos_background.jpg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/dominos_background.jpg",
       "AssetKind": "All",
@@ -238,10 +238,10 @@
       "OriginalItemSpec": "wwwroot\\images\\dominos_background.jpg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\dominos_bg_blur.JPEG",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\dominos_bg_blur.JPEG",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/dominos_bg_blur.JPEG",
       "AssetKind": "All",
@@ -255,10 +255,10 @@
       "OriginalItemSpec": "wwwroot\\images\\dominos_bg_blur.JPEG"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\eye-close.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\eye-close.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/eye-close.png",
       "AssetKind": "All",
@@ -272,10 +272,10 @@
       "OriginalItemSpec": "wwwroot\\images\\eye-close.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\eye-open.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\eye-open.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/eye-open.png",
       "AssetKind": "All",
@@ -289,10 +289,10 @@
       "OriginalItemSpec": "wwwroot\\images\\eye-open.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\graph-2.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\graph-2.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/graph-2.png",
       "AssetKind": "All",
@@ -306,10 +306,10 @@
       "OriginalItemSpec": "wwwroot\\images\\graph-2.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\graph1.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\graph1.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/graph1.png",
       "AssetKind": "All",
@@ -323,10 +323,10 @@
       "OriginalItemSpec": "wwwroot\\images\\graph1.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\graph2.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\graph2.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/graph2.png",
       "AssetKind": "All",
@@ -340,10 +340,10 @@
       "OriginalItemSpec": "wwwroot\\images\\graph2.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\icons\\customer.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\customer.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/icons/customer.svg",
       "AssetKind": "All",
@@ -357,10 +357,10 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\customer.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\icons\\dinner-table.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\dinner-table.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/icons/dinner-table.svg",
       "AssetKind": "All",
@@ -374,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\dinner-table.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\icons\\non-veg-icon.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\non-veg-icon.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/icons/non-veg-icon.svg",
       "AssetKind": "All",
@@ -391,10 +391,10 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\non-veg-icon.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\icons\\order-value.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\order-value.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/icons/order-value.svg",
       "AssetKind": "All",
@@ -408,10 +408,10 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\order-value.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\icons\\total-orders.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\total-orders.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/icons/total-orders.svg",
       "AssetKind": "All",
@@ -425,10 +425,10 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\total-orders.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\icons\\total-sales.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\total-sales.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/icons/total-sales.svg",
       "AssetKind": "All",
@@ -442,10 +442,10 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\total-sales.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\icons\\ui-checks-grid.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\ui-checks-grid.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/icons/ui-checks-grid.svg",
       "AssetKind": "All",
@@ -459,10 +459,10 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\ui-checks-grid.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\icons\\veg-icon.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\veg-icon.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/icons/veg-icon.svg",
       "AssetKind": "All",
@@ -476,10 +476,10 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\veg-icon.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\icons\\vegan-icon.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\vegan-icon.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/icons/vegan-icon.svg",
       "AssetKind": "All",
@@ -493,10 +493,10 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\vegan-icon.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\icons\\waiting-list.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\waiting-list.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/icons/waiting-list.svg",
       "AssetKind": "All",
@@ -510,10 +510,10 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\waiting-list.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\icons\\waiting-time.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\waiting-time.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/icons/waiting-time.svg",
       "AssetKind": "All",
@@ -527,10 +527,10 @@
       "OriginalItemSpec": "wwwroot\\images\\icons\\waiting-time.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\logos\\icons8-facebook-48.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\logos\\icons8-facebook-48.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/logos/icons8-facebook-48.png",
       "AssetKind": "All",
@@ -544,10 +544,10 @@
       "OriginalItemSpec": "wwwroot\\images\\logos\\icons8-facebook-48.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\logos\\icons8-github-48.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\logos\\icons8-github-48.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/logos/icons8-github-48.png",
       "AssetKind": "All",
@@ -561,10 +561,10 @@
       "OriginalItemSpec": "wwwroot\\images\\logos\\icons8-github-48.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\logos\\icons8-google-48.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\logos\\icons8-google-48.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/logos/icons8-google-48.png",
       "AssetKind": "All",
@@ -578,10 +578,10 @@
       "OriginalItemSpec": "wwwroot\\images\\logos\\icons8-google-48.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\logos\\pizzashop_logo.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\logos\\pizzashop_logo.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/logos/pizzashop_logo.png",
       "AssetKind": "All",
@@ -595,10 +595,10 @@
       "OriginalItemSpec": "wwwroot\\images\\logos\\pizzashop_logo.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\menu-bar.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\menu-bar.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/menu-bar.svg",
       "AssetKind": "All",
@@ -612,10 +612,10 @@
       "OriginalItemSpec": "wwwroot\\images\\menu-bar.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\non-veg-icon.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\non-veg-icon.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/non-veg-icon.svg",
       "AssetKind": "All",
@@ -629,10 +629,10 @@
       "OriginalItemSpec": "wwwroot\\images\\non-veg-icon.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\pizzashop_logo.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\pizzashop_logo.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/pizzashop_logo.png",
       "AssetKind": "All",
@@ -646,10 +646,10 @@
       "OriginalItemSpec": "wwwroot\\images\\pizzashop_logo.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\profile_div_bg.jpg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\profile_div_bg.jpg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/profile_div_bg.jpg",
       "AssetKind": "All",
@@ -663,10 +663,10 @@
       "OriginalItemSpec": "wwwroot\\images\\profile_div_bg.jpg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\07031640-50b6-42b2-8dc2-bbe2ed6f06d3.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\07031640-50b6-42b2-8dc2-bbe2ed6f06d3.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/ProfileImages/07031640-50b6-42b2-8dc2-bbe2ed6f06d3.png",
       "AssetKind": "All",
@@ -680,12 +680,12 @@
       "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\07031640-50b6-42b2-8dc2-bbe2ed6f06d3.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\140a2e64-bbf1-4df5-8ce7-d39275c601a6.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\1222e40e-bd3e-4efc-aad2-9d873de9fff0.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
-      "RelativePath": "images/ProfileImages/140a2e64-bbf1-4df5-8ce7-d39275c601a6.png",
+      "RelativePath": "images/ProfileImages/1222e40e-bd3e-4efc-aad2-9d873de9fff0.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -694,15 +694,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\140a2e64-bbf1-4df5-8ce7-d39275c601a6.png"
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\1222e40e-bd3e-4efc-aad2-9d873de9fff0.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\53535b04-b4be-4d3f-bda5-ccc79b8eed0c.jpg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\25d4c239-e7e0-4838-ac56-336bb3a7bc10.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
-      "RelativePath": "images/ProfileImages/53535b04-b4be-4d3f-bda5-ccc79b8eed0c.jpg",
+      "RelativePath": "images/ProfileImages/25d4c239-e7e0-4838-ac56-336bb3a7bc10.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -711,13 +711,30 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\53535b04-b4be-4d3f-bda5-ccc79b8eed0c.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\25d4c239-e7e0-4838-ac56-336bb3a7bc10.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\58ea045c-1520-455b-88a3-c4fadc7d11c3.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\4521351e-b5d9-40a7-91a2-70829adbee26.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
+      "BasePath": "_content/PizzaShop.Web",
+      "RelativePath": "images/ProfileImages/4521351e-b5d9-40a7-91a2-70829adbee26.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\4521351e-b5d9-40a7-91a2-70829adbee26.png"
+    },
+    {
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\58ea045c-1520-455b-88a3-c4fadc7d11c3.png",
+      "SourceId": "PizzaShop.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/ProfileImages/58ea045c-1520-455b-88a3-c4fadc7d11c3.png",
       "AssetKind": "All",
@@ -731,10 +748,10 @@
       "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\58ea045c-1520-455b-88a3-c4fadc7d11c3.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\6d0cacc4-3d84-4a62-a1d5-64e19302541a.jpeg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\6d0cacc4-3d84-4a62-a1d5-64e19302541a.jpeg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/ProfileImages/6d0cacc4-3d84-4a62-a1d5-64e19302541a.jpeg",
       "AssetKind": "All",
@@ -748,12 +765,12 @@
       "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\6d0cacc4-3d84-4a62-a1d5-64e19302541a.jpeg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\75800230-1e9a-4407-8082-12fcc87f19bf.jpeg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\71b49f27-1bcf-4442-84b4-4a6680ace78b.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
-      "RelativePath": "images/ProfileImages/75800230-1e9a-4407-8082-12fcc87f19bf.jpeg",
+      "RelativePath": "images/ProfileImages/71b49f27-1bcf-4442-84b4-4a6680ace78b.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -762,15 +779,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\75800230-1e9a-4407-8082-12fcc87f19bf.jpeg"
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\71b49f27-1bcf-4442-84b4-4a6680ace78b.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\77fc766d-394f-4500-96bf-d00ff6536961.jpg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\7c6bae93-611b-4370-8385-04c38765f168.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
-      "RelativePath": "images/ProfileImages/77fc766d-394f-4500-96bf-d00ff6536961.jpg",
+      "RelativePath": "images/ProfileImages/7c6bae93-611b-4370-8385-04c38765f168.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -779,15 +796,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\77fc766d-394f-4500-96bf-d00ff6536961.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\7c6bae93-611b-4370-8385-04c38765f168.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\845a51b9-2263-45da-90d7-ef910b74a575.jpg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\92a57205-e301-4b1f-ad5e-987bea9ec7dd.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
-      "RelativePath": "images/ProfileImages/845a51b9-2263-45da-90d7-ef910b74a575.jpg",
+      "RelativePath": "images/ProfileImages/92a57205-e301-4b1f-ad5e-987bea9ec7dd.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -796,13 +813,47 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\845a51b9-2263-45da-90d7-ef910b74a575.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\92a57205-e301-4b1f-ad5e-987bea9ec7dd.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\9fc444fa-a0db-4658-9a38-03a0378c9099.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\977aaa4b-2d01-4255-bce0-2cb892c956b0.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
+      "BasePath": "_content/PizzaShop.Web",
+      "RelativePath": "images/ProfileImages/977aaa4b-2d01-4255-bce0-2cb892c956b0.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\977aaa4b-2d01-4255-bce0-2cb892c956b0.png"
+    },
+    {
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\9bdf963b-1085-4baf-b135-c9b78a2f00bb.png",
+      "SourceId": "PizzaShop.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
+      "BasePath": "_content/PizzaShop.Web",
+      "RelativePath": "images/ProfileImages/9bdf963b-1085-4baf-b135-c9b78a2f00bb.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\9bdf963b-1085-4baf-b135-c9b78a2f00bb.png"
+    },
+    {
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\9fc444fa-a0db-4658-9a38-03a0378c9099.png",
+      "SourceId": "PizzaShop.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/ProfileImages/9fc444fa-a0db-4658-9a38-03a0378c9099.png",
       "AssetKind": "All",
@@ -816,10 +867,10 @@
       "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\9fc444fa-a0db-4658-9a38-03a0378c9099.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\a097e48e-22da-494e-af21-0e9e16b2b503.jpg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\a097e48e-22da-494e-af21-0e9e16b2b503.jpg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/ProfileImages/a097e48e-22da-494e-af21-0e9e16b2b503.jpg",
       "AssetKind": "All",
@@ -833,10 +884,10 @@
       "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\a097e48e-22da-494e-af21-0e9e16b2b503.jpg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\a9719d5b-1858-469b-8c92-f9564b5c815f.jpg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\a9719d5b-1858-469b-8c92-f9564b5c815f.jpg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/ProfileImages/a9719d5b-1858-469b-8c92-f9564b5c815f.jpg",
       "AssetKind": "All",
@@ -850,12 +901,12 @@
       "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\a9719d5b-1858-469b-8c92-f9564b5c815f.jpg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\b4d1a308-511b-42fe-8980-2d68953768a3.jpg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\bdab031f-4311-4e88-8e3c-c9af6c38b453.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
-      "RelativePath": "images/ProfileImages/b4d1a308-511b-42fe-8980-2d68953768a3.jpg",
+      "RelativePath": "images/ProfileImages/bdab031f-4311-4e88-8e3c-c9af6c38b453.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -864,13 +915,30 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\b4d1a308-511b-42fe-8980-2d68953768a3.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\bdab031f-4311-4e88-8e3c-c9af6c38b453.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\d44cac2c-3c38-4478-a215-2c1d1abf5a6a.jpg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\c70d05c2-ee3f-4211-b13a-fe67d69adcfe.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
+      "BasePath": "_content/PizzaShop.Web",
+      "RelativePath": "images/ProfileImages/c70d05c2-ee3f-4211-b13a-fe67d69adcfe.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\c70d05c2-ee3f-4211-b13a-fe67d69adcfe.png"
+    },
+    {
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\d44cac2c-3c38-4478-a215-2c1d1abf5a6a.jpg",
+      "SourceId": "PizzaShop.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/ProfileImages/d44cac2c-3c38-4478-a215-2c1d1abf5a6a.jpg",
       "AssetKind": "All",
@@ -884,10 +952,27 @@
       "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\d44cac2c-3c38-4478-a215-2c1d1abf5a6a.jpg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\f9146544-3929-4119-a105-771fdc26e53a.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\ec9c6ec3-12ee-4bc1-a850-7cf81908485f.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
+      "BasePath": "_content/PizzaShop.Web",
+      "RelativePath": "images/ProfileImages/ec9c6ec3-12ee-4bc1-a850-7cf81908485f.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\ec9c6ec3-12ee-4bc1-a850-7cf81908485f.png"
+    },
+    {
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\f9146544-3929-4119-a105-771fdc26e53a.png",
+      "SourceId": "PizzaShop.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/ProfileImages/f9146544-3929-4119-a105-771fdc26e53a.png",
       "AssetKind": "All",
@@ -901,10 +986,27 @@
       "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\f9146544-3929-4119-a105-771fdc26e53a.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\qr-code.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\fa56ff67-cb9a-40d2-937d-851286d4c068.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
+      "BasePath": "_content/PizzaShop.Web",
+      "RelativePath": "images/ProfileImages/fa56ff67-cb9a-40d2-937d-851286d4c068.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\fa56ff67-cb9a-40d2-937d-851286d4c068.png"
+    },
+    {
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\qr-code.png",
+      "SourceId": "PizzaShop.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/qr-code.png",
       "AssetKind": "All",
@@ -918,10 +1020,10 @@
       "OriginalItemSpec": "wwwroot\\images\\qr-code.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\QR.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\QR.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/QR.png",
       "AssetKind": "All",
@@ -935,10 +1037,10 @@
       "OriginalItemSpec": "wwwroot\\images\\QR.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\square-menu.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\square-menu.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/square-menu.png",
       "AssetKind": "All",
@@ -952,10 +1054,10 @@
       "OriginalItemSpec": "wwwroot\\images\\square-menu.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\toggle-icon.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\toggle-icon.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/toggle-icon.svg",
       "AssetKind": "All",
@@ -969,10 +1071,10 @@
       "OriginalItemSpec": "wwwroot\\images\\toggle-icon.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\transperent-pizza.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\transperent-pizza.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/transperent-pizza.png",
       "AssetKind": "All",
@@ -986,10 +1088,10 @@
       "OriginalItemSpec": "wwwroot\\images\\transperent-pizza.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\user-icon.png",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\user-icon.png",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/user-icon.png",
       "AssetKind": "All",
@@ -1003,10 +1105,10 @@
       "OriginalItemSpec": "wwwroot\\images\\user-icon.png"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\veg-icon.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\veg-icon.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/veg-icon.svg",
       "AssetKind": "All",
@@ -1020,10 +1122,10 @@
       "OriginalItemSpec": "wwwroot\\images\\veg-icon.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\images\\vegan-icon.svg",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\vegan-icon.svg",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "images/vegan-icon.svg",
       "AssetKind": "All",
@@ -1037,10 +1139,10 @@
       "OriginalItemSpec": "wwwroot\\images\\vegan-icon.svg"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\js\\site.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\js\\site.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "js/site.js",
       "AssetKind": "All",
@@ -1054,10 +1156,10 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css",
       "AssetKind": "All",
@@ -1071,10 +1173,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.css.map",
       "AssetKind": "All",
@@ -1088,10 +1190,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css",
       "AssetKind": "All",
@@ -1105,10 +1207,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
       "AssetKind": "All",
@@ -1122,10 +1224,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
       "AssetKind": "All",
@@ -1139,10 +1241,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
       "AssetKind": "All",
@@ -1156,10 +1258,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
       "AssetKind": "All",
@@ -1173,10 +1275,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
       "AssetKind": "All",
@@ -1190,10 +1292,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css",
       "AssetKind": "All",
@@ -1207,10 +1309,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.css.map",
       "AssetKind": "All",
@@ -1224,10 +1326,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css",
       "AssetKind": "All",
@@ -1241,10 +1343,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
       "AssetKind": "All",
@@ -1258,10 +1360,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
       "AssetKind": "All",
@@ -1275,10 +1377,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
       "AssetKind": "All",
@@ -1292,10 +1394,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
       "AssetKind": "All",
@@ -1309,10 +1411,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
       "AssetKind": "All",
@@ -1326,10 +1428,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css",
       "AssetKind": "All",
@@ -1343,10 +1445,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.css.map",
       "AssetKind": "All",
@@ -1360,10 +1462,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css",
       "AssetKind": "All",
@@ -1377,10 +1479,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
       "AssetKind": "All",
@@ -1394,10 +1496,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
       "AssetKind": "All",
@@ -1411,10 +1513,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
       "AssetKind": "All",
@@ -1428,10 +1530,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
       "AssetKind": "All",
@@ -1445,10 +1547,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
       "AssetKind": "All",
@@ -1462,10 +1564,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css",
       "AssetKind": "All",
@@ -1479,10 +1581,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.css.map",
       "AssetKind": "All",
@@ -1496,10 +1598,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css",
       "AssetKind": "All",
@@ -1513,10 +1615,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -1530,10 +1632,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css",
       "AssetKind": "All",
@@ -1547,10 +1649,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.css.map",
       "AssetKind": "All",
@@ -1564,10 +1666,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css",
       "AssetKind": "All",
@@ -1581,10 +1683,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
       "AssetKind": "All",
@@ -1598,10 +1700,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js",
       "AssetKind": "All",
@@ -1615,10 +1717,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.js.map",
       "AssetKind": "All",
@@ -1632,10 +1734,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js",
       "AssetKind": "All",
@@ -1649,10 +1751,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
       "AssetKind": "All",
@@ -1666,10 +1768,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js",
       "AssetKind": "All",
@@ -1683,10 +1785,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.js.map",
       "AssetKind": "All",
@@ -1700,10 +1802,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js",
       "AssetKind": "All",
@@ -1717,10 +1819,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
       "AssetKind": "All",
@@ -1734,10 +1836,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js",
       "AssetKind": "All",
@@ -1751,10 +1853,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.js.map",
       "AssetKind": "All",
@@ -1768,10 +1870,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js",
       "AssetKind": "All",
@@ -1785,10 +1887,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/dist/js/bootstrap.min.js.map",
       "AssetKind": "All",
@@ -1802,10 +1904,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\bootstrap\\LICENSE",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/bootstrap/LICENSE",
       "AssetKind": "All",
@@ -1819,10 +1921,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap\\LICENSE"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
       "AssetKind": "All",
@@ -1836,10 +1938,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
       "AssetKind": "All",
@@ -1853,10 +1955,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/jquery-validation-unobtrusive/LICENSE.txt",
       "AssetKind": "All",
@@ -1870,10 +1972,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.js",
       "AssetKind": "All",
@@ -1887,10 +1989,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/jquery-validation/dist/additional-methods.min.js",
       "AssetKind": "All",
@@ -1904,10 +2006,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.js",
       "AssetKind": "All",
@@ -1921,10 +2023,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/jquery-validation/dist/jquery.validate.min.js",
       "AssetKind": "All",
@@ -1938,10 +2040,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/jquery-validation/LICENSE.md",
       "AssetKind": "All",
@@ -1955,10 +2057,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation\\LICENSE.md"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\jquery\\dist\\jquery.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/jquery/dist/jquery.js",
       "AssetKind": "All",
@@ -1972,10 +2074,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/jquery/dist/jquery.min.js",
       "AssetKind": "All",
@@ -1989,10 +2091,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.js"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/jquery/dist/jquery.min.map",
       "AssetKind": "All",
@@ -2006,10 +2108,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\lib\\jquery\\LICENSE.txt",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "lib/jquery/LICENSE.txt",
       "AssetKind": "All",
@@ -2023,10 +2125,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
     },
     {
-      "Identity": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\templates\\ResetPasswordEmail.html",
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\templates\\ResetPasswordEmail.html",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\TatvaProjects\\N tire\\PizzaShop_NTier\\PizzaShop.Web\\wwwroot\\",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
       "BasePath": "_content/PizzaShop.Web",
       "RelativePath": "templates/ResetPasswordEmail.html",
       "AssetKind": "All",
