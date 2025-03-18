@@ -169,13 +169,13 @@ public class MenuController : Controller
             var token = Request.Cookies["Token"];
             var (email, id) = await _tokenDataService.GetEmailFromToken(token!);
 
-            // bool isItemExist = _menuService.IsItemExist(model.Name, model.CategoryId);
-            // if (isItemExist)
-            // {
-            //     TempData["ToastrMessage"] = "Item Already Exist";
-            //     TempData["ToastrType"] = "error";
-            //     return RedirectToAction("Menu", "Menu");
-            // }
+            bool isItemExist = _menuService.IsItemExist(model.Name, model.CategoryId);
+            if (isItemExist)
+            {
+                TempData["ToastrMessage"] = "Item Already Exist";
+                TempData["ToastrType"] = "error";
+                return RedirectToAction("Menu", "Menu");
+            }
 
             // ItemTabViewModel MenuItemTab = _menuService.GetCategoryItem(5, 1, "");
 
@@ -213,35 +213,6 @@ public class MenuController : Controller
         // return PartialView("_EditItem", menuItem);
         return Json(new { data = menuItem });
     }
-
-    // [HttpPost]
-    // public async Task<IActionResult?> EditMenuItem()
-    // {
-    //     var AuthToken = Request.Cookies["Token"];
-    //     if (string.IsNullOrEmpty(AuthToken))
-    //         return null;
-
-    //     var (userEmail, role) = await _tokenDataService.GetEmailFromToken(AuthToken);
-    //     if (userEmail == null)
-    //         return null;
-
-    //     var menuItem = _menuService.GetMenuItemById(itemId);
-    //     List<ItemsViewModel> Items = _menuService.GetItemsByCategory(categoryId, pageSize, pageIndex, searchString);
-    //     var tp = _menuItemRepository.GetItemsCountByCId(categoryId);
-
-    //     var ItemTab = new ItemTabViewModel
-    //     {
-    //         AddEditItem = menuItem,
-    //         ListCategories = menuItem.Categories,
-    //         ListItems = Items,
-    //         PageSize = pageSize,
-    //         PageIndex = pageIndex,
-    //         SearchString = searchString,
-    //         TotalPage = (int)Math.Ceiling(tp / (double)pageSize)
-    //     };
-
-    //     return PartialView("_Items", ItemTab);
-    // }
 
     [HttpPost]
     public async Task<IActionResult> EditMenuItem(MenuItemViewModel menuItemViewModel)

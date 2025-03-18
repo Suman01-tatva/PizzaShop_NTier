@@ -126,7 +126,8 @@
           data: formData,
           success: function (response) {
             if (response.success) {
-              $('#EditCategoryModal').modal('hide');
+              @* GetFilteredCategory(); *@
+                $('#EditCategoryModal').modal('hide');
               window.location.href = response.redirectUrl;
             } else {
               alert(response.message);
@@ -153,7 +154,8 @@
               $('#deleteCategoryModal').modal('hide');
               @* toastr.success(response.message); *@
                 window.location.reload(); // Reload the page to show the updated category
-            } else {
+              @* GetFilteredCategory(); *@
+                } else {
               alert(response.message);
             }
           },
@@ -163,6 +165,18 @@
         });
       });
     });
+
+    function GetFilteredCategory() {
+      console.log("filter Category");
+      $.ajax({
+        url: "/Menu/GetAllCategory",
+        type: "GET",
+        data: {},
+        success: function (data) {
+          $(".category-list").html(data);
+        }
+      })
+    }
   </script>
   <script>
     $('.modifierGroup').click(function () {
@@ -176,6 +190,5 @@
         }
       })
     })
-
   </script>
 }

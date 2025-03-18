@@ -15,7 +15,6 @@ public class AuthController : Controller
 {
     private readonly IAuthService? _authService;
     private readonly IJwtService? _jwtService;
-
     public AuthController(IAuthService authService, IJwtService jwtService)
     {
         _authService = authService;

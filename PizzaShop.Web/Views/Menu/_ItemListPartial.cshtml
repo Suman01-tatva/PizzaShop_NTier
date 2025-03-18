@@ -171,6 +171,8 @@
     </div>
 </div>
 <script>
+    var debounce;
+    var ajaxRequest;
     @* Delete Item Script *@
     var deleteItemId;
     $(".deleteItem").click(function () {
@@ -267,7 +269,10 @@
     function GetFilteredItems() {
         var SearchString = $("#searchString").val();
         var pageSize = $("#pageSizedropdown").val();
-        $.ajax({
+        if (ajaxRequest && ajaxRequest.readyState !== 4) {
+            ajaxRequest.abort();
+        }
+        ajaxRequest = $.ajax({
             url: "/Menu/GetItemsByCategory",
             type: "GET",
             data: {
@@ -288,9 +293,12 @@
     })
 
     $('#searchString').keyup(function () {
+        clearTimeout(debounce);
         pageIndex = 1
-        pageSize = @Model.PageSize
+        pageSize = @Model.PageSize;
+        debounce = setTimeout(() => {
             GetFilteredItems();
+        }, 600)
     })
 
     $("#Previous").click(function () {

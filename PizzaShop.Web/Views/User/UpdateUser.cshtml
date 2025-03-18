@@ -78,14 +78,20 @@
                 <div class="form-floating col-md-4 my-2">
                     <select id="CountryId" name="CountryId" class="form-control" asp-items="ViewBag.Countries"></select>
                     <label for="CountryId" class="float">Country</label>
+                    <span asp-validation-for="CountryId" class="text-danger"></span>
+
                 </div>
                 <div class="form-floating col-md-4 my-2">
                     <select id="StateId" name="StateId" class="form-control" asp-items="ViewBag.States"></select>
                     <label for="StateId" class="float">State</label>
+                    <span asp-validation-for="StateId" class="text-danger"></span>
+
                 </div>
                 <div class="form-floating col-md-4 my-2">
                     <select id="CityId" name="CityId" class="form-control" asp-items="ViewBag.Cities"></select>
                     <label for="CityId" class="float">City</label>
+                    <span asp-validation-for="CityId" class="text-danger"></span>
+
                 </div>
             </div>
         </div>
@@ -94,15 +100,18 @@
         <div class="col-xl-12">
             <div class="row">
                 <div class="form-floating col-md-4 my-2">
-                    <input type="text" class="form-control twoc" id="Zipcode" asp-for="Zipcode">
+                    <input type="text" class="form-control twoc" id="Zipcode" asp-for="Zipcode" pattern="[0-9]{6}">
                     <label for="Zipcode" class="float">ZipCode</label>
+                    <span asp-validation-for="Zipcode" class="text-danger"></span>
                 </div>
                 <div class="form-floating col-md-4 my-2">
                     <input type="text" class="form-control twoc" id="Address" asp-for="Address">
                     <label for="Address" class="float">Address</label>
+                    <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
                 <div class="form-floating col-md-4 my-2">
-                    <input type="text" class="form-control twoc" id="Phone" asp-for="Phone">
+                    <input type="text" class="form-control twoc" id="Phone" asp-for="Phone" pattern="[0-9]{10}"
+                        maxlength="10" minlength="10">
                     <label for="Phone" class="float">Phone</label>
                     <span asp-validation-for="Phone" class="text-danger"></span>
                 </div>
@@ -112,8 +121,8 @@
         <br>
 
         <div class="form-group p-3 d-flex justify-content-start">
-            <button type="submit" class="btn btn-primary m-1 rounded">Update User</button>
-            <button asp-controller="User" asp-action="UserList" class="btn btn-outline-primary m-1">Cancel</button>
+            <button type="submit" class=" fill-btn m-1 rounded py-2">Update User</button>
+            <button asp-controller="User" asp-action="UserList" class="btn btn-secondary m-1">Cancel</button>
         </div>
     </form>
 </div>

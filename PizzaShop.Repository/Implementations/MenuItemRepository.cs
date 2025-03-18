@@ -16,7 +16,7 @@ public class MenuItemRepository : IMenuItemsRepository
     public async Task<List<MenuItem>> GetItemsByCategory(int categoryId, int pageSize, int pageIndex, string? searchString)
     {
         var itmes = _context.MenuItems.Where(c => c.CategoryId == categoryId && c.IsDeleted == false);
-
+        searchString = searchString?.Trim().ToLower();
         if (!string.IsNullOrEmpty(searchString))
         {
             itmes = itmes.Where(i => i.Name.ToLower().Contains(searchString.ToLower()));

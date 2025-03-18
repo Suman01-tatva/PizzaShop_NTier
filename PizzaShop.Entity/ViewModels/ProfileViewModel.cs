@@ -9,14 +9,17 @@ public class ProfileViewModel
 
     [Required(ErrorMessage = "First name is required.")]
     [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name can only contain letters.")]
+    [MaxLength(50, ErrorMessage = "FirstName should be maximum 50 characters long!")]
     public string? FirstName { get; set; }
 
     [Required(ErrorMessage = "Last name is required.")]
     [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name can only contain letters.")]
+    [MaxLength(50, ErrorMessage = "LastName should be maximum 50 characters long!")]
     public string? LastName { get; set; }
 
     [Required(ErrorMessage = "User name is required.")]
     [RegularExpression(@"^[a-zA-Z0-9_]+$", ErrorMessage = "UserName can only contain letters, numbers, and underscores.")]
+    [MaxLength(50, ErrorMessage = "UserName should be maximum 50 characters long!")]
     public string? Username { get; set; }
 
     [Required(ErrorMessage = "Email is required.")]
@@ -41,6 +44,7 @@ public class ProfileViewModel
     public string? Zipcode { get; set; }
 
     [Required(ErrorMessage = "Address is required.")]
+    [MaxLength(100, ErrorMessage = "Address should be maximum 100 characters long!")]
     public string? Address { get; set; }
 
     [Required(ErrorMessage = "Country is required.")]

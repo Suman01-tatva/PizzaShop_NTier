@@ -121,7 +121,10 @@
                                 }
                                 <a class="bi bi-trash m-1" href="javascript:void(0)"
                                     onclick="confirmDelete(@user.Id,@user.RoleId)">
-                                    <i class="fa-solid fa-trash"></i>
+                                    @if (user.RoleId != 1)
+                                    {
+                                        <i class="fa-solid fa-trash"></i>
+                                    }
                                 </a>
                                 <form id="deleteForm-@user.Id-@user.RoleId" method="post"
                                     action="@Url.Action("DeleteUser", "User", new { id = user.Id, roleId = user.RoleId })"

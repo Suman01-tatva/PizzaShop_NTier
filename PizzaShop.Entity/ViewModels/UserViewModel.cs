@@ -12,14 +12,17 @@ namespace PizzaShop.Entity.ViewModels
 
         [Required(ErrorMessage = "First name is required.")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "First name can only contain letters.")]
+        [MaxLength(50, ErrorMessage = "FirstName should be maximum 50 characters long!")]
         public string? FirstName { get; set; }
 
         [Required(ErrorMessage = "Last name is required.")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Last name can only contain letters.")]
+        [MaxLength(50, ErrorMessage = "LastName should be maximum 50 characters long!")]
         public string? LastName { get; set; }
 
         [Required(ErrorMessage = "User name is required.")]
         [RegularExpression(@"^[a-zA-Z0-9_]+$", ErrorMessage = "UserName can only contain letters, numbers, and underscores.")]
+        [MaxLength(50, ErrorMessage = "UserName should be maximum 50 characters long!")]
         public string? Username { get; set; }
 
         [Required(ErrorMessage = "Email is required.")]
@@ -28,8 +31,10 @@ namespace PizzaShop.Entity.ViewModels
         public string? Email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
-        [StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
-        [DataType(DataType.Password)]
+        [DataType(DataType.Password), MinLength(6)]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&]).{6,}$",
+                ErrorMessage = "Password must be at least 6 characters long and include uppercase, lowercase, number, and special character.")]
+        [MaxLength(50, ErrorMessage = "Password should be maximum 50 characters long!")]
         public string? Password { get; set; }
 
         [Required(ErrorMessage = "Phone number is required.")]
@@ -50,11 +55,11 @@ namespace PizzaShop.Entity.ViewModels
         public string? Zipcode { get; set; }
 
         [Required(ErrorMessage = "Address is required.")]
+        [MaxLength(100, ErrorMessage = "Address should be maximum 100 characters long!")]
         public string? Address { get; set; }
 
         [Required(ErrorMessage = "Country is required.")]
         public int? CountryId { get; set; }
-
 
         [Required(ErrorMessage = "State is required.")]
         public int? StateId { get; set; }

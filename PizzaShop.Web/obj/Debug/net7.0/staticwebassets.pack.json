@@ -37,6 +37,10 @@
       "PackagePath": "staticwebassets\\images\\ProfileImages\\07031640-50b6-42b2-8dc2-bbe2ed6f06d3.png"
     },
     {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\0e69858b-7171-4401-aba1-15b1d67d86b0.jfif",
+      "PackagePath": "staticwebassets\\images\\ProfileImages\\0e69858b-7171-4401-aba1-15b1d67d86b0.jfif"
+    },
+    {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\1222e40e-bd3e-4efc-aad2-9d873de9fff0.png",
       "PackagePath": "staticwebassets\\images\\ProfileImages\\1222e40e-bd3e-4efc-aad2-9d873de9fff0.png"
     },
@@ -49,8 +53,20 @@
       "PackagePath": "staticwebassets\\images\\ProfileImages\\18f60920-c91a-49d9-88d9-4a81f37dba25.jfif"
     },
     {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\24ebb500-46c5-4fde-bfab-9df34ac35de3.jfif",
+      "PackagePath": "staticwebassets\\images\\ProfileImages\\24ebb500-46c5-4fde-bfab-9df34ac35de3.jfif"
+    },
+    {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\2553a74e-56a3-4dd3-b32c-4feedf371a31.png",
+      "PackagePath": "staticwebassets\\images\\ProfileImages\\2553a74e-56a3-4dd3-b32c-4feedf371a31.png"
+    },
+    {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\25d4c239-e7e0-4838-ac56-336bb3a7bc10.png",
       "PackagePath": "staticwebassets\\images\\ProfileImages\\25d4c239-e7e0-4838-ac56-336bb3a7bc10.png"
+    },
+    {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\2a0217f8-f7da-4982-93dc-2f4e800aa785.jfif",
+      "PackagePath": "staticwebassets\\images\\ProfileImages\\2a0217f8-f7da-4982-93dc-2f4e800aa785.jfif"
     },
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\450a0cac-989e-4c55-9a27-6e7920c480a2.jfif",
@@ -63,6 +79,18 @@
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\4521351e-b5d9-40a7-91a2-70829adbee26.png",
       "PackagePath": "staticwebassets\\images\\ProfileImages\\4521351e-b5d9-40a7-91a2-70829adbee26.png"
+    },
+    {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\4ec405de-d434-4a33-9884-f9e422dca8b7.jfif",
+      "PackagePath": "staticwebassets\\images\\ProfileImages\\4ec405de-d434-4a33-9884-f9e422dca8b7.jfif"
+    },
+    {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\51bb0200-01e1-4f76-ae8b-a1ca2aa84c15.png",
+      "PackagePath": "staticwebassets\\images\\ProfileImages\\51bb0200-01e1-4f76-ae8b-a1ca2aa84c15.png"
+    },
+    {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\58d9c69a-47a1-46a2-9735-bb5f564861cb.jfif",
+      "PackagePath": "staticwebassets\\images\\ProfileImages\\58d9c69a-47a1-46a2-9735-bb5f564861cb.jfif"
     },
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\58ea045c-1520-455b-88a3-c4fadc7d11c3.png",
@@ -83,6 +111,10 @@
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\7c6bae93-611b-4370-8385-04c38765f168.png",
       "PackagePath": "staticwebassets\\images\\ProfileImages\\7c6bae93-611b-4370-8385-04c38765f168.png"
+    },
+    {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\90903835-75a1-4e30-9ae2-fa39537bd0cd.png",
+      "PackagePath": "staticwebassets\\images\\ProfileImages\\90903835-75a1-4e30-9ae2-fa39537bd0cd.png"
     },
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\92a57205-e301-4b1f-ad5e-987bea9ec7dd.png",
@@ -107,6 +139,10 @@
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\a9719d5b-1858-469b-8c92-f9564b5c815f.jpg",
       "PackagePath": "staticwebassets\\images\\ProfileImages\\a9719d5b-1858-469b-8c92-f9564b5c815f.jpg"
+    },
+    {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\b6d5a1e6-0d6e-46ad-93f9-7133fe9cf7a1.png",
+      "PackagePath": "staticwebassets\\images\\ProfileImages\\b6d5a1e6-0d6e-46ad-93f9-7133fe9cf7a1.png"
     },
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\bb0e2da4-d096-4036-a00c-26fa9b36b9e2.png",
