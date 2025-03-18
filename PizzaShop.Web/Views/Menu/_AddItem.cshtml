@@ -38,7 +38,7 @@
                                 <div class="col-lg-3 col-md-6 mb-3">
                                     <div class="form-floating">
                                         <select asp-for="Type" class="form-select" id="itemType" required>
-                                            <option selected disabled>Select a type</option>
+                                            <option selected disabled hidden>Select a type</option>
                                             <option value="true">Veg</option>
                                             <option value="false">Non-Veg</option>
                                         </select>
@@ -131,8 +131,8 @@
                         <div class="col-md-4 bg-warning-subtle py-2">
                             <div>
                                 <select class="form-select" id="ModifierGroups"
-                                    aria-label="Floating label select example" required>
-                                    <option selected disabled hidden>Select Category</option>
+                                    aria-label="Floating label select example">
+                                    <option selected disabled hidden>Select ModifierGroup</option>
                                 </select>
                                 <div class="listModifiers">
                                     <!-- Modifier groups will be populated via JavaScript -->

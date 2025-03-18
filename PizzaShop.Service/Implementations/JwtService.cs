@@ -34,7 +34,7 @@ public class JwtService : IJwtService
                 new Claim(ClaimTypes.Email, email),
                 new Claim(ClaimTypes.Role, role),
             }),
-            Expires = DateTime.UtcNow.AddHours(1),
+            Expires = DateTime.UtcNow.AddHours(24),
             Issuer = _issuer,
             Audience = _audience,
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
@@ -43,7 +43,7 @@ public class JwtService : IJwtService
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
-    
+
     public object GenerateJwtToken(string email)
     {
         throw new NotImplementedException();

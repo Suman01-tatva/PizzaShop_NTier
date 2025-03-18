@@ -69,7 +69,8 @@ public class MenuCategoryRepository : IMenuCategoryRepository
 
     public bool GetCategoryByName(string name)
     {
-        var category = _context.MenuCategories.FirstOrDefault(c => c.Name == name);
+        name = name.Trim().ToLower();
+        var category = _context.MenuCategories.FirstOrDefault(c => c.Name.ToLower() == name);
         if (category != null)
         {
             return true;

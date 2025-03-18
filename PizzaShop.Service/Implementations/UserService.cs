@@ -149,6 +149,7 @@ public class UserService : IUserService
         user.RoleId = model.RoleId;
         user.IsActive = model.IsActive;
         user.ProfileImage = model.ProfileImg;
+        user.ModifiedBy = model.ModifiedBy;
         await _userRepository.UpdateUserAsync(user);
     }
     public async Task<List<Country>> GetAllCountriesAsync()
@@ -166,15 +167,15 @@ public class UserService : IUserService
         return await _cityRepository.GetCitiesByStateIdAsync(stateId);
     }
 
-    public async Task<bool> UserExistsAsync(string email)
+    public async Task<bool> UserExistsAsync(string email, string userName)
     {
-        var user = await _userRepository.GetUserByEmailAsync(email);
+        var user = await _userRepository.IsExistUser(email, userName);
         return user != null;
     }
 
-    public async Task AddUserAsync(UserViewModel model, string currentUserEmail)
+    public async Task AddUserAsync(UserViewModel model, int currentUserId)
     {
-        var currentUser = await _userRepository.GetUserByEmailAsync(currentUserEmail);
+        // var currentUser = await _userRepository.GetUserByEmailAsync(currentUserEmail);
         var hashPassword = PasswordUtills.HashPassword(model.Password);
 
         var newUser = new User
@@ -192,7 +193,7 @@ public class UserService : IUserService
             ProfileImage = model.ProfileImg,
             Email = model.Email,
             Password = hashPassword,
-            CreatedBy = currentUser.Id,
+            CreatedBy = currentUserId,
         };
 
         await _userRepository.AddUserAsync(newUser);

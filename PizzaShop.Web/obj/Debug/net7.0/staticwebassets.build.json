@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YLnlxHtEgBG6zsJp98JvQR1Jz50D/Hz7LfM+f7e4b1A=",
+  "Hash": "yuStGPoIiBFhUdXWPUe2sutVEISA/xxoVzMrIBriZBM=",
   "Source": "PizzaShop.Web",
   "BasePath": "_content/PizzaShop.Web",
   "Mode": "Default",
@@ -901,6 +901,23 @@
       "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\51bb0200-01e1-4f76-ae8b-a1ca2aa84c15.png"
     },
     {
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\539748bf-91ca-4553-a1d0-7b68bb79a47b.png",
+      "SourceId": "PizzaShop.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
+      "BasePath": "_content/PizzaShop.Web",
+      "RelativePath": "images/ProfileImages/539748bf-91ca-4553-a1d0-7b68bb79a47b.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\539748bf-91ca-4553-a1d0-7b68bb79a47b.png"
+    },
+    {
       "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\58d9c69a-47a1-46a2-9735-bb5f564861cb.jfif",
       "SourceId": "PizzaShop.Web",
       "SourceType": "Discovered",
@@ -1256,6 +1273,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\ec9c6ec3-12ee-4bc1-a850-7cf81908485f.png"
+    },
+    {
+      "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\eec92fad-bfd6-4f77-a99b-77aee03a12ce.png",
+      "SourceId": "PizzaShop.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\",
+      "BasePath": "_content/PizzaShop.Web",
+      "RelativePath": "images/ProfileImages/eec92fad-bfd6-4f77-a99b-77aee03a12ce.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\ProfileImages\\eec92fad-bfd6-4f77-a99b-77aee03a12ce.png"
     },
     {
       "Identity": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\ProfileImages\\f0b976fc-2325-4bf9-a6fe-6a80ab58553a.jfif",

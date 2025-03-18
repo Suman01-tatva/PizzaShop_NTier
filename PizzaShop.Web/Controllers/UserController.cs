@@ -163,7 +163,7 @@ public class UserController : Controller
         if (ModelState.IsValid)
         {
 
-            if (await _userService.UserExistsAsync(model.Email))
+            if (await _userService.UserExistsAsync(model.Email, model.Username))
             {
                 ViewBag.UserExistError = "User Already Exist";
                 TempData["ToastrMessage"] = "User Already Exist!";
@@ -173,7 +173,14 @@ public class UserController : Controller
             }
             var token = Request.Cookies["Token"];
             var (currentUserEmail, id) = await _tokenDataService.GetEmailFromToken(token);
-
+            if (token == null)
+            {
+                Response.Cookies.Delete("Token");
+                Response.Cookies.Delete("UserData");
+                TempData["ToastrMessage"] = "Your Session is Expired!";
+                TempData["ToastrType"] = "error";
+                return RedirectToAction("Login", "Auth");
+            }
             string ProfileImagePath = null;
             if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
             {
@@ -193,7 +200,7 @@ public class UserController : Controller
             if (ProfileImagePath != null)
                 model.ProfileImg = ProfileImagePath;
 
-            await _userService.AddUserAsync(model, currentUserEmail);
+            await _userService.AddUserAsync(model, int.Parse(id));
 
             // Send Mail
             string templateFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/templates/NewUserEmail.html");
@@ -263,6 +270,18 @@ public class UserController : Controller
     {
         if (ModelState.IsValid)
         {
+            var token = Request.Cookies["Token"];
+            var (email, id) = await _tokenDataService.GetEmailFromToken(token!);
+            if (token == null)
+            {
+                Response.Cookies.Delete("Token");
+                Response.Cookies.Delete("UserData");
+                TempData["ToastrMessage"] = "Your Session is Expired!";
+                TempData["ToastrType"] = "error";
+                return RedirectToAction("Login", "Auth");
+            }
+            model.ModifiedBy = int.Parse(id);
+            // Upload img
             string ProfileImagePath = null;
             if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
             {

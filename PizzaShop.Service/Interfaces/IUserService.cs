@@ -15,8 +15,8 @@ public interface IUserService
     User GetUserById(int id);
     Task<UserUpdateViewModel> GetUserByIdForUpdate(int id);
     void DeleteUser(int id);
-    Task<bool> UserExistsAsync(string email);
-    Task AddUserAsync(UserViewModel model, string currentUserEmail);
+    Task<bool> UserExistsAsync(string email, string userName);
+    Task AddUserAsync(UserViewModel model, int currentUserId);
     Task<IEnumerable<Role>> GetAllRolesAsync();
     Task UpdateUserAsync(UserUpdateViewModel model);
     Task<User?> GetUserByEmailAsync(string email);

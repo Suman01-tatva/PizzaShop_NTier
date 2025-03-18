@@ -53,10 +53,10 @@ public class MenuItemRepository : IMenuItemsRepository
 
     public bool IsItemExist(string name, int catId)
     {
-        var item = _context.MenuItems.Where(i => i.Name == name && i.CategoryId == catId && i.IsDeleted == false);
-        if (item != null)
-            return true;
-        return false;
+        name = name.Trim().ToLower();
+        var item = _context.MenuItems.Any(i => i.Name.ToLower() == name && i.CategoryId == catId && i.IsDeleted == false);
+
+        return item;
     }
 
     public MenuItem GetMenuItemById(int id)

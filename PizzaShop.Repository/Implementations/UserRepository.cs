@@ -18,6 +18,11 @@ public class UserRepostory : IUserRepository
     {
         return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
+
+    public Task<User?> IsExistUser(string email, string userName)
+    {
+        return _context.Users.FirstOrDefaultAsync(u => u.Email == email || u.Username == userName);
+    }
     public async Task UpdateUserAsync(User user)
     {
         if (user == null) return;
@@ -60,7 +65,7 @@ public class UserRepostory : IUserRepository
                 (n.FirstName + " " + n.LastName).ToLower().Contains(searchString) || // Full name search
                 n.FirstName!.ToLower().Contains(searchString) ||
                 n.LastName!.ToLower().Contains(searchString) ||
-                n.Phone!.Contains(searchString) // Assuming phone numbers are numeric and case-insensitive search isn't needed
+                n.Email!.Contains(searchString) // Assuming phone numbers are numeric and case-insensitive search isn't needed
             );
         }
 
