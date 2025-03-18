@@ -38,9 +38,9 @@
                                 <div class="col-lg-3 col-md-6 mb-3">
                                     <div class="form-floating">
                                         <select asp-for="Type" class="form-select" id="itemType" required>
-                                            <option selected disabled hidden>Select a type</option>
-                                            <option value="true">Vegetarian</option>
-                                            <option value="false">Non-Vegetarian</option>
+                                            <option selected disabled>Select a type</option>
+                                            <option value="true">Veg</option>
+                                            <option value="false">Non-Veg</option>
                                         </select>
                                         <label for="itemType">Item Type*</label>
                                         <span asp-validation-for="Type"
@@ -117,8 +117,7 @@
                                 <div class="col-12">
                                     <h6 class="text-start">Upload Image</h6>
                                     <div class="rounded mb-3 upload-container">
-                                        <input type="file" asp-for="ProfileImagePath" name="ProfileImagePath"
-                                            id="imageInput" accept="image/*" style="display: none;">
+                                        <input type="file" asp-for="ProfileImagePath" accept="image/*">
                                         <input type="hidden" asp-for="Image" name="ProfileImg">
                                         <label for="imageInput" id="file-item-add-label border-doted"
                                             class="h-100 w-100 text-center align-content-center">
@@ -188,53 +187,20 @@
             });
         });
 
-        @* $(document).on('click', '#submitAddItem', function (e) {
-            e.preventDefault();
-            console.log("submit add item");
-
-            var form = $('#addItemForm');
-            $("#addItemForm").submit(); *@
-            @* $.ajax({
-                url: form.attr('action'),
-                type: form.attr('method'),
-                data: form.serialize(),
+        $("#ModifierGroups").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                url: '@Url.Action("GetModifiersByModifierGroup", "MenuModifier")',
+                type: 'GET',
+                data: { modifierGroupId: id },
                 success: function (response) {
-                    if (response.success) {
-                        console.log("success add item");
-                        $('#addItemModal').modal('hide');
-                        loadItems(response.categoryId);
-                        toastr.success("Item added succesfully");
-                        @* @Location.reload(); 
-                    } else {
-                        console.log("error");
-                        $('#add-item-partial-view').html(response);
-                        $('#addItemModal').removeClass('fade');
-                        $('.modal-backdrop').remove();
-                        $('#addItemModal').modal('show');
-                    }
+                    @* console.log(response); *@
+                        $(".listModifiers").append(response);
                 },
                 error: function (error) {
-                    // Handle error
                     console.log(error);
                 }
-            }); *@
-            @* }); *@
-
-            $("#ModifierGroups").change(function () {
-                var id = $(this).val();
-                console.log("modifierGroup selected: " + id);
-                $.ajax({
-                    url: '@Url.Action("GetModifiersByModifierGroup", "MenuModifier")',
-                    type: 'GET',
-                    data: { modifierGroupId: id },
-                    success: function (response) {
-                        console.log(response);
-                        $(".listModifiers").append(response);
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
             });
+        });
     })
 </script>

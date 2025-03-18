@@ -102,7 +102,6 @@
     $(document).ready(function () {
       $('.edit-category').click(function () {
         var categoryId = $(this).data("id");
-        console.log("ID" + categoryId);
         $.ajax({
           url: '/Menu/EditCategory',
           type: 'GET',
@@ -128,11 +127,8 @@
           success: function (response) {
             if (response.success) {
               $('#EditCategoryModal').modal('hide');
-              toastr.success(TempData["SuccessMessage"]);
-              @* setTimeout(function () { *@
-                window.location.reload();
-              @* }, 1000);  // Reload the page to show the updated category *@
-              } else {
+              window.location.href = response.redirectUrl;
+            } else {
               alert(response.message);
             }
           },
@@ -144,18 +140,15 @@
 
       $(document).on('click', '.delete-category', function () {
         categoryIdToDelete = $(this).data("id");
-        console.log("Delete", categoryIdToDelete)
         $('#deleteCategoryModal').modal('show');
       });
 
       $('#confirmDeleteCategoryItemBtn').click(function () {
-        console.log("Click")
         $.ajax({
           type: "POST",
           url: '/Menu/DeleteCategory',
           data: { id: categoryIdToDelete },
           success: function (response) {
-            console.log("Click")
             if (response.success) {
               $('#deleteCategoryModal').modal('hide');
               @* toastr.success(response.message); *@
@@ -174,7 +167,6 @@
   <script>
     $('.modifierGroup').click(function () {
       var modifierGroupId = $(this).data("id");
-      console.log("id" + modifierGroupId);
       $.ajax({
         url: '/MenuModifier/GetModifiersByModifierGroup',
         type: 'GET',

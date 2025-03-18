@@ -13,7 +13,7 @@ public partial class MenuItem
 
     public string Name { get; set; } = null!;
 
-    public bool? Type { get; set; }
+    public bool Type { get; set; }
 
     public decimal Rate { get; set; }
 

@@ -17,7 +17,7 @@ public partial class MenuItemViewModel
 
     public string Name { get; set; } = null!;
 
-    public bool? Type { get; set; }
+    public bool Type { get; set; }
 
     public decimal Rate { get; set; }
 

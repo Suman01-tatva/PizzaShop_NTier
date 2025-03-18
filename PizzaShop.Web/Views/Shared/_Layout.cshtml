@@ -197,7 +197,6 @@
             url: '/User/GetProfileDetail',
             method: 'GET',
             success: function (data) {
-                console.log(data);
                 if (data.profileImage != null) {
                     imgPath = "/images/" + data.profileImage;
                     $('.profile-avatar').attr('src', imgPath);

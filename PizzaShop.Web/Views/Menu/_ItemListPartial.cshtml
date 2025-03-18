@@ -42,8 +42,9 @@
                         </td>
                         <td class="">
                             <span class="me-2">
-                                <img src="/images/@(Model.itemList[i].Image != null ? Model.itemList[i].Image : "dining-menu.png")"
-                                    alt="dining-menu" class="dining-menu-icon" /></span><span>
+                                <img src="~/images/@(Model.itemList[i].Image != null ? Model.itemList[i].Image : "dining-menu.png")"
+                                    alt="dining-menu" class="dining-menu-icon user-profile-img rounded-circle" />
+                            </span><span>
                                 @Model.itemList[i].Name
                             </span>
                         </td>
@@ -218,7 +219,7 @@
     })
     $('#multiDeleteBtn').click(function () {
         if (deleteItemIds.length == 0) {
-            toastr.info("Select at Least One Item");
+            toastr.warning("Select at Least One Item");
         } else {
             $('#deleteMultipleItemModal').modal('show');
         }
@@ -236,7 +237,6 @@
                 if (response.isSuccess) {
                     GetFilteredItems();
                     toastr.success(response.message);
-
                 } else {
                     toastr.error(response.message);
                 }
@@ -250,17 +250,14 @@
     @* Pagination Script *@
         $(".itemCategory").click(function () {
             categoryId = $(this).data("id");
-            console.log("id" + categoryId);
-            console.log("pageIndex" + @Model.PageIndex);
-            console.log("PAgeSize" + @Model.PageSize);
 
             $.ajax({
                 url: '/Menu/GetItemsByCategory',
                 type: 'GET',
                 data: { categoryId: categoryId, pageSize: @Model.PageSize, pageIndex: @Model.PageIndex, searchString: "" },
                 success: function (response) {
-                    console.log(response);
-                    $("#itemList").html(response);
+                    @* console.log(response); *@
+                        $("#itemList").html(response);
                 }
             })
         })
@@ -268,10 +265,8 @@
     var pageIndex = @Model.PageIndex;
 
     function GetFilteredItems() {
-        console.log("getfilteritem", categoryId)
         var SearchString = $("#searchString").val();
         var pageSize = $("#pageSizedropdown").val();
-        console.log($("#searchString").val())
         $.ajax({
             url: "/Menu/GetItemsByCategory",
             type: "GET",
@@ -289,10 +284,6 @@
 
     $('#pageSizedropdown').change(function () {
         var pageSize = $(this).val();
-        console.log("pagesize " + pageSize);
-        console.log("CategoryId", categoryId)
-        console.log("PAgeIndex", @Model.PageIndex);
-
         GetFilteredItems();
     })
 
@@ -303,14 +294,12 @@
     })
 
     $("#Previous").click(function () {
-        console.log("prev")
         pageIndex -= 1;
         GetFilteredItems()
     })
 
     $('#Next').click(function () {
         $("#PreviousBtn").attr('disabled', false)
-        console.log("next")
         pageIndex += 1;
         GetFilteredItems()
     })
@@ -320,28 +309,25 @@
             $('#editItemForm').on('submit', function (e) {
                 e.preventDefault();
                 var formData = new FormData(this);
-                console.log("EditITemFormData", formData)
-                $.ajax({
-                    type: "POST",
-                    url: $(this).attr('action'),
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        if (response.success) {
-                            toastr.success(response.message);
-                            $('#editItemModal').modal('hide');
-                            // Optionally, you can refresh the page or update a part of the page to reflect the changes
-                            // location.reload(); // Uncomment this line to reload the page
-                        } else {
-                            toastr.error(response.message);
+                @* console.log("EditITemFormData", formData) *@
+                    $.ajax({
+                        type: "POST",
+                        url: $(this).attr('action'),
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            if (response.success) {
+                                $('#editItemModal').modal('hide');
+                                location.reload();
+                            } else {
+                                toastr.error(response.message);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error while editing the item:", status, error);
                         }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("Error while editing the item:", status, error);
-                        toastr.error("An error occurred while editing the item.");
-                    }
-                });
+                    });
             });
         });
 </script>

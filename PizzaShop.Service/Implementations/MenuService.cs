@@ -46,6 +46,7 @@ namespace PizzaShop.Service.Implementations
                 Quantity = c.Quantity,
                 IsAvailable = c.IsAvailable,
                 ShortCode = c.ShortCode,
+                Image = c.Image,
                 IsDeleted = c.IsDeleted == null ? false : true,
             }).ToList();
 
@@ -134,6 +135,7 @@ namespace PizzaShop.Service.Implementations
                 Quantity = c.Quantity,
                 IsAvailable = c.IsAvailable,
                 ShortCode = c.ShortCode,
+                Image = c.Image,
                 IsDeleted = c.IsDeleted == null ? false : true,
             }).ToList(); ;
             return filteredItems;
@@ -242,10 +244,28 @@ namespace PizzaShop.Service.Implementations
             return menuItem;
         }
 
-        public async Task<bool> EditItemAsync(MenuItemViewModel model, string userEmail)
+        public async Task<bool> EditItemAsync(MenuItemViewModel model, int userId)
         {
-            var userId = await _userRepository.GetUserByEmailAsync(userEmail);
             var item = _menuItemRepository.GetMenuItemById(model.Id);
+
+            string ProfileImagePath = null;
+            if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
+            {
+                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                var filename = Guid.NewGuid().ToString() + Path.GetExtension(model.ProfileImagePath.FileName);
+                var filePath = Path.Combine(folderPath, filename);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileImagePath.CopyTo(stream);
+                }
+                ProfileImagePath = "/ProfileImages/" + filename;
+            }
+            if (ProfileImagePath != null)
+                model.Image = ProfileImagePath;
 
             item.CategoryId = model.CategoryId;
             item.Name = model.Name;
@@ -259,6 +279,8 @@ namespace PizzaShop.Service.Implementations
             item.IsDefaultTax = model.IsDefaultTax;
             item.UnitId = model.UnitId;
             item.Image = model.Image;
+            item.ModifiedBy = userId;
+            item.TaxPercentage = model.TaxPercentage;
 
             // if (!string.IsNullOrEmpty(model.RemovedGroups))
             // {

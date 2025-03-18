@@ -13,7 +13,7 @@
             <div class="modal-body text-secondary">
                 <form asp-action="EditMenuItem" asp-controller="Menu" method="post" id="editItemForm">
                     @* <input type="number" asp-for="Id" hidden> *@
-                    <input asp-for="Id" type="hidden">
+                    <input asp-for="Id" id="itemId" type="text" style="display: none;">
                     <div class="row">
                         <div class="col-md-8">
                             <div class="row">
@@ -40,8 +40,8 @@
                                     <div class="form-floating">
                                         <select asp-for="Type" class="form-select" id="itemType" required>
                                             <option selected disabled>Select a type</option>
-                                            <option value="true">Vegetarian</option>
-                                            <option value="false">Non-Vegetarian</option>
+                                            <option value="true">Veg</option>
+                                            <option value="false">Non-Veg</option>
                                         </select>
                                         <label for="itemType">Item Type*</label>
                                         <span asp-validation-for="Type"
@@ -53,8 +53,8 @@
                                         <input asp-for="Rate" type="number" class="form-control" id="rate"
                                             placeholder="" min="0" required>
                                         <label asp-for="Rate">Rate*</label>
-                                        <span asp-validation-for="Rate"
-                                            class="add-cat-name-validation text-danger"></span>
+                                        @* <span asp-validation-for="Rate"
+                                            class="add-cat-name-validation text-danger"></span> *@
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-md-6">
@@ -118,8 +118,7 @@
                                 <div class="col-12">
                                     <h6 class="text-start">Upload Image</h6>
                                     <div class="rounded mb-3 upload-container">
-                                        <input type="file" asp-for="ProfileImagePath" name="ProfileImagePath"
-                                            id="imageInput" accept="image/*" style="display: none;">
+                                        <input type="file" asp-for="ProfileImagePath" accept="image/*">
                                         <input type="hidden" asp-for="Image" name="ProfileImg">
                                         <label for="imageInput" id="file-item-add-label border-doted"
                                             class="h-100 w-100 text-center align-content-center">
@@ -187,14 +186,13 @@
 
         $("#EditItemModifierGroups").change(function () {
             var id = $(this).val();
-            console.log("modifierGroup selected: " + id);
             $.ajax({
                 url: '@Url.Action("GetModifiersByModifierGroup", "MenuModifier")',
                 type: 'GET',
                 data: { modifierGroupId: id },
                 success: function (response) {
-                    console.log(response);
-                    $(".listModifiers").append(response);
+                    @* console.log(response); *@
+                        $(".listModifiers").append(response);
                 },
                 error: function (error) {
                     console.log(error);

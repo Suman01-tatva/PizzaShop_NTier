@@ -12,10 +12,12 @@
         <td>@modifier.Rate</td>
         <td>@modifier.Quantity</td>
         <td>
-            <button type="button" class="btn p-0 me-4 editModifierBtn" data-id="@modifier.Id" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            <button type="button" class="btn p-0 me-4 editModifierBtn" data-id="@modifier.Id" data-bs-toggle="modal"
+                data-bs-target="#deleteModal">
                 <i class="fa-solid fa-pen"></i>
             </button>
-            <button type="button" class="btn p-0" data-bs-toggle="modal" data-id="@modifier.Id" data-bs-target="#deleteModifiersModal">
+            <button type="button" class="btn p-0" data-bs-toggle="modal" data-id="@modifier.Id"
+                data-bs-target="#deleteModifiersModal">
                 <i class="fa-regular fa-trash-can"></i>
             </button>
         </td>
@@ -29,8 +31,7 @@
 <partial name="_EditModifier" model="new PizzaShop.Entity.ViewModels.MenuModifierViewModel()"></partial>
 
 <!-- delete Modifier Modal -->
-<div class="modal fade" id="deleteModifiersModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="deleteModifiersModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0">
@@ -76,7 +77,7 @@
 
 <script>
     @* Delete Item Script *@
-    var deleteItemId;
+        @* var deleteItemId;
     $(".deleteItem").click(function(){
         deleteItemId = $(this).val();
         $('#deleteItemModal').modal('show');
@@ -90,7 +91,7 @@
                if (response == null)
                     window.location.href = "/Authentication/Login";
                 if (response.isSuccess) {
-                    @* GetFilteredItems(); *@
+                    GetFilteredItems();
                     toastr.success(response.message, {
                         closeButton: true,
                         progressBar: true,
@@ -123,7 +124,7 @@
             deleteItemIds = deleteItemIds.filter(id => id != parseInt(itemId));
         }
     })
-    $('#multiDeleteBtn').click(function(){
+    $('#multiDeleteModifiersBtn').click(function(){
         if (deleteItemIds.length == 0) {
             toastr.info("Select at Least One Item");
         }else{
@@ -141,7 +142,7 @@
                 if (response == null)
                     window.location.href = "/Auth/Login"
                 if (response.isSuccess) {
-                    @* GetFilteredItems(); *@
+                    GetFilteredItems();
                     toastr.success(response.message);
 
                 } else {
@@ -150,5 +151,5 @@
                 $("#deleteMultipleItemModal").modal('hide');
             }
         })
-    })
+    }) *@
 </script>

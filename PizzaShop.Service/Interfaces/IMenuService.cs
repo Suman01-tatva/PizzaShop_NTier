@@ -34,6 +34,6 @@ public interface IMenuService
 
     public bool MultiDeleteMenuItem(int[] itemIds);
 
-    public Task<bool> EditItemAsync(MenuItemViewModel model, string userEmail);
+    public Task<bool> EditItemAsync(MenuItemViewModel model, int userId);
 
 }

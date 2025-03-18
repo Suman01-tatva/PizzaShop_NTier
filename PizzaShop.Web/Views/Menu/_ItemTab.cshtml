@@ -65,23 +65,22 @@
         })
 
     $("#submitNewCategory").click(function () {
-        console.log("AddCategory");
-        $("#addNewCategoryForm").submit();
+        @* console.log("AddCategory"); *@
+            $("#addNewCategoryForm").submit();
         toastr.success("edited")
-        @* $(".modal-backdrop").remove(); *@
     });
 
     $(document).on('click', ".editItemBtn", function () {
         var itemId = $(this).data("itemid");
-        console.log("itemId = ", itemId);
         $.get('@Url.Action("EditMenuItem", "Menu")', { itemId: itemId }, function (d) {
-            console.log("edititems", d.data);
-            @* $('#EditItemPartial').html(data); *@
+            @* console.log("edititems", d.data); *@
+                @* $('#EditItemPartial').html(data); *@
                 var data = d.data;
             setTimeout(function () {
                 $('#editItemModal #editItemCategories').val(data.categoryId);
+                $('#editItemModal #itemId').val(data.id);
                 $('#editItemModal #name').val(data.name);
-                $('#editItemModal #itemType').val(data.type);
+                $('#editItemModal #itemType.option').val(data.type);
                 $('#editItemModal #rate').val(data.rate);
                 $('#editItemModal #quantity').val(data.quantity);
                 $('#editItemModal #editItemUnits').val(data.unitId);

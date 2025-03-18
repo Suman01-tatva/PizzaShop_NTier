@@ -93,13 +93,13 @@ public class MenuController : Controller
             {
                 TempData["ToastrMessage"] = "Category updated successfully.";
                 TempData["ToastrType"] = "success";
-                return Json(new { success = true, message = "Category updated successfully." });
+                return Json(new { success = true, message = "Category updated successfully.", redirectUrl = Url.Action("Menu") });
             }
             else
             {
                 TempData["ToastrMessage"] = "Failed to update the Category. Please try again.";
                 TempData["ToastrType"] = "error";
-                return Json(new { success = false, message = "Failed to update category." });
+                return Json(new { success = false, message = "Failed to update category.", redirectUrl = Url.Action("Menu") });
             }
         }
 
@@ -248,9 +248,6 @@ public class MenuController : Controller
     {
         if (!ModelState.IsValid)
         {
-            // ViewBag.Categories = new SelectList(await _menuService.GetAllCategories(), "Id", "Name", menuItemViewModel.CategoryId);
-            // ViewBag.Units = new SelectList(await _unitService.GetAllUnits(), "Id", "Name", menuItemViewModel.UnitId);
-            // ViewBag.ModifierGroups = new SelectList(await _modifierService.GetAllModifiers(), "Id", "Name");
             return PartialView("_EditItem", menuItemViewModel);
         }
 
@@ -264,13 +261,13 @@ public class MenuController : Controller
             if (userEmail == null)
                 return null;
 
-            var result = await _menuService.EditItemAsync(menuItemViewModel, userEmail);
+            var result = await _menuService.EditItemAsync(menuItemViewModel, int.Parse(id));
 
             if (result)
             {
                 TempData["ToastrMessage"] = "Item edited successfully.";
                 TempData["ToastrType"] = "success";
-                return Json(new { success = true, redirectUrl = Url.Action("MenuList") });
+                return Json(new { success = true, redirectUrl = Url.Action("Menu") });
             }
             else
             {
@@ -280,14 +277,9 @@ public class MenuController : Controller
         }
         catch (Exception ex)
         {
-            // _logger.LogError(ex, "Error editing item");
             Console.WriteLine(ex);
             ModelState.AddModelError("", "Error editing item.");
         }
-
-        // ViewBag.Categories = new SelectList(await _menuService.GetAllCategories(), "Id", "Name", menuItemViewModel.CategoryId);
-        // ViewBag.Units = new SelectList(await _unitService.GetAllUnits(), "Id", "Name", menuItemViewModel.UnitId);
-        // ViewBag.ModifierGroups = new SelectList(await _modifierService.GetAllModifiers(), "Id", "Name");
 
         return PartialView("_EditItem", menuItemViewModel);
     }

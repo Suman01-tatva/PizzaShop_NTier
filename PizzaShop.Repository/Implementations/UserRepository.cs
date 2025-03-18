@@ -54,7 +54,14 @@ public class UserRepostory : IUserRepository
 
         if (!string.IsNullOrEmpty(searchString))
         {
-            userQuery = userQuery.Where(u => u.FirstName.ToLower().Contains(searchString.ToLower()) || u.LastName.Contains(searchString));
+            searchString = searchString.ToLower();
+
+            userQuery = userQuery.Where(n =>
+                (n.FirstName + " " + n.LastName).ToLower().Contains(searchString) || // Full name search
+                n.FirstName!.ToLower().Contains(searchString) ||
+                n.LastName!.ToLower().Contains(searchString) ||
+                n.Phone!.Contains(searchString) // Assuming phone numbers are numeric and case-insensitive search isn't needed
+            );
         }
 
         count = userQuery.Count();
