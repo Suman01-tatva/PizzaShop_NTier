@@ -47,8 +47,13 @@ public class AuthController : Controller
                 ModelState.AddModelError("InvalidCredentials", "Please enter valid credentials");
                 return View("Login");
             }
-
-            if (user.IsActive == false)
+            else if (user.IsDeleted == true)
+            {
+                TempData["ToastrMessage"] = "Your account is Deleted. Please contact support team.";
+                TempData["ToastrType"] = "error";
+                return View();
+            }
+            else if (user.IsActive == false)
             {
                 TempData["ToastrMessage"] = "Your account is inactive. Please contact support team to reactivate your account.";
                 TempData["ToastrType"] = "error";
@@ -132,6 +137,12 @@ public class AuthController : Controller
     [HttpGet]
     public IActionResult ResetPassword(string token)
     {
+        if (token == null)
+        {
+            TempData["ToastrMessage"] = "Invalid link of ResetPassword!";
+            TempData["ToastrType"] = "error";
+            return RedirectToAction("ForgotPassword", "Auth");
+        }
         string userEmail = DecryptToken(token);
         TempData["Email"] = userEmail;
         if (userEmail == "")
@@ -183,19 +194,22 @@ public class AuthController : Controller
             string? email = TempData["Email"]?.ToString();
             if (email == null)
             {
-                TempData["ErrorMessage"] = "Reset Password Link is expired or invalid.";
+                TempData["ToastrMessage"] = "Invalid link of ResetPassword!";
+                TempData["ToastrType"] = "error";
                 return RedirectToAction("ForgotPassword", "Auth");
             }
 
-            var isResetPassword = await _authService!.ResetPassword(model, email);
-            if (isResetPassword)
+            var resetPassword = await _authService!.ResetPassword(model, email);
+            if (resetPassword == "success")
             {
-                TempData["SeccessMessage"] = "Password reset successfully. Please login with your new password.";
+                TempData["ToastrMessage"] = "Password reset successfully. Please login with your new password.";
+                TempData["ToastrType"] = "success";
                 return RedirectToAction("Login", "Auth");
             }
             else
             {
-                TempData["FailMessage"] = "Failed to reset password. Please try again.";
+                TempData["ToastrMessage"] = resetPassword;
+                TempData["ToastrType"] = "error";
                 return View(model);
             }
         }

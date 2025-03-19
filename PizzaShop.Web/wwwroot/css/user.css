@@ -247,3 +247,12 @@ th:nth-child(4) {
 /* th:first-child {
   min-width: 180px;
 } */
+
+.eye-icon {
+  position: absolute;
+  top: 30px;
+  right: 25px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6c757d;
+}

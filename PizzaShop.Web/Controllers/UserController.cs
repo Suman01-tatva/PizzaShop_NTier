@@ -95,22 +95,51 @@ public class UserController : Controller
         {
             var token = Request.Cookies["Token"];
             var (email, id) = await _tokenDataService.GetEmailFromToken(token);
+
+            var user = _userService.GetUserById(int.Parse(id));
+            if (user.Username != model.Username)
+            {
+                if (await _userService.UserExistsAsync(model.Email!, model.Username!))
+                {
+                    ViewBag.UserExistError = "User Already Exist";
+                    TempData["ToastrMessage"] = "User Already Exist!";
+                    TempData["ToastrType"] = "error";
+                    await PopulateDropdowns();
+                    return View(model);
+                }
+            }
+
+            // Upload img
             string ProfileImagePath = null;
             if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
             {
-                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
-                if (!Directory.Exists(folderPath))
+                var allowedExtensions = new[] { ".png", ".jpg", ".jpeg" };
+                var extension = Path.GetExtension(model.ProfileImagePath.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(extension))
                 {
-                    Directory.CreateDirectory(folderPath);
+                    ModelState.AddModelError("ProfileImagePath", "Please upload an image file (.png, .jpg, .jpeg).");
+                    TempData["ToastrMessage"] = "Please upload an image file in (.png, .jpg, .jpeg) format.";
+                    TempData["ToastrType"] = "error";
+                    return View(model);
                 }
-                var filename = Guid.NewGuid().ToString() + Path.GetExtension(model.ProfileImagePath.FileName);
-                var filePath = Path.Combine(folderPath, filename);
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                else
                 {
-                    model.ProfileImagePath.CopyTo(stream);
+                    var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    var filename = Guid.NewGuid().ToString() + extension;
+                    var filePath = Path.Combine(folderPath, filename);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        model.ProfileImagePath.CopyTo(stream);
+                    }
+                    ProfileImagePath = "/ProfileImages/" + filename;
                 }
-                ProfileImagePath = "/ProfileImages/" + filename;
             }
+
             if (ProfileImagePath != null)
                 model.ProfileImg = ProfileImagePath;
 
@@ -121,7 +150,15 @@ public class UserController : Controller
         }
         else
         {
-            TempData["ToastrMessage"] = "Due to some isuue your profile is not updated";
+            var errorMessage = "";
+            foreach (var state in ModelState)
+            {
+                if (state.Value.Errors.Count > 0)
+                {
+                    errorMessage += $"{state.Key}: {state.Value.Errors.First().ErrorMessage}; ";
+                }
+            }
+            TempData["ToastrMessage"] = errorMessage;
             TempData["ToastrType"] = "error";
         }
         await PopulateDropdowns();
@@ -181,22 +218,37 @@ public class UserController : Controller
                 TempData["ToastrType"] = "error";
                 return RedirectToAction("Login", "Auth");
             }
+            // Upload img
             string ProfileImagePath = null;
             if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
             {
-                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
-                if (!Directory.Exists(folderPath))
+                var allowedExtensions = new[] { ".png", ".jpg", ".jpeg" };
+                var extension = Path.GetExtension(model.ProfileImagePath.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(extension))
                 {
-                    Directory.CreateDirectory(folderPath);
+                    ModelState.AddModelError("ProfileImagePath", "Please upload an image file (.png, .jpg, .jpeg).");
+                    TempData["ToastrMessage"] = "Please upload an image file in (.png, .jpg, .jpeg) format.";
+                    TempData["ToastrType"] = "error";
+                    return View(model);
                 }
-                var filename = Guid.NewGuid().ToString() + Path.GetExtension(model.ProfileImagePath.FileName);
-                var filePath = Path.Combine(folderPath, filename);
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                else
                 {
-                    model.ProfileImagePath.CopyTo(stream);
+                    var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    var filename = Guid.NewGuid().ToString() + extension;
+                    var filePath = Path.Combine(folderPath, filename);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        model.ProfileImagePath.CopyTo(stream);
+                    }
+                    ProfileImagePath = "/ProfileImages/" + filename;
                 }
-                ProfileImagePath = "/ProfileImages/" + filename;
             }
+
             if (ProfileImagePath != null)
                 model.ProfileImg = ProfileImagePath;
 
@@ -211,7 +263,7 @@ public class UserController : Controller
             string body = await System.IO.File.ReadAllTextAsync(templateFilePath);
             body = body.Replace("{{Email}}", model.Email);
             body = body.Replace("{{PasswordHash}}", model.Password);
-            _mailService.SendMail(model.Email, body);
+            _mailService.SendMail(model.Email, body, "Account Login Details");
 
             TempData["ToastrMessage"] = "User Created Successfully";
             TempData["ToastrType"] = "success";
@@ -220,6 +272,16 @@ public class UserController : Controller
         }
         else
         {
+            var errorMessage = "";
+            foreach (var state in ModelState)
+            {
+                if (state.Value.Errors.Count > 0)
+                {
+                    errorMessage += $"{state.Key}: {state.Value.Errors.First().ErrorMessage}; ";
+                }
+            }
+            TempData["ToastrMessage"] = errorMessage;
+            TempData["ToastrType"] = "error";
             await PopulateDropdowns();
             return View(model);
         }
@@ -271,7 +333,7 @@ public class UserController : Controller
         if (ModelState.IsValid)
         {
             var token = Request.Cookies["Token"];
-            var (email, id) = await _tokenDataService.GetEmailFromToken(token!);
+            var (currentUserEmail, id) = await _tokenDataService.GetEmailFromToken(token!);
             if (token == null)
             {
                 Response.Cookies.Delete("Token");
@@ -281,23 +343,49 @@ public class UserController : Controller
                 return RedirectToAction("Login", "Auth");
             }
             model.ModifiedBy = int.Parse(id);
+            var user = _userService.GetUserById(model.Id);
+            if (user.Username != model.Username)
+            {
+                if (await _userService.UserExistsAsync(model.Email!, model.Username!))
+                {
+                    ViewBag.UserExistError = "User Already Exist";
+                    TempData["ToastrMessage"] = "User Already Exist!";
+                    TempData["ToastrType"] = "error";
+                    await PopulateDropdowns();
+                    return View(model);
+                }
+            }
             // Upload img
             string ProfileImagePath = null;
             if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
             {
-                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
-                if (!Directory.Exists(folderPath))
+                var allowedExtensions = new[] { ".png", ".jpg", ".jpeg" };
+                var extension = Path.GetExtension(model.ProfileImagePath.FileName).ToLower();
+
+                if (!allowedExtensions.Contains(extension))
                 {
-                    Directory.CreateDirectory(folderPath);
+                    ModelState.AddModelError("ProfileImagePath", "Please upload an image file (.png, .jpg, .jpeg).");
+                    TempData["ToastrMessage"] = "Please upload an image file in (.png, .jpg, .jpeg) format.";
+                    TempData["ToastrType"] = "error";
+                    return View(model);
                 }
-                var filename = Guid.NewGuid().ToString() + Path.GetExtension(model.ProfileImagePath.FileName);
-                var filePath = Path.Combine(folderPath, filename);
-                using (var stream = new FileStream(filePath, FileMode.Create))
+                else
                 {
-                    model.ProfileImagePath.CopyTo(stream);
+                    var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
+                    if (!Directory.Exists(folderPath))
+                    {
+                        Directory.CreateDirectory(folderPath);
+                    }
+                    var filename = Guid.NewGuid().ToString() + extension;
+                    var filePath = Path.Combine(folderPath, filename);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        model.ProfileImagePath.CopyTo(stream);
+                    }
+                    ProfileImagePath = "/ProfileImages/" + filename;
                 }
-                ProfileImagePath = "/ProfileImages/" + filename;
             }
+
             if (ProfileImagePath != null)
                 model.ProfileImg = ProfileImagePath;
 
@@ -307,10 +395,20 @@ public class UserController : Controller
 
             return RedirectToAction("UserList");
         }
-
-        ViewBag.Roles = new SelectList(await _userService.GetAllRolesAsync(), "Id", "Name");
-        ViewBag.Countries = new SelectList(await _userService.GetAllCountriesAsync(), "Id", "Name", model.CountryId);
-
+        else
+        {
+            var errorMessage = "";
+            foreach (var state in ModelState)
+            {
+                if (state.Value.Errors.Count > 0)
+                {
+                    errorMessage += $"{state.Key}: {state.Value.Errors.First().ErrorMessage}; ";
+                }
+            }
+            TempData["ToastrMessage"] = errorMessage;
+            TempData["ToastrType"] = "error";
+        }
+        await PopulateDropdowns();
         return View(model);
     }
 

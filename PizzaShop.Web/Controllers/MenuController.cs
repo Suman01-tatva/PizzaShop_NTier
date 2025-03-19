@@ -261,6 +261,7 @@ public class MenuController : Controller
         var token = Request.Cookies["Token"];
         if (token == null)
             return RedirectToAction("Login", "Auth");
+
         var (email, userId) = await _tokenDataService.GetEmailFromToken(token!);
         if (email == null)
             return null!;

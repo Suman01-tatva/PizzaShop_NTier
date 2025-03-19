@@ -6,7 +6,7 @@ namespace PizzaShop.Service.Implementations;
 
 public class MailService : IMailService
 {
-    public void SendMail(string toEmail, string body)
+    public void SendMail(string toEmail, string body, string subject)
     {
         string senderMail = "test.dotnet@etatvasoft.com";
         string senderPassword = "P}N^{z-]7Ilp";
@@ -21,7 +21,7 @@ public class MailService : IMailService
         var mailMessage = new MailMessage
         {
             From = new MailAddress(senderMail),
-            Subject = "To Reset Your Password",
+            Subject = subject,
             Body = body,
             IsBodyHtml = true,
         };

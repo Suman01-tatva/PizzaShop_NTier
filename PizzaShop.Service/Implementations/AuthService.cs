@@ -50,26 +50,37 @@ public class AuthService : IAuthService
         body = body.Replace("{{reset_link}}", resetLink);
         if (user != null)
         {
-            _mailService.SendMail(email, body);
+            _mailService.SendMail(email, body, "To Reset Your Password");
         }
     }
 
-    public async Task<bool> ResetPassword(ResetPasswordModel model, string email)
+    public async Task<string> ResetPassword(ResetPasswordModel model, string email)
     {
         var user = await _userRepository.GetUserByEmailAsync(email);
-
+        var isUserPasswor = PasswordUtills.VerifyPassword(model.NewPassword, user!.Password);
         if (user != null)
         {
-            if (model.NewPassword != null && model.ConfirmNewPassword != null)
+            if (!isUserPasswor)
             {
                 if (model.NewPassword == model.ConfirmNewPassword)
                 {
                     user.Password = PasswordUtills.HashPassword(model.NewPassword);
                     await _userRepository.UpdateUserAsync(user);
-                    return true;
+                    return "success";
+                }
+                else
+                {
+                    return "New password must be match with current password.";
                 }
             }
+            else
+            {
+                return "New password must be different from the current password.";
+            }
         }
-        return false;
+        else
+        {
+            return "user not found";
+        }
     }
 }

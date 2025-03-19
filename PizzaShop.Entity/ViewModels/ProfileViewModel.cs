@@ -28,7 +28,7 @@ public class ProfileViewModel
     public string? Email { get; set; }
 
     [Required(ErrorMessage = "Phone number is required.")]
-    [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Phone number must be 10 digits.")]
+    [RegularExpression(@"^[1-9]\d{9}$", ErrorMessage = "Please enter a valid 10-digit phone number that does not start with zero.")]
     public string? Phone { get; set; }
 
     [Required(ErrorMessage = "Role is required.")]
@@ -40,7 +40,7 @@ public class ProfileViewModel
     public IFormFile? ProfileImagePath { get; set; } = null!;
 
     [Required(ErrorMessage = "Zipcode is required.")]
-    [RegularExpression(@"^[0-9]{6}$", ErrorMessage = "Zipcode must be 6 digits.")]
+    [RegularExpression(@"^[1-9]\d{5}$", ErrorMessage = "Zipcode must be 6 digits and valid.")]
     public string? Zipcode { get; set; }
 
     [Required(ErrorMessage = "Address is required.")]

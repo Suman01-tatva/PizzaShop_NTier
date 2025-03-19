@@ -30,51 +30,172 @@ public class UserRepostory : IUserRepository
         await _context.SaveChangesAsync();
     }
 
+    // public IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize, out int count)
+    // {
+    //     try
+    //     {
+    //         var userQuery = _context.Users.Where(u => u.IsDeleted == false);
+
+    //         switch (sortOrder)
+    //         {
+    //             case "username_asc":
+    //                 userQuery = userQuery.OrderBy(u => u.FirstName);
+    //                 break;
+
+    //             case "username_desc":
+    //                 userQuery = userQuery.OrderByDescending(u => u.FirstName);
+    //                 break;
+
+    //             case "role_asc":
+    //                 userQuery = userQuery.OrderBy(u => u.Role.Name);
+    //                 break;
+
+    //             case "role_desc":
+    //                 userQuery = userQuery.OrderByDescending(u => u.Role.Name);
+    //                 break;
+
+    //             default:
+    //                 userQuery = userQuery.OrderBy(u => u.Id);
+    //                 break;
+    //         }
+
+    //         if (!string.IsNullOrEmpty(searchString))
+    //         {
+    //             searchString = searchString.Trim().ToLower();
+
+    //             userQuery = userQuery.Where(n =>
+    //                 (n.FirstName + " " + n.LastName).ToLower().Contains(searchString.ToLower()) ||
+    //                 n.FirstName!.ToLower().Contains(searchString.ToLower()) ||
+    //                 n.LastName!.ToLower().Contains(searchString.ToLower()) ||
+    //                 n.Email!.Contains(searchString.ToLower())
+    //             );
+    //         }
+
+    //         count = userQuery.Count();
+
+    //         return userQuery
+    //         .Skip((pageIndex - 1) * pageSize)
+    //         .Take(pageSize)
+    //         .ToList();
+    //     }
+    //     catch (Exception)
+    //     {
+    //         var userQuery = _context.Users.Where(u => u.IsDeleted == false);
+
+    //         switch (sortOrder)
+    //         {
+    //             case "username_asc":
+    //                 userQuery = userQuery.OrderBy(u => u.FirstName);
+    //                 break;
+
+    //             case "username_desc":
+    //                 userQuery = userQuery.OrderByDescending(u => u.FirstName);
+    //                 break;
+
+    //             case "role_asc":
+    //                 userQuery = userQuery.OrderBy(u => u.Role.Name);
+    //                 break;
+
+    //             case "role_desc":
+    //                 userQuery = userQuery.OrderByDescending(u => u.Role.Name);
+    //                 break;
+
+    //             default:
+    //                 userQuery = userQuery.OrderBy(u => u.Id);
+    //                 break;
+    //         }
+
+    //         count = userQuery.Count();
+
+    //         return userQuery
+    //             .Skip((pageIndex - 1) * pageSize)
+    //             .Take(pageSize)
+    //             .ToList();
+    //     }
+    // }
     public IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize, out int count)
     {
-        var userQuery = _context.Users.Where(u => u.IsDeleted == false);
-
-        switch (sortOrder)
+        try
         {
-            case "username_asc":
-                userQuery = userQuery.OrderBy(u => u.FirstName);
-                break;
+            var userQuery = _context.Users.Where(u => u.IsDeleted == false);
 
-            case "username_desc":
-                userQuery = userQuery.OrderByDescending(u => u.FirstName);
-                break;
+            switch (sortOrder)
+            {
+                case "username_asc":
+                    userQuery = userQuery.OrderBy(u => u.FirstName);
+                    break;
 
-            case "role_asc":
-                userQuery = userQuery.OrderBy(u => u.Role.Name);
-                break;
+                case "username_desc":
+                    userQuery = userQuery.OrderByDescending(u => u.FirstName);
+                    break;
 
-            case "role_desc":
-                userQuery = userQuery.OrderByDescending(u => u.Role.Name);
-                break;
+                case "role_asc":
+                    userQuery = userQuery.OrderBy(u => u.Role.Name);
+                    break;
 
-            default:
-                userQuery = userQuery.OrderBy(u => u.Id);
-                break;
+                case "role_desc":
+                    userQuery = userQuery.OrderByDescending(u => u.Role.Name);
+                    break;
+
+                default:
+                    userQuery = userQuery.OrderBy(u => u.Id);
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                searchString = searchString.Trim().ToLower();
+
+                userQuery = userQuery.Where(n =>
+                    (n.FirstName + " " + n.LastName).ToLower().Contains(searchString) ||
+                    n.FirstName!.ToLower().Contains(searchString) ||
+                    n.LastName!.ToLower().Contains(searchString) ||
+                    n.Email!.ToLower().Contains(searchString)
+                );
+            }
+
+            count = userQuery.Count();
+
+            return userQuery
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
         }
-
-        if (!string.IsNullOrEmpty(searchString))
+        catch (Exception)
         {
-            searchString = searchString.ToLower();
+            // In case of any exception, return the full list
+            var allUsersQuery = _context.Users.Where(u => u.IsDeleted == false);
 
-            userQuery = userQuery.Where(n =>
-                (n.FirstName + " " + n.LastName).ToLower().Contains(searchString) || // Full name search
-                n.FirstName!.ToLower().Contains(searchString) ||
-                n.LastName!.ToLower().Contains(searchString) ||
-                n.Email!.Contains(searchString) // Assuming phone numbers are numeric and case-insensitive search isn't needed
-            );
+            switch (sortOrder)
+            {
+                case "username_asc":
+                    allUsersQuery = allUsersQuery.OrderBy(u => u.FirstName);
+                    break;
+
+                case "username_desc":
+                    allUsersQuery = allUsersQuery.OrderByDescending(u => u.FirstName);
+                    break;
+
+                case "role_asc":
+                    allUsersQuery = allUsersQuery.OrderBy(u => u.Role.Name);
+                    break;
+
+                case "role_desc":
+                    allUsersQuery = allUsersQuery.OrderByDescending(u => u.Role.Name);
+                    break;
+
+                default:
+                    allUsersQuery = allUsersQuery.OrderBy(u => u.Id);
+                    break;
+            }
+
+            count = allUsersQuery.Count();
+
+            return allUsersQuery
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
         }
-
-        count = userQuery.Count();
-
-        return userQuery
-            .Skip((pageIndex - 1) * pageSize)
-            .Take(pageSize)
-            .ToList();
     }
 
     public User GetUserById(int id)

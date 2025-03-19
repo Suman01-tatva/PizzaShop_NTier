@@ -81,12 +81,12 @@ public class UserService : IUserService
 
         user.FirstName = model.FirstName;
         user.LastName = model.LastName;
-        user.Username = model.Username;
+        user.Username = model.Username!;
         user.Phone = model.Phone;
         user.CityId = model.CityId;
         user.StateId = model.StateId;
         user.CountryId = model.CountryId;
-        user.Address = model.Address;
+        user.Address = model.Address!.Trim();
         user.Zipcode = model.Zipcode;
         user.ProfileImage = model.ProfileImg;
 
@@ -125,7 +125,7 @@ public class UserService : IUserService
             Address = user.Address,
             RoleId = user.RoleId,
             Email = user.Email,
-            IsActive = (bool)user.IsActive,
+            IsActive = (bool)user.IsActive!,
             ProfileImg = user.ProfileImage
         };
 
@@ -134,7 +134,7 @@ public class UserService : IUserService
 
     public async Task UpdateUserAsync(UserUpdateViewModel model)
     {
-        var user = await _userRepository.GetUserByEmailAsync(model.Email);
+        var user = await _userRepository.GetUserByEmailAsync(model.Email!);
         if (user == null) return;
 
         user.FirstName = model.FirstName;
@@ -144,7 +144,7 @@ public class UserService : IUserService
         user.CityId = model.CityId;
         user.StateId = model.StateId;
         user.CountryId = model.CountryId;
-        user.Address = model.Address;
+        user.Address = model.Address!.Trim();
         user.Zipcode = model.Zipcode;
         user.RoleId = model.RoleId;
         user.IsActive = model.IsActive;
@@ -175,23 +175,22 @@ public class UserService : IUserService
 
     public async Task AddUserAsync(UserViewModel model, int currentUserId)
     {
-        // var currentUser = await _userRepository.GetUserByEmailAsync(currentUserEmail);
-        var hashPassword = PasswordUtills.HashPassword(model.Password);
+        var hashPassword = PasswordUtills.HashPassword(model.Password!);
 
         var newUser = new User
         {
             FirstName = model.FirstName,
             LastName = model.LastName,
-            Username = model.Username,
+            Username = model.Username!,
             Phone = model.Phone,
             CountryId = model.CountryId,
             StateId = model.StateId,
             CityId = model.CityId,
-            Address = model.Address,
+            Address = model.Address!.Trim(),
             Zipcode = model.Zipcode,
             RoleId = model.RoleId,
             ProfileImage = model.ProfileImg,
-            Email = model.Email,
+            Email = model.Email!,
             Password = hashPassword,
             CreatedBy = currentUserId,
         };

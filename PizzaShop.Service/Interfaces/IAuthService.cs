@@ -6,6 +6,6 @@ public interface IAuthService
 {
     Task<User?> AuthenticateUser(string email, string password);
     Task<User?> GetUser(string email);
-    Task<bool> ResetPassword(ResetPasswordModel model, string email);
+    Task<string> ResetPassword(ResetPasswordModel model, string email);
     Task SendForgotPasswordEmailAsync(string email, string resetLink, string filePath);
 }

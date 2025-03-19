@@ -12,12 +12,12 @@
             <div class="row">
                 <div class="form-floating col-md-6 my-2">
                     <input type="text" class="form-control twoc" id="FirstName" asp-for="FirstName">
-                    <label for="FirstName" class="float">First Name</label>
+                    <label for="FirstName" class="float">First Name*</label>
                     <span asp-validation-for="FirstName" class="text-danger"></span>
                 </div>
                 <div class="form-floating col-md-6 my-2">
                     <input type="text" class="form-control twoc" id="LastName" asp-for="LastName">
-                    <label for="LastName" class="float">Last Name</label>
+                    <label for="LastName" class="float">Last Name*</label>
                     <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
             </div>
@@ -28,12 +28,12 @@
             <div class="row">
                 <div class="form-floating col-md-6 my-2">
                     <input type="text" class="form-control twoc" id="Username" asp-for="Username">
-                    <label for="Username" class="float">User Name</label>
+                    <label for="Username" class="float">User Name*</label>
                     <span asp-validation-for="Username" class="text-danger"></span>
                 </div>
                 <div class="form-floating col-md-6 my-2">
                     <select id="RoleId" name="RoleId" class="form-control" asp-items="ViewBag.Roles"></select>
-                    <label for="RoleId" class="float">Role</label>
+                    <label for="RoleId" class="float">Role*</label>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
                 <div class="form-floating col-md-6 my-2">
                     <input type="text" class="form-control twoc" id="Email" asp-for="Email" disabled>
                     <input type="text" class="form-control twoc" id="Email" asp-for="Email" hidden>
-                    <label for="Email" class="float">Email</label>
+                    <label for="Email" class="float">Email*</label>
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-floating col-md-6 my-2">
@@ -53,7 +53,7 @@
                         <option value="true">Active</option>
                         <option value="false">Inactive</option>
                     </select>
-                    <label for="Status" class="float">Status</label>
+                    <label for="Status" class="float">Status*</label>
                 </div>
             </div>
         </div>
@@ -79,7 +79,7 @@
                     <select id="CountryId" name="CountryId" class="form-control" asp-items="ViewBag.Countries">
                         <option selected hidden disabled>Select Country</option>
                     </select>
-                    <label for="CountryId" class="float">Country</label>
+                    <label for="CountryId" class="float">Country*</label>
                     <span asp-validation-for="CountryId" class="text-danger"></span>
 
                 </div>
@@ -87,7 +87,7 @@
                     <select id="StateId" name="StateId" class="form-control" asp-items="ViewBag.States">
                         <option selected hidden disabled>Select State</option>
                     </select>
-                    <label for="StateId" class="float">State</label>
+                    <label for="StateId" class="float">State*</label>
                     <span asp-validation-for="StateId" class="text-danger"></span>
 
                 </div>
@@ -95,7 +95,7 @@
                     <select id="CityId" name="CityId" class="form-control" asp-items="ViewBag.Cities">
                         <option selected hidden disabled>Select City</option>
                     </select>
-                    <label for="CityId" class="float">City</label>
+                    <label for="CityId" class="float">City*</label>
                     <span asp-validation-for="CityId" class="text-danger"></span>
 
                 </div>
@@ -107,18 +107,18 @@
             <div class="row">
                 <div class="form-floating col-md-4 my-2">
                     <input type="text" class="form-control twoc" id="Zipcode" asp-for="Zipcode" pattern="[0-9]{6}">
-                    <label for="Zipcode" class="float">ZipCode</label>
+                    <label for="Zipcode" class="float">ZipCode*</label>
                     <span asp-validation-for="Zipcode" class="text-danger"></span>
                 </div>
                 <div class="form-floating col-md-4 my-2">
                     <input type="text" class="form-control twoc" id="Address" asp-for="Address">
-                    <label for="Address" class="float">Address</label>
+                    <label for="Address" class="float">Address*</label>
                     <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
                 <div class="form-floating col-md-4 my-2">
                     <input type="text" class="form-control twoc" id="Phone" asp-for="Phone" pattern="[0-9]{10}"
                         maxlength="10" minlength="10">
-                    <label for="Phone" class="float">Phone</label>
+                    <label for="Phone" class="float">Phone*</label>
                     <span asp-validation-for="Phone" class="text-danger"></span>
                 </div>
             </div>
@@ -136,33 +136,35 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('#CountryId').change(function () {
-                var countryId = $(this).val();
-                $.getJSON('@Url.Action("GetStates", "User")', { countryId: countryId }, function (data) {
-                    var stateSelect = $('#StateId');
-                    stateSelect.empty();
-                    $.each(data, function (index, state) {
-                        stateSelect.append($('<option>', {
-                            value: state.id,
-                            text: state.name
-                        }));
+            var initialStateId = '@Model.StateId';
+            var initialCityId = '@Model.CityId';
+
+            $("#CountryId").change(function () {
+                $.getJSON('/User/GetStates', { countryId: $(this).val() }, function (data) {
+                    var stateDropdown = $("#StateId");
+                    stateDropdown.empty().append('<option>Select State</option>');
+                    $.each(data, function (i, state) {
+                        stateDropdown.append('<option value="' + state.id + '">' + state.name + '</option>');
                     });
-                    stateSelect.val('@Model.StateId').change();
+                    if (initialStateId) {
+                        stateDropdown.val(initialStateId);
+                        initialStateId = null;
+                    }
+                    stateDropdown.change();
                 });
             });
 
-            $('#StateId').change(function () {
-                var stateId = $(this).val();
-                $.getJSON('@Url.Action("GetCities", "User")', { stateId: stateId }, function (data) {
-                    var citySelect = $('#CityId');
-                    citySelect.empty();
-                    $.each(data, function (index, city) {
-                        citySelect.append($('<option>', {
-                            value: city.id,
-                            text: city.name
-                        }));
+            $("#StateId").change(function () {
+                $.getJSON('/User/GetCities', { stateId: $(this).val() }, function (data) {
+                    var cityDropdown = $("#CityId");
+                    cityDropdown.empty().append('<option>Select City</option>');
+                    $.each(data, function (i, city) {
+                        cityDropdown.append('<option value="' + city.id + '">' + city.name + '</option>');
                     });
-                    citySelect.val('@Model.CityId');
+                    if (initialCityId) {
+                        cityDropdown.val(initialCityId);
+                        initialCityId = null;
+                    }
                 });
             });
 

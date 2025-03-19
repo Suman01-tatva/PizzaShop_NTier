@@ -13,19 +13,20 @@
                         <div class="form-floating mb-3 p-0">
                             <input asp-for="Name" type="text" class="form-control" id="categoryName" name="Name"
                                 placeholder="Category" />
-                            <label for="categoryName">Name</label>
+                            <label for="categoryName" asp-validation-for="">Name</label>
+                            <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
 
                         <div class="form-floating p-0">
                             <textarea asp-for="Description" class="form-control" name="Description"
                                 placeholder="Description" id="categoryDescription"></textarea>
                             <label for="categoryDescription">Description</label>
+                            <span asp-validation-for="Description" class="text-danger"></span>
                         </div>
 
                         <div class="modal-footer d-flex justify-content-end border-0">
                             <button class="fill-btn" id="submitNewCategory">Save</button>
-                            <button type="button" class="btn outline-btn"
-                                data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn outline-btn" data-bs-dismiss="modal">Cancel</button>
                         </div>
                     </form>
                 </div>
