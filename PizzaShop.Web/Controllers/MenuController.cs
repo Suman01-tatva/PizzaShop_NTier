@@ -265,6 +265,10 @@ public class MenuController : Controller
         var (email, userId) = await _tokenDataService.GetEmailFromToken(token!);
         if (email == null)
             return null!;
+
+        await _tokenDataService.GetEmailFromToken(token!);
+        if (email == null)
+            return null!;
         try
         {
             _menuService.DeleteMenuItem(id);

@@ -84,3 +84,8 @@
 .bg-white {
   background-color: white;
 }
+
+.active-new {
+  color: #006098 !important;
+  background-color: white;
+}

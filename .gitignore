@@ -32,10 +32,13 @@ bld/
 [Ll]og/
 [Ll]ogs/
 # Ignore DLL files
+bin/
+obj/
 *.dll
+*.pdb
 
 # Ignore PDB files
-*.pdb
+
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

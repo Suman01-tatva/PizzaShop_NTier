@@ -74,4 +74,9 @@
             }
         });
     });
+    $(".modifierGroup").first().addClass("active-new");
+    $(".modifierGroup").click(function () {
+        $(".modifierGroup").removeClass("active-new");
+        $(this).addClass("active-new");
+    });
 </script>

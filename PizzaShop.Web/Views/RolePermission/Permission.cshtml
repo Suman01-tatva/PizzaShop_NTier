@@ -18,7 +18,7 @@
         <thead>
             <tr>
                 <th>
-                    <input type="checkbox" id="selectAll" />
+                    <input type="checkbox" class="form-check-input switch-btn mt-1" id="selectAll" />
                     Permission
                 </th>
                 <th>Can View</th>
@@ -93,6 +93,9 @@
                 canView.disabled = false;
                 canAddEdit.disabled = false;
                 canDelete.disabled = false;
+                canView.checked = true;
+                canAddEdit.checked = true;
+                canDelete.checked = true;
             } else {
                 canView.checked = false;
                 canAddEdit.checked = false;
@@ -101,6 +104,18 @@
                 canAddEdit.disabled = true;
                 canDelete.disabled = true;
             }
+
+            canView.addEventListener("change", function () {
+                    if (!this.checked) {
+                        canAddEdit.checked = false;
+                        canDelete.checked = false;
+                        canAddEdit.disabled = true;
+                        canDelete.disabled = true;
+                    } else {
+                        canAddEdit.disabled = false;
+                        canDelete.disabled = false;
+                    }
+                });
         }
 
         document.getElementById("selectAll").addEventListener("change", function () {
@@ -109,7 +124,7 @@
                 togglePermissionFields(chk.dataset.index, this.checked);
             });
         });
-
+        
         document.querySelectorAll("input[type='checkbox']").forEach(chk => {
             chk.addEventListener("change", function () {
                 let hiddenInput = this.nextElementSibling;
