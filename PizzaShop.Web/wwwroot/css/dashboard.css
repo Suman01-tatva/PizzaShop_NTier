@@ -409,6 +409,7 @@
   border-radius: 10px;
   padding: 20px;
   justify-content: center;
+  align-items: center;
 }
 
 .form-switch .form-check-input {

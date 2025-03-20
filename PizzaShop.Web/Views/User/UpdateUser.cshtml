@@ -61,6 +61,8 @@
         <br>
         <!-- File Upload -->
         <div class="mb-3 upload-container d-flex flex-col">
+            <img src="~/images/@(Model?.ProfileImg ?? "Default_pfp.svg.png")" alt="ProfileImg" id="profile-img"
+                class="rounded-circle" style="height: 80px; width: 80px;">
             <label for="imageInput" class="mx-1">
                 <img src="~/images/cloud-upload.svg" alt="upload-icon" class="mx-4" />
                 <br />
@@ -171,16 +173,17 @@
             // Trigger the change event to populate the states and cities on page load
             $('#CountryId').change();
         });
-        function showFileName() {
-            var input = document.getElementById('fileInput');
-            var fileNameSpan = document.getElementById('file-upload-name');
-            console.log(input.files[0])
-            if (input.files && input.files[0]) {
-                fileNameSpan.textContent = input.files[0].name;
-                fileNameSpan.style.display = 'block';
-            } else {
-                fileNameSpan.style.display = 'none';
+        document.getElementById('imageInput').addEventListener('change', function (event) {
+            var file = event.target.files[0];
+            document.querySelector("#profile-img")
+
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.querySelector("#profile-img").src = e.target.result;
+                }
+                reader.readAsDataURL(file);
             }
-        }
+        });
     </script>
 }

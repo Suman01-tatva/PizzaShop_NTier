@@ -1,0 +1,115 @@
+@model List<PizzaShop.Entity.ViewModels.TableViewModel>
+
+<section class="table-responsive">
+    @if (Model.Count == 0)
+    {
+        <div class="d-flex justify-content-center align-items-center mt-5">
+            <p>Table Not Found</p>
+        </div>
+    }
+    else
+    {
+        <table class="table user-table mb-0 menu-table">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                        </div>
+                    </th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Capacity</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider menuItems" id="itemsList">
+                @for (var i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            <div class="form-check">
+                                <input class="form-check-input itemCheckBox" value="@Model[i].Id" type="checkbox" value=""
+                                    id="flexCheckDefault" />
+                            </div>
+                        </td>
+                        @* <td class="">
+                            <span class="me-2">
+                                <img src="~/images/@(Model.itemList[i].Image != null ? Model.itemList[i].Image : "dining-menu.png")"
+                                    alt="dining-menu" class="dining-menu-icon user-profile-img rounded-circle" />
+                            </span><span>
+                                @Model.itemList[i].Name
+                            </span>
+                        </td> *@
+                        @* <td>
+                            <div class="">
+                                @if ((bool)Model.itemList[i].Type)
+                                {
+                                    <img src="~/images/icons/veg-icon.svg" class="veg-icon" alt="veg-icon" />
+                                }
+                                else
+                                {
+                                    <img src="~/images/icons/non-veg-icon.svg" class="veg-icon" alt="veg-icon" />
+                                }
+                            </div>
+                        </td> *@
+                        <td>@Model[i].Name</td>
+                        <td>@Model[i].Capacity</td>
+                        <td>
+                            @if ((bool)@Model[i].IsAvailable)
+                            {
+                                <div class="active-status">Available</div>
+                            }
+                            else
+                            {
+                                <div class="inActive-status">Occupied</div>
+                            }
+                        </td>
+                        <td>
+                            <button type="button" class="btn editItemBtn" data-itemid="@Model[i].Id">
+                                <i class="fa-solid fa-pen me-3 "></i>
+                            </button>
+                            <button type="button" class="btn deleteItem" value="@Model[i].Id">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        @* <div class="d-flex justify-content-end align-items-center mt-2">
+            <p class="mb-0">Items Per page</p>
+            <select class="ms-3 form-select w-auto" aria-label="Default select example" id="pageSizedropdown">
+                <option value="5" selected="@(PageSize == 5 ? true : false)">5</option>
+                <option value="10" selected="@(PageSize == 10 ? true : false)">10</option>
+                <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
+            </select>
+            <p class="mb-0 ms-2 me-2">Showing @Model.PageIndex Out Of <span>@Model.TotalPage</span></p>
+            @if (PageIndex > 1)
+            {
+                <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="Previous">
+                    <i class="fa fa-chevron-left"></i>
+                </a>
+            }
+            else
+            {
+                <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+            }
+
+            @if (PageIndex < TotalPage)
+            {
+                <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="Next">
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            }
+            else
+            {
+                <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+            }
+        </div> *@
+    }
+</section>

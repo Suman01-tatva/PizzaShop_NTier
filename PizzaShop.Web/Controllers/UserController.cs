@@ -115,11 +115,18 @@ public class UserController : Controller
             {
                 var allowedExtensions = new[] { ".png", ".jpg", ".jpeg" };
                 var extension = Path.GetExtension(model.ProfileImagePath.FileName).ToLower();
-
+                var maxFileSize = 2 * 1024 * 1024;
                 if (!allowedExtensions.Contains(extension))
                 {
                     ModelState.AddModelError("ProfileImagePath", "Please upload an image file (.png, .jpg, .jpeg).");
                     TempData["ToastrMessage"] = "Please upload an image file in (.png, .jpg, .jpeg) format.";
+                    TempData["ToastrType"] = "error";
+                    return View(model);
+                }
+                else if (model.ProfileImagePath.Length > maxFileSize)
+                {
+                    ModelState.AddModelError("ProfileImagePath", "The file size should not exceed 2MB.");
+                    TempData["ToastrMessage"] = "The file size should not exceed 2MB.";
                     TempData["ToastrType"] = "error";
                     return View(model);
                 }
@@ -224,11 +231,18 @@ public class UserController : Controller
             {
                 var allowedExtensions = new[] { ".png", ".jpg", ".jpeg" };
                 var extension = Path.GetExtension(model.ProfileImagePath.FileName).ToLower();
-
+                var maxFileSize = 2 * 1024 * 1024;
                 if (!allowedExtensions.Contains(extension))
                 {
                     ModelState.AddModelError("ProfileImagePath", "Please upload an image file (.png, .jpg, .jpeg).");
                     TempData["ToastrMessage"] = "Please upload an image file in (.png, .jpg, .jpeg) format.";
+                    TempData["ToastrType"] = "error";
+                    return View(model);
+                }
+                else if (model.ProfileImagePath.Length > maxFileSize)
+                {
+                    ModelState.AddModelError("ProfileImagePath", "The file size should not exceed 2MB.");
+                    TempData["ToastrMessage"] = "The file size should not exceed 2MB.";
                     TempData["ToastrType"] = "error";
                     return View(model);
                 }
@@ -361,11 +375,19 @@ public class UserController : Controller
             {
                 var allowedExtensions = new[] { ".png", ".jpg", ".jpeg" };
                 var extension = Path.GetExtension(model.ProfileImagePath.FileName).ToLower();
-
+                var maxFileSize = 2 * 1024 * 1024;
                 if (!allowedExtensions.Contains(extension))
                 {
                     ModelState.AddModelError("ProfileImagePath", "Please upload an image file (.png, .jpg, .jpeg).");
                     TempData["ToastrMessage"] = "Please upload an image file in (.png, .jpg, .jpeg) format.";
+                    TempData["ToastrType"] = "error";
+                    await PopulateDropdowns();
+                    return View(model);
+                }
+                else if (model.ProfileImagePath.Length > maxFileSize)
+                {
+                    ModelState.AddModelError("ProfileImagePath", "The file size should not exceed 2MB.");
+                    TempData["ToastrMessage"] = "The file size should not exceed 2MB.";
                     TempData["ToastrType"] = "error";
                     return View(model);
                 }

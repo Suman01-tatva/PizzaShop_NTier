@@ -13,7 +13,7 @@ public partial class Section
 
     public bool? IsDeleted { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
 
     public int CreatedBy { get; set; }
 

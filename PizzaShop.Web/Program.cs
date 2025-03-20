@@ -38,6 +38,10 @@ builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IMenuModifierGroupRepository, MenuModifierGroupRepository>();
 builder.Services.AddScoped<IMenuModifierRepository, MenuModifierRepository>();
 builder.Services.AddScoped<IMenuModifierService, MenuModifierService>();
+builder.Services.AddScoped<ITableRepository, TableRepository>();
+builder.Services.AddScoped<ISectionRepository, SectionRepository>();
+builder.Services.AddScoped<ITableService, TableService>();
+builder.Services.AddScoped<ISectionService, SectionService>();
 
 builder.Services.AddDataProtection().SetApplicationName("PizzaShop");
 builder.Services.AddControllersWithViews();
