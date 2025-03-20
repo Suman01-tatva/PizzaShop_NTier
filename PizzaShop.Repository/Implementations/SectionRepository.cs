@@ -31,5 +31,8 @@ public class SectionRepository : ISectionRepository
         .OrderBy(s => s.Name).ToList();
         return sections;
     }
-
+    public Section GetSectionById(int sectionId)
+    {
+        return _context.Sections.FirstOrDefault(s => s.Id == sectionId);
+    }
 }

@@ -6,4 +6,7 @@ namespace PizzaShop.Repository.Interfaces;
 public interface ISectionRepository
 {
     List<SectionViewModel> GetAllSectionsAsync();
+
+    Section GetSectionById(int sectionId);
+
 }

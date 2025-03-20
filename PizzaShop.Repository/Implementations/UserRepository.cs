@@ -119,6 +119,18 @@ public class UserRepostory : IUserRepository
         {
             var userQuery = _context.Users.Where(u => u.IsDeleted == false);
 
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                searchString = searchString.Trim().ToLower();
+
+                userQuery = userQuery.Where(n =>
+                    (n.FirstName + " " + n.LastName).ToLower().Contains(searchString) ||
+                    n.FirstName!.ToLower().Contains(searchString) ||
+                    n.LastName!.ToLower().Contains(searchString) ||
+                    n.Email!.ToLower().Contains(searchString)
+                );
+            }
+
             switch (sortOrder)
             {
                 case "username_asc":
@@ -140,18 +152,6 @@ public class UserRepostory : IUserRepository
                 default:
                     userQuery = userQuery.OrderBy(u => u.Id);
                     break;
-            }
-
-            if (!string.IsNullOrEmpty(searchString))
-            {
-                searchString = searchString.Trim().ToLower();
-
-                userQuery = userQuery.Where(n =>
-                    (n.FirstName + " " + n.LastName).ToLower().Contains(searchString) ||
-                    n.FirstName!.ToLower().Contains(searchString) ||
-                    n.LastName!.ToLower().Contains(searchString) ||
-                    n.Email!.ToLower().Contains(searchString)
-                );
             }
 
             count = userQuery.Count();

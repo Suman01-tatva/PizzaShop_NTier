@@ -1,0 +1,70 @@
+@model PizzaShop.Entity.ViewModels.TableViewModel;
+
+<div class="container mt-5">
+    <div class="modal fade" id="addTableModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Table</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center p-1">
+                    <form class="p-3" id="addNewTableForm">
+                        <div class="row">
+                            <div class="form-floating mb-3 p-0 col">
+                                <input asp-for="Name" type="text" class="form-control" placeholder="Name" />
+                                <label for="Name">Name</label>
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="col mb-3">
+                                <div class="form-floating">
+                                    <select asp-for="SectionId" class="form-select"
+                                        aria-label="Floating label select example">
+                                        <option selected disabled hidden>Select a Section</option>
+                                    </select>
+                                    <label for="SectionId">Section</label>
+                                    <span asp-validation-for="SectionId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-floating p-0 col">
+                                <input asp-for="Capacity" type="number" class="form-control" placeholder="Capacity">
+                                <label for="Capacity">Capacity</label>
+                                <span asp-validation-for="Capacity" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <div class="form-floating">
+                                    <select asp-for="IsAvailable" class="form-select"
+                                        aria-label="Floating label select example">
+                                        <option selected disabled hidden>Select a Status</option>
+                                        <option value="true">Active</option>
+                                        <option value="false">Inactive</option>
+                                    </select>
+                                    <label for="IsAvailable">Status</label>
+                                    <span asp-validation-for="IsAvailable" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer d-flex justify-content-end border-0">
+                        <button class="fill-btn" id="submitTableForm">Save</button>
+                        <button type="button" class="btn outline-btn" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $.getJSON('@Url.Action("GetAllSections", "TableSection")', function (section) {
+        $('#SectionId').empty().append('<option selected disabled hidden>Select Section</option>');
+        $.each(section, function (i, c) {
+            $('#SectionId').append($('<option>', {
+                value: c.id,
+                text: c.name
+            }));
+        });
+    });
+</script>
