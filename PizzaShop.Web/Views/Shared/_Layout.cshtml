@@ -26,6 +26,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" type="image/x-icon" href="~/images/pizzashop_logo.png" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
 </head>
 
 <body>
@@ -164,7 +165,7 @@
             </div>
         </div>
     </div>
-    <script src="~/lib/jquery/dist/jquery.min.js" asp-append-version="true"></script>
+
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -192,21 +193,22 @@
                 }
             }
         });
-
-        $.ajax({
-            url: '/User/GetProfileDetail',
-            method: 'GET',
-            success: function (data) {
-                if (data.profileImage != null) {
-                    imgPath = "/images/" + data.profileImage;
-                    $('.profile-avatar').attr('src', imgPath);
+        $(document).ready(function () {
+            $.ajax({
+                url: '/User/GetProfileDetail',
+                method: 'GET',
+                success: function (data) {
+                    if (data.profileImage != null) {
+                        imgPath = "/images/" + data.profileImage;
+                        $('.profile-avatar').attr('src', imgPath);
+                    }
+                    $('#userName').html(data.userName)
+                },
+                error: function () {
+                    console.error('Failed to load profile photo.');
                 }
-                $('#userName').html(data.userName)
-            },
-            error: function () {
-                console.error('Failed to load profile photo.');
-            }
-        });
+            });
+        })
     </script>
 </body>
 

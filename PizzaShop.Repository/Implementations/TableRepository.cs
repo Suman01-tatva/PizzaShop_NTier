@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Repository.Interfaces;
@@ -33,12 +34,18 @@ public class TableRepository : ITableRepository
         return tables;
     }
 
-    public void DeleteTable(int id, int userId)
+    public bool DeleteTable(int id, int userId)
     {
         var table = _context.Tables.FirstOrDefault(i => i.Id == id);
+        if (table!.IsAvailable == false)
+        {
+            return false;
+        }
         table!.IsDeleted = true;
         table.ModifiedBy = userId;
         _context.SaveChanges();
+
+        return true;
     }
 
     public bool AddTable(Table model)
@@ -70,15 +77,50 @@ public class TableRepository : ITableRepository
         }
         catch (Exception ex)
         {
-            Console.WriteLine(ex.Message);
+            Console.WriteLine("Exception Message: " + ex.Message);
+            if (ex.InnerException != null)
+            {
+                Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
+            }
             return false;
         }
     }
 
-    public bool IsTableExist(string name, int sectionId)
+    public async Task<TableViewModel> GetTableById(int id)
+    {
+        var table = await _context.Tables
+            .Where(t => t.Id == id && t.IsDeleted == false)
+            .Select(t => new TableViewModel
+            {
+                Id = t.Id,
+                Name = t.Name,
+                SectionId = t.SectionId,
+                Capacity = t.Capacity,
+                IsAvailable = t.IsAvailable
+            })
+            .FirstOrDefaultAsync();
+
+        return table!;
+    }
+
+    public bool IsTableExist(string name, int sectionId, int tableId)
     {
         name = name.Trim().ToLower();
         var table = _context.Tables.FirstOrDefault(t => t.Name.ToLower() == name && t.SectionId == sectionId);
+        if (tableId != 0)
+        {
+            var existingTable = _context.Tables
+           .Where(t => t.Id == tableId).FirstOrDefault();
+            if (table != null && existingTable!.Name.ToLower() != name && existingTable.SectionId != sectionId)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         if (table != null)
         {
             return true;

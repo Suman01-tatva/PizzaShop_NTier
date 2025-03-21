@@ -95,7 +95,9 @@ public class TableSectionController : Controller
 
         try
         {
-            _tableService.DeleteTable(id, int.Parse(userId));
+            var isDeleted = _tableService.DeleteTable(id, int.Parse(userId));
+            if (!isDeleted)
+                return Json(new { isSuccess = false, message = "Table is Occupied so you can not delete it." });
             return Json(new { isSuccess = true, message = "Table Deleted Successfully" });
         }
         catch (System.Exception)
@@ -115,12 +117,53 @@ public class TableSectionController : Controller
             return null!;
         try
         {
-            _tableService.MultiDeleteTable(itemIds, int.Parse(userId));
+            var isDeleted = _tableService.MultiDeleteTable(itemIds, int.Parse(userId));
+            if (!isDeleted)
+                return Json(new { isSuccess = false, message = "You can not delete the occupied table." });
             return Json(new { isSuccess = true, message = "Tables Deleted Successfully" });
         }
         catch (System.Exception)
         {
             return Json(new { isSuccess = false, message = "Error While Delete Table. Please Try again!" });
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> EditTable(int id)
+    {
+        var table = await _tableService.GetTableById(id);
+        if (table == null)
+        {
+            return NotFound();
+        }
+        return PartialView("_AddEditTable", table);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditTable(TableViewModel model)
+    {
+        if (ModelState.IsValid)
+        {
+            var token = Request.Cookies["Token"];
+            var (currentUserEmail, userId) = await _tokenDataService.GetEmailFromToken(token!);
+            var updated = _tableService.UpdateTable(model, int.Parse(userId));
+
+            if (updated)
+            {
+                return Json(new { success = true, message = "Table updated successfully." });
+            }
+            else
+            {
+                return Json(new { success = false, message = "Table update failed!" });
+            }
+        }
+        else
+        {
+            var errorMessage = string.Join("; ", ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage));
+
+            return Json(new { success = false, message = errorMessage });
         }
     }
 }

@@ -23,19 +23,28 @@ public class TableService : ITableService
         return sections;
     }
 
-    public void DeleteTable(int id, int userId)
+    public bool DeleteTable(int id, int userId)
     {
-        _tableRepository.DeleteTable(id, userId);
+        var isDelete = _tableRepository.DeleteTable(id, userId);
+        return isDelete;
     }
 
     public bool MultiDeleteTable(int[] tableIds, int userId)
     {
         try
         {
+            var occupied = false;
             foreach (var table in tableIds)
             {
-                _tableRepository.DeleteTable(table, userId);
+                var isDelete = _tableRepository.DeleteTable(table, userId);
+                if (isDelete == false)
+                {
+                    occupied = true;
+                    break;
+                }
             }
+            if (occupied == true)
+                return false;
             return true;
         }
         catch (System.Exception e)
@@ -47,7 +56,7 @@ public class TableService : ITableService
 
     public bool AdddTable(TableViewModel model, int userId)
     {
-        bool isTable = _tableRepository.IsTableExist(model.Name, model.SectionId);
+        bool isTable = _tableRepository.IsTableExist(model.Name, model.SectionId, model.Id);
 
         if (isTable == false)
         {
@@ -57,11 +66,39 @@ public class TableService : ITableService
                 SectionId = model.SectionId,
                 Capacity = model.Capacity,
                 IsAvailable = model.IsAvailable,
-                CreatedBy = userId, // Ensure CreatedBy is set
+                CreatedBy = userId,
+                CreatedAt = DateTime.UtcNow
             };
 
             return _tableRepository.AddTable(newTable);
         }
         return false;
     }
+
+    public async Task<TableViewModel> GetTableById(int id)
+    {
+        return await _tableRepository.GetTableById(id);
+    }
+
+    public bool UpdateTable(TableViewModel model, int userId)
+    {
+        bool isTable = _tableRepository.IsTableExist(model.Name, model.SectionId, model.Id);
+
+        if (isTable == false)
+        {
+            var newTable = new Table
+            {
+                Name = model.Name,
+                SectionId = model.SectionId,
+                Capacity = model.Capacity,
+                IsAvailable = model.IsAvailable,
+                CreatedBy = userId,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            return _tableRepository.UpdateTable(newTable);
+        }
+        return false;
+    }
+
 }

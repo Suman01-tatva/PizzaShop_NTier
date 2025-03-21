@@ -1,5 +1,5 @@
 @model PizzaShop.Entity.ViewModels.TableViewModel;
-
+<partial name="_ValidationScriptsPartial" />
 <div class="container mt-5">
     <div class="modal fade" id="addTableModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -9,7 +9,8 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center p-1">
-                    <form class="p-3" id="addNewTableForm">
+                    <form class="p-3" id="addNewTableForm" data-id="@Model.Id">
+                        <input type="number" asp-for="Id" hidden>
                         <div class="row">
                             <div class="form-floating mb-3 p-0 col">
                                 <input asp-for="Name" type="text" class="form-control" placeholder="Name" />
@@ -18,8 +19,7 @@
                             </div>
                             <div class="col mb-3">
                                 <div class="form-floating">
-                                    <select asp-for="SectionId" class="form-select"
-                                        aria-label="Floating label select example">
+                                    <select asp-for="SectionId" class="form-select" id="SectionId">
                                         <option selected disabled hidden>Select a Section</option>
                                     </select>
                                     <label for="SectionId">Section</label>
@@ -38,32 +38,46 @@
                                     <select asp-for="IsAvailable" class="form-select"
                                         aria-label="Floating label select example">
                                         <option selected disabled hidden>Select a Status</option>
-                                        <option value="true">Active</option>
-                                        <option value="false">Inactive</option>
+                                        <option value="true">Available</option>
+                                        <option value="false">Occupied</option>
                                     </select>
                                     <label for="IsAvailable">Status</label>
                                     <span asp-validation-for="IsAvailable" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
+                        <div class="modal-footer d-flex justify-content-end border-0">
+                            <button class="fill-btn" type="submit" id="submitTableForm">Save</button>
+                            <button type="button" class="btn outline-btn" data-bs-dismiss="modal">Cancel</button>
+                        </div>
                     </form>
-                    <div class="modal-footer d-flex justify-content-end border-0">
-                        <button class="fill-btn" id="submitTableForm">Save</button>
-                        <button type="button" class="btn outline-btn" data-bs-dismiss="modal">Cancel</button>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <script>
-    $.getJSON('@Url.Action("GetAllSections", "TableSection")', function (section) {
-        $('#SectionId').empty().append('<option selected disabled hidden>Select Section</option>');
+    @* $.getJSON('@Url.Action("GetAllSections", "TableSection")', function (section) {
+        $('#SectionId-add').empty().append('<option selected disabled hidden>Select Section</option>');
         $.each(section, function (i, c) {
             $('#SectionId').append($('<option>', {
                 value: c.id,
                 text: c.name
+            }));
+        });
+    }); *@
+     var selectedSectionId = '@Model.SectionId'; // Get the selected section ID from the model
+    var tableId = '@Model.Id'; // Get the table ID from the model
+
+    $.getJSON('@Url.Action("GetAllSections", "TableSection")', function (sections) {
+        $('#SectionId').empty().append('<option selected disabled hidden>Select Section</option>');
+        $.each(sections, function (i, section) {
+            @* var isSelected = (section.id == selectedSectionId && tableId != 0) ? 'selected' : ''; *@
+            var isSelected = section.id == selectedSectionId ? 'selected' : '';
+            $('#SectionId').append($('<option>', {
+                value: section.id,
+                text: section.name,
+                selected: isSelected
             }));
         });
     });
