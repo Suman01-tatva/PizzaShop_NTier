@@ -8,7 +8,7 @@ using PizzaShop.Repository.Interfaces;
 using PizzaShop.Service.Implementations;
 using PizzaShop.Service.Interfaces;
 using PizzaShop.Web;
-using System.Text;
+using PizzaShop.Web.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,6 +78,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseMiddleware<IsFirstLoginMiddleware>(builder.Configuration["Jwt:Key"], "Token");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Auth}/{action=Login}/{id?}");

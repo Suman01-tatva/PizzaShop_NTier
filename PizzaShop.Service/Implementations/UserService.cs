@@ -40,6 +40,10 @@ public class UserService : IUserService
         {
             string changedPassword = PasswordUtills.HashPassword(model.NewPassword);
             user.Password = changedPassword;
+            if (user.IsFirstLogin == true)
+            {
+                user.IsFirstLogin = false;
+            }
             await _userRepository.UpdateUserAsync(user);
             return "success";
         }
@@ -150,6 +154,7 @@ public class UserService : IUserService
         user.IsActive = model.IsActive;
         user.ProfileImage = model.ProfileImg;
         user.ModifiedBy = model.ModifiedBy;
+        user.IsFirstLogin = model.IsFirstLogin;
         await _userRepository.UpdateUserAsync(user);
     }
     public async Task<List<Country>> GetAllCountriesAsync()

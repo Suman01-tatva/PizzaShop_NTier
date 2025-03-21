@@ -71,5 +71,6 @@ namespace PizzaShop.Entity.ViewModels
         public bool IsDeleted { get; set; }
 
         public bool? IsActive { get; set; }
+        public bool? IsFirstLogin { get; set; }
     }
 }

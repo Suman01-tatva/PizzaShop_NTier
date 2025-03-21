@@ -12,7 +12,7 @@ public class TokenDataService : ITokenDataService
         _jwtservice = jwtservice;
     }
 
-    public async Task<(string email, string id)> GetEmailFromToken(string token)
+    public async Task<(string email, string id, string isFirstLogin)> GetEmailFromToken(string token)
     {
         if (!string.IsNullOrEmpty(token))
         {
@@ -21,14 +21,16 @@ public class TokenDataService : ITokenDataService
             {
                 var emailClaim = principal.Claims.First(claim => claim.Type == ClaimTypes.Email);
                 var idClaim = principal.Claims.First(claim => claim.Type == "Id");
+                var isFirstLoginClaim = principal.Claims.First(claim => claim.Type == "IsFirstLogin");
 
                 var email = emailClaim.Value;
                 var id = idClaim.Value;
+                var isFirstLogin = isFirstLoginClaim.Value;
 
-                return (email.ToString(), id);
+                return (email.ToString(), id, isFirstLogin);
             }
         }
 
-        return ("", "");
+        return ("", "", "");
     }
 }

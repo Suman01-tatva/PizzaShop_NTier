@@ -56,7 +56,7 @@ public class TableSectionController : Controller
         if (ModelState.IsValid)
         {
             var token = Request.Cookies["Token"];
-            var (currentUserEmail, id) = await _tokenDataService.GetEmailFromToken(token!);
+            var (currentUserEmail, id, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
             var table = _tableService.AdddTable(model, int.Parse(id));
 
             if (table)
@@ -89,7 +89,7 @@ public class TableSectionController : Controller
         if (token == null)
             return RedirectToAction("Login", "Auth");
 
-        var (email, userId) = await _tokenDataService.GetEmailFromToken(token!);
+        var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
         if (email == null)
             return null!;
 
@@ -112,7 +112,7 @@ public class TableSectionController : Controller
         var token = Request.Cookies["Token"];
         if (token == null)
             return RedirectToAction("Login", "Auth");
-        var (email, userId) = await _tokenDataService.GetEmailFromToken(token!);
+        var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
         if (email == null)
             return null!;
         try
@@ -145,7 +145,7 @@ public class TableSectionController : Controller
         if (ModelState.IsValid)
         {
             var token = Request.Cookies["Token"];
-            var (currentUserEmail, userId) = await _tokenDataService.GetEmailFromToken(token!);
+            var (currentUserEmail, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
             var updated = _tableService.UpdateTable(model, int.Parse(userId));
 
             if (updated)

@@ -167,7 +167,7 @@ public class MenuController : Controller
         if (ModelState.IsValid)
         {
             var token = Request.Cookies["Token"];
-            var (email, id) = await _tokenDataService.GetEmailFromToken(token!);
+            var (email, id, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
 
             bool isItemExist = _menuService.IsItemExist(model.Name, model.CategoryId);
             if (isItemExist)
@@ -228,7 +228,7 @@ public class MenuController : Controller
             if (string.IsNullOrEmpty(AuthToken))
                 return null;
 
-            var (userEmail, id) = await _tokenDataService.GetEmailFromToken(AuthToken);
+            var (userEmail, id, isFirstLogin) = await _tokenDataService.GetEmailFromToken(AuthToken);
             if (userEmail == null)
                 return null;
 
@@ -262,7 +262,7 @@ public class MenuController : Controller
         if (token == null)
             return RedirectToAction("Login", "Auth");
 
-        var (email, userId) = await _tokenDataService.GetEmailFromToken(token!);
+        var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
         if (email == null)
             return null!;
         try
@@ -282,7 +282,7 @@ public class MenuController : Controller
         var token = Request.Cookies["Token"];
         if (token == null)
             return RedirectToAction("Login", "Auth");
-        var (email, userId) = await _tokenDataService.GetEmailFromToken(token!);
+        var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
         if (email == null)
             return null!;
         try

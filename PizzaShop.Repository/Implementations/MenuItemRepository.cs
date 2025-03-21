@@ -22,7 +22,7 @@ public class MenuItemRepository : IMenuItemsRepository
             itmes = itmes.Where(i => i.Name.ToLower().Contains(searchString.ToLower()));
         }
 
-        var itemList = itmes.OrderBy(u => u.Id)
+        var itemList = itmes.OrderBy(u => u.Name)
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)
             .ToList();

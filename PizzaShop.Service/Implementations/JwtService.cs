@@ -3,6 +3,7 @@ using PizzaShop.Service.Interfaces;
 namespace PizzaShop.Service.Implementations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using PizzaShop.Entity.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -21,7 +22,7 @@ public class JwtService : IJwtService
         _audience = configuration["Jwt:Audience"]!;
     }
 
-    public string GenerateJwtToken(string id, string email, string role)
+    public string GenerateJwtToken(string id, string email, string role, bool? IsFirstLogin)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.UTF8.GetBytes(_key); // Secret Code (Salt)
@@ -33,6 +34,7 @@ public class JwtService : IJwtService
                 new Claim("Id", id.ToString()),
                 new Claim(ClaimTypes.Email, email),
                 new Claim(ClaimTypes.Role, role),
+                new Claim("IsFirstLogin", IsFirstLogin?.ToString() ?? "false")
             }),
             Expires = DateTime.UtcNow.AddHours(24),
             Issuer = _issuer,

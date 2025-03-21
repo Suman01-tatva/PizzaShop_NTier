@@ -65,5 +65,6 @@ namespace PizzaShop.Entity.ViewModels
 
         public bool IsActive { get; set; }
         public int? ModifiedBy { get; set; }
+        public bool? IsFirstLogin { get; set; }
     }
 }

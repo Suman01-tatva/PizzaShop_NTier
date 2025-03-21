@@ -41,6 +41,8 @@ public class AuthController : Controller
         if (ModelState.IsValid)
         {
             var user = await _authService!.AuthenticateUser(model.Email.Trim(), model.Password);
+            var token = _jwtService!.GenerateJwtToken(user.Id.ToString(), user.Email, user.RoleId.ToString(), user.IsFirstLogin);
+            CookieUtils.SaveJWTToken(Response, token);
 
             if (user == null)
             {
@@ -59,10 +61,11 @@ public class AuthController : Controller
                 TempData["ToastrType"] = "error";
                 return View();
             }
+            else if (user.IsFirstLogin == true)
+            {
+                return RedirectToAction("ChangePassword", "User");
+            }
 
-            var token = _jwtService!.GenerateJwtToken(user.Id.ToString(), user.Email, user.RoleId.ToString());
-
-            CookieUtils.SaveJWTToken(Response, token);
 
             if (model.RememberMe)
             {

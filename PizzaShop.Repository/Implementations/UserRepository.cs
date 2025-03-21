@@ -142,11 +142,11 @@ public class UserRepostory : IUserRepository
                     break;
 
                 case "role_asc":
-                    userQuery = userQuery.OrderBy(u => u.Role.Name);
+                    userQuery = userQuery.OrderBy(u => u.Role.Name).ThenBy(u => u.FirstName);
                     break;
 
                 case "role_desc":
-                    userQuery = userQuery.OrderByDescending(u => u.Role.Name);
+                    userQuery = userQuery.OrderByDescending(u => u.Role.Name).ThenBy(u => u.FirstName);
                     break;
 
                 default:
