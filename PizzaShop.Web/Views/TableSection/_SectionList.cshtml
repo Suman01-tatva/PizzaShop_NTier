@@ -1,6 +1,6 @@
 @model List<PizzaShop.Entity.ViewModels.SectionViewModel>;
 
-<div class="category-list">
+<div class="section-list">
     @for (var i = 0; i < Model.Count(); i++)
     {
         <div class="d-flex flex-wrap justify-content-between align-items-center item-category-btn p-2 my-2 itemCategory"
@@ -12,13 +12,113 @@
                 </h6>
             </div>
             <span class="edit-delete-icon">
-                <a href="javascript:void(0);" data-id="@Model[i].Id" class="edit-btn edit-category"
-                    style="text-decoration: none; color: inherit;">
-                    <i class="fa-solid fa-pencil m-1" data-bs-toggle="modal" data-bs-target="#EditCategoryModal"></i>
+                <a href="javascript:void(0);" class="edit-btn edit-category" style="text-decoration: none; color: inherit;">
+                    <i class="fa-solid fa-pencil m-1" data-bs-toggle="modal" data-bs-target="#sectionModal"
+                        onclick="openAddEditModal(@Model[i].Id)"></i>
                 </a>
-                <i class="fa-regular fa-trash-can mx-2 delete-category" data-bs-target="#deleteCategoryModal"
-                    data-bs-toggle="modal" id="deleteCategory" data-id="@Model[i].Id"></i>
+                <i class="fa-regular fa-trash-can mx-2 delete-category" data-bs-target="#deleteModal" data-bs-toggle="modal"
+                    onclick="openDeleteModal(@Model[i].Id)"></i>
             </span>
         </div>
     }
 </div>
+
+<div class="modal fade" id="sectionModal" tabindex="-1" aria-labelledby="sectionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div id="modalContent"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div id="deleteModalContent"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openAddEditModal(id) {
+        $.get('@Url.Action("AddEditSection", "TableSection")' + '?id=' + id, function (data) {
+            $('#modalContent').html(data);
+            $('#sectionModal').modal('show');
+        });
+    }
+    var deleteSectionId;
+    function openDeleteModal(id) {
+        $.get('@Url.Action("ConfirmDeleteSection", "TableSection")' + '?id=' + id, function (data) {
+            $('#deleteModalContent').html(data);
+            deleteSectionId = id;
+            $('#deleteModal').modal('show');
+        });
+    }
+    $('#deleteSectionBtn').click(function () {
+        $.ajax({
+            url: '/TableSection/DeleteSection',
+            type: 'post',
+            data: { id: deleteTableId },
+            success: function (response) {
+                if (response == null) {
+                    window.location.href = "/Auth/Login";
+                    toastr.error("Your Session is Expired. Please Login Again!");
+                }
+                if (response.isSuccess) {
+                    GetFilteredItems();
+                    toastr.success(response.message);
+
+                } else {
+                    toastr.error(response.message);
+                }
+                $("#deleteTableModal").modal('hide');
+            }
+        })
+    })
+    function submitAddEditSectionForm(event) {
+        event.preventDefault();
+        var form = $(event.target);
+        $.ajax({
+            type: form.attr('method'),
+            url: form.attr('action'),
+            data: form.serialize(),
+            success: function (response) {
+                if (response.success) {
+                    $('#sectionModal').modal('hide');
+                    GetFilteredSections();
+                    toastr.success(response.message);
+                } else {
+                    toastr.success(response.message);
+                    $('#modalContent').html(response.html);
+                }
+            },
+            error: function (xhr, status, error) {
+                showErrorMessage("An error occurred. Please try again.");
+            }
+        });
+    }
+
+    $(document).on('submit', '#addEditSectionForm', submitAddEditSectionForm);
+
+    @* function GetFilteredSections() {
+        var SearchString = $("#searchString").val();
+            var pageSize = $("#pageSizedropdown").val();
+            if (ajaxRequest && ajaxRequest.readyState !== 4) {
+                ajaxRequest.abort();
+            }
+            console.log("GetFilteredSections");
+        ajaxRequest = $.ajax({
+            url: "/TableSection/GetAllSectionsForFilter",
+            type: "GET",
+                    data: {
+                        categoryId: categoryId,
+                        pageIndex: pageIndex,
+                        pageSize: pageSize,
+                        searchString: SearchString
+                    },
+            success: function (data) {
+                $("#sectionList").html(data);
+            }
+                })
+        } *@
+</script>

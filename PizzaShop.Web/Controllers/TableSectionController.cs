@@ -45,6 +45,13 @@ public class TableSectionController : Controller
     }
 
     [HttpGet]
+    public IActionResult GetAllSectionsForFilter()
+    {
+        var sections = _sectionService.GetAllSections();
+        return PartialView("_SectionList", sections);
+    }
+
+    [HttpGet]
     public IActionResult AddNewTable()
     {
         return PartialView("_AddEditTable", new TableViewModel());
@@ -166,4 +173,60 @@ public class TableSectionController : Controller
             return Json(new { success = false, message = errorMessage });
         }
     }
+
+    [HttpGet]
+    public async Task<IActionResult> AddEditSection(int? id)
+    {
+        if (id == null || id == 0)
+            return PartialView("_AddEditSection", new SectionViewModel());
+
+        var tableSection = await _sectionService.GetSectionByIdAsync(id.Value);
+        return PartialView("_AddEditSection", tableSection);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddEditSection(SectionViewModel sectionViewModel)
+    {
+        if (!ModelState.IsValid)
+            return PartialView("_AddEditSection", sectionViewModel);
+
+        try
+        {
+            var token = Request.Cookies["Token"];
+            var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
+
+            if (sectionViewModel.Id == 0)
+                await _sectionService.AddSectionAsync(sectionViewModel, int.Parse(userId));
+            else
+                await _sectionService.UpdateSectionAsync(sectionViewModel, int.Parse(userId));
+
+            return Json(new { success = true, message = "Section saved successfully." });
+        }
+        catch (Exception ex)
+        {
+            ModelState.AddModelError(string.Empty, ex.Message);
+            return Json(new { success = false, message = ex.Message });
+        }
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> DeleteSection(int id, bool softDelete = true)
+    {
+        var token = Request.Cookies["Token"];
+        var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
+        await _sectionService.DeleteSectionAsync(id, softDelete, int.Parse(userId));
+        var tableSection = await _sectionService.GetSectionByIdAsync(id);
+        return View("TableSection", "TableSection");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> ConfirmDeleteSection(int id)
+    {
+        var tableSection = await _sectionService.GetSectionByIdAsync(id);
+        if (tableSection == null)
+            return NotFound();
+
+        return PartialView("_DeleteSection", tableSection);
+    }
+
 }
