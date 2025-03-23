@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Pizzashop.Service.Implementations;
 using PizzaShop.Entity.Data;
 using PizzaShop.Repository.Implementations;
@@ -9,6 +11,9 @@ using PizzaShop.Service.Implementations;
 using PizzaShop.Service.Interfaces;
 using PizzaShop.Web;
 using PizzaShop.Web.Middleware;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +24,7 @@ builder.Services.AddDbContext<PizzashopContext>(options =>
 
 DependencyInjection.RegisterServices(builder.Services, builder.Configuration.GetConnectionString("DatabaseConnection")!);
 
+// Dependency Injection
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
@@ -39,21 +45,83 @@ builder.Services.AddScoped<IMenuModifierGroupRepository, MenuModifierGroupReposi
 builder.Services.AddScoped<IMenuModifierRepository, MenuModifierRepository>();
 builder.Services.AddScoped<IMenuModifierService, MenuModifierService>();
 
-builder.Services.AddDataProtection().SetApplicationName("PizzaShop");
-builder.Services.AddControllersWithViews();
-// builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+// Add Permission Handler
+builder.Services.AddScoped<IAuthorizationHandler, PermissionHandler>();
 
-// Add authentication using cookies
+// Data Protection
+builder.Services.AddDataProtection().SetApplicationName("PizzaShop");
+builder.Services.AddHttpContextAccessor();
+// Add Cookie Authentication
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/Auth/Login"; // Redirect to login if not authenticated
+        options.LoginPath = "/Auth/Login";
         options.LogoutPath = "/Auth/Login";
-        options.AccessDeniedPath = "/Home/"; // Redirect if unauthorized
+        options.AccessDeniedPath = "/Home/";
+    })
+    // Add JWT Authentication
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+    {
+        options.RequireHttpsMetadata = false;
+        options.SaveToken = true;
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? "")),
+            RoleClaimType = ClaimTypes.Role,
+            NameClaimType = ClaimTypes.Name
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var token = context.Request.Cookies["Token"];
+                if (!string.IsNullOrEmpty(token))
+                {
+                    context.Token = token;
+                }
+                return Task.CompletedTask;
+            },
+            OnChallenge = context =>
+            {
+                context.HandleResponse();
+                context.Response.Redirect("/Auth/Login");
+                return Task.CompletedTask;
+            },
+            OnForbidden = context =>
+            {
+                context.Response.Redirect("/Home/Error");
+                return Task.CompletedTask;
+            }
+        };
     });
 
-builder.Services.AddAuthorization();
+// Add Authorization with Permission Policies
+builder.Services.AddAuthorization(options =>
+{
+    var permissions = new[]
+    {
+        "User.View", "User.Edit", "User.Delete",
+        "Role.View", "Role.Edit", "Role.Delete",
+        "Menu.View", "Menu.Edit", "Menu.Delete",
+        "TableSection.View", "TableSection.Edit", "TableSection.Delete",
+        "TaxFees.View", "TaxFees.Edit", "TaxFees.Delete",
+        "Orders.View", "Orders.Edit", "Orders.Delete",
+        "Customers.View", "Customers.Edit", "Customers.Delete"
+    };
 
+    foreach (var permission in permissions)
+    {
+        options.AddPolicy(permission, policy =>
+            policy.Requirements.Add(new PermissionRequirement(permission)));
+    }
+});
+builder.Services.AddAuthorization();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -62,25 +130,29 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
+// 404 Status Page
 app.UseStatusCodePages(async context =>
-   {
-       if (context.HttpContext.Response.StatusCode == 404)
-       {
-           context.HttpContext.Response.Redirect("/Home/NotFound");
-       }
-   });
+{
+    if (context.HttpContext.Response.StatusCode == 404)
+    {
+        context.HttpContext.Response.Redirect("/Home/NotFound");
+    }
+});
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
-// Add the authentication middleware
-app.UseAuthentication();
+app.UseAuthentication();  // Order is important
 app.UseAuthorization();
 
+// Add Middleware for First Login
 app.UseMiddleware<IsFirstLoginMiddleware>(builder.Configuration["Jwt:Key"], "Token");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Auth}/{action=Login}/{id?}");
 
-app.Run();
+    app.Run();

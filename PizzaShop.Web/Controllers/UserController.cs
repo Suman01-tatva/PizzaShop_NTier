@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -5,9 +6,11 @@ using Microsoft.CodeAnalysis.Elfie.Model.Strings;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Service.Interfaces;
+using PizzaShop.Web.Middleware;
 
 namespace PizzaShop.Web.Controllers;
-
+[Authorize]
+// [Authorize(Policy = "User")]
 public class UserController : Controller
 {
     private readonly IUserService _userService;
@@ -25,11 +28,13 @@ public class UserController : Controller
         _mailService = mailService;
     }
 
+    // [PermissionAuthorize("ChangePassword")]
     public IActionResult ChangePassword()
     {
         return View();
     }
 
+    // [PermissionAuthorize("ChangePassword")]
     [HttpPost]
     public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
     {
@@ -58,6 +63,7 @@ public class UserController : Controller
     }
 
     [HttpGet]
+    // [PermissionAuthorize("Profile")]
     public async Task<IActionResult> Profile()
     {
         var token = Request.Cookies["Token"];
@@ -88,6 +94,7 @@ public class UserController : Controller
     }
 
     [HttpPost]
+    // [PermissionAuthorize("Profile")]
     public async Task<IActionResult> Profile(ProfileViewModel model)
     {
         if (ModelState.IsValid)
@@ -171,6 +178,7 @@ public class UserController : Controller
         return View(model);
     }
 
+    // [PermissionAuthorize("UserList")]
     public IActionResult UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")
     {
         var users = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize, out int count);
@@ -194,12 +202,14 @@ public class UserController : Controller
         return View(users);
     }
 
+    // [PermissionAuthorize("CreateUser")]
     public async Task<IActionResult> CreateUser()
     {
         await PopulateDropdowns();
         return View();
     }
 
+    // [PermissionAuthorize("CreateUser")]
     [HttpPost]
     public async Task<IActionResult> CreateUser(UserViewModel model)
     {
@@ -311,6 +321,7 @@ public class UserController : Controller
 
     [HttpPost]
     [Route("User/DeleteUser/{id}/{roleId}")]
+    // [PermissionAuthorize("DeleteUser")]
     public IActionResult DeleteUser(int id, int roleId)
     {
         if (roleId == 1)
@@ -325,6 +336,7 @@ public class UserController : Controller
         return RedirectToAction(nameof(UserList));
     }
 
+    // [PermissionAuthorize("UpdateUser")]
     public async Task<IActionResult> UpdateUser(int id)
     {
         ViewBag.Roles = new SelectList(await _userService.GetAllRolesAsync(), "Id", "Name");

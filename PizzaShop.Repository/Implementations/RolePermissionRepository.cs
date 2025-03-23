@@ -29,7 +29,7 @@ namespace PizzaShop.Repository.Implementations
 
         public List<RolePermissionViewModel>? GetRolePermissionByRoleId(int roleId)
         {
-            List<RolePermission> rolePermisssion = _context.RolePermissions.Where(rp => rp.RoleId == roleId).OrderBy(rp => rp.PermissionId).ToList();
+            List<RolePermission> rolePermisssion = _context.RolePermissions.Where(rp => rp.RoleId == roleId).OrderBy(rp => rp.Id).ToList();
 
             if (rolePermisssion.Count > 0)
             {
