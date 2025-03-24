@@ -174,11 +174,12 @@ public class UserController : Controller
     public IActionResult UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")
     {
         var users = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize, out int count);
+        var totalUsers = _userService.GetTotalUsers(searchString);
+        ViewBag.count = totalUsers;
 
         ViewData["UsernameSortParam"] = sortOrder == "username_asc" ? "username_desc" : "username_asc";
         ViewData["RoleSortParam"] = sortOrder == "role_asc" ? "role_desc" : "role_asc";
 
-        ViewBag.count = count;
         ViewBag.pageIndex = pageIndex;
         ViewBag.pageSize = pageSize;
         ViewBag.totalPage = (int)Math.Ceiling(count / (double)pageSize);

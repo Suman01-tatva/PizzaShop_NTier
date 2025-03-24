@@ -18,7 +18,7 @@ public interface IMenuService
 
     public bool SoftDeleteCategory(int id);
 
-    public int GetItemsCountByCId(int cId);
+    public int GetItemsCountByCId(int cId, string? searchString);
 
     public bool FindCategoryByName(string name);
 

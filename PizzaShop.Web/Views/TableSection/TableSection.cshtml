@@ -46,10 +46,165 @@
 
                     <!-- Items Table -->
                     <div id="tableList">
-                        <partial name="_TableList" model="Model.Tables" />
+                        <partial name="_TableList" model="Model" />
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
+
+<script>
+    $(".addTableBtn").click(function () {
+        console.log("click add")
+        $.get('@Url.Action("AddNewTable", "TableSection")', function (data) {
+            console.log("Add data")
+            $("#AddTablePartial").html(data);
+            $("#addTableModal").modal('show');
+        })
+    })
+
+    $(document).on('submit', "#addNewTableForm", function (event) {
+        var tableId = $(this).data("id");
+        if (tableId == 0 || tableId == undefined) {
+            console.log("save table ID", tableId);
+            event.preventDefault();
+            var form = $("#addNewTableForm");
+            console.log("submit form", form.serialize())
+            $.ajax({
+                url: '/TableSection/AddNewTable',
+                type: 'POST',
+                data: form.serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        console.log("Added")
+                        GetFilteredItems();
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message);
+                    }
+                    $("#addTableModal").modal('hide');
+                }
+            })
+        }
+    })
+
+    $(document).on("click", ".editTableBtn", function () {
+        var tableId = $(this).data("id");
+        console.log("Table ", tableId);
+        $.get('@Url.Action("EditTable", "TableSection")', { id: tableId }, function (data) {
+            $("#AddTablePartial").html(data);
+            console.log(data)
+            $("#addTableModal").modal("show");
+        });
+    });
+
+    $(document).on('submit', "#addNewTableForm", function (e) {
+        var tableId = $(this).data("id");
+        console.log("Update table ID", tableId);
+        if (tableId != 0) {
+            e.preventDefault();
+            var tableId = $(this).data("id");
+            console.log("Update table ID", tableId);
+            var formData = $("#addNewTableForm").serialize();
+            IsEditTable = false;
+            $.post('@Url.Action("EditTable", "TableSection")', formData, function (response) {
+                if (response.success) {
+                    GetFilteredItems();
+                    toastr.success(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+                $("#addTableModal").modal("hide");
+            });
+        }
+    });
+
+    @* Pagination Script *@
+    var debounce;
+    var ajaxRequest;
+    $(".section").click(function () {
+        sectionId = $(this).data("id");
+
+        $.ajax({
+            url: '/TableSection/GetTablesBySectionId',
+            type: 'GET',
+            data: { sectionId: sectionId, pageSize: @Model.PageSize, pageIndex: @Model.PageIndex, searchString: "" },
+            success: function (response) {
+                console.log(response);
+                $("#tableList").html(response);
+            }
+        })
+    })
+
+    var pageIndex = @Model.PageIndex;
+
+    function GetFilteredItems() {
+        var SearchString = $("#searchString").val();
+        var pageSize = $("#pageSizeTable").val();
+        if (ajaxRequest && ajaxRequest.readyState !== 4) {
+            ajaxRequest.abort();
+        }
+        console.log("GetFilteredItems Item");
+        ajaxRequest = $.ajax({
+            url: "/TableSection/GetTablesBySectionId",
+            type: "GET",
+            data: {
+                sectionId: sectionId,
+                pageIndex: pageIndex,
+                pageSize: pageSize,
+                searchString: SearchString
+            },
+            success: function (data) {
+                $("#tableList").html(data);
+            }
+        })
+    }
+
+    $('#searchString').keyup(function () {
+        clearTimeout(debounce);
+        pageIndex = 1
+        pageSize = @Model.PageSize;
+        debounce = setTimeout(() => {
+            GetFilteredItems();
+        }, 600)
+    })
+
+    //AddEdit Section
+    function submitAddEditSectionForm(event) {
+        event.preventDefault();
+        var form = $(event.target);
+        $.ajax({
+            type: form.attr('method'),
+            url: form.attr('action'),
+            data: form.serialize(),
+            success: function (response) {
+                if (response.success) {
+                    $('#sectionModal').modal('hide');
+                    GetFilteredSections();
+                    console.log("Edited")
+                    toastr.success(response.message);
+                } else {
+                    toastr.success(response.message);
+                    $('#modalContent').html(response.html);
+                }
+            },
+            error: function (xhr, status, error) {
+                showErrorMessage("An error occurred. Please try again.");
+            }
+        });
+    }
+
+    $(document).on('submit', '#addEditSectionForm', submitAddEditSectionForm);
+
+    function GetFilteredSections() {
+        console.log("GetFilteredSections");
+        ajaxRequest = $.ajax({
+            url: "/TableSection/GetAllSectionsForFilter",
+            type: "GET",
+            success: function (data) {
+                $("#sectionList").html(data);
+            }
+        })
+    }
+</script>

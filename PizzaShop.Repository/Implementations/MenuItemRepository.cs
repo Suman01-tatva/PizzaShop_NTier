@@ -30,9 +30,18 @@ public class MenuItemRepository : IMenuItemsRepository
         return itemList;
     }
 
-    public int GetItemsCountByCId(int cId)
+    public int GetItemsCountByCId(int cId, string? searchString)
     {
-        int count = _context.MenuItems.Where(i => i.CategoryId == cId && i.IsDeleted == false).Count();
+        var itemQuery = _context.MenuItems.Where(i => i.CategoryId == cId && i.IsDeleted == false);
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            searchString = searchString.Trim().ToLower();
+
+            itemQuery = itemQuery.Where(n =>
+                n.Name!.ToLower().Contains(searchString)
+            );
+        }
+        int count = itemQuery.ToList()!.Count();
         return count;
     }
 

@@ -8,10 +8,9 @@
     <p>Are you sure you want to delete the section "<strong>@Model.Name</strong>"?</p>
 </div>
 <div class="modal-footer">
-    <form id="deleteSectionForm">
-        @Html.AntiForgeryToken()
-        <input type="hidden" asp-for="Id" />
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-        <button type="button" id="deleteSectionBtn" class="btn btn-danger">Yes, Delete</button>
-    </form>
+    @* <form id="deleteSectionForm"> *@
+    @* <input type="hidden" asp-for="Id" /> *@
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+    <button type="button" id="deleteSectionBtn" data-id="@Model.Id" class="btn btn-danger">Yes, Delete</button>
+    @* </form> *@
 </div>

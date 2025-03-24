@@ -10,5 +10,5 @@ public class ItemTabViewModel
     public int PageIndex { get; set; }
     public string? SearchString { get; set; } = null!;
     public int TotalPage { get; set; }
-
+    public int TotalItems { get; set; }
 }

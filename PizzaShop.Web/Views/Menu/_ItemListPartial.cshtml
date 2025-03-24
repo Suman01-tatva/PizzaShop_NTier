@@ -4,6 +4,7 @@
     var PageIndex = Model.PageIndex;
     var TotalPage = Model.TotalPage;
     var SearchString = Model.SearchString;
+    var TotalItems = Model.TotalItems;
 }
 <section class="table-responsive">
     @if (Model.itemList.Count == 0)
@@ -87,8 +88,10 @@
                 <option value="10" selected="@(PageSize == 10 ? true : false)">10</option>
                 <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
             </select>
-            <p class="mb-0 ms-2 me-2">Showing @Model.PageIndex Out Of <span>@Model.TotalPage</span></p>
-            @if (PageIndex > 1)
+            <span class="mb-0 ms-2 me-2 d-none d-md-block" id="showing">Showing @(Math.Min(((PageIndex - 1) * PageSize) + 1,
+                TotalItems)) -
+            @(Math.Min(PageIndex * PageSize, TotalItems)) of @TotalItems</span>
+        @if (PageIndex > 1)
             {
                 <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="Previous">
                     <i class="fa fa-chevron-left"></i>
@@ -246,8 +249,6 @@
             }
         })
     })
-
-
 
     @* Pagination Script *@
         $(".itemCategory").click(function () {

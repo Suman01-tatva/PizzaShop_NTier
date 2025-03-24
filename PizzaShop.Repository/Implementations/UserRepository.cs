@@ -198,6 +198,23 @@ public class UserRepostory : IUserRepository
         }
     }
 
+    public int GetTotalUsers(string searchString)
+    {
+        var userQuery = _context.Users.Where(u => u.IsDeleted == false);
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            searchString = searchString.Trim().ToLower();
+
+            userQuery = userQuery.Where(n =>
+                (n.FirstName + " " + n.LastName).ToLower().Contains(searchString) ||
+                n.FirstName!.ToLower().Contains(searchString) ||
+                n.LastName!.ToLower().Contains(searchString) ||
+                n.Email!.ToLower().Contains(searchString)
+            );
+        }
+        return userQuery.ToList().Count();
+    }
+
     public User GetUserById(int id)
     {
         return _context.Users.Find(id);

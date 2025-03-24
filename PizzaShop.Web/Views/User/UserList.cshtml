@@ -7,6 +7,7 @@
     var totalPage = ViewBag.TotalPage;
     var searchString = ViewBag.SearchString as string;
     var ErrorMessage = ViewBag.ErrorMessage;
+    var totalUSers = ViewBag.count;
 }
 
 <div class="col-md-12">
@@ -159,15 +160,18 @@
                     <option value="15">15</option>
                     }
                 </select>
-                <span class="mx-2">Showing @pageIndex out of @totalPage </span>
+                <span class="mb-0 ms-2 me-2 d-none d-md-block" id="showing">Showing @(Math.Min(((ViewBag.PageIndex - 1)
+                    *
+                    ViewBag.pageSize) +1, totalUSers)) -
+                    @(Math.Min(ViewBag.PageIndex * ViewBag.PageSize, totalUSers)) of @totalUSers</span>
                 @if (pageIndex > 1)
-                {
-                    <a href="?pageIndex=@(pageIndex-1)&pageSize=@pageSize&searchString=@searchString"
-                        class="bg-llight border-1 bg-light mx-2 px-2 btn btn-outline-dark">
-                        <i class="fa fa-chevron-left"></i>
-                    </a>
-                }
-                else
+                                {
+                <a href="?pageIndex=@(pageIndex-1)&pageSize=@pageSize&searchString=@searchString"
+                    class="bg-llight border-1 bg-light mx-2 px-2 btn btn-outline-dark">
+                    <i class="fa fa-chevron-left"></i>
+                </a>
+                                }
+                                else
                 {
                     <a class="bg-llight border-1 bg-light mx-2 px-2 btn btn-outline-dark" hidden>
                         <i class="fa fa-chevron-left"></i>

@@ -110,7 +110,7 @@ public class MenuController : Controller
     public async Task<IActionResult> GetItemsByCategory(int categoryId, int pageSize, int pageIndex, string searchString = "")
     {
         List<MenuItemViewModel> items = await _menuService.GetItemsByCategory(categoryId, pageSize == 0 ? 5 : pageSize, pageIndex == 0 ? 1 : pageIndex, searchString);
-        var totalItemCount = _menuService.GetItemsCountByCId(categoryId);
+        var totalItemCount = _menuService.GetItemsCountByCId(categoryId, searchString);
         Console.WriteLine("Totalpage:", totalItemCount);
         var model = new ItemTabViewModel
         {
@@ -118,7 +118,8 @@ public class MenuController : Controller
             PageSize = pageSize,
             PageIndex = pageIndex,
             SearchString = searchString,
-            TotalPage = (int)Math.Ceiling(totalItemCount / (double)pageSize)
+            TotalPage = (int)Math.Ceiling(totalItemCount / (double)pageSize),
+            TotalItems = totalItemCount
         };
         return PartialView("_ItemListPartial", model);
     }

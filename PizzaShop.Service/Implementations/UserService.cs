@@ -102,6 +102,11 @@ public class UserService : IUserService
         return _userRepository.GetUserList(searchString, sortOrder, pageIndex, pageSize, out count);
     }
 
+    public int GetTotalUsers(string searchString)
+    {
+        return _userRepository.GetTotalUsers(searchString);
+    }
+
     public User GetUserById(int id)
     {
         return _userRepository.GetUserById(id);

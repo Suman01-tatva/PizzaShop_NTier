@@ -50,7 +50,7 @@ namespace PizzaShop.Service.Implementations
                 IsDeleted = c.IsDeleted == null ? false : true,
             }).ToList();
 
-            var totalCountOfItems = _menuItemRepository.GetItemsCountByCId(categoryId);
+            var totalCountOfItems = _menuItemRepository.GetItemsCountByCId(categoryId, searchString!);
 
             var itemTabViewModel = new ItemTabViewModel
             {
@@ -60,7 +60,8 @@ namespace PizzaShop.Service.Implementations
                 PageIndex = pageIndex,
                 TotalPage = (int)Math.Ceiling(totalCountOfItems / (double)pageSize),
                 // (int)Math.Ceiling(totalCountOfItems / (double)pageSize)
-                SearchString = searchString
+                SearchString = searchString,
+                TotalItems = totalCountOfItems
             };
             return itemTabViewModel;
         }
@@ -156,9 +157,9 @@ namespace PizzaShop.Service.Implementations
             return _menuCategoryRepository.DeleteCategory(id);
         }
 
-        public int GetItemsCountByCId(int cId)
+        public int GetItemsCountByCId(int cId, string? searchString)
         {
-            return _menuItemRepository.GetItemsCountByCId(cId);
+            return _menuItemRepository.GetItemsCountByCId(cId, searchString!);
         }
         public List<Unit> GetAllUnits()
         {

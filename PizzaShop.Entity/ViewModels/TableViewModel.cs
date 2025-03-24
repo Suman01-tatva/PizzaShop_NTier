@@ -20,4 +20,5 @@ public class TableViewModel
     public int? CreatedBy { get; set; }
     public DateTime? ModifiedAt { get; set; }
     public int? ModifiedBy { get; set; }
+    List<SectionViewModel>? sectionList { get; set; }
 }

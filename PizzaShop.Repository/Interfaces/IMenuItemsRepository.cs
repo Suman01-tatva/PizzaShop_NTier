@@ -7,7 +7,7 @@ public interface IMenuItemsRepository
 {
     Task<List<MenuItem>> GetItemsByCategory(int categoryId, int pageSize, int pageIndex, string? searchString);
 
-    public int GetItemsCountByCId(int cId);
+    public int GetItemsCountByCId(int cId, string searchString);
 
     public bool AddNewItem(MenuItem model);
 

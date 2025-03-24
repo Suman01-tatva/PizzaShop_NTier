@@ -1,6 +1,6 @@
 @model List<PizzaShop.Entity.Data.TaxesAndFee>;
 
-<div class="table-responsive">
+<div class="table-responsive mt-3 rounded shadow p-2 bg-white">
     <table class="table" id="tbl">
         <thead>
             <tr>
@@ -54,7 +54,7 @@
                     <td>
                         <a href="javascript:void(0);" style="text-decoration: none; color: inherit;"
                            class="edit-tax" data-id="@tax.Id">
-                            <i class="fa-solid fa-pencil m-1"></i>
+                            <i class="fa-solid fa-pen-clip m-1"></i>
                         </a>
                         @* <a href="javascript:void(0)" onclick="confirmDelete(@tax.Id)"
                            style="text-decoration: none; color: inherit;">

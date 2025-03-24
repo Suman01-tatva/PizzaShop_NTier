@@ -65,29 +65,32 @@ public class SectionRepository : ISectionRepository
         return await _context.SaveChangesAsync() > 0;
     }
 
-    public async Task DeleteSectionAsync(int id, bool softDelete)
+    public async Task<string> DeleteSectionAsync(int id, bool softDelete, int userId)
     {
         var section = GetSectionById(id);
         if (section != null)
         {
-            if (softDelete)
+            var tables = await _context.Tables.Where(t => t.SectionId == id && t.IsDeleted == false).ToListAsync();
+            foreach (var table in tables)
             {
-                section.IsDeleted = true;
-                _context.Sections.Update(section);
-
-                var tables = await _context.Tables.Where(t => t.SectionId == id && t.IsDeleted == false).ToListAsync();
-                foreach (var table in tables)
+                if (table.IsAvailable == false)
                 {
-                    table.IsDeleted = true;
-                    _context.Tables.Update(table);
+                    return "table is occupied";
                 }
-            }
-            else
-            {
-                _context.Sections.Remove(section);
+                table.IsDeleted = true;
+                _context.Tables.Update(table);
             }
 
+            section.IsDeleted = true;
+            section.ModifiedBy = userId;
+            section.ModifiedAt = DateTime.UtcNow;
+            _context.Sections.Update(section);
             await _context.SaveChangesAsync();
+            return "success";
+        }
+        else
+        {
+            return "section not found";
         }
     }
 }

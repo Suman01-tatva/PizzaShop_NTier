@@ -13,6 +13,6 @@ public interface IUserRepository
     User GetUserById(int id);
     void DeleteUser(int id);
     Task AddUserAsync(User user);
-
+    public int GetTotalUsers(string searchString);
     public Task<User?> IsExistUser(string email, string userName);
 }

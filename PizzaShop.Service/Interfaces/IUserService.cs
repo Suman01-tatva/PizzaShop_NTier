@@ -20,4 +20,5 @@ public interface IUserService
     Task<IEnumerable<Role>> GetAllRolesAsync();
     Task UpdateUserAsync(UserUpdateViewModel model);
     Task<User?> GetUserByEmailAsync(string email);
+    public int GetTotalUsers(string searchString);
 }

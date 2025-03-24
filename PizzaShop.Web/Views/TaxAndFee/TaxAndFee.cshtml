@@ -9,22 +9,21 @@
         <h2 style="color: #0066A7;">Taxes/Fees</h2>
         <div class="upper-div d-flex justify-content-end">
             <div class="d-flex">
-                <div class="search-box" style="margin-right: 13px;">
-                    <input type="text" name="search" id="searchMenuInput" placeholder="Search"
-                        style="height: 50px; width: 250px; border: 1px solid #adadad; border-radius: 5%;">
-                    <i class="fa-solid fa-magnifying-glass search-btn"></i>
+                <div class="form-input-div d-flex justify-content-between me-3 position-relative ">
+                    <input type="text" placeholder="Search" class="form-control p-2 d-none d-sm-block " name="search"
+                        required id="searchMenuInput" />
+                    <span class="form-input-icon position-absolute search-icon"><i class="fa-solid fa-search"
+                            id="eye-icon" style="color: gray"></i>
+                    </span>
                 </div>
-
                 <a href="javascript:void(0);" class="edit-btn add-tax-btn"
                     style="text-decoration: none; color: inherit;">
-                    <button data-bs-toggle="modal" class="add-user-btn"
-                        style="border: 1px solid #adadad; border-radius: 5%; background-color:#0066A7; color: white;">
-                        <span class="span1">New Tax</span>
-                        <span class="span2">+</span>
+                    <button data-bs-toggle="modal" class=" d-flex add-user-btn fill-btn align-items-center">
+                        <span class="span1"><i class="fa-solid fa-plus"></i> New Tax</span>
+                        <span class="span2"><i class="fa-solid fa-plus"></i></span>
                     </button>
                 </a>
                 <div id="taxModalPartial">
-
                 </div>
             </div>
         </div>

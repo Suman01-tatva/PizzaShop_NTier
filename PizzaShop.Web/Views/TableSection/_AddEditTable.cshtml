@@ -19,10 +19,10 @@
                             </div>
                             <div class="col mb-3">
                                 <div class="form-floating">
-                                    <select asp-for="SectionId" class="form-select" id="SectionId">
-                                        <option selected disabled hidden>Select a Section</option>
+                                    <select asp-for="SectionId" class="form-select" id="Sectionlist">
+                                        <option value="" selected disabled hidden>Select a Section</option>
                                     </select>
-                                    <label for="SectionId">Section</label>
+                                    <label for="Sectionlist">Section</label>
                                     <span asp-validation-for="SectionId" class="text-danger"></span>
                                 </div>
                             </div>
@@ -66,19 +66,20 @@
             }));
         });
     }); *@
-     var selectedSectionId = '@Model.SectionId'; // Get the selected section ID from the model
+    var selectedSectionId = '@Model.SectionId'; // Get the selected section ID from the model
     var tableId = '@Model.Id'; // Get the table ID from the model
 
     $.getJSON('@Url.Action("GetAllSections", "TableSection")', function (sections) {
-        $('#SectionId').empty().append('<option selected disabled hidden>Select Section</option>');
+        $('#Sectionlist').empty().append('<option selected disabled hidden>Select Section</option>');
         $.each(sections, function (i, section) {
-            @* var isSelected = (section.id == selectedSectionId && tableId != 0) ? 'selected' : ''; *@
-            var isSelected = section.id == selectedSectionId ? 'selected' : '';
-            $('#SectionId').append($('<option>', {
+            var option = $('<option>', {
                 value: section.id,
-                text: section.name,
-                selected: isSelected
-            }));
+                text: section.name
+            });
+            if (section.id == selectedSectionId) {
+                option.attr('selected', 'selected');
+            }
+            $('#Sectionlist').append(option);
         });
     });
 </script>

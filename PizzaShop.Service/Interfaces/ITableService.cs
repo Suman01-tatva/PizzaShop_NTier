@@ -10,5 +10,7 @@ public interface ITableService
     public bool AdddTable(TableViewModel model, int userId);
     public bool UpdateTable(TableViewModel model, int userId);
     public Task<TableViewModel> GetTableById(int id);
+    public int GetTableCountBySectionId(int sId, string? searchString);
+    public TableSectionViewModel GetTablesBySectionId(int sectionId, int pageSize, int pageIndex, string? searchString);
 
 }

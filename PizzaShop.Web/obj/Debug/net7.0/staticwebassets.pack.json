@@ -21,6 +21,10 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\css\\tax.css",
+      "PackagePath": "staticwebassets\\css\\tax.css"
+    },
+    {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\css\\user.css",
       "PackagePath": "staticwebassets\\css\\user.css"
     },

@@ -18,23 +18,34 @@ public class TableSectionController : Controller
         _tokenDataService = tokenDataService;
     }
     [HttpGet]
-    public IActionResult TableSection()
+    public IActionResult TableSection(int? id, int pageSize = 5, int pageIndex = 1, string searchString = "")
     {
         var sections = _sectionService.GetAllSections();
-        var tables = _tableService.GetAllTables();
-
-        var tebleSection = new TableSectionViewModel
+        if (!sections.Any())
         {
-            Tables = tables,
-            Sections = sections
-        };
-        return View(tebleSection);
+            return NotFound("No Tables found.");
+        }
+        var validSectionId = id ?? sections.First().Id;
+
+        var tables = _tableService.GetTablesBySectionId(validSectionId, pageSize, pageIndex, searchString);
+        tables.Sections = sections;
+        return View(tables);
     }
 
     public IActionResult GetAllTables()
     {
         var tables = _tableService.GetAllTables();
         return PartialView("_TableList", tables);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetTablesBySectionId(int sectionId, int pageSize, int pageIndex, string searchString = "")
+    {
+        var sections = _sectionService.GetAllSections();
+
+        TableSectionViewModel model = _tableService.GetTablesBySectionId(sectionId, pageSize == 0 ? 5 : pageSize, pageIndex == 0 ? 1 : pageIndex, searchString);
+        model.Sections = sections;
+        return PartialView("_TableList", model);
     }
 
     [HttpGet]
@@ -214,19 +225,19 @@ public class TableSectionController : Controller
     {
         var token = Request.Cookies["Token"];
         var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
-        await _sectionService.DeleteSectionAsync(id, softDelete, int.Parse(userId));
-        var tableSection = await _sectionService.GetSectionByIdAsync(id);
-        return View("TableSection", "TableSection");
-    }
-
-    [HttpGet]
-    public async Task<IActionResult> ConfirmDeleteSection(int id)
-    {
-        var tableSection = await _sectionService.GetSectionByIdAsync(id);
-        if (tableSection == null)
-            return NotFound();
-
-        return PartialView("_DeleteSection", tableSection);
+        var isDeleted = await _sectionService.DeleteSectionAsync(id, softDelete, int.Parse(userId));
+        if (isDeleted == "table is occupied")
+        {
+            return Json(new { isSuccess = false, message = "You can not delete this section because any table of this section is occupied" });
+        }
+        else if (isDeleted == "success")
+        {
+            return Json(new { isSuccess = true, message = "Section deleted successfully" });
+        }
+        else
+        {
+            return Json(new { isSuccess = false, message = "section not found" });
+        }
     }
 
 }

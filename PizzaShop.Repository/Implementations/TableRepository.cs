@@ -34,6 +34,38 @@ public class TableRepository : ITableRepository
         return tables;
     }
 
+    public int GetTableCountBySectionId(int sId, string? searchString)
+    {
+        var tableQuery = _context.Tables.Where(i => i.SectionId == sId && i.IsDeleted == false);
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            searchString = searchString.Trim().ToLower();
+
+            tableQuery = tableQuery.Where(n =>
+                n.Name!.ToLower().Contains(searchString)
+            );
+        }
+        int count = tableQuery.ToList()!.Count();
+        return count;
+    }
+
+    public List<Table> GetTablesBySectionId(int sectionId, int pageSize, int pageIndex, string? searchString)
+    {
+        var tables = _context.Tables.Where(c => c.SectionId == sectionId && c.IsDeleted == false);
+        searchString = searchString?.Trim().ToLower();
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            tables = tables.Where(i => i.Name.ToLower().Contains(searchString.ToLower()));
+        }
+
+        var tableList = tables.OrderBy(u => u.Name)
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        return tableList;
+    }
+
     public bool DeleteTable(int id, int userId)
     {
         var table = _context.Tables.FirstOrDefault(i => i.Id == id);

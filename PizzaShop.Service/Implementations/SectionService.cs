@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using System.Threading.Tasks;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Repository.Interfaces;
@@ -80,15 +81,20 @@ public class SectionService : ISectionService
         }
     }
 
-    public async Task DeleteSectionAsync(int id, bool softDelete, int userId)
+    public async Task<string> DeleteSectionAsync(int id, bool softDelete, int userId)
     {
-
-        var section = _sectionRepository.GetSectionById(id);
-        if (section != null)
+        var isSectionDeleted = await _sectionRepository.DeleteSectionAsync(id, softDelete, userId);
+        if (isSectionDeleted == "table is occupied")
         {
-            section.ModifiedBy = userId;
-            section.ModifiedAt = DateTime.UtcNow;
+            return "table is occupied";
         }
-        await _sectionRepository.DeleteSectionAsync(id, softDelete);
+        else if (isSectionDeleted == "success")
+        {
+            return "success";
+        }
+        else
+        {
+            return "section not found";
+        }
     }
 }

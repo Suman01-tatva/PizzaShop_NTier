@@ -23,6 +23,40 @@ public class TableService : ITableService
         return sections;
     }
 
+    public TableSectionViewModel GetTablesBySectionId(int sectionId, int pageSize, int pageIndex, string? searchString)
+    {
+        var tables = _tableRepository.GetTablesBySectionId(sectionId, pageSize, pageIndex, searchString);
+        var filteredTables = tables.Select(t => new TableViewModel
+        {
+            Id = t.Id,
+            SectionId = t.SectionId,
+            Name = t.Name,
+            Capacity = t.Capacity,
+            IsAvailable = t.IsAvailable,
+            IsDeleted = t.IsDeleted,
+            CreatedAt = DateTime.UtcNow,
+            CreatedBy = t.CreatedBy,
+            ModifiedAt = DateTime.UtcNow,
+            ModifiedBy = t.ModifiedBy
+        }).ToList();
+        var totalTable = _tableRepository.GetTableCountBySectionId(sectionId, searchString);
+        var model = new TableSectionViewModel
+        {
+            Tables = filteredTables,
+            PageSize = pageSize,
+            PageIndex = pageIndex,
+            SearchString = searchString,
+            TotalPage = (int)Math.Ceiling(totalTable / (double)pageSize),
+            TotalItems = totalTable
+        };
+        return model;
+    }
+
+    public int GetTableCountBySectionId(int sId, string? searchString)
+    {
+        return _tableRepository.GetTableCountBySectionId(sId, searchString!);
+    }
+
     public bool DeleteTable(int id, int userId)
     {
         var isDelete = _tableRepository.DeleteTable(id, userId);
