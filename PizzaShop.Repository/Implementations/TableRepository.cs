@@ -135,31 +135,20 @@ public class TableRepository : ITableRepository
         return table!;
     }
 
-    public bool IsTableExist(string name, int sectionId, int tableId)
+    public Table IsTableExist(string name, int sectionId, int tableId)
     {
         name = name.Trim().ToLower();
         var table = _context.Tables.FirstOrDefault(t => t.Name.ToLower() == name && t.SectionId == sectionId);
-        if (tableId != 0)
-        {
-            var existingTable = _context.Tables
-           .Where(t => t.Id == tableId).FirstOrDefault();
-            if (table != null && existingTable!.Name.ToLower() != name && existingTable.SectionId != sectionId)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
 
-        if (table != null)
+        var existingTable = _context.Tables
+       .Where(t => t.Id == tableId).FirstOrDefault();
+        if (table != null && existingTable!.Name.ToLower() != name && existingTable.SectionId != sectionId)
         {
-            return true;
+            return null;
         }
         else
         {
-            return false;
+            return existingTable;
         }
     }
 }

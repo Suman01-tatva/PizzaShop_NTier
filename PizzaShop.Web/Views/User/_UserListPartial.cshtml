@@ -76,28 +76,13 @@
                     </td>
                     <td>
                         <div class="d-flex gap-4 align-items-center">
-                            @* @if ((bool)user.IsActive)
-                            { *@
                             <a asp-action="UpdateUser" asp-controller="User" asp-route-id="@user.Id">
                                 <i class="fa-solid fa-pen-clip"></i>
                             </a>
-                            @* }
-                            else
-                            { *@
-                            @* <i class="fa-solid fa-pen-clip icon-disable"></i> *@
-                            @* } *@
-
-                            @if (user.RoleId != 1)
-                            {
-                                <a class="bi bi-trash m-1" href="javascript:void(0)"
-                                    onclick="confirmDelete(@user.Id,@user.RoleId)">
-                                    <i class="fa-solid fa-trash"></i>
-                                </a>
-                            }
-                            else
-                            {
-                                <i class="fa-solid fa-trash icon-disable m-1"></i>
-                            }
+                            <a class="bi bi-trash m-1" href="javascript:void(0)"
+                                onclick="confirmDelete(@user.Id,@user.RoleId)">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
 
                             <form id="deleteForm-@user.Id-@user.RoleId" method="post"
                                 action="@Url.Action("DeleteUser", "User", new { id = user.Id, roleId = user.RoleId })"

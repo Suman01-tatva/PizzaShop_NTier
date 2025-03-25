@@ -1,0 +1,65 @@
+@{
+    ViewData["Title"] = "Orders";
+}
+@model PizzaShop.Entity.ViewModels.OrderPageViewModel;
+
+<div class="row my-1 mx-1">
+    <div class="col-xl-3 col-12 d-flex justify-content-xl-start justify-content-center">
+        <h2 class="pageHeading">Orders</h2>
+    </div>
+
+    <div class="col-xl-9 mb-2 col-12 px-0">
+        <div class="row">
+            <div class="col-md-3 col-6">
+                <input type="text" class="form-control" id="searchString" placeholder="Search" />
+            </div>
+            <div class="col-md-3 col-6">
+                <select name="" id="ModifiersGroupIds" class="form-control form-select">
+                    <option value="" selected>All Status</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                </select>
+            </div>
+
+            <div class="col-md-3 col-6 mt-md-0 mt-2">
+                <select name="" id="ModifiersGroupIds" class="form-control form-select ">
+                    <option value="" selected>All Time</option>
+                    <option value="">1</option>
+                    <option value="">2</option>
+                </select>
+            </div>
+            <div class="col-md-3 col-6 mt-md-0 mt-2">
+                <button type="button" class="btn btn-primary w-100">
+                    <span><i class="fa-solid fa-share-from-square me-1"></i></span>
+                    <span>Export</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row d-flex justify-content-md-end align-items-center mx-1">
+    <div class="col-xl-8 col-12 px-0">
+        <div class="row">
+            <div class="col-md-4 col-12 form-floating">
+                <input type="date" class="form-control DateStyle" placeholder="rate" />
+                <label for="rate" class="labelCSS mx-2">From Date</label>
+            </div>
+            <div class="col-md-4 mt-md-0 mt-2 col-12 form-floating ">
+                <input type="date" class="form-control DateStyle" placeholder="rate" />
+                <label for="rate" class="labelCSS mx-2">To Date</label>
+            </div>
+            <div class="col-md-2 col-6 mt-md-0 mt-2 ">
+                <button type="button" class="btn btn-primary w-md-0 w-100">Search</button>
+            </div>
+            <div class="col-md-2 col-6 mt-md-0 mt-2">
+                <button type="button" class="btn btn-primary w-100">Clear</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="order-table">
+    <partial name="_OrderTablePartial" model="Model.Orders"></partial>
+</section>

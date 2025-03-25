@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\css\\menu.css"
     },
     {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\css\\order.css",
+      "PackagePath": "staticwebassets\\css\\order.css"
+    },
+    {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -315,6 +319,10 @@
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\ui-checks-grid.svg",
       "PackagePath": "staticwebassets\\images\\icons\\ui-checks-grid.svg"
+    },
+    {
+      "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\upload-icon.png",
+      "PackagePath": "staticwebassets\\images\\icons\\upload-icon.png"
     },
     {
       "Id": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\veg-icon.svg",

@@ -45,7 +45,7 @@ public partial class MenuItem
 
     public virtual MenuCategory Category { get; set; } = null!;
 
-    public virtual User CreatedByNavigation { get; set; } = null!;
+    public virtual User? CreatedByNavigation { get; set; }
 
     public virtual ICollection<MappingMenuItemsWithModifier> MappingMenuItemsWithModifiers { get; set; } = new List<MappingMenuItemsWithModifier>();
 

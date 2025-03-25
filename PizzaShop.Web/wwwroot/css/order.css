@@ -1,0 +1,13 @@
+.form-floating > .DateStyle {
+  padding: 0.4rem;
+  height: 1rem;
+  min-height: 1rem !important;
+}
+
+.form-floating > .labelCSS {
+  position: absolute;
+  top: 0.2rem;
+  left: 1rem;
+  height: 35px;
+  padding: 0px;
+}

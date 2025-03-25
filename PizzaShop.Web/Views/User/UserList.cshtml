@@ -105,64 +105,33 @@
         @await Html.PartialAsync("_UserListPartial", Model)
     </div>
 </div>
-
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="text-center">
+                <i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: #FFD43B;"></i>
+            </div>
+            <div class="modal-body text-center p-1">
+                <p class="fw-bold mb-0">Are you sure you want to delete this user?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center border-0">
+                <button type="button" class="fill-btn" id="confirmDeleteButton">Delete</button>
+                <button type="button" class="outline-btn" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
 @section Scripts {
     <script>
         var debounceTimer;
         var userPageIndex = @pageIndex;
         var AjaxReq;
         var deleteTableId;
-        $(document).ready(function () {
-            @* $('#searchString').on('keyup', function () {
-                clearTimeout($.data(this, 'timer'));
-                var searchString = $(this).val();
-                var wait = setTimeout(function () {
-                    GetFilteredUsers();
-                }, 500);
-                $(this).data('timer', wait);
-            }); *@
-                @* $('#searchString').keyup(function () {
-                    clearTimeout(debounceTimer);
-                    userPageIndex = 1
-                    pageSize = @pageSize
-                                                                            var searchString = $(this).val();
-                    debounceTimer = setTimeout(() => {
-                        GetFilteredUsers();
-                    }, 400)
-                }) *@
-                @* $('#searchString').keyup(function () {
-                    clearTimeout(debounceTimer);
-                    userPageIndex = 1
-                    pageSize = @pageSize
-                        debounceTimer = setTimeout(() => {
-                            GetFilteredUsers();
-                        }, 600)
-                }) *@
-                @* $('#userPageSize').change(function () {
-                var pageSize = @pageSize
-                                            var pageIndex = 1
-                console.log(pageSize);
-                GetFilteredUsers();
-            }) *@
-                @* $('#userPageSize').change(function () {
-                    var pageSize = @pageSize
-                                                                                var pageIndex = 1
-                    console.log(pageSize);
-                    GetFilteredUsers();
-                })
-            $("#PreviousUsers").click(function () {
-                console.log("prev")
-                userPageIndex -= 1;
-                GetFilteredUsers()
-            })
-
-            $('#NextUser').click(function () {
-                $("#PreviousBtn").attr('disabled', false)
-                console.log("next")
-                userPageIndex += 1;
-                GetFilteredUsers()
-            }) *@
-            });
 
         function GetFilteredUsers(sortOrder = '', pageIndex = 1) {
             var searchString = $('#searchString').val();
@@ -181,6 +150,14 @@
                     $("#userListContainer").html(data);
                 }
             })
+        }
+
+        function confirmDelete(userId, roleId) {
+            const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            document.getElementById("confirmDeleteButton").onclick = function () {
+                document.getElementById(`deleteForm-${userId}-${roleId}`).submit();
+            };
+            modal.show();
         }
     </script>
 }

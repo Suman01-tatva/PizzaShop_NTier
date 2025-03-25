@@ -17,7 +17,7 @@ public partial class Invoice
 
     public decimal TotalAmount { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
 
     public int CreatedBy { get; set; }
 

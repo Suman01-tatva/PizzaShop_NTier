@@ -276,7 +276,7 @@
 }
 
 .page-title {
-  font-weight: bold;
+  font-weight: 600;
   color: var(--textBlue);
   margin-bottom: 20px;
   margin-top: 25px;

@@ -11,10 +11,6 @@ public partial class Payment
 
     public decimal Amount { get; set; }
 
-    public int[]? PaymentMethod { get; set; }
-
-    public int[]? Status { get; set; }
-
     public DateTime CreatedAt { get; set; }
 
     public int CreatedBy { get; set; }
@@ -22,6 +18,10 @@ public partial class Payment
     public DateTime? ModifiedAt { get; set; }
 
     public int? ModifiedBy { get; set; }
+
+    public int? PaymentMethod { get; set; }
+
+    public int? Status { get; set; }
 
     public virtual User CreatedByNavigation { get; set; } = null!;
 

@@ -90,9 +90,9 @@ public class TableService : ITableService
 
     public bool AdddTable(TableViewModel model, int userId)
     {
-        bool isTable = _tableRepository.IsTableExist(model.Name, model.SectionId, model.Id);
+        Table isTable = _tableRepository.IsTableExist(model.Name, model.SectionId, model.Id);
 
-        if (isTable == false)
+        if (isTable == null)
         {
             var newTable = new Table
             {
@@ -116,21 +116,18 @@ public class TableService : ITableService
 
     public bool UpdateTable(TableViewModel model, int userId)
     {
-        bool isTable = _tableRepository.IsTableExist(model.Name, model.SectionId, model.Id);
+        Table table = _tableRepository.IsTableExist(model.Name, model.SectionId, model.Id);
 
-        if (isTable == false)
+        if (table != null)
         {
-            var newTable = new Table
-            {
-                Name = model.Name,
-                SectionId = model.SectionId,
-                Capacity = model.Capacity,
-                IsAvailable = model.IsAvailable,
-                CreatedBy = userId,
-                CreatedAt = DateTime.UtcNow
-            };
+            table.Name = model.Name;
+            table.SectionId = model.SectionId;
+            table.Capacity = model.Capacity;
+            table.IsAvailable = model.IsAvailable;
+            table.CreatedBy = userId;
+            table.CreatedAt = DateTime.UtcNow;
 
-            return _tableRepository.UpdateTable(newTable);
+            return _tableRepository.UpdateTable(table);
         }
         return false;
     }

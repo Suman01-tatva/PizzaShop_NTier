@@ -1,0 +1,67 @@
+@model List<PizzaShop.Entity.ViewModels.OrderViewModel>
+
+<div class="table-responsive mt-3 rounded shadow p-2 bg-white">
+    <table class="table" id="tbl">
+        <thead>
+            <tr>
+                <th>#Order
+                    <a href="#" class="sort-link" data-sort="@ViewData["UsernameSortParam"]"
+                        style="text-decoration: none;color: inherit;">
+                        <i class="fa-solid fa-sort"></i>
+                    </a>
+                </th>
+                <th>Date
+                    <a href="#" class="sort-link" data-sort="@ViewData["UsernameSortParam"]"
+                        style="text-decoration: none;color: inherit;">
+                        <i class="fa-solid fa-sort"></i>
+                    </a>
+                </th>
+                <th>Customer
+                    <a href="#" class="sort-link" data-sort="@ViewData["UsernameSortParam"]"
+                        style="text-decoration: none;color: inherit;">
+                        <i class="fa-solid fa-sort"></i>
+                    </a>
+                </th>
+                <th>Status</th>
+                <th>Payment Mode</th>
+                <th>Rating</th>
+                <th>Total Amount
+                    <a href="#" class="sort-link" data-sort="@ViewData["UsernameSortParam"]"
+                        style="text-decoration: none;color: inherit;">
+                        <i class="fa-solid fa-sort"></i>
+                    </a>
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @* @foreach (var tax in Model)
+            { *@
+            <tr>
+                <td>#123</td>
+                <td>date
+                </td>
+                <td>
+                    customername
+                </td>
+                <td>
+                    status
+                </td>
+                <td>paymentMode</td>
+                <td>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                </td>
+                <td>1000</td>
+                <td>
+                    <a href="javascript:void(0);" style="text-decoration: none; color: inherit;" class="edit-tax">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </a>
+                    <a href="javascript:void(0)" style="text-decoration: none; color: inherit;">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                </td>
+            </tr>
+            @* } *@
+        </tbody>
+    </table>
+</div>

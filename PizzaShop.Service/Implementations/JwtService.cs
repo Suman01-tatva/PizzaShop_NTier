@@ -36,7 +36,7 @@ public class JwtService : IJwtService
                 new Claim(ClaimTypes.Role, role),
                 new Claim("IsFirstLogin", IsFirstLogin?.ToString() ?? "false")
             }),
-            Expires = DateTime.UtcNow.AddHours(24),
+            Expires = DateTime.UtcNow.AddDays(30),
             Issuer = _issuer,
             Audience = _audience,
             SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
