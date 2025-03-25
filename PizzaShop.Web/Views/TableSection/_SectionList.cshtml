@@ -82,7 +82,7 @@
                     toastr.error("Your Session is Expired. Please Login Again!");
                 }
                 if (response.isSuccess) {
-                    GetFilteredItems();
+                    GetFilteredSections();
                     toastr.success(response.message);
                 } else {
                     toastr.error(response.message);

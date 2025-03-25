@@ -77,13 +77,12 @@
                 data: form.serialize(),
                 success: function (response) {
                     if (response.success) {
-                        console.log("Added")
-                        GetFilteredItems();
                         toastr.success(response.message);
+                        GetFilteredItems();
+                        $("#addTableModal").modal('hide');
                     } else {
                         toastr.error(response.message);
                     }
-                    $("#addTableModal").modal('hide');
                 }
             })
         }
@@ -112,10 +111,10 @@
                 if (response.success) {
                     GetFilteredItems();
                     toastr.success(response.message);
+                    $("#addTableModal").modal("hide");
                 } else {
                     toastr.error(response.message);
                 }
-                $("#addTableModal").modal("hide");
             });
         }
     });
@@ -207,4 +206,10 @@
             }
         })
     }
+
+    $(".section").first().addClass("active-new");
+    $(".section").click(function () {
+        $(".section").removeClass("active-new");
+        $(this).addClass("active-new");
+    });
 </script>

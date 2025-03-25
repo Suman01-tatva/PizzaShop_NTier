@@ -36,7 +36,7 @@ public class UserController : Controller
         if (ModelState.IsValid)
         {
             var token = Request.Cookies["Token"];
-            var (email, id, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token);
+            var (email, id, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
             string isPasswordChanged = await _userService.ChangePasswordAsync(model, email);
             if (isPasswordChanged == "success")
             {
@@ -46,9 +46,9 @@ public class UserController : Controller
                 Response.Cookies.Delete("UserData");
                 return RedirectToAction("Login", "Auth");
             }
-            else if (isPasswordChanged == "current password is incorrect")
+            else
             {
-                TempData["ToastrMessage"] = "Current Password is Incorrect";
+                TempData["ToastrMessage"] = isPasswordChanged;
                 TempData["ToastrType"] = "error";
                 ModelState.AddModelError("", "Please Enter valid password");
                 return View();
@@ -171,28 +171,71 @@ public class UserController : Controller
         return View(model);
     }
 
+    // public IActionResult UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")
+    // {
+    //     var users = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize);
+    //     var totalUsers = _userService.GetTotalUsers(searchString);
+    //     ViewBag.count = totalUsers;
+
+    //     ViewData["UsernameSortParam"] = sortOrder == "username_asc" ? "username_desc" : "username_asc";
+    //     ViewData["RoleSortParam"] = sortOrder == "role_asc" ? "role_desc" : "role_asc";
+
+    //     ViewBag.pageIndex = pageIndex;
+    //     ViewBag.pageSize = pageSize;
+    //     ViewBag.totalPage = (int)Math.Ceiling(totalUsers / (double)pageSize);
+    //     ViewBag.searchString = searchString;
+
+    //     if (users == null || !users.Any())
+    //     {
+    //         ViewBag.ErrorMessage = "UserList is Empty";
+    //         return View();
+    //     }
+
+    //     ViewBag.UserList = users;
+    //     return View(users);
+    // }
+
     public IActionResult UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")
     {
-        var users = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize, out int count);
+        var users = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize);
         var totalUsers = _userService.GetTotalUsers(searchString);
         ViewBag.count = totalUsers;
 
-        ViewData["UsernameSortParam"] = sortOrder == "username_asc" ? "username_desc" : "username_asc";
+        ViewData["UsernameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "username_asc" : sortOrder == "username_asc" ? "username_desc" : "username_asc";
         ViewData["RoleSortParam"] = sortOrder == "role_asc" ? "role_desc" : "role_asc";
 
-        ViewBag.pageIndex = pageIndex;
-        ViewBag.pageSize = pageSize;
-        ViewBag.totalPage = (int)Math.Ceiling(count / (double)pageSize);
-        ViewBag.searchString = searchString;
-
-        if (users == null || !users.Any())
+        var userListPage = new UserPageViewModel
         {
-            ViewBag.ErrorMessage = "UserList is Empty";
-            return View();
-        }
+            UserList = users,
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            SearchString = searchString,
+            TotalPage = (int)Math.Ceiling(totalUsers / (double)pageSize),
+            TotalUsers = totalUsers
+        };
 
-        ViewBag.UserList = users;
-        return View(users);
+        return View(userListPage);
+    }
+
+    [HttpGet]
+    public IActionResult GetUsers(string searchString, int pageIndex, int pageSize, string sortOrder = "")
+    {
+        var count = _userService.GetTotalUsers(searchString);
+
+        ViewData["UsernameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "username_asc" : sortOrder == "username_asc" ? "username_desc" : "username_asc";
+        ViewData["RoleSortParam"] = sortOrder == "role_asc" ? "role_desc" : "role_asc";
+
+        var userList = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize);
+        var userListPage = new UserPageViewModel
+        {
+            UserList = userList,
+            PageIndex = pageIndex,
+            PageSize = pageSize,
+            SearchString = searchString,
+            TotalPage = (int)Math.Ceiling(count / (double)pageSize),
+            TotalUsers = count
+        };
+        return PartialView("_UserListPartial", userListPage);
     }
 
     public async Task<IActionResult> CreateUser()

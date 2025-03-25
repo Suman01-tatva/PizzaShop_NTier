@@ -24,9 +24,15 @@
                         </div>
                     </th>
                     <th scope="col">Name</th>
-                    <th scope="col">Capacity</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">
+                        <div class="d-flex justify-content-center">Capacity</div>
+                    </th>
+                    <th scope="col">
+                        <div class="d-flex justify-content-center">Status</div>
+                    </th>
+                    <th scope="col">
+                        <div class="d-flex justify-content-center">Action</div>
+                    </th>
                 </tr>
             </thead>
             <tbody class="table-group-divider menuItems" id="tableList">
@@ -40,24 +46,31 @@
                             </div>
                         </td>
                         <td>@Model.Tables[i].Name</td>
-                        <td>@Model.Tables[i].Capacity</td>
                         <td>
-                            @if ((bool)@Model.Tables[i].IsAvailable)
-                            {
-                                <div class="active-status">Available</div>
-                            }
-                            else
-                            {
-                                <div class="inActive-status">Occupied</div>
-                            }
+                            <div class="d-flex justify-content-center">@Model.Tables[i].Capacity</div>
+                        </td>
+
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                @if ((bool)@Model.Tables[i].IsAvailable)
+                                {
+                                    <div class="active-status px-5">Available</div>
+                                }
+                                else
+                                {
+                                    <div class="inActive-status px-5">Occupied</div>
+                                }
+                            </div>
                         </td>
                         <td>
-                            <button type="button" class="btn editTableBtn" data-id="@Model.Tables[i].Id">
-                                <i class="fa-solid fa-pen me-3 "></i>
-                            </button>
-                            <button type="button" class="btn deleteTable" value="@Model.Tables[i].Id">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="btn editTableBtn" data-id="@Model.Tables[i].Id">
+                                    <i class="fa-solid fa-pen me-3 "></i>
+                                </button>
+                                <button type="button" class="btn deleteTable" value="@Model.Tables[i].Id">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 }

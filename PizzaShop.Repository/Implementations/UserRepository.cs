@@ -30,90 +30,7 @@ public class UserRepostory : IUserRepository
         await _context.SaveChangesAsync();
     }
 
-    // public IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize, out int count)
-    // {
-    //     try
-    //     {
-    //         var userQuery = _context.Users.Where(u => u.IsDeleted == false);
-
-    //         switch (sortOrder)
-    //         {
-    //             case "username_asc":
-    //                 userQuery = userQuery.OrderBy(u => u.FirstName);
-    //                 break;
-
-    //             case "username_desc":
-    //                 userQuery = userQuery.OrderByDescending(u => u.FirstName);
-    //                 break;
-
-    //             case "role_asc":
-    //                 userQuery = userQuery.OrderBy(u => u.Role.Name);
-    //                 break;
-
-    //             case "role_desc":
-    //                 userQuery = userQuery.OrderByDescending(u => u.Role.Name);
-    //                 break;
-
-    //             default:
-    //                 userQuery = userQuery.OrderBy(u => u.Id);
-    //                 break;
-    //         }
-
-    //         if (!string.IsNullOrEmpty(searchString))
-    //         {
-    //             searchString = searchString.Trim().ToLower();
-
-    //             userQuery = userQuery.Where(n =>
-    //                 (n.FirstName + " " + n.LastName).ToLower().Contains(searchString.ToLower()) ||
-    //                 n.FirstName!.ToLower().Contains(searchString.ToLower()) ||
-    //                 n.LastName!.ToLower().Contains(searchString.ToLower()) ||
-    //                 n.Email!.Contains(searchString.ToLower())
-    //             );
-    //         }
-
-    //         count = userQuery.Count();
-
-    //         return userQuery
-    //         .Skip((pageIndex - 1) * pageSize)
-    //         .Take(pageSize)
-    //         .ToList();
-    //     }
-    //     catch (Exception)
-    //     {
-    //         var userQuery = _context.Users.Where(u => u.IsDeleted == false);
-
-    //         switch (sortOrder)
-    //         {
-    //             case "username_asc":
-    //                 userQuery = userQuery.OrderBy(u => u.FirstName);
-    //                 break;
-
-    //             case "username_desc":
-    //                 userQuery = userQuery.OrderByDescending(u => u.FirstName);
-    //                 break;
-
-    //             case "role_asc":
-    //                 userQuery = userQuery.OrderBy(u => u.Role.Name);
-    //                 break;
-
-    //             case "role_desc":
-    //                 userQuery = userQuery.OrderByDescending(u => u.Role.Name);
-    //                 break;
-
-    //             default:
-    //                 userQuery = userQuery.OrderBy(u => u.Id);
-    //                 break;
-    //         }
-
-    //         count = userQuery.Count();
-
-    //         return userQuery
-    //             .Skip((pageIndex - 1) * pageSize)
-    //             .Take(pageSize)
-    //             .ToList();
-    //     }
-    // }
-    public IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize, out int count)
+    public IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize)
     {
         try
         {
@@ -154,8 +71,6 @@ public class UserRepostory : IUserRepository
                     break;
             }
 
-            count = userQuery.Count();
-
             return userQuery
                 .Skip((pageIndex - 1) * pageSize)
                 .Take(pageSize)
@@ -188,8 +103,6 @@ public class UserRepostory : IUserRepository
                     allUsersQuery = allUsersQuery.OrderBy(u => u.Id);
                     break;
             }
-
-            count = allUsersQuery.Count();
 
             return allUsersQuery
                 .Skip((pageIndex - 1) * pageSize)

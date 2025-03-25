@@ -19,7 +19,7 @@
                     <div class="col-xl-12 mt-2">
                         <div class="row g-2">
                             <div class="form-floating col-xl-6 col-12">
-                                <select id="Type" name="Type" class="form-control" asp-for="Type">
+                                <select id="Type" class="form-control" asp-for="Type">
                                     <option value="" hidden>Tax Type</option>
                                     <option value="true">Percentage</option>
                                     <option value="false">Flat Item</option>
@@ -54,30 +54,11 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn"
-                            style="height: 40px; width: 80px; background-color: #0066A7; color: white; margin-top: 0; margin-bottom: 0;">Save</button>
-                        <button type="button" class="btn" data-bs-dismiss="modal"
-                            style="height: 40px; width: 80px; color: #0066A7; background-color: white; border: 1px solid #0066A7; margin-top: 0; margin-bottom: 0;">Cancel</button>
+                        <button type="submit" class="fill-btn">Save</button>
+                        <button type="button" class="outline-btn" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        @if (TempData["SuccessMessage"] != null)
-            {
-                <text>
-                    toastr.success("@TempData["SuccessMessage"]");
-                </text>
-        }
-
-            @if (TempData["ErrorMessage"] != null)
-            {
-                <text>
-                    toastr.error("@TempData["ErrorMessage"]");
-                </text>
-        }
-    });
-</script>

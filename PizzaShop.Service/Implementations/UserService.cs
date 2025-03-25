@@ -36,10 +36,15 @@ public class UserService : IUserService
     {
         var user = await _userRepository.GetUserByEmailAsync(userEmail);
         var hashPassword = PasswordUtills.HashPassword(model.CurrentPassword);
+        var hasNewPassword = PasswordUtills.HashPassword(model.NewPassword);
         if (user?.Password == hashPassword)
         {
+            if (user?.Password == hasNewPassword)
+            {
+                return "New password must be different from the current password.";
+            }
             string changedPassword = PasswordUtills.HashPassword(model.NewPassword);
-            user.Password = changedPassword;
+            user!.Password = changedPassword;
             if (user.IsFirstLogin == true)
             {
                 user.IsFirstLogin = false;
@@ -97,9 +102,9 @@ public class UserService : IUserService
         await _userRepository.UpdateUserAsync(user);
     }
 
-    public IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize, out int count)
+    public IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize)
     {
-        return _userRepository.GetUserList(searchString, sortOrder, pageIndex, pageSize, out count);
+        return _userRepository.GetUserList(searchString, sortOrder, pageIndex, pageSize);
     }
 
     public int GetTotalUsers(string searchString)

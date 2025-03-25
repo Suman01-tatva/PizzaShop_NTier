@@ -12,11 +12,9 @@ public class TaxAndFeesViewModel
     [Required(ErrorMessage = "Type is required.")]
     public bool? Type { get; set; }
 
-    [Required(ErrorMessage = "Percentage is required.")]
     [Range(0, 100, ErrorMessage = "Percentage must be between 0 and 100.")]
     public decimal? Percentage { get; set; }
 
-    [Required(ErrorMessage = "FlatAmount is required.")]
     [Range(0, double.MaxValue, ErrorMessage = "Flat amount must be non-negative.")]
     public decimal? FlatAmount { get; set; }
 

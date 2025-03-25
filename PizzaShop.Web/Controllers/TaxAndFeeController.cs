@@ -1,4 +1,6 @@
 namespace PizzaShop.Web.Controllers;
+
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PizzaShop.Entity.ViewModels;
@@ -53,11 +55,23 @@ public class TaxAndFeeController : Controller
             }
             else
             {
-                Response.StatusCode = 400;
-                return PartialView("_TaxForm", model);
+                return Json(new { success = false, message = "Tax Already Exist!" });
             }
         }
-        return PartialView("_TaxForm", model);
+        else
+        {
+            var errorMessage = "";
+            foreach (var state in ModelState)
+            {
+                if (state.Value.Errors.Count > 0)
+                {
+                    errorMessage += $"{state.Key}: {state.Value.Errors.First().ErrorMessage}; ";
+                }
+            }
+            TempData["ToastrMessage"] = errorMessage;
+            TempData["ToastrType"] = "error";
+            return PartialView("_TaxForm", model);
+        }
     }
 
     // [HttpPost("edit")]
@@ -73,12 +87,23 @@ public class TaxAndFeeController : Controller
             }
             else
             {
-                Response.StatusCode = 400;
-                return PartialView("_TaxForm", model);
+                return Json(new { success = false, message = "Tax Already Exist!" });
             }
         }
-        Response.StatusCode = 400;
-        return PartialView("_TaxForm", model);
+        else
+        {
+            var errorMessage = "";
+            foreach (var state in ModelState)
+            {
+                if (state.Value.Errors.Count > 0)
+                {
+                    errorMessage += $"{state.Key}: {state.Value.Errors.First().ErrorMessage}; ";
+                }
+            }
+            TempData["ToastrMessage"] = errorMessage;
+            TempData["ToastrType"] = "error";
+            return PartialView("_TaxForm", model);
+        }
     }
 
     // [HttpPost("delete/{id}")]
@@ -103,6 +128,13 @@ public class TaxAndFeeController : Controller
             query = query.ToLower();
             taxes = taxes.Where(t => t.Name.ToLower().Contains(query)).ToList();
         }
+        return PartialView("_TaxTablePartial", taxes);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllTaxesForFilter()
+    {
+        var taxes = await _taxesAndFeesService.GetAllTaxes();
         return PartialView("_TaxTablePartial", taxes);
     }
 

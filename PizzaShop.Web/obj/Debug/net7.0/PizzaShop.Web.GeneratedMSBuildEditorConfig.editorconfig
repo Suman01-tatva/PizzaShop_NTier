@@ -160,10 +160,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVTZWN0aW9uXF9BZGRFZGl0VGFibGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Projects/NTier Projects/PizzaShop/PizzaShop.Web/Views/TableSection/_DeleteSection.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVTZWN0aW9uXF9EZWxldGVTZWN0aW9uLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [D:/Projects/NTier Projects/PizzaShop/PizzaShop.Web/Views/TableSection/_SectionList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFibGVTZWN0aW9uXF9TZWN0aW9uTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -202,6 +198,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Projects/NTier Projects/PizzaShop/PizzaShop.Web/Views/User/UserList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxVc2VyTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Projects/NTier Projects/PizzaShop/PizzaShop.Web/Views/User/_UserListPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfVXNlckxpc3RQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Projects/NTier Projects/PizzaShop/PizzaShop.Web/Views/_ViewImports.cshtml]

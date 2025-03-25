@@ -70,7 +70,7 @@ public class AuthService : IAuthService
                 }
                 else
                 {
-                    return "New password must be match with current password.";
+                    return "New password must be match with confirm password.";
                 }
             }
             else

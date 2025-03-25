@@ -1,13 +1,12 @@
-@model List<PizzaShop.Entity.Data.User>;
+@* @model PizzaShop.Entity.ViewModels.UserPageViewModel;
 @{
     ViewData["Title"] = "UserList";
-    var count = ViewBag.Count;
-    var pageIndex = ViewBag.pageIndex;
-    var pageSize = ViewBag.pageSize;
-    var totalPage = ViewBag.TotalPage;
-    var searchString = ViewBag.SearchString as string;
-    var ErrorMessage = ViewBag.ErrorMessage;
-    var totalUSers = ViewBag.count;
+    var count = Model.TotalUsers;
+    var pageIndex = Model.PageIndex;
+    var pageSize = Model.PageSize;
+    var totalPage = Model.TotalPage;
+    var searchString = Model.SearchString;
+    var totalUsers = Model.TotalUsers;
 }
 
 <div class="col-md-12">
@@ -22,208 +21,166 @@
             <a asp-action="CreateUser" asp-controller="User" style="text-decoration: none;">
                 <button class="border-0 p-2 fill-btn rounded shadow add-user-btn">
                     <span class="span2">+</span>
-                    <span class="span1">Add User</span>
+                    <span class="span1"><i class="fa-solid fa-plus" style="color: white;"></i> Add User</span>
                 </button>
             </a>
         </div>
     </div>
-    <div class="border-dark bg-light rounded shadow mt-2 table-responsive p-3">
-        <table class="table ">
-            <thead class="border-dark">
-                <tr class="tb-head">
-                    <th scope="col">Name
-                        <a asp-action="UserList" asp-route-sortOrder="@ViewData["UsernameSortParam"]"
-                            asp-route-offset="1" asp-route-pagesize="@pageSize"
-                            style="text-decoration: none;color: inherit;">
-                            <i class="fa-solid fa-sort"></i>
-                        </a>
-                    </th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col" class="role-column">Role
-                        <a asp-action="UserList" asp-route-sortOrder="@ViewData["RoleSortParam"]" asp-route-offset="1"
-                            asp-route-pagesize="@pageSize" style="text-decoration: none;color: inherit;">
-                            <i class="fa-solid fa-sort"></i>
-                        </a>
-                    </th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <p>@ErrorMessage</p>
-                @if (Model.Count() == 0 || Model == null)
-                {
-                    <p>User Not Found</p>
-                }
-                else
-                {
-                    @foreach (var user in Model)
-                    {
-                        <tr id="@user.Id">
-                            <td>
-                                <div class="d-flex gap-3 align-items-center">
-                                    <img src="~/images/@(user.ProfileImage !=null ? user.ProfileImage : "Default_pfp.svg.png")"
-                                        alt="user profile img" class="user-profile-img rounded-circle" />
-                                    @user.FirstName @user.LastName
-                                </div>
-                            </td>
-                            <td>@user.Email</td>
-                            <td>@user.Phone</td>
-                            <td>
-                                @switch (@user.RoleId)
-                                {
-                                    case 1:
-                                        <div>Admin</div>
-                                        break;
-                                    case 2:
-                                        <div>Account Manager</div>
-                                        break;
-                                    case 3:
-                                        <div>Chef</div>
-                                        break;
-                                }
-                            </td>
-                            <td>
-                                @if ((bool)@user.IsActive)
-                                {
-                                    <div class="active-status">Active</div>
-                                }
-                                else
-                                {
-                                    <div class="inActive-status">Inactive</div>
-                                }
-                            </td>
-                            <td>
-                                <div class="d-flex gap-4 align-items-center">
-                                    @* @if ((bool)user.IsActive)
-                            { *@
-                                    <a asp-action="UpdateUser" asp-controller="User" asp-route-id="@user.Id">
-                                        <i class="fa-solid fa-pen-clip"></i>
-                                    </a>
-                                    @* }
-                            else
-                            { *@
-                                    @* <i class="fa-solid fa-pen-clip icon-disable"></i> *@
-                                    @* } *@
-
-                                    @if (user.RoleId != 1)
-                                    {
-                                        <a class="bi bi-trash m-1" href="javascript:void(0)"
-                                            onclick="confirmDelete(@user.Id,@user.RoleId)">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        <i class="fa-solid fa-trash icon-disable m-1"></i>
-                                    }
-
-                                    <form id="deleteForm-@user.Id-@user.RoleId" method="post"
-                                        action="@Url.Action("DeleteUser", "User", new { id = user.Id, roleId = user.RoleId })"
-                                        style="display:none;">
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
-        <div class="d-flex flex-row justify-content-end align-item-center mt-4">
-            <form method="get" class="col-md-9 d-flex flex-row justify-content-end" style="align-items: center;">
-                <label for="form-select" class="mx-2">Items per Page</label>
-                <select class="form-select w-auto" name="pageSize" onchange="this.form.submit()" id="Select"
-                    aria-label="Role" onchange="">
-                    @if (pageSize == 5)
-                    {
-                        <option selected value="5">5</option>
-                    }
-                    else
-                    {
-                        <option value="5">5</option>
-                    }
-                    @if (pageSize == 10)
-                    {
-                        <option selected value="10">10</option>
-                    }
-                    else
-                    {
-                        <option value="10">10</option>
-                    }
-                    @if (pageSize == 15)
-                    {
-                        <option selected value="15">15</option>
-                    }
-                    elset
-                    {
-                    <option value="15">15</option>
-                    }
-                </select>
-                <span class="mb-0 ms-2 me-2 d-none d-md-block" id="showing">Showing @(Math.Min(((ViewBag.PageIndex - 1)
-                    *
-                    ViewBag.pageSize) +1, totalUSers)) -
-                    @(Math.Min(ViewBag.PageIndex * ViewBag.PageSize, totalUSers)) of @totalUSers</span>
-                @if (pageIndex > 1)
-                                {
-                <a href="?pageIndex=@(pageIndex-1)&pageSize=@pageSize&searchString=@searchString"
-                    class="bg-llight border-1 bg-light mx-2 px-2 btn btn-outline-dark">
-                    <i class="fa fa-chevron-left"></i>
-                </a>
-                                }
-                                else
-                {
-                    <a class="bg-llight border-1 bg-light mx-2 px-2 btn btn-outline-dark" hidden>
-                        <i class="fa fa-chevron-left"></i>
-                    </a>
-                }
-
-                @if (pageIndex < totalPage)
-                {
-                    <a href="?pageIndex=@(pageIndex+1)&pageSize=@pageSize&searchString=@searchString"
-                        class="bg-llight border-1 bg-light px-2 btn btn-outline-dark">
-                        <i class="fa fa-chevron-right"></i>
-                    </a>
-                }
-                else
-                {
-                    <a class="bg-llight border-1 bg-light px-2 btn btn-outline-dark" hidden>
-                        <i class="fa fa-chevron-right"></i>
-                    </a>
-                }
-            </form>
-        </div>
+    <div id="userListContainer">
+        @await Html.PartialAsync("_UserListPartial", Model)
     </div>
-    <!-- Delete Modal -->
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-0">
-                    <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Confirmation</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="text-center">
-                    <i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: #FFD43B;"></i>
-                </div>
-                <div class="modal-body text-center p-1">
-                    <p class="fw-bold mb-0">Are you sure you want to delete this user?</p>
-                </div>
-                <div class="modal-footer d-flex justify-content-center border-0">
-                    <button type="button" class="fill-btn" id="confirmDeleteButton">Delete</button>
-                    <button type="button" class="outline-btn" data-bs-dismiss="modal">Cancel</button>
-                </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Confirmation</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="text-center">
+                <i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: #FFD43B;"></i>
+            </div>
+            <div class="modal-body text-center p-1">
+                <p class="fw-bold mb-0">Are you sure you want to delete this user?</p>
+            </div>
+            <div class="modal-footer d-flex justify-content-center border-0">
+                <button type="button" class="fill-btn" id="confirmDeleteButton">Delete</button>
+                <button type="button" class="outline-btn" data-bs-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
+</div>
 
 @section Scripts {
-        <script>
-            function confirmDelete(userId, roleId) {
-                const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
-                document.getElementById("confirmDeleteButton").onclick = function () {
-                    document.getElementById(`deleteForm-${userId}-${roleId}`).submit();
-                };
-                modal.show();
-            }
-        </script>
+    <script>
+        function confirmDelete(userId, roleId) {
+            const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            document.getElementById("confirmDeleteButton").onclick = function () {
+                document.getElementById(`deleteForm-${userId}-${roleId}`).submit();
+            };
+            modal.show();
+        }
+    </script>
+} *@
+
+@model PizzaShop.Entity.ViewModels.UserPageViewModel
+@{
+    ViewData["Title"] = "UserList";
+    var count = Model.TotalUsers;
+    var pageIndex = Model.PageIndex;
+    var pageSize = Model.PageSize;
+    var totalPage = Model.TotalPage;
+    var searchString = Model.SearchString;
+    var totalUsers = Model.TotalUsers;
+}
+
+<div class="col-md-12">
+    <div class="d-flex align-items-center justify-content-between">
+        <h2 class="page-title">Users</h2>
+        <div class="d-flex" style="gap: 10px; margin-right: 12px;">
+            @* <form method="get" id="searchForm" class="search-container">
+                <i class="icon fa fa-search"></i>
+                <input id="searchString" type="text" name="searchString" value="@searchString" placeholder="Search..."
+                    class="form-control mb-3" style="height: 50px; width: 250px; border: none; border-radius: 5%;">
+            </form> *@
+            <div class="form-input-div d-flex justify-content-between me-3 position-relative">
+                <input type="text" placeholder="Search" class="form-control p-2 d-none d-sm-block" required
+                    id="searchString" />
+                <span class="form-input-icon position-absolute search-icon"><i class="fa-solid fa-search" id="eye-icon"
+                        style="color: gray"></i>
+                </span>
+            </div>
+            <a asp-action="CreateUser" asp-controller="User" style="text-decoration: none;">
+                <button class="border-0 p-2 fill-btn rounded shadow add-user-btn">
+                    <span class="span2">+</span>
+                    <span class="span1"><i class="fa-solid fa-plus" style="color: white;"></i> Add User</span>
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div id="userListContainer">
+        @await Html.PartialAsync("_UserListPartial", Model)
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var debounceTimer;
+        var userPageIndex = @pageIndex;
+        var AjaxReq;
+        var deleteTableId;
+        $(document).ready(function () {
+            @* $('#searchString').on('keyup', function () {
+                clearTimeout($.data(this, 'timer'));
+                var searchString = $(this).val();
+                var wait = setTimeout(function () {
+                    GetFilteredUsers();
+                }, 500);
+                $(this).data('timer', wait);
+            }); *@
+                @* $('#searchString').keyup(function () {
+                    clearTimeout(debounceTimer);
+                    userPageIndex = 1
+                    pageSize = @pageSize
+                                                                            var searchString = $(this).val();
+                    debounceTimer = setTimeout(() => {
+                        GetFilteredUsers();
+                    }, 400)
+                }) *@
+                @* $('#searchString').keyup(function () {
+                    clearTimeout(debounceTimer);
+                    userPageIndex = 1
+                    pageSize = @pageSize
+                        debounceTimer = setTimeout(() => {
+                            GetFilteredUsers();
+                        }, 600)
+                }) *@
+                @* $('#userPageSize').change(function () {
+                var pageSize = @pageSize
+                                            var pageIndex = 1
+                console.log(pageSize);
+                GetFilteredUsers();
+            }) *@
+                @* $('#userPageSize').change(function () {
+                    var pageSize = @pageSize
+                                                                                var pageIndex = 1
+                    console.log(pageSize);
+                    GetFilteredUsers();
+                })
+            $("#PreviousUsers").click(function () {
+                console.log("prev")
+                userPageIndex -= 1;
+                GetFilteredUsers()
+            })
+
+            $('#NextUser').click(function () {
+                $("#PreviousBtn").attr('disabled', false)
+                console.log("next")
+                userPageIndex += 1;
+                GetFilteredUsers()
+            }) *@
+            });
+
+        function GetFilteredUsers(sortOrder = '', pageIndex = 1) {
+            var searchString = $('#searchString').val();
+            var pageSize = $('#userPageSize').val();
+            if (AjaxReq && AjaxReq.readyState !== 4)
+                AjaxReq.abort();
+            AjaxReq = $.ajax({
+                url: "/User/GetUsers",
+                type: "GET",
+                data: {
+                    pageIndex: userPageIndex,
+                    pageSize: pageSize,
+                    searchString: searchString
+                },
+                success: function (data) {
+                    $("#userListContainer").html(data);
+                }
+            })
+        }
+    </script>
 }
