@@ -11,8 +11,6 @@ public partial class Order
 
     public int? OrderNo { get; set; }
 
-    public DateOnly? OrderDate { get; set; }
-
     public decimal? TotalAmount { get; set; }
 
     public decimal? Tax { get; set; }
@@ -27,7 +25,7 @@ public partial class Order
 
     public bool? IsSgstSelected { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime? CreatedAt { get; set; }
 
     public int? CreatedBy { get; set; }
 
@@ -37,7 +35,9 @@ public partial class Order
 
     public int? OrderStatus { get; set; }
 
-    public virtual User CreatedByNavigation { get; set; } = null!;
+    public DateOnly? OrderDate { get; set; }
+
+    public virtual User? CreatedByNavigation { get; set; }
 
     public virtual Customer Customer { get; set; } = null!;
 

@@ -1,9 +1,7 @@
 namespace PizzaShop.Entity.ViewModels;
-
+using PizzaShop.Entity.Constants;
 public class OrderViewModel
 {
-    public int Order { get; set; }
-
     public int Id { get; set; }
 
     public int CustomerId { get; set; }
@@ -31,15 +29,13 @@ public class OrderViewModel
     public DateTime? ModifiedAt { get; set; }
 
     public int? ModifiedBy { get; set; }
-
-    public int? OrderStatus { get; set; }
     public DateOnly? Date { get; set; }
 
     public string? CustomerName { get; set; }
 
-    public string? Status { get; set; }
+    public OrderConstants.OrderStatusEnum Status { get; set; }
 
-    public string? PaymentMode { get; set; }
+    public OrderConstants.PaymentModeEnum PaymentMode { get; set; }
 
     public int? Rating { get; set; }
 

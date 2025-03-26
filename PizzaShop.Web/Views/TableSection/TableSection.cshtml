@@ -55,6 +55,76 @@
 </div>
 
 <script>
+
+    var deleteTableId;
+
+    $(".deleteTable").click(function () {
+        deleteTableId = $(this).val();
+        $('#deleteTableModal').modal('show');
+    })
+    $('#deleteTableBtn').click(function () {
+        $.ajax({
+            url: '/TableSection/DeleteTable',
+            type: 'post',
+            data: { id: deleteTableId },
+            success: function (response) {
+                if (response == null) {
+                    window.location.href = "/Auth/Login";
+                    toastr.error("Your Session is Expired. Please Login Again!");
+                }
+                if (response.isSuccess) {
+                    GetFilteredSections();
+                    toastr.success(response.message);
+
+                } else {
+                    toastr.error(response.message);
+                }
+                $("#deleteTableModal").modal('hide');
+            }
+        })
+    })
+
+    var deleteTableIds = [];
+    $('#tableList').on("click", ".tableCheckBox", function () {
+        var tableId = $(this).val();
+        if (this.checked == true) {
+            deleteTableIds.push(parseInt(tableId));
+        }
+        else {
+            deleteTableIds = deleteTableIds.filter(id => id != parseInt(tableId));
+        }
+    })
+    $('#multiDeletTableBtn').click(function () {
+        if (deleteTableIds.length == 0) {
+            toastr.warning("Select at Least One Item");
+        } else {
+            $('#deleteMultipleTableModal').modal('show');
+        }
+    })
+    $('#multiDeleteTableBtn').click(function () {
+        $.ajax({
+            url: '/TableSection/MultiDeleteTable',
+            type: 'POST',
+            data: {
+                itemIds: deleteTableIds
+            },
+            success: function (response) {
+                if (response == null) {
+                    window.location.href = "/Auth/Login";
+                    toastr.error("Your Session is Expired. Please Login Again!");
+                }
+                if (response.isSuccess) {
+                    console.log("Delete")
+                    GetFilteredSections();
+                    toastr.success(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+                $("#deleteMultipleTableModal").modal('hide');
+            }
+        })
+    })
+
     $(".addTableBtn").click(function () {
         console.log("click add")
         $.get('@Url.Action("AddNewTable", "TableSection")', function (data) {

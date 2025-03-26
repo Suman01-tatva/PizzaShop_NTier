@@ -201,7 +201,7 @@ public class UserController : Controller
         var totalUsers = _userService.GetTotalUsers(searchString);
         ViewBag.count = totalUsers;
 
-        ViewData["UsernameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "username_asc" : sortOrder == "username_asc" ? "username_desc" : "username_asc";
+        ViewData["UsernameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "username_desc" : sortOrder == "username_desc" ? "username_asc" : "username_desc";
         ViewData["RoleSortParam"] = sortOrder == "role_asc" ? "role_desc" : "role_asc";
 
         var userListPage = new UserPageViewModel
@@ -211,7 +211,8 @@ public class UserController : Controller
             PageSize = pageSize,
             SearchString = searchString,
             TotalPage = (int)Math.Ceiling(totalUsers / (double)pageSize),
-            TotalUsers = totalUsers
+            TotalUsers = totalUsers,
+            SortOrder = sortOrder
         };
 
         return View(userListPage);
@@ -233,7 +234,8 @@ public class UserController : Controller
             PageSize = pageSize,
             SearchString = searchString,
             TotalPage = (int)Math.Ceiling(count / (double)pageSize),
-            TotalUsers = count
+            TotalUsers = count,
+            SortOrder = sortOrder
         };
         return PartialView("_UserListPartial", userListPage);
     }
@@ -357,12 +359,6 @@ public class UserController : Controller
     [Route("User/DeleteUser/{id}/{roleId}")]
     public IActionResult DeleteUser(int id, int roleId)
     {
-        if (roleId == 1)
-        {
-            TempData["ToastrMessage"] = "You don't have access to delete the Admin user";
-            TempData["ToastrType"] = "error";
-            return RedirectToAction(nameof(UserList));
-        }
         _userService.DeleteUser(id);
         TempData["ToastrMessage"] = "User Deleted Successfully";
         TempData["ToastrType"] = "success";

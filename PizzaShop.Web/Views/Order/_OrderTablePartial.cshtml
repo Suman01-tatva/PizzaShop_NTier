@@ -1,5 +1,16 @@
-@model List<PizzaShop.Entity.ViewModels.OrderViewModel>
-
+@model PizzaShop.Entity.ViewModels.OrderPageViewModel;
+@{
+    var PageSize = Model.PageSize;
+    var PageIndex = Model.PageIndex;
+    var TotalPage = Model.TotalPage;
+    var TotalOrders = Model.TotalOrders;
+    var Status = Model.Status;
+    var SearchString = Model.SearchString;
+    var SortColumn = Model.sortColumn;
+    var FromDate = Model.FromDate;
+    var ToDate = Model.ToDate;
+    var DateRange = Model.DateRange;
+}
 <div class="table-responsive mt-3 rounded shadow p-2 bg-white">
     <table class="table" id="tbl">
         <thead>
@@ -35,33 +46,45 @@
             </tr>
         </thead>
         <tbody>
-            @* @foreach (var tax in Model)
-            { *@
-            <tr>
-                <td>#123</td>
-                <td>date
-                </td>
-                <td>
-                    customername
-                </td>
-                <td>
-                    status
-                </td>
-                <td>paymentMode</td>
-                <td>
-                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                </td>
-                <td>1000</td>
-                <td>
-                    <a href="javascript:void(0);" style="text-decoration: none; color: inherit;" class="edit-tax">
-                        <i class="fa-solid fa-file-pdf"></i>
-                    </a>
-                    <a href="javascript:void(0)" style="text-decoration: none; color: inherit;">
-                        <i class="fas fa-eye"></i>
-                    </a>
-                </td>
-            </tr>
-            @* } *@
+            @if (Model.Orders.Count == 0)
+            {
+                <p>No Record Found</p>
+            }
+            else
+            {
+                @foreach (var order in Model.Orders)
+                {
+                    <tr>
+                        <td>@order.Id</td>
+                        <td>@order.Date</td>
+                        <td>@order.CustomerName</td>
+                        <td>@order.Status</td>
+                        <td>@order.PaymentMode</td>
+                        <td>
+                            <div class="star-rating">
+                                @if (order.Rating != null)
+                                {
+                                    <div class="star-rating-filled" style="width:@(order.Rating * 20)%;">
+                                        ★ ★ ★ ★ ★
+                                    </div>
+                                }
+                                <div class="star-rating-blank">
+                                    ★ ★ ★ ★ ★
+                                </div>
+                            </div>
+                        </td>
+                        <td>@order.TotalAmount</td>
+                        <td>
+                            <a href="javascript:void(0);" style="text-decoration: none; color: inherit;" class="edit-tax">
+                                <i class="fa-solid fa-file-pdf"></i>
+                            </a>
+                            <a href="javascript:void(0)" style="text-decoration: none; color: inherit;">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            }
         </tbody>
     </table>
 </div>

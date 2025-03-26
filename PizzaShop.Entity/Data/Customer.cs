@@ -9,9 +9,7 @@ public partial class Customer
 
     public string Name { get; set; } = null!;
 
-    public string Email { get; set; }
-
-    public string Phone { get; set; }
+    public string Email { get; set; } = null!;
 
     public DateTime? CreatedAt { get; set; }
 
@@ -21,7 +19,9 @@ public partial class Customer
 
     public int? ModifiedBy { get; set; }
 
-    public virtual User? CreatedByNavigation { get; set; } = null!;
+    public string Phone { get; set; } = null!;
+
+    public virtual User? CreatedByNavigation { get; set; }
 
     public virtual User? ModifiedByNavigation { get; set; }
 

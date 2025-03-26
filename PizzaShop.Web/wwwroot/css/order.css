@@ -1,4 +1,4 @@
-.form-floating > .DateStyle {
+/* .form-floating > .DateStyle {
   padding: 0.4rem;
   height: 1rem;
   min-height: 1rem !important;
@@ -10,4 +10,25 @@
   left: 1rem;
   height: 35px;
   padding: 0px;
+} */
+.star-rating {
+  position: relative;
+  display: inline-block;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.star-rating-filled {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #ffc107;
+}
+
+.star-rating-blank {
+  display: inline-block;
+  color: #ffffff;
+  -webkit-text-stroke: 1px #ffc107;
 }

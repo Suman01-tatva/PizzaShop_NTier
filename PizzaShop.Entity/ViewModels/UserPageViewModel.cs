@@ -11,4 +11,5 @@ public class UserPageViewModel
     public string? SearchString { get; set; } = null!;
     public int TotalPage { get; set; }
     public int TotalUsers { get; set; }
+    public string? SortOrder { get; set; }
 }

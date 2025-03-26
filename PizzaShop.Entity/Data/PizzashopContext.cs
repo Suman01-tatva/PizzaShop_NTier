@@ -153,7 +153,9 @@ public partial class PizzashopContext : DbContext
             entity.ToTable("customers");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("now()")
+                .HasColumnName("created_at");
             entity.Property(e => e.CreatedBy).HasColumnName("created_by");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)
@@ -163,11 +165,12 @@ public partial class PizzashopContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(100)
                 .HasColumnName("name");
-            entity.Property(e => e.Phone).HasColumnName("phone");
+            entity.Property(e => e.Phone)
+                .HasColumnType("character varying")
+                .HasColumnName("phone");
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.CustomerCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("created_by");
 
             entity.HasOne(d => d.ModifiedByNavigation).WithMany(p => p.CustomerModifiedByNavigations)
@@ -486,6 +489,9 @@ public partial class PizzashopContext : DbContext
             entity.Property(e => e.ModifiedAt).HasColumnName("modified_at");
             entity.Property(e => e.ModifiedBy).HasColumnName("modified_by");
             entity.Property(e => e.Notes).HasColumnName("notes");
+            entity.Property(e => e.OrderDate)
+                .HasDefaultValueSql("CURRENT_DATE")
+                .HasColumnName("order_date");
             entity.Property(e => e.OrderNo).HasColumnName("order_no");
             entity.Property(e => e.OrderStatus).HasColumnName("order_status");
             entity.Property(e => e.PaidAmount)
@@ -503,7 +509,6 @@ public partial class PizzashopContext : DbContext
 
             entity.HasOne(d => d.CreatedByNavigation).WithMany(p => p.OrderCreatedByNavigations)
                 .HasForeignKey(d => d.CreatedBy)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("created_by");
 
             entity.HasOne(d => d.Customer).WithMany(p => p.Orders)

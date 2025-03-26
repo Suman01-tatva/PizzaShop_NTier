@@ -1,8 +1,19 @@
+@model PizzaShop.Entity.ViewModels.OrderPageViewModel;
 @{
     ViewData["Title"] = "Orders";
 }
-@model PizzaShop.Entity.ViewModels.OrderPageViewModel;
-
+@{
+    var PageSize = Model.PageSize;
+    var PageIndex = Model.PageIndex;
+    var TotalPage = Model.TotalPage;
+    var TotalOrders = Model.TotalOrders;
+    var Status = Model.Status;
+    var SearchString = Model.SearchString;
+    var SortColumn = Model.sortColumn;
+    var FromDate = Model.FromDate;
+    var ToDate = Model.ToDate;
+    var DateRange = Model.DateRange;
+}
 <div class="row my-1 mx-1">
     <div class="col-xl-3 col-12 d-flex justify-content-xl-start justify-content-center">
         <h2 class="pageHeading">Orders</h2>
@@ -11,21 +22,32 @@
     <div class="col-xl-9 mb-2 col-12 px-0">
         <div class="row">
             <div class="col-md-3 col-6">
-                <input type="text" class="form-control" id="searchString" placeholder="Search" />
+                <div class="form-input-div d-flex justify-content-between me-3 position-relative">
+                    <input type="text" placeholder="Search" class="form-control p-2 d-none d-sm-block" required
+                        id="searchOrders" />
+                    <span class="form-input-icon position-absolute search-icon"><i class="fa-solid fa-search"
+                            id="eye-icon" style="color: gray"></i>
+                    </span>
+                </div>
             </div>
             <div class="col-md-3 col-6">
-                <select name="" id="ModifiersGroupIds" class="form-control form-select">
-                    <option value="" selected>All Status</option>
-                    <option value="">1</option>
-                    <option value="">2</option>
+                <select id="statusDropdown" aria-label="Default select example" class="form-control form-select">
+                    <option value="0" selected="@(Status == 0 ? true : false)" selected>All Status</option>
+                    <option value="1" selected="@(Status == 1 ? true : false)">Pending</option>
+                    <option value="2" selected="@(Status == 2 ? true : false)">Completed</option>
+                    <option value="3" selected="@(Status == 3 ? true : false)">InProgress</option>
+                    <option value="3" selected="@(Status == 4 ? true : false)">Running</option>
                 </select>
             </div>
 
             <div class="col-md-3 col-6 mt-md-0 mt-2">
-                <select name="" id="ModifiersGroupIds" class="form-control form-select ">
-                    <option value="" selected>All Time</option>
-                    <option value="">1</option>
-                    <option value="">2</option>
+                <select id="dateRange" class="form-control form-select " aria-label="Default select example">
+                    <option value="AllTime" selected="@(DateRange == "AllTime" ? true : false)">All Time</option>
+                    <option value="Last7Days" selected="@(DateRange == "Last7Days" ? true : false)">Last Week</option>
+                    <option value="Last30Days" selected="@(DateRange == "Last30Days" ? true : false)">Last Month
+                    </option>
+                    <option value="CurrentMonth" selected="@(DateRange == "CurrentMonth" ? true : false)">Current Month
+                    </option>
                 </select>
             </div>
             <div class="col-md-3 col-6 mt-md-0 mt-2">
@@ -42,15 +64,15 @@
     <div class="col-xl-8 col-12 px-0">
         <div class="row">
             <div class="col-md-4 col-12 form-floating">
-                <input type="date" class="form-control DateStyle" placeholder="rate" />
+                <input value="@FromDate" type="date" class="form-control DateStyle" placeholder="rate" id="fromDate" />
                 <label for="rate" class="labelCSS mx-2">From Date</label>
             </div>
             <div class="col-md-4 mt-md-0 mt-2 col-12 form-floating ">
-                <input type="date" class="form-control DateStyle" placeholder="rate" />
+                <input type="date" value="@ToDate" class="form-control DateStyle" placeholder="rate" id="toDate" />
                 <label for="rate" class="labelCSS mx-2">To Date</label>
             </div>
             <div class="col-md-2 col-6 mt-md-0 mt-2 ">
-                <button type="button" class="btn btn-primary w-md-0 w-100">Search</button>
+                <button type="button" class="btn btn-primary w-md-0 w-100" id="searchDateRange">Search</button>
             </div>
             <div class="col-md-2 col-6 mt-md-0 mt-2">
                 <button type="button" class="btn btn-primary w-100">Clear</button>
@@ -60,6 +82,132 @@
 </div>
 
 
-<section class="order-table">
-    <partial name="_OrderTablePartial" model="Model.Orders"></partial>
+<section id="orderList">
+    <partial name="_OrderTablePartial" model="Model"></partial>
 </section>
+
+@* Pagination *@
+<div class="d-flex justify-content-end align-items-center mt-2">
+    <p class="mb-0">Items Per page</p>
+    <select class="ms-3 form-select w-auto" aria-label="Default select example" id="ordersPageSize">
+        <option value="5" selected="@(PageSize == 5 ? true : false)">5</option>
+        <option value="10" selected="@(PageSize == 10 ? true : false)">10</option>
+        <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
+    </select>
+    <span class="mb-0 ms-2 me-2 d-none d-md-block" id="showing">Showing @(Math.Min(((PageIndex - 1) * PageSize) + 1,
+        TotalOrders)) -
+        @(Math.Min(PageIndex * PageSize, TotalOrders)) of @TotalOrders</span>
+    <p>@PageIndex</p>
+    <p>@TotalPage</p>
+    @if (PageIndex > 1)
+        {
+    <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="PreviousOrders">
+        <i class="fa fa-chevron-left"></i>
+    </a>
+        }
+        else
+    {
+        <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
+            <i class="fa fa-chevron-left"></i>
+        </button>
+    }
+
+    @if (PageIndex < TotalPage)
+    {
+        <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="NextOrders">
+            <i class="fa fa-chevron-right"></i>
+        </a>
+    }
+    else
+    {
+        <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
+            <i class="fa fa-chevron-right"></i>
+        </button>
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        var pageIndex = @PageIndex, pageSize = 5, searchString = "", sortColumn = "", isAsc = true, status = 0, fromDate = "", toDate = "", dateRange = "AllTime";
+        var ajaxRequest;
+        var debounceTimer;
+
+        function GetFilteredOrders() {
+            var SearchString = $("#searchOrders").val();
+            var pageSize = $("#ordersPageSize").val();
+            var status = $("#statusDropdown").val();
+            var dateRange = $("#dateRange").val();
+            var fromDate = $("#fromDate").val();
+            var toDate = $("#toDate").val();
+
+            console.log(searchString, pageSize, pageIndex)
+
+            if (ajaxRequest && ajaxRequest.readyState !== 4) {
+                ajaxRequest.abort();
+            }
+            ajaxRequest = $.ajax({
+                url: "/Order/GetOrders",
+                type: "GET",
+                data: {
+                    pageIndex, pageSize, SearchString, sortColumn, isAsc, status, fromDate, toDate, dateRange
+                },
+                success: function (data) {
+                    console.log(data)
+                    $("#orderList").html(data);
+                }
+            })
+        }
+
+        $('#searchOrders').keyup(function () {
+            console.log("Search")
+            clearTimeout(debounceTimer);
+            pageIndex = 1
+            pageSize = @PageSize
+
+                debounceTimer = setTimeout(() => {
+                    GetFilteredOrders();
+                }, 400)
+        })
+
+        $('#ordersPageSize').change(function () {
+            var pageIndex = 1
+            GetFilteredOrders();
+        })
+
+        $("#PreviousOrders").click(function () {
+            console.log("prev")
+            pageIndex -= 1;
+            GetFilteredOrders()
+        })
+
+        $('#NextOrders').click(function () {
+            console.log("next")
+            pageIndex += 1;
+            GetFilteredOrders()
+        })
+
+        $(document).on('click', '.sort-link', function (e) {
+            e.preventDefault();
+            sortOrder = $(this).data('sort');
+            GetFilteredOrders($(this).data('sort'));
+        });
+
+        $('#statusDropdown').change(function () {
+            var pageIndex = 1;
+            console.log("Status DropDown");
+            GetFilteredOrders();
+        })
+
+        $('#dateRange').change(function () {
+            var pageIndex = 1;
+            console.log("DateRange DropDown");
+            GetFilteredOrders();
+        })
+
+        $('#searchDateRange').click(function () {
+            var pageIndex = 1;
+            console.log("From To dates DropDown");
+            GetFilteredOrders();
+        })
+    })
+</script>

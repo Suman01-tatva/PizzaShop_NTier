@@ -5,6 +5,7 @@
     var TotalPage = Model.TotalPage;
     var SearchString = Model.SearchString;
     var TotalRecord = Model.TotalUsers;
+    var sortOrder = Model.SortOrder;
 }
 
 <section class="table-responsive shadow card">
@@ -22,8 +23,7 @@
                 <th scope="col">Phone</th>
                 <th scope="col">
                     Role
-                    <a href="#" class="sort-link" data-sort="@ViewData["RoleSortParam"]"
-                        style="text-decoration: none;color: inherit;">
+                    <a href="#" class="sort-link" data-sort="@ViewData["RoleSortParam"]">
                         <i class="fa-solid fa-sort"></i>
                     </a>
                 </th>
@@ -137,29 +137,29 @@
     var userPageIndex = @PageIndex;
     var AjaxReq;
     var deleteTableId;
-    var sortOrder = '';
-    function GetFilteredUsers(sortOrder = '') {
-        var SearchString = $("#searchString").val();
-        var pageSize = $("#userPageSize").val();
-        console.log(SearchString, pageSize, userPageIndex)
+    @* var sortOrder = @sortOrder; *@
+        function GetFilteredUsers(sortOrder = '') {
+            var SearchString = $("#searchString").val();
+            var pageSize = $("#userPageSize").val();
+            console.log(SearchString, pageSize, userPageIndex)
 
-        if (AjaxReq && AjaxReq.readyState !== 4)
-            AjaxReq.abort();
+            if (AjaxReq && AjaxReq.readyState !== 4)
+                AjaxReq.abort();
 
-        AjaxReq = $.ajax({
-            url: "/User/GetUsers",
-            type: "GET",
-            data: {
-                pageIndex: userPageIndex,
-                pageSize: pageSize,
-                searchString: SearchString,
-                sortOrder: sortOrder
-            },
-            success: function (data) {
-                $("#userListContainer").html(data);
-            }
-        })
-    }
+            AjaxReq = $.ajax({
+                url: "/User/GetUsers",
+                type: "GET",
+                data: {
+                    pageIndex: userPageIndex,
+                    pageSize: pageSize,
+                    searchString: SearchString,
+                    sortOrder: sortOrder
+                },
+                success: function (data) {
+                    $("#userListContainer").html(data);
+                }
+            })
+        }
 
     $('#userPageSize').change(function () {
         var pageSize = @PageSize
