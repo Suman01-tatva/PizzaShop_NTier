@@ -20,7 +20,7 @@ public class MenuController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Menu(int? id, int pageSize = 5, int pageIndex = 1, string searchString = "")
+    public async Task<IActionResult> Menu(int pageSize = 5, int pageIndex = 1, string searchString = "")
     {
         var categories = await _menuService.GetAllMenuCategoriesAsync();
         if (!categories.Any())
@@ -28,14 +28,14 @@ public class MenuController : Controller
             return NotFound("No categories found.");
         }
 
-        var validCategoryId = id ?? categories.First().Id;
+        var validCategoryId = categories.First().Id;
         var itemTabDetails = await _menuService.GetItemTabDetails(validCategoryId, pageSize, pageIndex, searchString);
 
         //modifierTab data
         var modifierGroups = await _menuModifierService.GetAllMenuModifierGroupAsync();
 
-        var validModifierGroupId = id ?? modifierGroups.First().Id;
-        var modifierTabDetails = await _menuModifierService.GetModifierTabDetails(validModifierGroupId);
+        var validModifierGroupId = modifierGroups.First().Id;
+        var modifierTabDetails = await _menuModifierService.GetModifierTabDetails(validModifierGroupId, pageSize, pageIndex, searchString);
 
         var model = new MenuViewModel
         {
@@ -111,7 +111,7 @@ public class MenuController : Controller
     {
         List<MenuItemViewModel> items = await _menuService.GetItemsByCategory(categoryId, pageSize == 0 ? 5 : pageSize, pageIndex == 0 ? 1 : pageIndex, searchString);
         var totalItemCount = _menuService.GetItemsCountByCId(categoryId, searchString);
-        Console.WriteLine("Totalpage:", totalItemCount);
+
         var model = new ItemTabViewModel
         {
             itemList = items,
@@ -297,6 +297,8 @@ public class MenuController : Controller
         }
     }
 
+    // Modifier Section
+
     [HttpGet]
     public IActionResult AddModifier()
     {
@@ -307,5 +309,29 @@ public class MenuController : Controller
     public IActionResult EditModifier()
     {
         return PartialView("_EditModifier", new MenuModifierViewModel());
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetModifiersByModifierGroup(int modifierGroupId, int pageSize, int pageIndex, string searchString = "")
+    {
+        List<MenuModifierViewModel> filteredModifiers = await _menuModifierService.GetModifiersByModifierGroup(modifierGroupId, pageSize == 0 ? 5 : pageSize, pageIndex == 0 ? 1 : pageIndex, searchString);
+        int totalModifierCount = _menuModifierService.GetModifiersCountByCId(modifierGroupId, searchString);
+        var model = new ModifierTabViewModel
+        {
+            modifier = filteredModifiers,
+            PageSize = pageSize,
+            PageIndex = pageIndex,
+            SearchString = searchString,
+            TotalPage = (int)Math.Ceiling(totalModifierCount / (double)pageSize),
+            TotalItems = totalModifierCount
+        };
+        return PartialView("_Modifier", model);
+    }
+
+    [HttpGet]
+    public async Task<JsonResult> GetAllModifierGroups()
+    {
+        var modifiers = await _menuModifierService.GetAllMenuModifierGroupAsync();
+        return Json(modifiers);
     }
 }

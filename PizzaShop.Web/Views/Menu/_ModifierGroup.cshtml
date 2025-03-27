@@ -47,6 +47,7 @@
 </div>
 
 <script>
+    var modifierGroupId = @Model.First().Id;
     $(document).on('click', '.delete-modifiergroup', function () {
         modifierId = $(this).data("id");
         console.log("Delete", modifierId)

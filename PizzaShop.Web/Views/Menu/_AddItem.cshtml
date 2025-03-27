@@ -177,7 +177,7 @@
             });
         });
 
-        $.getJSON('@Url.Action("GetAllModifierGroups", "MenuModifier")', function (ModifierGroups) {
+        $.getJSON('@Url.Action("GetAllModifierGroups", "Menu")', function (ModifierGroups) {
             $('#ModifierGroups').empty().append('<option selected disabled hidden>Select ModifierGroup</option>');
             $.each(ModifierGroups, function (i, m) {
                 $('#ModifierGroups').append($('<option>', {
@@ -190,7 +190,7 @@
         $("#ModifierGroups").change(function () {
             var id = $(this).val();
             $.ajax({
-                url: '@Url.Action("GetModifiersByModifierGroup", "MenuModifier")',
+                url: '@Url.Action("GetModifiersByModifierGroup", "Menu")',
                 type: 'GET',
                 data: { modifierGroupId: id },
                 success: function (response) {

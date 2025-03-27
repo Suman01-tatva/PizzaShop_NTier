@@ -1,5 +1,6 @@
 <!-- Add New Modifier Modal -->
-<div class="modal fade" id="editModifiersModal" tabindex="-1" aria-labelledby="addModifierModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModifiersModal" tabindex="-1" aria-labelledby="addModifierModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog  modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -93,7 +94,7 @@
         });
     });
 
-    $.getJSON('@Url.Action("GetAllModifierGroups", "MenuModifier")', function (ModifierGroups) {
+    $.getJSON('@Url.Action("GetAllModifierGroups", "Menu")', function (ModifierGroups) {
         $('#modifierGroup').empty().append('<option selected disabled hidden>Select ModifierGroup</option>');
         $.each(ModifierGroups, function (i, m) {
             $('#modifierGroup').append($('<option>', {

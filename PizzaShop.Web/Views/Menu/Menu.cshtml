@@ -155,7 +155,7 @@
               @* toastr.success(response.message); *@
                 window.location.reload(); // Reload the page to show the updated category
               @* GetFilteredCategory(); *@
-                } else {
+                    } else {
               alert(response.message);
             }
           },
@@ -177,18 +177,5 @@
         }
       })
     }
-  </script>
-  <script>
-    $('.modifierGroup').click(function () {
-      var modifierGroupId = $(this).data("id");
-      $.ajax({
-        url: '/MenuModifier/GetModifiersByModifierGroup',
-        type: 'GET',
-        data: { modifierGroupId: modifierGroupId },
-        success: function (response) {
-          $('#modifierList').html(response);
-        }
-      })
-    })
   </script>
 }

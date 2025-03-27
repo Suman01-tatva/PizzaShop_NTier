@@ -14,20 +14,44 @@ public class MenuModifierRepository : IMenuModifierRepository
         _context = context;
     }
 
-    public async Task<List<MenuModifierViewModel>> GetModifiersByModifierGroupAsync(int id)
+    public async Task<List<MenuModifierViewModel>> GetModifiersByModifierGroupAsync(int id, int pageSize, int pageIndex, string? searchString)
     {
-        var itmes = await _context.Modifiers
-            .Select(c => new MenuModifierViewModel
-            {
-                Id = c.Id,
-                UnitName = c.Unit.ShortName,
-                ModifierGroupId = c.ModifierGroupId,
-                Name = c.Name,
-                Description = c.Description,
-                Rate = c.Rate,
-                Quantity = c.Quantity,
-            }).Where(c => c.ModifierGroupId == id).OrderBy(m => m.Name).ToListAsync();
+        var modifierQuery = _context.Modifiers.Where(i => i.IsDeleted == false && i.ModifierGroupId == id);
 
-        return itmes;
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            searchString = searchString.Trim().ToLower();
+
+            modifierQuery = modifierQuery.Where(n =>
+                n.Name!.ToLower().Contains(searchString));
+        }
+
+        var filteredModifiers = modifierQuery.Select(c => new MenuModifierViewModel
+        {
+            Id = c.Id,
+            UnitName = c.Unit.ShortName,
+            ModifierGroupId = c.ModifierGroupId,
+            Name = c.Name,
+            Description = c.Description,
+            Rate = c.Rate,
+            Quantity = c.Quantity,
+        }).OrderBy(m => m.Name).ToList();
+
+        return filteredModifiers;
+    }
+
+    public int GetModifierCountByMId(int mId, string? searchString)
+    {
+        var modifierQuery = _context.Modifiers.Where(i => i.ModifierGroupId == mId && i.IsDeleted == false);
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            searchString = searchString.Trim().ToLower();
+
+            modifierQuery = modifierQuery.Where(n =>
+                n.Name!.ToLower().Contains(searchString)
+            );
+        }
+        int count = modifierQuery.ToList()!.Count();
+        return count;
     }
 }

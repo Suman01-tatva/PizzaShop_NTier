@@ -21,25 +21,62 @@ public class MenuModifierService : IMenuModifierService
         return modifierGroups;
     }
 
-    public async Task<List<MenuModifierViewModel>> GetModifiersByModifierGroup(int id)
+    public async Task<List<MenuModifierViewModel>> GetModifiersByModifierGroup(int id, int pageSize, int pageIndex, string? searchString)
     {
-        var modifiers = await _menuModifierRepository.GetModifiersByModifierGroupAsync(id);
-        return modifiers;
+        var modifierList = await _menuModifierRepository.GetModifiersByModifierGroupAsync(id, pageSize, pageIndex, searchString);
+        var filteredModifiers = modifierList
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize)
+            .ToList().ToList();
+        // var filteredModifiers = modifierList.Select(c => new MenuModifierViewModel
+        // {
+        //     Id = c.Id,
+        //     UnitName = c.Unit.ShortName,
+        //     ModifierGroupId = c.ModifierGroupId,
+        //     Name = c.Name,
+        //     Description = c.Description,
+        //     Rate = c.Rate,
+        //     Quantity = c.Quantity,
+        // }).ToList();
+        return filteredModifiers;
     }
 
-    public async Task<ModifierTabViewModel> GetModifierTabDetails(int id)
+    public async Task<ModifierTabViewModel> GetModifierTabDetails(int ModifierGroupId, int pageSize, int pageIndex, string? searchString)
     {
         var modifierGroups = await _menuModifierGroupRepository.GetAllMenuModifierGroupsAsync();
 
-        List<MenuModifierViewModel> modifierList;
-
-        modifierList = await _menuModifierRepository.GetModifiersByModifierGroupAsync(id);
+        var modifierList = await _menuModifierRepository.GetModifiersByModifierGroupAsync(ModifierGroupId, pageSize, pageIndex, searchString);
+        var filteredModifiers = modifierList
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize)
+            .ToList().ToList();
+        // var filteredModifiers = modifierList.Select(c => new MenuModifierViewModel
+        // {
+        //     Id = c.Id,
+        //     UnitName = c.Unit.ShortName,
+        //     ModifierGroupId = c.ModifierGroupId,
+        //     Name = c.Name,
+        //     Description = c.Description,
+        //     Rate = c.Rate,
+        //     Quantity = c.Quantity,
+        // }).ToList();
+        var totalModifiers = _menuModifierRepository.GetModifierCountByMId(ModifierGroupId, searchString!);
 
         var modifierTabViewModel = new ModifierTabViewModel
         {
             modifierGroup = modifierGroups,
-            modifier = modifierList
+            modifier = filteredModifiers,
+            PageSize = pageSize,
+            PageIndex = pageIndex,
+            TotalPage = (int)Math.Ceiling(totalModifiers / (double)pageSize),
+            SearchString = searchString,
+            TotalItems = totalModifiers
         };
         return modifierTabViewModel;
+    }
+
+    public int GetModifiersCountByCId(int mId, string? searchString)
+    {
+        return _menuModifierRepository.GetModifierCountByMId(mId, searchString!);
     }
 }

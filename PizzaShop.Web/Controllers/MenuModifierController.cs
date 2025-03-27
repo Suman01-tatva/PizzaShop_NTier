@@ -35,17 +35,17 @@ public class MenuModifierController : Controller
 
     // }
 
-    [HttpGet]
-    public async Task<IActionResult> GetModifiersByModifierGroup(int modifierGroupId)
-    {
-        List<MenuModifierViewModel> filteredModifiers = await _menuModifierService.GetModifiersByModifierGroup(modifierGroupId);
-        return PartialView("_Modifier", filteredModifiers);
-    }
+    // [HttpGet]
+    // public async Task<IActionResult> GetModifiersByModifierGroup(int modifierGroupId)
+    // {
+    //     List<MenuModifierViewModel> filteredModifiers = await _menuModifierService.GetModifiersByModifierGroup(modifierGroupId);
+    //     return PartialView("_Modifier", filteredModifiers);
+    // }
 
-    [HttpGet]
-    public async Task<JsonResult> GetAllModifierGroups()
-    {
-        var modifiers = await _menuModifierService.GetAllMenuModifierGroupAsync();
-        return Json(modifiers);
-    }
+    // [HttpGet]
+    // public async Task<JsonResult> GetAllModifierGroups()
+    // {
+    //     var modifiers = await _menuModifierService.GetAllMenuModifierGroupAsync();
+    //     return Json(modifiers);
+    // }
 }

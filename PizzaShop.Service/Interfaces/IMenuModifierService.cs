@@ -5,7 +5,8 @@ namespace PizzaShop.Service.Interfaces;
 public interface IMenuModifierService
 {
     Task<List<MenuModifierGroupViewModel>> GetAllMenuModifierGroupAsync();
-    Task<List<MenuModifierViewModel>> GetModifiersByModifierGroup(int id);
-    Task<ModifierTabViewModel> GetModifierTabDetails(int id);
+    public Task<List<MenuModifierViewModel>> GetModifiersByModifierGroup(int id, int pageSize, int pageIndex, string? searchString);
+    public Task<ModifierTabViewModel> GetModifierTabDetails(int ModifierGroupId, int pageSize, int pageIndex, string? searchString);
+    public int GetModifiersCountByCId(int mId, string? searchString);
 
 }

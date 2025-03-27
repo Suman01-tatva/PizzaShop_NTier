@@ -28,15 +28,15 @@ public class MenuModifierViewModel
 
     public int? ModifiedBy { get; set; }
 
-    public virtual User CreatedByNavigation { get; set; } = null!;
+    // public virtual User CreatedByNavigation { get; set; } = null!;
 
-    public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
+    // public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
 
-    public virtual User? ModifiedByNavigation { get; set; }
+    // public virtual User? ModifiedByNavigation { get; set; }
 
-    public virtual ModifierGroup ModifierGroup { get; set; } = null!;
+    // public virtual ModifierGroup ModifierGroup { get; set; } = null!;
 
-    public virtual ICollection<OrderedItemModifierMapping> OrderedItemModifierMappings { get; set; } = new List<OrderedItemModifierMapping>();
+    // public virtual ICollection<OrderedItemModifierMapping> OrderedItemModifierMappings { get; set; } = new List<OrderedItemModifierMapping>();
 
     public virtual Unit Unit { get; set; } = null!;
 }
