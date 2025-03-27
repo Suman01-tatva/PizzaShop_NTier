@@ -137,63 +137,59 @@
     var userPageIndex = @PageIndex;
     var AjaxReq;
     var deleteTableId;
-    @* var sortOrder = @sortOrder; *@
-        function GetFilteredUsers(sortOrder = '') {
-            var SearchString = $("#searchString").val();
-            var pageSize = $("#userPageSize").val();
-            console.log(SearchString, pageSize, userPageIndex)
+    var sortOrder = "@sortOrder";  // Persist the sortOrder value
 
-            if (AjaxReq && AjaxReq.readyState !== 4)
-                AjaxReq.abort();
+    function GetFilteredUsers() {
+        var SearchString = $("#searchString").val();
+        var pageSize = $("#userPageSize").val();
 
-            AjaxReq = $.ajax({
-                url: "/User/GetUsers",
-                type: "GET",
-                data: {
-                    pageIndex: userPageIndex,
-                    pageSize: pageSize,
-                    searchString: SearchString,
-                    sortOrder: sortOrder
-                },
-                success: function (data) {
-                    $("#userListContainer").html(data);
-                }
-            })
-        }
+        if (AjaxReq && AjaxReq.readyState !== 4)
+            AjaxReq.abort();
+
+        AjaxReq = $.ajax({
+            url: "/User/GetUsers",
+            type: "GET",
+            data: {
+                pageIndex: userPageIndex,
+                pageSize: pageSize,
+                searchString: SearchString,
+                sortOrder: sortOrder  // Pass sortOrder consistently
+            },
+            success: function (data) {
+                $("#userListContainer").html(data);
+            }
+        })
+    }
 
     $('#userPageSize').change(function () {
-        var pageSize = @PageSize
-        var pageIndex = 1
-        console.log(pageSize);
+        userPageIndex = 1;
         GetFilteredUsers();
-    })
+    });
 
     $('#searchString').keyup(function () {
         clearTimeout(debounceTimer);
-        userPageIndex = 1
-        pageSize = @PageSize
-
-            debounceTimer = setTimeout(() => {
-                GetFilteredUsers();
-            }, 400)
-    })
+        userPageIndex = 1;
+        debounceTimer = setTimeout(() => {
+            GetFilteredUsers();
+        }, 400);
+    });
 
     $("#PreviousUsers").click(function () {
-        console.log("prev")
-        userPageIndex -= 1;
-        GetFilteredUsers()
-    })
+        if (userPageIndex > 1) {
+            userPageIndex -= 1;
+            GetFilteredUsers();  // Call with updated userPageIndex
+        }
+    });
 
     $('#NextUser').click(function () {
-        $("#PreviousBtn").attr('disabled', false)
-        console.log("next")
         userPageIndex += 1;
-        GetFilteredUsers()
-    })
+        GetFilteredUsers();  // Call with updated userPageIndex
+    });
 
     $(document).on('click', '.sort-link', function (e) {
         e.preventDefault();
-        sortOrder = $(this).data('sort');
-        GetFilteredUsers($(this).data('sort'));
+        sortOrder = $(this).data('sort');  // Update sortOrder
+        userPageIndex = 1;                 // Reset to first page
+        GetFilteredUsers();
     });
 </script>

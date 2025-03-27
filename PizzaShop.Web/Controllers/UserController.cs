@@ -171,30 +171,6 @@ public class UserController : Controller
         return View(model);
     }
 
-    // public IActionResult UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")
-    // {
-    //     var users = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize);
-    //     var totalUsers = _userService.GetTotalUsers(searchString);
-    //     ViewBag.count = totalUsers;
-
-    //     ViewData["UsernameSortParam"] = sortOrder == "username_asc" ? "username_desc" : "username_asc";
-    //     ViewData["RoleSortParam"] = sortOrder == "role_asc" ? "role_desc" : "role_asc";
-
-    //     ViewBag.pageIndex = pageIndex;
-    //     ViewBag.pageSize = pageSize;
-    //     ViewBag.totalPage = (int)Math.Ceiling(totalUsers / (double)pageSize);
-    //     ViewBag.searchString = searchString;
-
-    //     if (users == null || !users.Any())
-    //     {
-    //         ViewBag.ErrorMessage = "UserList is Empty";
-    //         return View();
-    //     }
-
-    //     ViewBag.UserList = users;
-    //     return View(users);
-    // }
-
     public IActionResult UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")
     {
         var users = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize);

@@ -51,7 +51,7 @@
                 </select>
             </div>
             <div class="col-md-3 col-6 mt-md-0 mt-2">
-                <button type="button" class="btn btn-primary w-100">
+                <button type="button" class="btn btn-primary w-100" id="export">
                     <span><i class="fa-solid fa-share-from-square me-1"></i></span>
                     <span>Export</span>
                 </button>
@@ -75,7 +75,7 @@
                 <button type="button" class="btn btn-primary w-md-0 w-100" id="searchDateRange">Search</button>
             </div>
             <div class="col-md-2 col-6 mt-md-0 mt-2">
-                <button type="button" class="btn btn-primary w-100">Clear</button>
+                <button type="button" class="btn btn-primary w-100" id="clearBtn">Clear</button>
             </div>
         </div>
     </div>
@@ -86,128 +86,104 @@
     <partial name="_OrderTablePartial" model="Model"></partial>
 </section>
 
-@* Pagination *@
-<div class="d-flex justify-content-end align-items-center mt-2">
-    <p class="mb-0">Items Per page</p>
-    <select class="ms-3 form-select w-auto" aria-label="Default select example" id="ordersPageSize">
-        <option value="5" selected="@(PageSize == 5 ? true : false)">5</option>
-        <option value="10" selected="@(PageSize == 10 ? true : false)">10</option>
-        <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
-    </select>
-    <span class="mb-0 ms-2 me-2 d-none d-md-block" id="showing">Showing @(Math.Min(((PageIndex - 1) * PageSize) + 1,
-        TotalOrders)) -
-        @(Math.Min(PageIndex * PageSize, TotalOrders)) of @TotalOrders</span>
-    <p>@PageIndex</p>
-    <p>@TotalPage</p>
-    @if (PageIndex > 1)
-        {
-    <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="PreviousOrders">
-        <i class="fa fa-chevron-left"></i>
-    </a>
-        }
-        else
-    {
-        <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
-            <i class="fa fa-chevron-left"></i>
-        </button>
-    }
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var pageIndex = @PageIndex, pageSize = 5, searchString = "", sortColumn = "@SortColumn", isAsc = true, status = 0, fromDate = "", toDate = "", dateRange = "AllTime";
+            var ajaxRequest;
+            var debounceTimer;
 
-    @if (PageIndex < TotalPage)
-    {
-        <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="NextOrders">
-            <i class="fa fa-chevron-right"></i>
-        </a>
-    }
-    else
-    {
-        <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
-            <i class="fa fa-chevron-right"></i>
-        </button>
-    }
-</div>
+            function GetFilteredOrders() {
+                var SearchString = $("#searchOrders").val();
+                var pageSize = $("#ordersPageSize").val();
+                var status = $("#statusDropdown").val();
+                var dateRange = $("#dateRange").val();
+                var fromDate = $("#fromDate").val();
+                var toDate = $("#toDate").val();
 
-<script>
-    $(document).ready(function () {
-        var pageIndex = @PageIndex, pageSize = 5, searchString = "", sortColumn = "", isAsc = true, status = 0, fromDate = "", toDate = "", dateRange = "AllTime";
-        var ajaxRequest;
-        var debounceTimer;
-
-        function GetFilteredOrders() {
-            var SearchString = $("#searchOrders").val();
-            var pageSize = $("#ordersPageSize").val();
-            var status = $("#statusDropdown").val();
-            var dateRange = $("#dateRange").val();
-            var fromDate = $("#fromDate").val();
-            var toDate = $("#toDate").val();
-
-            console.log(searchString, pageSize, pageIndex)
-
-            if (ajaxRequest && ajaxRequest.readyState !== 4) {
-                ajaxRequest.abort();
-            }
-            ajaxRequest = $.ajax({
-                url: "/Order/GetOrders",
-                type: "GET",
-                data: {
-                    pageIndex, pageSize, SearchString, sortColumn, isAsc, status, fromDate, toDate, dateRange
-                },
-                success: function (data) {
-                    console.log(data)
-                    $("#orderList").html(data);
+                if (ajaxRequest && ajaxRequest.readyState !== 4) {
+                    ajaxRequest.abort();
                 }
-            })
-        }
+                ajaxRequest = $.ajax({
+                    url: "/Order/GetOrders",
+                    type: "GET",
+                    data: {
+                        searchString: SearchString,
+                        pageIndex: pageIndex,
+                        pageSize: pageSize,
+                        sortColumn: sortColumn,
+                        isAsc: isAsc,
+                        status: status,
+                        fromDate: fromDate,
+                        toDate: toDate,
+                        dateRange: dateRange
+                    },
+                    success: function (data) {
+                        @* console.log(data) *@
+                            $("#orderList").html(data);
+                    }
+                })
+            }
 
-        $('#searchOrders').keyup(function () {
-            console.log("Search")
-            clearTimeout(debounceTimer);
-            pageIndex = 1
-            pageSize = @PageSize
-
-                debounceTimer = setTimeout(() => {
+            $('#statusDropdown').change(function () {
+                var pageIndex = 1;
+                @* console.log("Status DropDown"); *@
                     GetFilteredOrders();
-                }, 400)
-        })
+            })
 
-        $('#ordersPageSize').change(function () {
-            var pageIndex = 1
-            GetFilteredOrders();
-        })
+            $('#dateRange').change(function () {
+                var pageIndex = 1;
+                @* console.log("DateRange DropDown"); *@
+                    GetFilteredOrders();
+            })
 
-        $("#PreviousOrders").click(function () {
-            console.log("prev")
-            pageIndex -= 1;
-            GetFilteredOrders()
-        })
+            $('#searchDateRange').click(function () {
+                var pageIndex = 1;
+                @* console.log("From To dates DropDown"); *@
+                    GetFilteredOrders();
+            })
 
-        $('#NextOrders').click(function () {
-            console.log("next")
-            pageIndex += 1;
-            GetFilteredOrders()
-        })
+            $('#clearBtn').click(function () {
+                status = 0;
+                fromDate = "";
+                toDate = "";
+                dateRange = "AllTime";
+                searchString = "";
+                pageIndex = 1;
+                pageSize = 5;
 
-        $(document).on('click', '.sort-link', function (e) {
-            e.preventDefault();
-            sortOrder = $(this).data('sort');
-            GetFilteredOrders($(this).data('sort'));
-        });
+                $("#searchOrders").val("");
+                $("#ordersPageSize").val("5");
+                $("#statusDropdown").val("0");
+                $("#dateRange").val("AllTime");
+                $("#fromDate").val("");
+                $("#toDate").val("");
 
-        $('#statusDropdown').change(function () {
-            var pageIndex = 1;
-            console.log("Status DropDown");
-            GetFilteredOrders();
-        })
+                GetFilteredOrders();
+            });
 
-        $('#dateRange').change(function () {
-            var pageIndex = 1;
-            console.log("DateRange DropDown");
-            GetFilteredOrders();
+            $("#export").click(function () {
+                var SearchString = $("#searchOrders").val();
+                var pageSize = $("#ordersPageSize").val();
+                var status = $("#statusDropdown").val();
+                var dateRange = $("#dateRange").val();
+                var fromDate = $("#fromDate").val();
+                var toDate = $("#toDate").val();
+                var params = {
+                    searchString: SearchString,
+                    pageIndex: pageIndex,
+                    pageSize: pageSize,
+                    sortColumn: sortColumn,
+                    isAsc: isAsc,
+                    status: status,
+                    fromDate: fromDate,
+                    toDate: toDate,
+                    dateRange: dateRange
+                }
+                var url = '@Url.Action("ExportToExcel", "Order")';
+                var queryString = $.param(params);
+                window.location.href = url + '?' + queryString;
+            });
         })
-
-        $('#searchDateRange').click(function () {
-            var pageIndex = 1;
-            console.log("From To dates DropDown");
-            GetFilteredOrders();
-        })
-    })
-</script>
+    </script>
+}

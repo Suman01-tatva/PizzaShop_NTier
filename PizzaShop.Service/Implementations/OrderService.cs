@@ -15,11 +15,12 @@ namespace PizzaShop.Service.Implementations
             _orderRepository = orderRepository;
         }
 
-        public async Task<List<OrderViewModel>> GetAllOrders(
+        public async Task<(List<OrderViewModel> list, int count)> GetAllOrders(
             string searchString, int pageIndex, int pageSize, bool isAsc,
             DateOnly? fromDate, DateOnly? toDate, string sortColumn, int status, string dateRange)
         {
-            var orders = await _orderRepository.GetAllOrders(searchString, pageIndex, pageSize, isAsc, fromDate, toDate, sortColumn, status, dateRange);
+            var (orders, count) = await _orderRepository.GetAllOrders(searchString, pageIndex, pageSize, isAsc, fromDate, toDate, sortColumn, status, dateRange);
+            orders = orders.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
             var filteredOrders = orders.Select(c => new OrderViewModel
             {
                 Id = c.Id,
@@ -35,14 +36,7 @@ namespace PizzaShop.Service.Implementations
                 Tax = c.Tax,
             }).ToList();
 
-            return filteredOrders;
-        }
-
-
-        public int TotalOrderCount()
-        {
-            int count = _orderRepository.TotalOrderCount();
-            return count;
+            return (filteredOrders, count);
         }
     }
 }

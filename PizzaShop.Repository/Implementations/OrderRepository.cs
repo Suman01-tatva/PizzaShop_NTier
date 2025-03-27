@@ -13,7 +13,7 @@ public class OrderRepository : IOrderRepository
     {
         _context = pizzashopContext;
     }
-    public async Task<List<Order>> GetAllOrders(string searchString, int pageIndex, int pageSize, bool isAsc, DateOnly? fromDate, DateOnly? toDate, string sortColumn, int status, string dateRange)
+    public async Task<(List<Order> list, int count)> GetAllOrders(string searchString, int pageIndex, int pageSize, bool isAsc, DateOnly? fromDate, DateOnly? toDate, string sortColumn, int status, string dateRange)
     {
 
         var query = _context.Orders.Include(i => i.Customer).Include(i => i.Feedbacks).Include(i => i.Invoices).ThenInclude(i => i.Payments).AsQueryable();
@@ -37,11 +37,11 @@ public class OrderRepository : IOrderRepository
             case "Last30Days":
                 fromDate = DateOnly.FromDateTime(DateTime.Now.AddDays(-30));
                 break;
-            // case "CurrentMonth":
-            //     var now = DateTime.Now;
-            //     fromDate = new DateOnly(now.Year, now.Month, 1);
-            //     toDate = fromDate.AddMonth(1).AddDays(-1);
-            //     break;
+            case "CurrentMonth":
+                var now = DateTime.Now;
+                fromDate = new DateOnly(now.Year, now.Month, 1);
+                toDate = new DateOnly(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month));
+                break;
             case "AllTime":
             default:
                 break;
@@ -57,33 +57,41 @@ public class OrderRepository : IOrderRepository
             query = query.Where(i => i.OrderDate <= toDate);
         }
 
-        if (isAsc)
+        //Sorting
+        switch (sortColumn)
         {
-            query = sortColumn.ToLower() switch
-            {
-                "customer" => query.OrderBy(i => i.Customer.Name),
-                "totalamount" => query.OrderBy(i => i.PaidAmount),
-                "date" => query.OrderBy(i => i.OrderDate),
-                _ => query.OrderBy(i => i.Id),
-            };
-        }
-        else
-        {
-            query = sortColumn.ToLower() switch
-            {
-                "customer" => query.OrderByDescending(i => i.Customer.Name),
-                "totalamount" => query.OrderByDescending(i => i.PaidAmount),
-                "date" => query.OrderByDescending(i => i.OrderDate),
-                _ => query.OrderByDescending(i => i.Id),
-            };
+            case "id_asc":
+                query = query.OrderBy(o => o.Id);
+                break;
+            case "id_desc":
+                query = query.OrderByDescending(o => o.Id);
+                break;
+
+            case "date_asc":
+                query = query.OrderBy(o => o.OrderDate);
+                break;
+            case "date_desc":
+                query = query.OrderByDescending(o => o.OrderDate);
+                break;
+
+            case "cust_asc":
+                query = query.OrderBy(o => o.Customer.Name).ThenBy(o => o.OrderDate);
+                break;
+            case "cust_desc":
+                query = query.OrderByDescending(o => o.Customer.Name).ThenByDescending(o => o.OrderDate);
+                break;
+            case "amount_asc":
+                query = query.OrderBy(o => o.TotalAmount).ThenBy(o => o.Customer.Name);
+                break;
+            case "amount_desc":
+                query = query.OrderByDescending(o => o.TotalAmount).ThenByDescending(o => o.Customer.Name);
+                break;
+            default:
+                query = query.OrderBy(o => o.Id);
+                break;
         }
 
-        return await query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
-    }
-
-    public int TotalOrderCount()
-    {
-        int count = _context.Orders.Count();
-        return count;
+        // var orders = await query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
+        return (query.ToList(), query.ToList().Count());
     }
 }
