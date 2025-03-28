@@ -224,9 +224,46 @@ public class AuthController : Controller
         return RedirectToAction("Login", "Auth");
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    [HttpGet]
+    public IActionResult Error(int statusCode)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        var refererUrl = Request.Headers["Referer"].ToString(); // Referer header is used to get the URL of the previous page from which request(Error) comes.
+
+        if (statusCode == 403 && !string.IsNullOrEmpty(refererUrl))
+        {
+            TempData["ToastrMessage"] = "You are not authorized to access this page.";
+            TempData["ToastrType"] = "error";
+            return Redirect(refererUrl);
+        }
+
+        // if (statusCode == 500 && !string.IsNullOrEmpty(refererUrl))
+        // {
+        //     TempData["error"] = "An error occurred while processing your request.";
+        //     return Redirect(refererUrl);
+        // }
+
+        string errorText = statusCode switch
+        {
+            // 403 => "Forbidden",
+            404 => "Page Not Found",
+            500 => "Internal Server Error",
+            _ => "Unexpected Error"
+        };
+
+        string subText = statusCode switch
+        {
+            // 403 => "You are not authorized to access this page.",
+            404 => "The page you are looking for does not exist.",
+            500 => "An error occurred while processing your request.",
+            _ => "Unexpected error occurred."
+        };
+
+        return View(new ErrorViewModel { statusCode = statusCode, errorText = errorText, subText = subText });
     }
+
+    // [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    // public IActionResult Error()
+    // {
+    //     return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    // }
 }

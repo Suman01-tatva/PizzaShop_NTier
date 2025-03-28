@@ -21,7 +21,7 @@ namespace PizzaShop.Service.Utils
 
         public static string? GetJWTToken(HttpRequest request)
         {
-            _ = request.Cookies.TryGetValue("SuperSecretAuthToken", out string? token);
+            _ = request.Cookies.TryGetValue("Token", out string? token);
             return token;
         }
 

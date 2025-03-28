@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PizzaShop.Entity.ViewModels;
+using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
 
 namespace PizzaShop.Web.Controllers;
+[CustomAuthorize]
 
 public class TableSectionController : Controller
 {
@@ -17,6 +19,7 @@ public class TableSectionController : Controller
         _sectionService = sectionService;
         _tokenDataService = tokenDataService;
     }
+    [CustomAuthorize("Table and Section", "CanView")]
     [HttpGet]
     public IActionResult TableSection(int? id, int pageSize = 5, int pageIndex = 1, string searchString = "")
     {
@@ -55,6 +58,7 @@ public class TableSectionController : Controller
         return sections;
     }
 
+    [CustomAuthorize("Table and Section", "CanView")]
     [HttpGet]
     public IActionResult GetAllSectionsForFilter()
     {
@@ -62,12 +66,13 @@ public class TableSectionController : Controller
         return PartialView("_SectionList", sections);
     }
 
+    // [CustomAuthorize("Table and Section", "CanView")]
     [HttpGet]
     public IActionResult AddNewTable()
     {
         return PartialView("_AddEditTable", new TableViewModel());
     }
-
+    [CustomAuthorize("Table and Section", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> AddNewTable(TableViewModel model)
     {
@@ -99,7 +104,7 @@ public class TableSectionController : Controller
             return Json(new { success = false, message = errorMessage });
         }
     }
-
+    [CustomAuthorize("Table and Section", "CanDelete")]
     [HttpPost]
     public async Task<IActionResult>? DeleteTable(int id)
     {
@@ -123,7 +128,7 @@ public class TableSectionController : Controller
             return Json(new { isSuccess = false, message = "Error While Delete Table. Please Try again!" });
         }
     }
-
+    [CustomAuthorize("Table and Section", "CanDelete")]
     [HttpPost]
     public async Task<IActionResult>? MultiDeleteTable(int[] itemIds)
     {
@@ -145,7 +150,7 @@ public class TableSectionController : Controller
             return Json(new { isSuccess = false, message = "Error While Delete Table. Please Try again!" });
         }
     }
-
+    // [CustomAuthorize("Table and Section", "CanEdit")]
     [HttpGet]
     public async Task<IActionResult> EditTable(int id)
     {
@@ -156,7 +161,7 @@ public class TableSectionController : Controller
         }
         return PartialView("_AddEditTable", table);
     }
-
+    [CustomAuthorize("Table and Section", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> EditTable(TableViewModel model)
     {
@@ -184,7 +189,7 @@ public class TableSectionController : Controller
             return Json(new { success = false, message = errorMessage });
         }
     }
-
+    // [CustomAuthorize("Table and Section", "CanEdit")]
     [HttpGet]
     public async Task<IActionResult> AddEditSection(int? id)
     {
@@ -194,7 +199,7 @@ public class TableSectionController : Controller
         var tableSection = await _sectionService.GetSectionByIdAsync(id.Value);
         return PartialView("_AddEditSection", tableSection);
     }
-
+    [CustomAuthorize("Table and Section", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> AddEditSection(SectionViewModel sectionViewModel)
     {
@@ -219,7 +224,7 @@ public class TableSectionController : Controller
             return Json(new { success = false, message = ex.Message });
         }
     }
-
+    [CustomAuthorize("Table and Section", "CanDelete")]
     [HttpPost]
     public async Task<IActionResult> DeleteSection(int id, bool softDelete = true)
     {

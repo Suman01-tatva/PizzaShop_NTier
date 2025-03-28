@@ -2,11 +2,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
+using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
 
 namespace PizzaShop.Web.Controllers;
 // [Route("api/[controller]")]
-// [ApiController]
+[CustomAuthorize]
 public class MenuController : Controller
 {
     private readonly IMenuService _menuService;
@@ -19,6 +20,7 @@ public class MenuController : Controller
         _tokenDataService = tokenDataService;
     }
 
+    [CustomAuthorize("Menu", "CanView")]
     [HttpGet]
     public async Task<IActionResult> Menu(int pageSize = 5, int pageIndex = 1, string searchString = "")
     {
@@ -46,6 +48,7 @@ public class MenuController : Controller
         return View(model);
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> AddCategory(MenuCategoryViewModel model)
     {
@@ -71,6 +74,8 @@ public class MenuController : Controller
 
         return RedirectToAction("Menu", "Menu");
     }
+
+    // [CustomAuthorize("Menu", "CanEdit")]
     [HttpGet]
     public async Task<IActionResult> EditCategory(int id)
     {
@@ -82,6 +87,7 @@ public class MenuController : Controller
         return PartialView("_EditCategory", category);
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> EditCategory(MenuCategoryViewModel model)
     {
@@ -106,6 +112,7 @@ public class MenuController : Controller
         return Json(new { success = false, message = "Invalid data." });
     }
 
+    // [CustomAuthorize("Menu", "CanView")]
     [HttpGet]
     public async Task<IActionResult> GetItemsByCategory(int categoryId, int pageSize, int pageIndex, string searchString = "")
     {
@@ -124,6 +131,7 @@ public class MenuController : Controller
         return PartialView("_ItemListPartial", model);
     }
 
+    [CustomAuthorize("Menu", "CanDelete")]
     [HttpPost]
     public IActionResult DeleteCategory(int id)
     {
@@ -156,12 +164,14 @@ public class MenuController : Controller
         return categories;
     }
 
+    // [CustomAuthorize("Menu", "CanEdit")]
     [HttpGet]
     public IActionResult AddItem()
     {
         return PartialView("_AddItem", new MenuItemViewModel());
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> AddItem(MenuItemViewModel model)
     {
@@ -207,6 +217,7 @@ public class MenuController : Controller
         }
     }
 
+    // [CustomAuthorize("Menu", "CanEdit")]
     [HttpGet]
     public async Task<IActionResult> EditMenuItem(int itemId)
     {
@@ -215,6 +226,7 @@ public class MenuController : Controller
         return Json(new { data = menuItem });
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> EditMenuItem(MenuItemViewModel menuItemViewModel)
     {
@@ -256,6 +268,7 @@ public class MenuController : Controller
         return PartialView("_EditItem", menuItemViewModel);
     }
 
+    [CustomAuthorize("Menu", "CanDelete")]
     [HttpPost]
     public async Task<IActionResult>? DeleteMenuItem(int id)
     {
@@ -277,6 +290,7 @@ public class MenuController : Controller
         }
     }
 
+    [CustomAuthorize("Menu", "CanDelete")]
     [HttpPost]
     public async Task<IActionResult>? MultiDeleteMenuItem(int[] itemIds)
     {
@@ -298,13 +312,14 @@ public class MenuController : Controller
     }
 
     // Modifier Section
-
+    // [CustomAuthorize("Menu", "CanEdit")]
     [HttpGet]
     public IActionResult AddModifier()
     {
         return PartialView("_AddModifier", new MenuModifierViewModel());
     }
 
+    // [CustomAuthorize("Menu", "CanEdit")]
     [HttpGet]
     public IActionResult EditModifier()
     {

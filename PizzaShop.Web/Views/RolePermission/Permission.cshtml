@@ -74,75 +74,150 @@
    </div>
 
 <script>
+    
     document.addEventListener("DOMContentLoaded", function () {
-        const permissionCheckboxes = document.querySelectorAll(".permission-checkbox");
+    const permissionCheckboxes = document.querySelectorAll(".permission-checkbox");
+    const selectAllCheckbox = document.getElementById("selectAll");
 
-        permissionCheckboxes.forEach(checkbox => {
-            togglePermissionFields(checkbox.dataset.index, checkbox.checked);
-            checkbox.addEventListener("change", function () {
-                togglePermissionFields(this.dataset.index, this.checked);
-            });
+    // Function to check "Select All" status
+    function updateSelectAllCheckbox() {
+        const totalPermissions = permissionCheckboxes.length;
+        const checkedPermissions = document.querySelectorAll(".permission-checkbox:checked").length;
+        selectAllCheckbox.checked = totalPermissions === checkedPermissions;
+    }
+
+    // Initialize on page load
+    permissionCheckboxes.forEach(checkbox => {
+        togglePermissionFields(checkbox.dataset.index, checkbox.checked);
+        checkbox.addEventListener("change", function () {
+            togglePermissionFields(this.dataset.index, this.checked);
+            updateSelectAllCheckbox();
         });
+    });
 
-        function togglePermissionFields(index, isChecked) {
-            const canView = document.querySelector(`.can-view[data-index='${index}']`);
+    // Function to toggle permission fields
+    function togglePermissionFields(index, isChecked) {
+        const canView = document.querySelector(`.can-view[data-index='${index}']`);
+        const canAddEdit = document.querySelector(`.can-addedit[data-index='${index}']`);
+        const canDelete = document.querySelector(`.can-delete[data-index='${index}']`);
+        const permissionCheckbox = document.querySelector(`.permission-checkbox[data-index='${index}']`);
+
+        if (isChecked) {
+            // Enable all fields if permission checkbox is checked
+            canView.disabled = false;
+            canView.checked = true;
+
+            canAddEdit.disabled = false;
+
+            canDelete.disabled = false;
+        } else {
+            // Disable and uncheck all fields if permission checkbox is unchecked
+            canView.checked = false;
+            canAddEdit.checked = false;
+            canDelete.checked = false;
+
+            canView.disabled = true;
+            canAddEdit.disabled = true;
+            canDelete.disabled = true;
+        }
+    }
+
+    // "Select All" functionality
+    selectAllCheckbox.addEventListener("change", function () {
+        const isChecked = this.checked;
+        permissionCheckboxes.forEach(chk => {
+            chk.checked = isChecked;
+            togglePermissionFields(chk.dataset.index, isChecked);
+        });
+    });
+
+    // Logic for "Can View" - Disable others if unchecked
+    document.querySelectorAll(".can-view").forEach(viewCheckbox => {
+        viewCheckbox.addEventListener("change", function () {
+            const index = this.dataset.index;
             const canAddEdit = document.querySelector(`.can-addedit[data-index='${index}']`);
             const canDelete = document.querySelector(`.can-delete[data-index='${index}']`);
+            const permissionCheckbox = document.querySelector(`.permission-checkbox[data-index='${index}']`);
 
-            if (isChecked) {
-                canView.disabled = false;
-                canAddEdit.disabled = false;
-                canDelete.disabled = false;
-                canView.checked = true;
-                canAddEdit.checked = true;
-                canDelete.checked = true;
-            } else {
-                canView.checked = false;
+            if (!this.checked) {
                 canAddEdit.checked = false;
-                canDelete.checked = false;
-                canView.disabled = true;
                 canAddEdit.disabled = true;
+
+                canDelete.checked = false;
                 canDelete.disabled = true;
+
+                permissionCheckbox.checked = false;
+                updateSelectAllCheckbox();
+            } else {
+                checkAndUncheckPermissionCheckbox(index);
+                updateSelectAllCheckbox();
+                canAddEdit.disabled = false;
+            }
+        });
+    });
+
+    // Logic for "Can Add/Edit" -> Disable "Can Delete" if unchecked
+    document.querySelectorAll(".can-addedit").forEach(addEditCheckbox => {
+        addEditCheckbox.addEventListener("change", function () {
+            const index = this.dataset.index;
+            const canDelete = document.querySelector(`.can-delete[data-index='${index}']`);
+
+            if (!this.checked) {
+                canDelete.checked = false;
+                canDelete.disabled = true;
+            } else {
+                canDelete.disabled = false;
             }
 
-            canView.addEventListener("change", function () {
-                    if (!this.checked) {
-                        canAddEdit.checked = false;
-                        canDelete.checked = false;
-                        canAddEdit.disabled = true;
-                        canDelete.disabled = true;
-                    } else {
-                        canAddEdit.disabled = false;
-                        canDelete.disabled = false;
-                    }
-                });
+            checkAndUncheckPermissionCheckbox(index);
+            updateSelectAllCheckbox();
+        });
+    });
+
+    // Logic for "Can Delete" -> Check parent if any is checked
+    document.querySelectorAll(".can-delete").forEach(deleteCheckbox => {
+        deleteCheckbox.addEventListener("change", function () {
+            const index = this.dataset.index;
+            checkAndUncheckPermissionCheckbox(index);
+            updateSelectAllCheckbox();
+        });
+    });
+
+    // Function to uncheck "Permission" if all fields are disabled
+    function checkAndUncheckPermissionCheckbox(index) {
+        const canView = document.querySelector(`.can-view[data-index='${index}']`);
+        const canAddEdit = document.querySelector(`.can-addedit[data-index='${index}']`);
+        const canDelete = document.querySelector(`.can-delete[data-index='${index}']`);
+        const permissionCheckbox = document.querySelector(`.permission-checkbox[data-index='${index}']`);
+
+        // If all are unchecked, uncheck the main permission
+        if (!canView.checked && !canAddEdit.checked && !canDelete.checked) {
+            permissionCheckbox.checked = false;
+        } else {
+            permissionCheckbox.checked = true;
         }
+    }
 
-        document.getElementById("selectAll").addEventListener("change", function () {
-            permissionCheckboxes.forEach(chk => {
-                chk.checked = this.checked;
-                togglePermissionFields(chk.dataset.index, this.checked);
-            });
+    // Handle hidden input value toggling for form submission
+    document.querySelectorAll("input[type='checkbox']").forEach(chk => {
+        chk.addEventListener("change", function () {
+            let hiddenInput = this.nextElementSibling;
+            if (hiddenInput && hiddenInput.type === "hidden") {
+                hiddenInput.value = this.checked ? "true" : "false";
+            }
         });
-        
-        document.querySelectorAll("input[type='checkbox']").forEach(chk => {
-            chk.addEventListener("change", function () {
-                let hiddenInput = this.nextElementSibling;
-                if (hiddenInput && hiddenInput.type === "hidden") {
-                    hiddenInput.value = this.checked ? "true" : "false";
-                }
-            });
-        });
+    });
 
-        $(function () {
+    $(function () {
             var successMessage = '@Html.Raw(TempData["SuccessUpdate"])';
             if (successMessage.trim() !== '') {
-                toastr.success(successMessage, "Success", {
+                toastr.success(successMessage, {
                     closeButton: true,
                     progressBar: true,
                     timeOut: 2000,
-                    positionClass: "toast-top-right"
+                    positionClass: "toast-bottom-right"
                 });
+                updateSelectAllCheckbox();
             }
         });
     });
