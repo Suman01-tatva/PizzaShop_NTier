@@ -80,7 +80,8 @@
                             <a href="javascript:void(0);" style="text-decoration: none; color: inherit;" class="edit-tax">
                                 <i class="fa-solid fa-file-pdf"></i>
                             </a>
-                            <a href="javascript:void(0)" style="text-decoration: none; color: inherit;">
+                            <a href="javascript:void(0)" style="text-decoration: none; color: inherit;"
+                                onclick="window.location.href = '@Url.Action("OrderDetails", "Order", new { id = order.Id })'">
                                 <i class="fas fa-eye"></i>
                             </a>
                         </td>
@@ -100,15 +101,15 @@
         <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
     </select>
     <span class="mb-0 ms-2 me-2 d-none d-md-block" id="showing">Showing @(Math.Min(((PageIndex - 1) * PageSize) + 1,
-        TotalOrders)) -
+                TotalOrders)) -
         @(Math.Min(PageIndex * PageSize, TotalOrders)) of @TotalOrders</span>
     @if (PageIndex > 1)
-        {
-    <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="PreviousOrders">
-        <i class="fa fa-chevron-left"></i>
-    </a>
-        }
-        else
+    {
+        <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="PreviousOrders">
+            <i class="fa fa-chevron-left"></i>
+        </a>
+    }
+    else
     {
         <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
             <i class="fa fa-chevron-left"></i>

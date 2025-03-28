@@ -196,4 +196,24 @@ public class OrderController : Controller
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
         }
     }
+
+    [HttpGet]
+    public async Task<IActionResult> OrderDetails(int id)
+    {
+        if (id == 0 || id == null)
+        {
+            TempData["ToastrMessage"] = "Order Records Not Found";
+            TempData["ToastrType"] = "error";
+            return RedirectToAction("Orders", "Order");
+        }
+        var orderDetails = await _orderService.OrderDetails(id);
+        if (orderDetails == null)
+        {
+            TempData["ToastrMessage"] = "Order Records Not Found";
+            TempData["ToastrType"] = "error";
+            return RedirectToAction("Orders", "Order");
+        }
+        return View(orderDetails);
+    }
+
 }

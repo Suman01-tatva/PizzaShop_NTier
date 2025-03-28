@@ -2,6 +2,7 @@ using PizzaShop.Entity.ViewModels;
 using PizzaShop.Repository.Interfaces;
 using PizzaShop.Service.Interfaces;
 using PizzaShop.Entity.Constants;
+using PizzaShop.Entity.Data;
 
 
 namespace PizzaShop.Service.Implementations
@@ -9,10 +10,16 @@ namespace PizzaShop.Service.Implementations
     public class OrderService : IOrderService
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly ITableRepository _tableRepository;
+        private readonly ISectionRepository _sectionRepository;
+        private readonly ITaxAndFeesRepository _taxAndFeesRepository;
 
-        public OrderService(IOrderRepository orderRepository)
+        public OrderService(IOrderRepository orderRepository, ITableRepository tableRepository, ISectionRepository sectionRepository, ITaxAndFeesRepository taxAndFeesRepository)
         {
             _orderRepository = orderRepository;
+            _tableRepository = tableRepository;
+            _sectionRepository = sectionRepository;
+            _taxAndFeesRepository = taxAndFeesRepository;
         }
 
         public async Task<(List<OrderViewModel> list, int count)> GetAllOrders(
@@ -37,6 +44,88 @@ namespace PizzaShop.Service.Implementations
             }).ToList();
 
             return (filteredOrders, count);
+        }
+
+        public async Task<OrderDetailsViewModel> OrderDetails(int id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            var order = await _orderRepository.OrderDetails(id);
+
+            if (order == null)
+            {
+                throw new Exception("Order not found");
+            }
+
+            var tableId = order.TableOrderMappings?.FirstOrDefault()?.TableId ?? 0;
+            TableViewModel? table = null;
+
+            if (tableId != 0)
+            {
+                table = await _tableRepository.GetTableById(tableId);
+            }
+            Section? section = null;
+            if (table!.SectionId != 0 || table.SectionId != null)
+            {
+                section = _sectionRepository.GetSectionById(table.SectionId);
+            }
+
+            var taxes = order.OrderTaxMappings?.ToList();
+            List<TaxesAndFee> OrderTaxesList = new List<TaxesAndFee>();
+            if (taxes != null)
+            {
+                foreach (var i in taxes)
+                {
+                    var tax = await _taxAndFeesRepository.GetTaxById(i.TaxId);
+                    OrderTaxesList.Add(tax);
+                }
+            }
+
+            // var modifiers = order?.OrderedItemModifierMappings.ToList();
+            // List<TaxesAndFee> OrderTaxesList = new List<TaxesAndFee>();
+            // if (taxes != null)
+            // {
+            //     foreach (var i in taxes)
+            //     {
+            //         var tax = await _taxAndFeesRepository.GetTaxById(i.TaxId);
+            //         OrderTaxesList.Add(tax);
+            //     }
+            // }
+
+            var model = new OrderDetailsViewModel
+            {
+                Id = order.Id,
+                CustomerId = order.CustomerId,
+                // InvoiceNo = order.Invoices,
+                OrderNo = order.OrderNo,
+                TotalAmount = order.TotalAmount,
+                Tax = order.Tax,
+                SubTotal = order.SubTotal,
+                Discount = order.Discount,
+                PaidAmount = order.PaidAmount,
+                Notes = order.Notes,
+                IsSgstSelected = order.IsSgstSelected,
+                CreatedAt = order.CreatedAt,
+                CreatedBy = order.CreatedBy,
+                ModifiedAt = order.ModifiedAt,
+                ModifiedBy = order.ModifiedBy,
+                Date = order.OrderDate,
+                CustomerName = order.Customer?.Name,
+                Status = (OrderConstants.OrderStatusEnum)order.OrderStatus,
+                Rating = order.Feedbacks?.FirstOrDefault()?.AvgRating,
+                CustomerEmail = order.Customer?.Email,
+                CustomerPhone = order.Customer?.Phone,
+                TableId = order.TableOrderMappings?.FirstOrDefault()?.TableId ?? 0,
+                NoOfPeople = order.TableOrderMappings?.FirstOrDefault()?.NoOfPeople,
+                TableName = table!.Name,
+                SectionName = section!.Name,
+                OrderedItems = order.OrderedItems?.ToList(),
+                OrderTaxes = OrderTaxesList!.ToList()
+                // Modifiers = order.OrderedItems.
+            };
+            return model;
         }
     }
 }

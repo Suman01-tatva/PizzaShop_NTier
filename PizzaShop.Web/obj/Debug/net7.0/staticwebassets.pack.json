@@ -265,6 +265,10 @@
       "PackagePath": "staticwebassets\\images\\dining-menu.png"
     },
     {
+      "Id": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\dining-table.png",
+      "PackagePath": "staticwebassets\\images\\dining-table.png"
+    },
+    {
       "Id": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\dominos_background.jpg",
       "PackagePath": "staticwebassets\\images\\dominos_background.jpg"
     },
@@ -291,6 +295,10 @@
     {
       "Id": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\graph2.png",
       "PackagePath": "staticwebassets\\images\\graph2.png"
+    },
+    {
+      "Id": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\greater-than-symbol.png",
+      "PackagePath": "staticwebassets\\images\\greater-than-symbol.png"
     },
     {
       "Id": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\customer.svg",
@@ -339,6 +347,10 @@
     {
       "Id": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\icons\\waiting-time.svg",
       "PackagePath": "staticwebassets\\images\\icons\\waiting-time.svg"
+    },
+    {
+      "Id": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\less-than-symbol.png",
+      "PackagePath": "staticwebassets\\images\\less-than-symbol.png"
     },
     {
       "Id": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Web\\wwwroot\\images\\logos\\icons8-facebook-48.png",

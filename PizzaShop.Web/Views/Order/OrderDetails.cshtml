@@ -1,0 +1,150 @@
+@model PizzaShop.Entity.ViewModels.OrderDetailsViewModel;
+@using PizzaShop.Entity.Constants;
+
+<div class="d-flex justify-content-end mt-4 mx-3">
+    <a href="@Url.Action("Orders", "Order")" style="text-decoration: none;">
+        <button type="button" class="outline-btn">
+            <img src="~/images/less-than-symbol.png" alt="bak-btn" style="height: 20px; width: 20px;">
+            Back
+        </button>
+    </a>
+</div>
+<div class="mx-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="page-title">Order-Details</h2>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="card mb-3">
+        <div class="card-body d-flex justify-content-between">
+            <div>
+                <h5 class="card-title fw-bold">Order Summary <span class="badge bg-success">@Model.Status</span></h5>
+                <p class="mb-1 mt-2" style="font-size: 13px;"><strong>Invoice No.:</strong> @Model.InvoiceNo</p>
+                <div class="order-summary d-flex flex-wrap gap-4" style="font-size: 13px;">
+                    <div class="fw-bold">Paid on: @Model.PaidAmount</div>
+                    <div class="fw-bold">Placed on: @Model.CreatedAt</div>
+                    <div class="fw-bold">Placed on: @Model.ModifiedAt</div>
+
+                    @if (Model.Status == (OrderConstants.OrderStatusEnum.Completed))
+                    {
+                        <div class="text-muted">Order Duration: </div>
+                    }
+                </div>
+            </div>
+            <div>
+                <button type="button" onclick="exportViewOrderPdf()" class="fill-btn btn border-2">
+                    <span><i class="fa-solid fa-share-from-square me-1"></i></span>
+                    <span class="lh-sm">Export</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer & Table Details -->
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="fw-bold"><i class="fa-solid fa-user mx-2"></i> Customer Details</h5>
+                    <p><strong>Name: @Model.CustomerName</strong></p>
+                    <p><strong>Phone: @Model.CustomerPhone</strong></p>
+                    <p><strong>Email: @Model.CustomerEmail</strong></p>
+                    <p><strong>No Of Person: @Model.NoOfPeople</strong></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="fw-bold"><img src="~/images/dining-table.png" style="height: 30px; width:40px"></i> Table
+                        Details</h5>
+                    @* <p><strong>TableId: @Model.TableId</strong></p> *@
+                    <p><strong>Table: @Model.TableName</strong></p>
+                    <p><strong>Section: @Model.SectionName</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Items -->
+    <div class="card mb-3">
+        <div class="card-body table-responsive">
+            <h5 class="fw-bold">Order Items</h5>
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>Item</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.OrderedItems != null)
+                    {
+                        var srNo = 1;
+                        foreach (var item in Model.OrderedItems)
+                        {
+                            <tr>
+                                <td>@srNo</td>
+                                <td>@item.Name</td>
+                                <td>@item.Quantity</td>
+                                <td>₹@item.Rate</td>
+                                <td>₹@item.TotalAmount</td>
+                            </tr>
+                            srNo++;
+                        }
+                    }
+                </tbody>
+            </table>
+
+            <div class="text-end">
+                <div class="d-flex justify-content-end mb-2">
+                    <div class="me-3">Subtotal: @Model.SubTotal</div>
+                    <div>₹</div>
+                </div>
+                @if (Model.OrderTaxes != null)
+                {
+                    var srNo = 1;
+                    foreach (var item in Model.OrderTaxes)
+                    {
+                        <div>
+                            <div class="d-flex justify-content-end mb-2"></div>
+                            <div class="me-3">@item.Name: ₹@item.TaxValue</div>
+                        </div>
+                    }
+                    srNo++;
+                }
+                <div class="d-flex justify-content-end mb-2">
+                    <div class="me-3">Discount:@Model.Discount</div>
+                    <div>₹</div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <div class="me-3">Total: @Model.TotalAmount</div>
+                    <div>₹</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<script>
+    function exportViewOrderPdf() {
+        // Select the container you want to export
+        const element = document.querySelector('.container');
+
+        // Configure html2pdf options
+        const options = {
+            margin: 1,
+            filename: 'OrderDetails.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        // Generate and download the PDF
+        html2pdf().set(options).from(element).save();
+    }
+</script>

@@ -94,4 +94,16 @@ public class OrderRepository : IOrderRepository
         // var orders = await query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
         return (query.ToList(), query.ToList().Count());
     }
+
+    public async Task<Order> OrderDetails(int id)
+    {
+        var orderDetails = await _context.Orders.Where(o => o.Id == id)
+                                    .Include(i => i.Customer)
+                                    .Include(o => o.Invoices)
+                                    .Include(o => o.TableOrderMappings)
+                                    .Include(o => o.OrderedItems)
+                                    .ThenInclude(O => O.OrderedItemModifierMappings)
+                                    .Include(o => o.OrderTaxMappings).FirstOrDefaultAsync();
+        return orderDetails!;
+    }
 }

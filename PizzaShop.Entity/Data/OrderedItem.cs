@@ -19,15 +19,15 @@ public partial class OrderedItem
 
     public decimal? Amount { get; set; }
 
-    public decimal? TotelModifierAmount { get; set; }
+    public decimal? TotalModifierAmount { get; set; }
 
     public decimal? Tax { get; set; }
 
-    public decimal TotelAmount { get; set; }
+    public decimal TotalAmount { get; set; }
 
     public string? Instruction { get; set; }
 
-    public int[]? OrderStatus { get; set; }
+    public int? OrderStatus { get; set; }
 
     public bool? IsDeleted { get; set; }
 
