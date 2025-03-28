@@ -83,22 +83,24 @@ namespace PizzaShop.Service.Implementations
                 }
             }
 
-            // var modifiers = order?.OrderedItemModifierMappings.ToList();
-            // List<TaxesAndFee> OrderTaxesList = new List<TaxesAndFee>();
-            // if (taxes != null)
-            // {
-            //     foreach (var i in taxes)
-            //     {
-            //         var tax = await _taxAndFeesRepository.GetTaxById(i.TaxId);
-            //         OrderTaxesList.Add(tax);
-            //     }
-            // }
+            var Items = order.OrderedItems.Select(item => new OrderItemsViewModel
+            {
+                ItemName = item.Name,
+                Quantity = item.Quantity,
+                Price = item.Rate ?? 0,
+                TotalAmount = item.TotalAmount,
+                // Modifiers = string.Join(", ", item.OrderedItemModifierMappings.Select(m => m.Modifier.Name)),
+                Modifiers = item.OrderedItemModifierMappings.Select(m => m.Modifier.Name).ToString(),
+                QuantityOfModifier = item.OrderedItemModifierMappings.FirstOrDefault()?.QuantityOfModifier ?? 0,
+                ModifiersPrice = item.OrderedItemModifierMappings.Sum(m => m.RateOfModifier ?? 0),
+                TotalModifierAmount = item.TotalModifierAmount ?? 0
+            }).ToList();
 
             var model = new OrderDetailsViewModel
             {
                 Id = order.Id,
                 CustomerId = order.CustomerId,
-                // InvoiceNo = order.Invoices,
+                InvoiceNo = order.Invoices.FirstOrDefault()!.Id.ToString(),
                 OrderNo = order.OrderNo,
                 TotalAmount = order.TotalAmount,
                 Tax = order.Tax,
@@ -121,9 +123,8 @@ namespace PizzaShop.Service.Implementations
                 NoOfPeople = order.TableOrderMappings?.FirstOrDefault()?.NoOfPeople,
                 TableName = table!.Name,
                 SectionName = section!.Name,
-                OrderedItems = order.OrderedItems?.ToList(),
+                OrderedItems = Items,
                 OrderTaxes = OrderTaxesList!.ToList()
-                // Modifiers = order.OrderedItems.
             };
             return model;
         }

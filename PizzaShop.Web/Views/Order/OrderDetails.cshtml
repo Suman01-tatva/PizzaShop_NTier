@@ -88,10 +88,17 @@
                         {
                             <tr>
                                 <td>@srNo</td>
-                                <td>@item.Name</td>
+                                <td>@item.ItemName</td>
                                 <td>@item.Quantity</td>
-                                <td>₹@item.Rate</td>
+                                <td>₹@item.Price</td>
                                 <td>₹@item.TotalAmount</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>@item.Modifiers</td>
+                                <td>@item.ModifiersPrice</td>
+                                <td>@item.TotalModifierAmount</td>
+                                <td></td>
                             </tr>
                             srNo++;
                         }

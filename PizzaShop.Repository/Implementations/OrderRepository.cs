@@ -100,9 +100,11 @@ public class OrderRepository : IOrderRepository
         var orderDetails = await _context.Orders.Where(o => o.Id == id)
                                     .Include(i => i.Customer)
                                     .Include(o => o.Invoices)
-                                    .Include(o => o.TableOrderMappings)
+                                    .ThenInclude(p => p.Payments)
                                     .Include(o => o.OrderedItems)
                                     .ThenInclude(O => O.OrderedItemModifierMappings)
+                                    .ThenInclude(m => m.Modifier)
+                                    .Include(o => o.TableOrderMappings)
                                     .Include(o => o.OrderTaxMappings).FirstOrDefaultAsync();
         return orderDetails!;
     }
