@@ -77,7 +77,7 @@ app.UseRouting();
 // Add the authentication middleware
 app.UseAuthentication();
 app.UseAuthorization();
-
+// app.UseMiddleware<JwtValidationMiddleware>();
 app.UseMiddleware<IsFirstLoginMiddleware>(builder.Configuration["Jwt:Key"], "Token");
 app.MapControllerRoute(
     name: "default",
