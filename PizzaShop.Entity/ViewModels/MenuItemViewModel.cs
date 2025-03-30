@@ -49,15 +49,8 @@ public partial class MenuItemViewModel
 
     public int? ModifiedBy { get; set; }
 
-    // public virtual MenuCategory Category { get; set; } = null!;
-
-    // public virtual User CreatedByNavigation { get; set; } = null!;
-
-    // public virtual ICollection<MappingMenuItemsWithModifier> MappingMenuItemsWithModifiers { get; set; } = new List<MappingMenuItemsWithModifier>();
-
-    // public virtual User? ModifiedByNavigation { get; set; }
-
-    // public virtual ICollection<OrderedItem> OrderedItems { get; set; } = new List<OrderedItem>();
-
-    // public virtual Unit Unit { get; set; } = null!;
+    public List<ItemModifierViewModel>? ItemModifiersList { get; set; }
+    public List<Unit>? Units { get; set; }
+    public List<MenuModifierGroupViewModel>? ModifierGroups { get; set; }
+    public List<MenuCategoryViewModel>? Categories { get; set; }
 }

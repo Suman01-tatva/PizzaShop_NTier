@@ -89,7 +89,7 @@
                 <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
             </select>
             <span class="mb-0 ms-2 me-2 d-none d-md-block" id="showing">Showing @(Math.Min(((PageIndex - 1) * PageSize) + 1,
-                TotalItems)) -
+                            TotalItems)) -
             @(Math.Min(PageIndex * PageSize, TotalItems)) of @TotalItems</span>
         @if (PageIndex > 1)
             {
@@ -119,8 +119,8 @@
         </div>
     }
 </section>
-<partial name="_AddItem" model="new PizzaShop.Entity.ViewModels.MenuItemViewModel()"></partial>
-<partial name="_EditItem" model="new PizzaShop.Entity.ViewModels.MenuItemViewModel()"></partial>
+@* <partial name="_AddItem" model="new PizzaShop.Entity.ViewModels.MenuItemViewModel()"></partial>
+<partial name="_EditItem" model="new PizzaShop.Entity.ViewModels.MenuItemViewModel()"></partial> *@
 @* DeleteItemModel*@
 <div class="modal fade" id="deleteItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -172,6 +172,12 @@
             </div>
         </div>
     </div>
+</div>
+<div id="AddItemPartial">
+
+</div>
+<div id="EditItemPartial">
+
 </div>
 <script>
     var debounce;
@@ -251,20 +257,6 @@
     })
 
     @* Pagination Script *@
-        $(".itemCategory").click(function () {
-            categoryId = $(this).data("id");
-
-            $.ajax({
-                url: '/Menu/GetItemsByCategory',
-                type: 'GET',
-                data: { categoryId: categoryId, pageSize: @Model.PageSize, pageIndex: @Model.PageIndex, searchString: "" },
-                success: function (response) {
-                    @* console.log(response); *@
-                        $("#itemList").html(response);
-                }
-            })
-        })
-
     var pageIndex = @Model.PageIndex;
 
     function GetFilteredItems() {
@@ -313,6 +305,21 @@
         GetFilteredItems()
     })
 
+    $('.editItemBtn').click(function () {
+        var itemId = $(this).data("itemid");
+        console.log(itemId);
+        $.ajax({
+            url: "/Menu/EditMenuItem",
+            type: "GET",
+            data: { itemId: itemId },
+            success: function (data) {
+                if (data == null)
+                    window.location.href = "/Authentication/Login"
+                $("#EditItemPartial").html(data);
+                $("#EditItemModel").modal('show');
+            }
+        })
+    })
     @* EditItem *@
         $(document).ready(function () {
             $('#editItemForm').on('submit', function (e) {

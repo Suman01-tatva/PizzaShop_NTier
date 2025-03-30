@@ -75,8 +75,8 @@ add-user {
 .form-switch {
   padding-left: 2.5em;
 } */
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   #searchTaxInput {
     width: 150px !important;
   }
-}
+} */

@@ -98,3 +98,15 @@
 .section-heading {
   color: var(--textBlue);
 }
+
+@media (max-width: 767px) {
+  .left-section {
+    height: 200px;
+    overflow-y: auto;
+  }
+  .itemList-header {
+    display: flex;
+    flex-wrap: wrap !important;
+    background-color: white;
+  }
+}

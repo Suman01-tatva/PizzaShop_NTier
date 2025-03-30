@@ -88,17 +88,38 @@
                         {
                             <tr>
                                 <td>@srNo</td>
-                                <td>@item.ItemName</td>
-                                <td>@item.Quantity</td>
-                                <td>₹@item.Price</td>
-                                <td>₹@item.TotalAmount</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>@item.Modifiers</td>
-                                <td>@item.ModifiersPrice</td>
-                                <td>@item.TotalModifierAmount</td>
-                                <td></td>
+                                <td>@item.ItemName
+                                    <ul>
+                                        @foreach (var i in item.Modifiers)
+                                        {
+                                            <li>@i.Name</li>
+                                        }
+                                    </ul>
+                                </td>
+                                <td>@item.Quantity
+                                    <ul>
+                                        @foreach (var i in item.Modifiers)
+                                        {
+                                            <li>@i.Quantity</li>
+                                        }
+                                    </ul>
+                                </td>
+                                <td>₹@item.Price
+                                    <ul>
+                                        @foreach (var i in item.Modifiers)
+                                        {
+                                            <li>@i.Rate</li>
+                                        }
+                                    </ul>
+                                </td>
+                                <td>₹@item.TotalAmount
+                                    <ul>
+                                        @foreach (var i in item.Modifiers)
+                                        {
+                                            <li>@i.TotalAmount</li>
+                                        }
+                                    </ul>
+                                </td>
                             </tr>
                             srNo++;
                         }

@@ -1,7 +1,10 @@
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
+using PizzaShop.Repository.Interfaces;
 using PizzaShop.Service.Interfaces;
 
 namespace PizzaShop.Web.Controllers;
@@ -12,11 +15,13 @@ public class MenuController : Controller
     private readonly IMenuService _menuService;
     private readonly IMenuModifierService _menuModifierService;
     private readonly ITokenDataService _tokenDataService;
-    public MenuController(IMenuService menuService, IMenuModifierService menuModifierService, ITokenDataService tokenDataService)
+    private readonly IUnitRepository _unitRepository;
+    public MenuController(IMenuService menuService, IMenuModifierService menuModifierService, ITokenDataService tokenDataService, IUnitRepository unitRepository)
     {
         _menuService = menuService;
         _menuModifierService = menuModifierService;
         _tokenDataService = tokenDataService;
+        _unitRepository = unitRepository;
     }
 
     [HttpGet]
@@ -157,103 +162,139 @@ public class MenuController : Controller
     }
 
     [HttpGet]
-    public IActionResult AddItem()
+    public async Task<IActionResult> AddItem()
     {
-        return PartialView("_AddItem", new MenuItemViewModel());
+        List<MenuModifierGroupViewModel> ModifierGroups = await _menuModifierService.GetAllMenuModifierGroupAsync();
+        List<Unit> units = _menuService.GetAllUnits();
+        List<MenuCategoryViewModel> categories = await _menuService.GetAllMenuCategoriesAsync();
+        var model = new MenuItemViewModel
+        {
+            Units = units,
+            Categories = categories,
+            ModifierGroups = ModifierGroups
+        };
+        return PartialView("_AddItem", model);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> AddItem(MenuItemViewModel model)
-    {
-        if (ModelState.IsValid)
-        {
-            var token = Request.Cookies["Token"];
-            var (email, id, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
+    // [HttpPost]
+    // public async Task<IActionResult> AddItem(MenuItemViewModel model)
+    // {
+    //     if (ModelState.IsValid)
+    //     {
+    //         var token = Request.Cookies["Token"];
+    //         var (email, id, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
 
+    //         bool isItemExist = _menuService.IsItemExist(model.Name, model.CategoryId);
+    //         if (isItemExist)
+    //         {
+    //             TempData["ToastrMessage"] = "Item Already Exist";
+    //             TempData["ToastrType"] = "error";
+    //             return RedirectToAction("Menu", "Menu");
+    //         }
+
+    //         // ItemTabViewModel MenuItemTab = _menuService.GetCategoryItem(5, 1, "");
+
+    //         try
+    //         {
+    //             var response = _menuService.AddNewItem(model, int.Parse(id));
+    //         }
+    //         catch (Exception e)
+    //         {
+    //             TempData["ToastrMessage"] = "Error While Add New Item!";
+    //             TempData["ToastrType"] = "error";
+    //             return RedirectToAction("Menu", "Menu");
+    //         }
+    //         TempData["ToastrMessage"] = "Item Added Successfully";
+    //         TempData["ToastrType"] = "success";
+    //         return RedirectToAction("Menu", "Menu");
+    //     }
+    //     else
+    //     {
+    //         foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+    //         {
+    //             Console.WriteLine(error.ErrorMessage);
+    //         }
+    //         TempData["ToastrMessage"] = "Item Not Added";
+    //         TempData["ToastrType"] = "error";
+    //         // ItemTabViewModel MenuItemTab = _menuService.GetCategoryItem(5, 1, "");
+    //         return RedirectToAction("Menu", "Menu");
+    //     }
+    // }
+
+    [HttpPost]
+    public async Task<IActionResult> AddItem(MenuItemViewModel model, string ItemModifiers)
+    {
+        if (!ModelState.IsValid)
+        {
+            return Json(new { isValid = false, message = "Please fill all required field" });
+        }
+        var token = Request.Cookies["Token"];
+        if (string.IsNullOrEmpty(token))
+            return RedirectToAction("Login", "Authentication");
+
+        var (email, id, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
+        try
+        {
             bool isItemExist = _menuService.IsItemExist(model.Name, model.CategoryId);
             if (isItemExist)
             {
-                TempData["ToastrMessage"] = "Item Already Exist";
-                TempData["ToastrType"] = "error";
-                return RedirectToAction("Menu", "Menu");
+                return Json(new { isExist = true, message = "This item is already exist" });
             }
-
-            // ItemTabViewModel MenuItemTab = _menuService.GetCategoryItem(5, 1, "");
-
-            try
-            {
-                var response = _menuService.AddNewItem(model, int.Parse(id));
-            }
-            catch (Exception e)
-            {
-                TempData["ToastrMessage"] = "Error While Add New Item!";
-                TempData["ToastrType"] = "error";
-                return RedirectToAction("Menu", "Menu");
-            }
-            TempData["ToastrMessage"] = "Item Added Successfully";
-            TempData["ToastrType"] = "success";
-            return RedirectToAction("Menu", "Menu");
         }
-        else
+        catch (System.Exception)
         {
-            foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-            {
-                Console.WriteLine(error.ErrorMessage);
-            }
-            TempData["ToastrMessage"] = "Item Not Added";
-            TempData["ToastrType"] = "error";
-            // ItemTabViewModel MenuItemTab = _menuService.GetCategoryItem(5, 1, "");
-            return RedirectToAction("Menu", "Menu");
+            return Json(new { isSuccess = false, message = "Error while add new item" });
+        }
+
+
+        List<ItemModifierViewModel> itemModifiers = new List<ItemModifierViewModel>();
+        if (!string.IsNullOrEmpty(ItemModifiers))
+        {
+            itemModifiers = JsonSerializer.Deserialize<List<ItemModifierViewModel>>(ItemModifiers);
+        }
+        model.ItemModifiersList = itemModifiers;
+        try
+        {
+            var response = await _menuService.AddNewItem(model, int.Parse(id));
+            return Json(new { isSuccess = true, message = "Item added successfully" });
+        }
+        catch (Exception e)
+        {
+            return Json(new { isSuccess = false, message = "Error while add new item" });
         }
     }
 
     [HttpGet]
     public async Task<IActionResult> EditMenuItem(int itemId)
     {
-        var menuItem = _menuService.GetMenuItemById(itemId);
-        // return PartialView("_EditItem", menuItem);
-        return Json(new { data = menuItem });
+        var menuItem = await _menuService.GetMenuItemById(itemId);
+        return PartialView("_EditItem", menuItem);
     }
 
     [HttpPost]
-    public async Task<IActionResult> EditMenuItem(MenuItemViewModel menuItemViewModel)
+    public async Task<IActionResult?> EditMenuItem([FromForm] MenuItemViewModel model, string ItemModifiers)
     {
-        if (!ModelState.IsValid)
-        {
-            return PartialView("_EditItem", menuItemViewModel);
-        }
-
+        var token = Request.Cookies["Token"];
+        if (string.IsNullOrEmpty(token))
+            return null;
+        var (email, id, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
+        if (email == null)
+            return null;
         try
         {
-            var AuthToken = Request.Cookies["Token"];
-            if (string.IsNullOrEmpty(AuthToken))
-                return null;
-
-            var (userEmail, id, isFirstLogin) = await _tokenDataService.GetEmailFromToken(AuthToken);
-            if (userEmail == null)
-                return null;
-
-            var result = await _menuService.EditItemAsync(menuItemViewModel, int.Parse(id));
-
-            if (result)
+            List<ItemModifierViewModel> itemModifiers = new List<ItemModifierViewModel>();
+            if (!string.IsNullOrEmpty(ItemModifiers))
             {
-                TempData["ToastrMessage"] = "Item edited successfully.";
-                TempData["ToastrType"] = "success";
-                return Json(new { success = true, redirectUrl = Url.Action("Menu") });
+                itemModifiers = JsonSerializer.Deserialize<List<ItemModifierViewModel>>(ItemModifiers);
             }
-            else
-            {
-                TempData["ToastrMessage"] = "Failed to update item.";
-                TempData["ToastrType"] = "error";
-            }
+            model.ItemModifiersList = itemModifiers;
+            _menuService.EditItem(model, int.Parse(id));
+            return Json(new { isSuccess = true, message = "Item updated successfully" });
         }
-        catch (Exception ex)
+        catch (System.Exception)
         {
-            Console.WriteLine(ex);
-            ModelState.AddModelError("", "Error editing item.");
+            return Json(new { isSuccess = false, message = "Error while edit item" });
         }
-
-        return PartialView("_EditItem", menuItemViewModel);
     }
 
     [HttpPost]
@@ -300,15 +341,14 @@ public class MenuController : Controller
     // Modifier Section
 
     [HttpGet]
-    public IActionResult AddModifier()
+    public async Task<IActionResult> AddModifier()
     {
-        return PartialView("_AddModifier", new MenuModifierViewModel());
-    }
-
-    [HttpGet]
-    public IActionResult EditModifier()
-    {
-        return PartialView("_EditModifier", new MenuModifierViewModel());
+        var modifierGroup = await _menuModifierService.GetAllMenuModifierGroupAsync();
+        var units = _unitRepository.GetAllUnits();
+        var modal = new AddEditModifierViewModel();
+        modal.Units = units;
+        modal.ModifierGroups = modifierGroup;
+        return PartialView("_AddModifier", modal);
     }
 
     [HttpGet]
@@ -333,5 +373,104 @@ public class MenuController : Controller
     {
         var modifiers = await _menuModifierService.GetAllMenuModifierGroupAsync();
         return Json(modifiers);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetModifiersByGroup(int id, string name)
+    {
+        List<MenuModifierViewModel> Modifiers = _menuModifierService.GetModifiersByGroupId(id);
+        var itemModifiers = new ItemModifierViewModel
+        {
+            ModifierList = Modifiers,
+            ModifierGroupId = id,
+            Name = name,
+        };
+        return PartialView("_ItemModifiers", itemModifiers);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddModifier(AddEditModifierViewModel model)
+    {
+        var AuthToken = Request.Cookies["Token"];
+
+        var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(AuthToken);
+
+        try
+        {
+            bool isAdded = _menuModifierService.AddModifier(model, int.Parse(userId));
+
+            if (isAdded)
+            {
+                return Json(new { isSuccess = true, message = "New modifier added successfully" });
+            }
+            else
+                return Json(new { isSuccess = false, message = "Modifier already exist" });  //if null is Modifier Exist
+        }
+        catch (System.Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return Json(new { isSuccess = false, message = "Error while add new modifier" });
+        }
+
+    }
+
+    [HttpGet]
+    public IActionResult EditModifier(int id)
+    {
+
+        var editModifier = _menuModifierService.GetModifierByid(id);
+        return PartialView("_EditModifier", editModifier);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditModifier(AddEditModifierViewModel model)
+    {
+        var AuthToken = Request.Cookies["Token"];
+        var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(AuthToken);
+        if (string.IsNullOrEmpty(email))
+            return null;
+        try
+        {
+            bool isEdited = _menuModifierService.EditModifier(model, int.Parse(userId));
+            if (isEdited)
+                return Json(new { isSuccess = true, message = "Modifier updated successfully" });
+            else
+                return Json(new { isSuccess = false, message = "Modifier is already exist" });
+        }
+        catch (System.Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return Json(new { isSuccess = false, message = "Error while edit modifier" });
+        }
+    }
+
+    [HttpPost]
+    public IActionResult DeleteModifier(int id)
+    {
+        try
+        {
+            _menuModifierService.DeleteModifier(id);
+            return Json(new { isSuccess = true, message = "Modifier deleted successfully" });
+        }
+        catch (System.Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return Json(new { isSuccess = false, isAuthenticate = true, message = "Error while delete modifier" });
+        }
+    }
+
+    [HttpPost]
+    public IActionResult DeleteMultipleModifier(int[] modifierIds)
+    {
+        try
+        {
+            _menuModifierService.DeleteMultipleModifiers(modifierIds);
+            return Json(new { isSuccess = true, message = "Modifiers deleted successfully" });
+        }
+        catch (System.Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return Json(new { isSuccess = true, message = "Error while delete Modifiers" });
+        }
     }
 }

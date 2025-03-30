@@ -172,7 +172,7 @@ public class TableSectionController : Controller
             }
             else
             {
-                return Json(new { success = false, message = "Table update failed!" });
+                return Json(new { success = false, message = "Table Already Exist!" });
             }
         }
         else

@@ -13,15 +13,23 @@ namespace PizzaShop.Service.Implementations
     {
         private readonly IMenuCategoryRepository _menuCategoryRepository;
         private readonly IMenuItemsRepository _menuItemRepository;
+        private readonly IMenuModifierGroupRepository _menuModifierGroupRepository;
         private readonly IUnitRepository _unitRepository;
+        private readonly IMenuModifierRepository _menuModifierRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IMappingMenuItemsWithModifierRepository _mappingMenuItemsWithModifierRepository;
 
-        public MenuService(IMenuCategoryRepository menuCategoryRepository, IMenuItemsRepository menuItemsRepository, IUnitRepository unitRepository, IUserRepository userRepository)
+
+
+        public MenuService(IMenuCategoryRepository menuCategoryRepository, IMenuItemsRepository menuItemsRepository, IUnitRepository unitRepository, IUserRepository userRepository, IMappingMenuItemsWithModifierRepository mappingMenuItemsWithModifierRepository, IMenuModifierGroupRepository menuModifierGroupRepository, IMenuModifierRepository menuModifierRepository)
         {
             _menuCategoryRepository = menuCategoryRepository ?? throw new ArgumentNullException(nameof(menuCategoryRepository));
             _menuItemRepository = menuItemsRepository ?? throw new ArgumentNullException(nameof(menuItemsRepository));
             _unitRepository = unitRepository ?? throw new ArgumentNullException(nameof(unitRepository));
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
+            _menuModifierRepository = menuModifierRepository ?? throw new ArgumentNullException(nameof(menuModifierRepository));
+            _menuModifierGroupRepository = menuModifierGroupRepository ?? throw new ArgumentNullException(nameof(menuModifierGroupRepository));
+            _mappingMenuItemsWithModifierRepository = mappingMenuItemsWithModifierRepository ?? throw new ArgumentNullException(nameof(mappingMenuItemsWithModifierRepository));
         }
 
         public async Task<List<MenuCategoryViewModel>> GetAllMenuCategoriesAsync()
@@ -166,7 +174,7 @@ namespace PizzaShop.Service.Implementations
             return _unitRepository.GetAllUnits();
         }
 
-        public bool AddNewItem(MenuItemViewModel model, int userId)
+        public async Task<bool> AddNewItem(MenuItemViewModel model, int userId)
         {
             string ProfileImagePath = null;
             if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
@@ -209,19 +217,26 @@ namespace PizzaShop.Service.Implementations
 
             bool item = _menuItemRepository.AddNewItem(menuItem);
             if (!item) return false;
+
+            bool isAddModifierMapping = await _mappingMenuItemsWithModifierRepository.AddMapping(model.ItemModifiersList, menuItem.Id, userId);
+            if (!isAddModifierMapping)
+                return false;
             return true;
         }
 
-        public bool IsItemExist(string name, int catId)
+        public async Task<MenuItemViewModel> GetMenuItemById(int id)
         {
-            return _menuItemRepository.IsItemExist(name, catId);
-        }
+            MenuItem item = _menuItemRepository.GetMenuItemById(id);
+            var units = _unitRepository.GetAllUnits();
+            var modifierGroups = _menuModifierGroupRepository.GetAllMenuModifierGroupsAsync();
+            List<MenuCategoryViewModel> Categories = await _menuCategoryRepository.GetAllMenuCategoriesAsync();
+            List<ItemModifierViewModel> ItemModifiersData = await _mappingMenuItemsWithModifierRepository.ModifierGroupDataByItemId(id);
 
-        [HttpGet]
-        // EditItem
-        public MenuItemViewModel GetMenuItemById(int itemId)
-        {
-            MenuItem item = _menuItemRepository.GetMenuItemById(itemId);
+            foreach (var m in ItemModifiersData)
+            {
+                List<MenuModifierViewModel>? ML = await GetModifiersByModifierGroup(m.Id);
+                m.ModifierList = ML;
+            }
             var menuItem = new MenuItemViewModel
             {
                 Id = item.Id,
@@ -235,85 +250,168 @@ namespace PizzaShop.Service.Implementations
                 UnitId = (int)(item.UnitId == null ? 0 : item.UnitId),
                 TaxPercentage = item.TaxPercentage,
                 ShortCode = item.ShortCode,
-                // ModifierGroupIds = item.ModifierGroupId,
                 Description = item.Description,
-                // ModifierGroups = modifierGroups,
-                // Units = units,
+                ModifierGroups = modifierGroups,
+                Units = units,
                 Image = item.Image,
-                // Categories = categoryList
+                Categories = Categories,
+                ItemModifiersList = ItemModifiersData
             };
+
             return menuItem;
         }
 
-        public async Task<bool> EditItemAsync(MenuItemViewModel model, int userId)
+        public async Task<List<MenuModifierViewModel>?> GetModifiersByModifierGroup(int? id)
         {
-            var item = _menuItemRepository.GetMenuItemById(model.Id);
+            var modifiers = _menuModifierRepository.GetModifiersByGroupId((int)id!);
+            var modifierList = new List<MenuModifierViewModel>();
 
-            string ProfileImagePath = null;
-            if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
+            foreach (var modifier in modifiers)
             {
-                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
-                if (!Directory.Exists(folderPath))
+                modifierList.Add(new MenuModifierViewModel
                 {
-                    Directory.CreateDirectory(folderPath);
-                }
-                var filename = Guid.NewGuid().ToString() + Path.GetExtension(model.ProfileImagePath.FileName);
-                var filePath = Path.Combine(folderPath, filename);
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    model.ProfileImagePath.CopyTo(stream);
-                }
-                ProfileImagePath = "/ProfileImages/" + filename;
+                    Id = modifier.Id,
+                    Name = modifier.Name,
+                    Description = modifier.Description,
+                    Rate = modifier.Rate,
+                    Quantity = modifier.Quantity,
+                    IsDeleted = modifier.IsDeleted,
+                    ModifierGroupId = modifier.ModifierGroupId,
+                });
             }
-            if (ProfileImagePath != null)
-                model.Image = ProfileImagePath;
-
-            item.CategoryId = model.CategoryId;
-            item.Name = model.Name;
-            item.Type = model.Type;
-            item.Rate = model.Rate;
-            item.Quantity = model.Quantity;
-            item.IsAvailable = model.IsAvailable;
-            item.Description = model.Description;
-            item.ShortCode = model.ShortCode;
-            item.IsFavourite = model.IsFavourite;
-            item.IsDefaultTax = model.IsDefaultTax;
-            item.UnitId = model.UnitId;
-            item.Image = model.Image;
-            item.ModifiedBy = userId;
-            item.TaxPercentage = model.TaxPercentage;
-
-            // if (!string.IsNullOrEmpty(model.RemovedGroups))
-            // {
-            //     var removedGroupIds = model.RemovedGroups.Split(',').Where(id => !string.IsNullOrEmpty(id)).Select(int.Parse).ToList();
-            //     foreach (var groupId in removedGroupIds)
-            //     {
-            //         var existingMapping = await _menuRepository.GetItemModifierMappingAsync(item.Id, groupId);
-            //         if (existingMapping != null)
-            //         {
-            //             await _menuRepository.RemoveItemModifierAsync(existingMapping);
-            //         }
-            //     }
-            // }
-
-            // foreach (var modifierGroupId in model.ModifierGroupIds)
-            // {
-            //     var existingMapping = await _menuRepository.GetItemModifierMappingAsync(item.Id, modifierGroupId);
-            //     if (existingMapping == null)
-            //     {
-            //         var itemModifier = new MappingMenuItemsWithModifier
-            //         {
-            //             MenuItemId = item.Id,
-            //             ModifierGroupId = modifierGroupId,
-            //             CreatedBy = userId
-            //         };
-
-            //         await _menuRepository.AddItemModifierAsync(itemModifier);
-            //     }
-            // }
-
-            return _menuItemRepository.UpdateMenuItem(item);
+            return modifierList;
         }
+
+        public bool IsItemExist(string name, int catId)
+        {
+            return _menuItemRepository.IsItemExist(name, catId);
+        }
+
+
+        public async Task EditItem(MenuItemViewModel model, int userId)
+        {
+            // string ItemImagePath = null;
+            // if (model.Image != null && model.Image.Length > 0)
+            // {
+            //     var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ItemImages");
+            //     if (!Directory.Exists(folderPath))
+            //     {
+            //         Directory.CreateDirectory(folderPath);
+            //     }
+            //     var filename = Guid.NewGuid().ToString() + Path.GetExtension(model.Image);
+            //     var filePath = Path.Combine(folderPath, filename);
+            //     using (var stream = new FileStream(filePath, FileMode.Create))
+            //     {
+            //         model.Image.CopyTo(stream);
+            //     }
+            //     ItemImagePath = "/ItemImages/" + filename;
+            // }
+            // if (ItemImagePath != null)
+            //     model.ImagePath = ItemImagePath;
+
+            _menuItemRepository.EditMenuItem(model, userId);
+
+            // if (model.ItemModifiers.Count > 0)
+            // {
+            var oldMapping = await _mappingMenuItemsWithModifierRepository.ModifierGroupDataByItemId(model.Id);
+            var newMapping = model.ItemModifiersList;
+            var deleteIds = new List<int?>();
+
+            var oldMappingId = new List<int>();
+            foreach (var om in oldMapping)
+                oldMappingId.Add((int)om.Id);
+
+            var AddMapping = new List<ItemModifierViewModel>();
+            var EditMapping = new List<ItemModifierViewModel>();
+
+            foreach (var m in newMapping)
+            {
+                if (m.Id == -1)
+                {
+                    AddMapping.Add(m);
+                }
+                else if (oldMappingId.IndexOf((int)m.Id) != -1)
+                {
+                    EditMapping.Add(m);
+                    oldMappingId.Remove((int)m.Id);
+                }
+            }
+            // also delete mapping (oldMappingId)
+            _mappingMenuItemsWithModifierRepository.DeleteMapping(oldMappingId);
+            _mappingMenuItemsWithModifierRepository.AddMapping(AddMapping, model.Id, userId);
+            _mappingMenuItemsWithModifierRepository.EditMappings(EditMapping, model.Id, userId);
+            // }
+        }
+
+        // public async Task<bool> EditItemAsync(MenuItemViewModel model, int userId)
+        // {
+        //     var item = _menuItemRepository.GetMenuItemById(model.Id);
+
+        //     string ProfileImagePath = null;
+        //     if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
+        //     {
+        //         var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
+        //         if (!Directory.Exists(folderPath))
+        //         {
+        //             Directory.CreateDirectory(folderPath);
+        //         }
+        //         var filename = Guid.NewGuid().ToString() + Path.GetExtension(model.ProfileImagePath.FileName);
+        //         var filePath = Path.Combine(folderPath, filename);
+        //         using (var stream = new FileStream(filePath, FileMode.Create))
+        //         {
+        //             model.ProfileImagePath.CopyTo(stream);
+        //         }
+        //         ProfileImagePath = "/ProfileImages/" + filename;
+        //     }
+        //     if (ProfileImagePath != null)
+        //         model.Image = ProfileImagePath;
+
+        //     item.CategoryId = model.CategoryId;
+        //     item.Name = model.Name;
+        //     item.Type = model.Type;
+        //     item.Rate = model.Rate;
+        //     item.Quantity = model.Quantity;
+        //     item.IsAvailable = model.IsAvailable;
+        //     item.Description = model.Description;
+        //     item.ShortCode = model.ShortCode;
+        //     item.IsFavourite = model.IsFavourite;
+        //     item.IsDefaultTax = model.IsDefaultTax;
+        //     item.UnitId = model.UnitId;
+        //     item.Image = model.Image;
+        //     item.ModifiedBy = userId;
+        //     item.TaxPercentage = model.TaxPercentage;
+
+        //     if (!string.IsNullOrEmpty(model.RemovedGroups))
+        //     {
+        //         var removedGroupIds = model.RemovedGroups.Split(',').Where(id => !string.IsNullOrEmpty(id)).Select(int.Parse).ToList();
+        //         foreach (var groupId in removedGroupIds)
+        //         {
+        //             var existingMapping = await _menuRepository.GetItemModifierMappingAsync(item.Id, groupId);
+        //             if (existingMapping != null)
+        //             {
+        //                 await _menuRepository.RemoveItemModifierAsync(existingMapping);
+        //             }
+        //         }
+        //     }
+
+        //     foreach (var modifierGroupId in model.ModifierGroupIds)
+        //     {
+        //         var existingMapping = await _menuRepository.GetItemModifierMappingAsync(item.Id, modifierGroupId);
+        //         if (existingMapping == null)
+        //         {
+        //             var itemModifier = new MappingMenuItemsWithModifier
+        //             {
+        //                 MenuItemId = item.Id,
+        //                 ModifierGroupId = modifierGroupId,
+        //                 CreatedBy = userId
+        //             };
+
+        //             await _menuRepository.AddItemModifierAsync(itemModifier);
+        //         }
+        //     }
+
+        //     return _menuItemRepository.UpdateMenuItem(item);
+        // }
 
         public void DeleteMenuItem(int id)
         {
