@@ -24,16 +24,17 @@ public interface IMenuService
 
     public List<Unit> GetAllUnits();
 
-    public bool AddNewItem(MenuItemViewModel item, int userId);
+    public Task<bool> AddNewItem(MenuItemViewModel item, int userId);
 
     public bool IsItemExist(string name, int catId);
 
-    public MenuItemViewModel GetMenuItemById(int itemId);
+    public Task<MenuItemViewModel> GetMenuItemById(int id);
+
+    public Task<List<MenuModifierViewModel>?> GetModifiersByModifierGroup(int? id);
 
     public void DeleteMenuItem(int id);
 
     public bool MultiDeleteMenuItem(int[] itemIds);
 
-    public Task<bool> EditItemAsync(MenuItemViewModel model, int userId);
-
+    public Task EditItem(MenuItemViewModel model, int userId);
 }

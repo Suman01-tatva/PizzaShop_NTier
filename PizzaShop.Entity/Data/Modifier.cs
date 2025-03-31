@@ -9,7 +9,7 @@ public partial class Modifier
 
     public int ModifierGroupId { get; set; }
 
-    public int UnitId { get; set; }
+    public int? UnitId { get; set; }
 
     public string Name { get; set; } = null!;
 

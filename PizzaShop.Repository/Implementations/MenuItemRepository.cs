@@ -74,10 +74,25 @@ public class MenuItemRepository : IMenuItemsRepository
         return item!;
     }
 
-    public void EditMenuItem(MenuItemViewModel model)
+
+    public void EditMenuItem(MenuItemViewModel model, int userId)
     {
         var menuItem = _context.MenuItems.FirstOrDefault(i => i.Id == model.Id);
 
+        menuItem!.CategoryId = model.CategoryId;
+        menuItem.Name = model.Name;
+        menuItem.Type = model.Type;
+        menuItem.Rate = model.Rate;
+        menuItem.Quantity = model.Quantity;
+        menuItem.IsAvailable = model.IsAvailable;
+        menuItem.UnitId = model.UnitId;
+        menuItem.IsDefaultTax = model.IsDefaultTax;
+        menuItem.TaxPercentage = model.TaxPercentage;
+        menuItem.ShortCode = model.ShortCode;
+        menuItem.Description = model.Description;
+        menuItem.Image = model.Image;
+        menuItem.ModifiedBy = userId;
+        menuItem.ModifiedAt = DateTime.UtcNow;
         _context.SaveChanges();
     }
 

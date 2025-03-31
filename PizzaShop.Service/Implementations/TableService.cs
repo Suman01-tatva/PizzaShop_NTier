@@ -90,23 +90,25 @@ public class TableService : ITableService
 
     public bool AdddTable(TableViewModel model, int userId)
     {
-        Table isTable = _tableRepository.IsTableExist(model.Name, model.SectionId, model.Id);
-
-        if (isTable == null)
+        Table table = _tableRepository.IsTableExist(model.Name, model.SectionId, model.Id);
+        if (table != null)
         {
-            var newTable = new Table
-            {
-                Name = model.Name,
-                SectionId = model.SectionId,
-                Capacity = model.Capacity,
-                IsAvailable = model.IsAvailable,
-                CreatedBy = userId,
-                CreatedAt = DateTime.UtcNow
-            };
-
-            return _tableRepository.AddTable(newTable);
+            return false;
         }
-        return false;
+        // if (isTable == null)
+        // {
+        var newTable = new Table
+        {
+            Name = model.Name,
+            SectionId = model.SectionId,
+            Capacity = model.Capacity,
+            IsAvailable = model.IsAvailable,
+            CreatedBy = userId,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        return _tableRepository.AddTable(newTable);
+        // }
     }
 
     public async Task<TableViewModel> GetTableById(int id)
@@ -117,19 +119,21 @@ public class TableService : ITableService
     public bool UpdateTable(TableViewModel model, int userId)
     {
         Table table = _tableRepository.IsTableExist(model.Name, model.SectionId, model.Id);
-
-        if (table != null)
+        if (table != null && table.Id != model.Id)
         {
-            table.Name = model.Name;
-            table.SectionId = model.SectionId;
-            table.Capacity = model.Capacity;
-            table.IsAvailable = model.IsAvailable;
-            table.CreatedBy = userId;
-            table.CreatedAt = DateTime.UtcNow;
-
-            return _tableRepository.UpdateTable(table);
+            return false;
         }
-        return false;
+        // if (table != null)
+        // {
+        table!.Name = model.Name;
+        table.SectionId = model.SectionId;
+        table.Capacity = model.Capacity;
+        table.IsAvailable = model.IsAvailable;
+        table.CreatedBy = userId;
+        table.CreatedAt = DateTime.UtcNow;
+
+        return _tableRepository.UpdateTable(table);
+        // }
     }
 
 }

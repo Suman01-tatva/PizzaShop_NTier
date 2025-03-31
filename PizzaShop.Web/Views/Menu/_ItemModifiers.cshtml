@@ -1,38 +1,47 @@
-@using PizzaShop.Entity.ViewModels
-@model IEnumerable<MappinMenuItemsWithModifierViewModel>
+@model PizzaShop.Entity.ViewModels.ItemModifierViewModel;
 
-@foreach (var group in Model)
-{
-    <div>
-        <p class="m-0 p-0">@group.</p>
-        <i class="fa-solid fa-trash" onclick="deleteModifierGroup(@group.Id)"></i>
-        <div class="row">
-            <div class="col">
-                <select asp-for="@group.MinSelectionRequired" class="form-control">
-                    @for (int i = 0; i <= 10; i++)
-                    {
-                        <option value="@i">@i</option>
-                    }
-                </select>
-            </div>
-            <div class="col">
-                <select asp-for="@group.MaxSelectionAllowed" class="form-control">
-                    @for (int i = 0; i <= 10; i++)
-                    {
-                        <option value="@i">@i</option>
-                    }
-                </select>
-            </div>
-        </div>
-
-        <ul>
-            @* @foreach (var modifier in group.Modifiers)
-            {
-                <div class="d-flex justify-content-between">
-                    <li>@modifier.Name </li>
-                    <li>@modifier.Price.ToString("C")</li>
-                </div>
-            } *@
-        </ul>
+<div class="modifier-group p-3" id="modifier-group-@Model.ModifierGroupId">
+  <div class="row">
+    <input type="hidden" class="modifierGrp-name" data-name="@Model.Name" data-id="@Model.ModifierGroupId">
+    <input type="hidden" class="mapping-id" data-id="@Model.Id">
+    <div class="d-flex justify-content-between">
+      <p class="fw-bold text-secondary">@Model.Name</p>
+      <i class="fa-solid fa-trash remove-modifier text-secondary" data-id="@Model.ModifierGroupId"></i>
     </div>
-}
+    <div class="col-md-6">
+      <select asp-for="@Model.Minselectionrequired" class="form-select min-value rounded-pill">
+        @for (int i = 0; i <= 10; i++)
+        {
+          <option value="@i">@i</option>
+        }
+      </select>
+    </div>
+    <div class="col-md-6">
+      <select asp-for="@Model.Maxselectionrequired" class="form-select max-value rounded-pill">
+        @for (int i = 0; i <= 10; i++)
+        {
+          <option value="@i">@i</option>
+        }
+      </select>
+    </div>
+    <ul class="mb-0">
+      @if (Model.ModifierList.Count > 0)
+      {
+        @foreach (var modifier in Model.ModifierList)
+        {
+          <div class="d-flex justify-content-between">
+            <li class="d-flex w-100 ps-2 justify-content-between"><span>@modifier.Name</span>
+              <span>@modifier.Rate.ToString("C")</span>
+            </li>
+          </div>
+        }
+      }
+      else
+      {
+        <div>
+          <p>No Modifiers Found</p>
+        </div>
+      }
+    </ul>
+  </div>
+</div>

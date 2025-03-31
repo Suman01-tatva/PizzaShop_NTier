@@ -145,15 +145,24 @@ public class OrderController : Controller
             worksheet.Cells[2, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
             worksheet.Cells[2, 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
 
-            if (pageData.FromDate.HasValue && pageData.ToDate.HasValue)
-            {
-                worksheet.Cells[4, 1, 5, 2].Merge = true;
-                worksheet.Cells[4, 1].Value = $"Date Range: {pageData.FromDate.Value.ToString("dd/MM/yyyy")} - {pageData.ToDate.Value.ToString("dd/MM/yyyy")}";
-                worksheet.Cells[4, 1].Style.Font.Size = 14;
-                worksheet.Cells[4, 1].Style.Font.Bold = true;
-                worksheet.Cells[4, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-                worksheet.Cells[4, 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-            }
+            // worksheet.Cells[2, 5, 3, 2].Merge = true;
+            worksheet.Cells[2, 5].Value = $"Search Text: {pageData.SearchString}";
+
+            // worksheet.Cells[4, 1, 5, 4].Merge = true;
+            worksheet.Cells[4, 1].Value = $"Date: {pageData.DateRange}";
+
+            // worksheet.Cells[4, 5, 5, 4].Merge = true;
+            worksheet.Cells[4, 5].Value = $"Status: {(OrderConstants.OrderStatusEnum)(pageData.Status)}";
+
+            // if (pageData.FromDate.HasValue && pageData.ToDate.HasValue)
+            // {
+            //     worksheet.Cells[4, 1, 5, 2].Merge = true;
+            //     worksheet.Cells[4, 1].Value = $"Date Range: {pageData.FromDate.Value.ToString("dd/MM/yyyy")} - {pageData.ToDate.Value.ToString("dd/MM/yyyy")}";
+            //     worksheet.Cells[4, 1].Style.Font.Size = 14;
+            //     worksheet.Cells[4, 1].Style.Font.Bold = true;
+            //     worksheet.Cells[4, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+            //     worksheet.Cells[4, 1].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+            // }
 
             // Add column headers
             worksheet.Cells[6, 1].Value = "Order ID";
@@ -178,7 +187,7 @@ public class OrderController : Controller
                 worksheet.Cells[row, 3, row, 5].Merge = true;
                 worksheet.Cells[row, 3].Value = order.CustomerName;
                 worksheet.Cells[row, 6, row, 8].Merge = true;
-                worksheet.Cells[row, 6].Value = order.Status;
+                worksheet.Cells[row, 6].Value = (OrderConstants.OrderStatusEnum)(order.Status);
                 worksheet.Cells[row, 9].Value = order.PaymentMode;
                 worksheet.Cells[row, 10].Value = order.Rating;
                 worksheet.Cells[row, 11].Value = order.TotalAmount;

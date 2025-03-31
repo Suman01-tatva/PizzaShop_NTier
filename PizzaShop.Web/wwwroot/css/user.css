@@ -133,11 +133,11 @@ a i {
   }
 }
 
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   #searchString {
     width: 150px !important;
   }
-}
+} */
 
 /* new */
 .form {

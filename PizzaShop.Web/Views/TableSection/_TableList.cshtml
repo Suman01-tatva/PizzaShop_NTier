@@ -19,9 +19,9 @@
             <thead>
                 <tr>
                     <th>
-                        <div class="form-check">
+                        @* <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                        </div>
+                        </div> *@
                     </th>
                     <th scope="col">Name</th>
                     <th scope="col">
@@ -84,7 +84,7 @@
                 <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
             </select>
             <span class="mb-0 ms-2 me-2 d-none d-md-block" id="showing">Showing @(Math.Min(((PageIndex - 1) * PageSize) + 1,
-                TotalItems)) -
+                            TotalItems)) -
             @(Math.Min(PageIndex * PageSize, TotalItems)) of @TotalItems</span>
         @if (PageIndex > 1)
             {
@@ -161,7 +161,7 @@
                 </p>
             </div>
             <div class="modal-footer d-flex justify-content-center border-0">
-                <button type="button" id="multiDeleteTableBtn" class="fill-btn">Yes</button>
+                <button type="button" id="multiDeleteTablesSubmit" class="fill-btn">Yes</button>
                 <button type="button" class="outline-btn" data-bs-dismiss="modal">
                     No
                 </button>
@@ -171,7 +171,19 @@
 </div>
 
 <script>
+    var deleteTableIds = [];
+
     $(document).ready(function () {
+        $('#tableList').on("click", ".tableCheckBox", function () {
+            var tableId = $(this).val();
+            if (this.checked == true) {
+                deleteTableIds.push(parseInt(tableId));
+                console.log(deleteTableIds);
+            }
+            else {
+                deleteTableIds = deleteTableIds.filter(id => id != parseInt(tableId));
+            }
+        })
         @* Delete Table Script *@
             function GetFilteredSections() {
                 var SearchString = $("#searchString").val();
@@ -211,6 +223,33 @@
             pageIndex += 1;
             console.log("Next")
             GetFilteredItems();
+        })
+
+        $(".deleteTable").click(function () {
+            deleteTableId = $(this).val();
+            console.log("DeleteTable", deleteTableId);
+            $('#deleteTableModal').modal('show');
+        })
+        $('#deleteTableBtn').click(function () {
+            $.ajax({
+                url: '/TableSection/DeleteTable',
+                type: 'post',
+                data: { id: deleteTableId },
+                success: function (response) {
+                    if (response == null) {
+                        window.location.href = "/Auth/Login";
+                        toastr.error("Your Session is Expired. Please Login Again!");
+                    }
+                    if (response.isSuccess) {
+                        GetFilteredSections();
+                        toastr.success(response.message);
+
+                    } else {
+                        toastr.error(response.message);
+                    }
+                    $("#deleteTableModal").modal('hide');
+                }
+            })
         })
     })
 </script>

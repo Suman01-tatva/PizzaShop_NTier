@@ -6,6 +6,7 @@ public class ModifierTabViewModel
 
     public List<MenuModifierViewModel>? modifier { get; set; }
 
+    public AddEditModifierViewModel? AddEditModifierViewModel { get; set; }
     public int PageSize { get; set; }
     public int PageIndex { get; set; }
     public string? SearchString { get; set; } = null!;

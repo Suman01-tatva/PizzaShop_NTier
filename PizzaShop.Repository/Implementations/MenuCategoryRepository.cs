@@ -67,14 +67,14 @@ public class MenuCategoryRepository : IMenuCategoryRepository
         }
     }
 
-    public bool GetCategoryByName(string name)
+    public MenuCategory GetCategoryByName(string name)
     {
         name = name.Trim().ToLower();
-        var category = _context.MenuCategories.FirstOrDefault(c => c.Name.ToLower() == name);
+        var category = _context.MenuCategories.FirstOrDefault(c => c.Name.ToLower() == name && c.IsDeleted == false);
         if (category != null)
         {
-            return true;
+            return category;
         }
-        return false;
+        return null!;
     }
 }

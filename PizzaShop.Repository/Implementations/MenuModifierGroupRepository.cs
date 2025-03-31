@@ -13,16 +13,16 @@ public class MenuModifierGroupRepository : IMenuModifierGroupRepository
     {
         _context = context;
     }
-    public async Task<List<MenuModifierGroupViewModel>> GetAllMenuModifierGroupsAsync()
+    public List<MenuModifierGroupViewModel> GetAllMenuModifierGroupsAsync()
     {
-        var modifierGroups = await _context.ModifierGroups
+        var modifierGroups = _context.ModifierGroups
         .Where(c => c.IsDeleted == false)
         .Select(c => new MenuModifierGroupViewModel
         {
             Id = c.Id,
             Name = c.Name,
             Description = c.Description
-        }).OrderBy(m => m.Name).ToListAsync();
+        }).OrderBy(m => m.Name).ToList();
 
         return modifierGroups;
     }

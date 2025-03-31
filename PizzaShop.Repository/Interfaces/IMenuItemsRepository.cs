@@ -15,7 +15,7 @@ public interface IMenuItemsRepository
 
     public MenuItem GetMenuItemById(int id);
 
-    public void EditMenuItem(MenuItemViewModel model);
+    public void EditMenuItem(MenuItemViewModel model, int userId);
 
     public void DeleteMenuItem(int id);
 

@@ -90,7 +90,15 @@ namespace PizzaShop.Service.Implementations
                 Price = item.Rate ?? 0,
                 TotalAmount = item.TotalAmount,
                 // Modifiers = string.Join(", ", item.OrderedItemModifierMappings.Select(m => m.Modifier.Name)),
-                Modifiers = item.OrderedItemModifierMappings.Select(m => m.Modifier.Name).ToString(),
+                Modifiers = item.OrderedItemModifierMappings.Select(m => new OrderItemModifierViewModel
+                {
+                    Id = m.Id,
+                    OrderItemid = m.OrderItemId,
+                    Name = m.Modifier.Name,
+                    Quantity = m.QuantityOfModifier,
+                    Rate = m.RateOfModifier,
+                    TotalAmount = m.RateOfModifier * m.QuantityOfModifier
+                }).ToList(),
                 QuantityOfModifier = item.OrderedItemModifierMappings.FirstOrDefault()?.QuantityOfModifier ?? 0,
                 ModifiersPrice = item.OrderedItemModifierMappings.Sum(m => m.RateOfModifier ?? 0),
                 TotalModifierAmount = item.TotalModifierAmount ?? 0

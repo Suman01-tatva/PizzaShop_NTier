@@ -19,9 +19,9 @@
             <thead>
                 <tr>
                     <th>
-                        <div class="form-check">
+                        @* <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                        </div>
+                        </div> *@
                     </th>
                     <th scope="col">Name</th>
                     <th scope="col">ItemType</th>
@@ -89,7 +89,7 @@
                 <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
             </select>
             <span class="mb-0 ms-2 me-2 d-none d-md-block" id="showing">Showing @(Math.Min(((PageIndex - 1) * PageSize) + 1,
-                TotalItems)) -
+                            TotalItems)) -
             @(Math.Min(PageIndex * PageSize, TotalItems)) of @TotalItems</span>
         @if (PageIndex > 1)
             {
@@ -119,8 +119,8 @@
         </div>
     }
 </section>
-<partial name="_AddItem" model="new PizzaShop.Entity.ViewModels.MenuItemViewModel()"></partial>
-<partial name="_EditItem" model="new PizzaShop.Entity.ViewModels.MenuItemViewModel()"></partial>
+@* <partial name="_AddItem" model="new PizzaShop.Entity.ViewModels.MenuItemViewModel()"></partial>
+<partial name="_EditItem" model="new PizzaShop.Entity.ViewModels.MenuItemViewModel()"></partial> *@
 @* DeleteItemModel*@
 <div class="modal fade" id="deleteItemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -173,10 +173,27 @@
         </div>
     </div>
 </div>
+<div id="AddItemPartial">
+
+</div>
+<div id="EditItemPartial">
+
+</div>
 <script>
     var debounce;
     var ajaxRequest;
     @* Delete Item Script *@
+      var deleteItemIds = [];
+    $('#itemsList').on("click", ".itemCheckBox", function () {
+        var itemId = $(this).val();
+        if (this.checked == true) {
+            deleteItemIds.push(parseInt(itemId));
+            @* console.log(deleteItemIds) *@
+        }
+        else {
+            deleteItemIds = deleteItemIds.filter(id => id != parseInt(itemId));
+        }
+    })
     var deleteItemId;
     $(".deleteItem").click(function () {
         deleteItemId = $(this).val();
@@ -212,59 +229,7 @@
         })
     })
 
-    var deleteItemIds = [];
-    $('#itemsList').on("click", ".itemCheckBox", function () {
-        var itemId = $(this).val();
-        if (this.checked == true) {
-            deleteItemIds.push(parseInt(itemId));
-        }
-        else {
-            deleteItemIds = deleteItemIds.filter(id => id != parseInt(itemId));
-        }
-    })
-    $('#multiDeleteBtn').click(function () {
-        if (deleteItemIds.length == 0) {
-            toastr.warning("Select at Least One Item");
-        } else {
-            $('#deleteMultipleItemModal').modal('show');
-        }
-    })
-    $('#multiDeleteItemBtn').click(function () {
-        $.ajax({
-            url: "/Menu/MultiDeleteMenuItem",
-            type: 'POST',
-            data: {
-                itemIds: deleteItemIds
-            },
-            success: function (response) {
-                if (response == null)
-                    window.location.href = "/Auth/Login"
-                if (response.isSuccess) {
-                    GetFilteredItems();
-                    toastr.success(response.message);
-                } else {
-                    toastr.error(response.message);
-                }
-                $("#deleteMultipleItemModal").modal('hide');
-            }
-        })
-    })
-
     @* Pagination Script *@
-        $(".itemCategory").click(function () {
-            categoryId = $(this).data("id");
-
-            $.ajax({
-                url: '/Menu/GetItemsByCategory',
-                type: 'GET',
-                data: { categoryId: categoryId, pageSize: @Model.PageSize, pageIndex: @Model.PageIndex, searchString: "" },
-                success: function (response) {
-                    @* console.log(response); *@
-                        $("#itemList").html(response);
-                }
-            })
-        })
-
     var pageIndex = @Model.PageIndex;
 
     function GetFilteredItems() {
@@ -313,6 +278,21 @@
         GetFilteredItems()
     })
 
+    $('.editItemBtn').click(function () {
+        var itemId = $(this).data("itemid");
+        console.log(itemId);
+        $.ajax({
+            url: "/Menu/EditMenuItem",
+            type: "GET",
+            data: { itemId: itemId },
+            success: function (data) {
+                if (data == null)
+                    window.location.href = "/Authentication/Login"
+                $("#EditItemPartial").html(data);
+                $("#EditItemModel").modal('show');
+            }
+        })
+    })
     @* EditItem *@
         $(document).ready(function () {
             $('#editItemForm').on('submit', function (e) {

@@ -436,3 +436,6 @@
 .canDelete {
   min-width: 150px;
 }
+thead {
+  border: black 15px;
+}

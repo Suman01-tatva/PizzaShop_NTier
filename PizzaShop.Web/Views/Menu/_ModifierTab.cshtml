@@ -2,11 +2,11 @@
 
 <section>
     <div class="row mx-0">
-        <aside class="col-md-3" style="background-color: #f5f5f5">
+        <aside class="col-md-3 left-section" style="background-color: #f5f5f5">
             <!-- Modifier header -->
             <div class="d-flex flex-wrap justify-content-between align-items-center p-2">
                 <h5>Modifier Group</h5>
-                <button class="btn btn-outline-primary" id="AddModifier" data-bs-target="#addModifierGroupModal"
+                <button class="outline-btn py-1 px-2" id="AddModifier" data-bs-target="#addModifierGroupModal"
                     data-bs-toggle="modal">
                     <i class="fa-solid fa-plus"></i>
                 </button>
@@ -27,11 +27,11 @@
                                 id="eye-icon" style="color: gray"></i>
                         </span>
                     </div>
-                    <button class="btn btn-outline-secondary me-3" id="multiDeleteModifiers">
+                    <button class="btn btn-outline-secondary me-3" id="multiDeleteModifiersBtn">
                         <i class="fa-solid fa-trash"></i>
                     </button>
-                    <button class="btn btn-primary me-3" id="addNewModifier">
-                        <i class="fa-solid fa-plus"></i>New Modifier
+                    <button class="fill-btn me-3" id="addNewModifier">
+                        <i class="fa-solid fa-plus"></i> New Modifier
                     </button>
                 </div>
 
@@ -137,15 +137,6 @@
         })
     })
 
-    $(".editModifierBtn").click(function () {
-        var modifierId = $(this).data("id");
-        console.log("ModifierId", modifierId);
-        $.get('@Url.Action("EditModifier", "Menu")', function (data) {
-            console.log("Modifier edited");
-            $("#EditModifierPartial").html(data);
-            $("#editModifiersModal").modal('show');
-        })
-    })
     $('.modifierGroup').click(function () {
         modifierGroupId = $(this).data("id");
         console.log("ModifierGroupId :", modifierGroupId);
@@ -155,6 +146,34 @@
             data: { modifierGroupId: modifierGroupId, pageSize: @Model.PageSize, pageIndex: @Model.PageIndex, searchString: "" },
             success: function (response) {
                 $('#modifierList').html(response);
+            }
+        })
+    })
+
+    $('#multiDeleteModifiersBtn').click(function () {
+        if (deleteModifierIds.length == 0) {
+            toastr.info("Select at Least One Item");
+        } else {
+            $('#deleteMultipleModifierModal').modal('show');
+        }
+    })
+    $('#multiDeleteItemBtn').click(function () {
+        $.ajax({
+            url: "/Menu/DeleteMultipleModifier",
+            type: 'POST',
+            data: {
+                itemIds: deleteModifierIds
+            },
+            success: function (response) {
+                if (response == null)
+                    window.location.href = "/Auth/Login"
+                if (response.isSuccess) {
+                    GetFilteredItems();
+                    toastr.success(response.message);
+                    $("#deleteMultipleModifierModal").modal('hide');
+                } else {
+                    toastr.error(response.message);
+                }
             }
         })
     })
