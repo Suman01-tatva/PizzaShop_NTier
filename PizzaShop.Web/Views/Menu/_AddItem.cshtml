@@ -200,7 +200,7 @@
                 type: 'GET',
                 data: { id: id, name: label },
                 success: function (response) {
-                    @* console.log(response); *@
+                    console.log(response);
                         $("#listModifiers").append(response);
                 },
                 error: function (error) {
@@ -231,7 +231,7 @@
                 Maxselectionrequired: maxValue
             });
         })
-        @* console.log("ItemModifiers" + modifiers.length); *@
+
         formData.append("ItemModifiers", JSON.stringify(modifiers));
 
         $.ajax({

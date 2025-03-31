@@ -183,6 +183,17 @@
     var debounce;
     var ajaxRequest;
     @* Delete Item Script *@
+      var deleteItemIds = [];
+    $('#itemsList').on("click", ".itemCheckBox", function () {
+        var itemId = $(this).val();
+        if (this.checked == true) {
+            deleteItemIds.push(parseInt(itemId));
+            @* console.log(deleteItemIds) *@
+        }
+        else {
+            deleteItemIds = deleteItemIds.filter(id => id != parseInt(itemId));
+        }
+    })
     var deleteItemId;
     $(".deleteItem").click(function () {
         deleteItemId = $(this).val();
@@ -214,44 +225,6 @@
                     });
                 }
                 $("#deleteItemModal").modal('hide');
-            }
-        })
-    })
-
-    var deleteItemIds = [];
-    $('#itemsList').on("click", ".itemCheckBox", function () {
-        var itemId = $(this).val();
-        if (this.checked == true) {
-            deleteItemIds.push(parseInt(itemId));
-        }
-        else {
-            deleteItemIds = deleteItemIds.filter(id => id != parseInt(itemId));
-        }
-    })
-    $('#multiDeleteBtn').click(function () {
-        if (deleteItemIds.length == 0) {
-            toastr.warning("Select at Least One Item");
-        } else {
-            $('#deleteMultipleItemModal').modal('show');
-        }
-    })
-    $('#multiDeleteItemBtn').click(function () {
-        $.ajax({
-            url: "/Menu/MultiDeleteMenuItem",
-            type: 'POST',
-            data: {
-                itemIds: deleteItemIds
-            },
-            success: function (response) {
-                if (response == null)
-                    window.location.href = "/Auth/Login"
-                if (response.isSuccess) {
-                    GetFilteredItems();
-                    toastr.success(response.message);
-                } else {
-                    toastr.error(response.message);
-                }
-                $("#deleteMultipleItemModal").modal('hide');
             }
         })
     })

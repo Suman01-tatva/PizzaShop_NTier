@@ -8,7 +8,7 @@
     var sortOrder = Model.SortOrder;
 }
 
-<section class="table-responsive shadow card">
+<section class="table-responsive shadow card p-2">
     <table class="table user-table mb-0">
         <thead>
             <tr>
@@ -31,7 +31,7 @@
                 <th scope="col">Action</th>
             </tr>
         </thead>
-        <tbody class="table-group-devider">
+        <tbody class="table-group-devider p-3">
             @if (@Model.UserList.Count() == 0)
             {
                 <tr>
@@ -103,15 +103,15 @@
         </select>
 
         <span class="mb-0 ms-2 me-2 d-none d-md-block" id="showing">Showing @(Math.Min(((PageIndex - 1) * PageSize) + 1,
-            TotalRecord)) -
+                        TotalRecord)) -
             @(Math.Min(PageIndex * PageSize, TotalRecord)) of @TotalRecord</span>
         @if (PageIndex > 1)
-                {
-        <a class="bg-llight border-1 bg-light px-2 btn btn-outline-dark mx-2" name="PageIndex" id="PreviousUsers">
-            <i class="fa fa-chevron-left"></i>
-        </a>
-                }
-                else
+        {
+            <a class="bg-llight border-1 bg-light px-2 btn btn-outline-dark mx-2" name="PageIndex" id="PreviousUsers">
+                <i class="fa fa-chevron-left"></i>
+            </a>
+        }
+        else
         {
             <button class="bg-llight border-1 bg-light px-2 btn btn-outline-dark" name="PageIndex" hidden>
                 <i class="fa fa-chevron-left"></i>

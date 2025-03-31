@@ -175,4 +175,33 @@
             }
         })
     }
+
+    $('#multiDeleteBtn').click(function () {
+        if (deleteItemIds.length == 0) {
+            toastr.warning("Select at Least One Item");
+        } else {
+            $('#deleteMultipleItemModal').modal('show');
+        }
+    })
+    $('#multiDeleteItemBtn').click(function () {
+        $.ajax({
+            url: "/Menu/MultiDeleteMenuItem",
+            type: 'POST',
+            data: {
+                itemIds: deleteItemIds
+            },
+            success: function (response) {
+                if (response == null)
+                    window.location.href = "/Auth/Login"
+                if (response.isSuccess) {
+                    GetFilteredItems();
+                    toastr.success(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+                $("#deleteMultipleItemModal").modal('hide');
+            }
+        })
+    })
+
 </script>

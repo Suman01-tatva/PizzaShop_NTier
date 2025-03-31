@@ -57,13 +57,13 @@ public class MenuController : Controller
             {
                 TempData["ToastrMessage"] = "Category created successfully.";
                 TempData["ToastrType"] = "success";
-                return Json(new { success = true, message = "Category Added successfully.", redirectUrl = Url.Action("Menu") });
+                return Json(new { success = true, message = "Category Added successfully." });
             }
             else
             {
                 TempData["ToastrMessage"] = "A category with this name already exists.";
                 TempData["ToastrType"] = "error";
-                return Json(new { success = false, message = "A category with this name already exists.", redirectUrl = Url.Action("Menu") });
+                return Json(new { success = false, message = "A category with this name already exists." });
             }
         }
 

@@ -158,7 +158,7 @@
                 });
             });
 
-            document.getElementById('imageInput').addEventListener('change', function (event) {
+            @* document.getElementById('imageInput').addEventListener('change', function (event) {
                 var file = event.target.files[0];
                 document.querySelector("#profile-img")
 
@@ -169,7 +169,31 @@
                     }
                     reader.readAsDataURL(file);
                 }
+            }); *@
             });
+
+        document.getElementById('imageInput').addEventListener("change", function (event) {
+            var file = event.target.files[0];
+            const uploadfile = document.querySelector('#imageInput');
+            if (file) {
+                if (!file.type.startsWith('image/')) {
+                    toastr.warning("Invalid file type. Please upload an image file.");
+                    uploadfile.value = '';
+                    return;
+                }
+                const maxSize = 2 * 1024 * 1024; // 5MB
+                if (file.size > maxSize) {
+                    toastr.warning("File size exceeds 2MB. Please choose a smaller image.");
+                    uploadfile.value = '';
+                    return;
+                }
+
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.querySelector("#profile-img").src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
         });
     </script>
 }

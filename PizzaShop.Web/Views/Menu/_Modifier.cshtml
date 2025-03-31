@@ -174,33 +174,6 @@
         console.log(deleteItemId);
         $('#deleteModifiersModal').modal('show');
     })
-    $('#multiDeleteModifiersBtn').click(function(){
-        if (deleteItemIds.length == 0) {
-            toastr.info("Select at Least One Item");
-        }else{
-            $('#deleteMultipleModifierModal').modal('show');
-        }
-    })
-    $('#multiDeleteItemBtn').click(function(){
-        $.ajax({
-            url: "/Menu/DeleteMultipleModifier",
-            type: 'POST',
-            data: {
-                itemIds: deleteItemIds
-            },
-            success: function (response) {
-                if (response == null)
-                    window.location.href = "/Auth/Login"
-                if (response.isSuccess) {
-                    GetFilteredItems();
-                    toastr.success(response.message);
-                $("#deleteMultipleModifierModal").modal('hide');
-                } else {
-                    toastr.error(response.message);
-                }
-            }
-        })
-    })
            @* Pagination Script *@
                     $(document).ready(function () {
 
@@ -266,6 +239,7 @@
                                         GetFilteredModifiers();
                                         toastr.success(response.message);
                                         $("#deleteModifiersModal").modal('hide');
+                                        $(".modal-backdrop").remove();
                                     } else {
                                         toastr.error(response.message);
                                     }

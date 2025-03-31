@@ -14,7 +14,7 @@
     var ToDate = Model.ToDate;
     var DateRange = Model.DateRange;
 }
-<div class="row my-1 mx-1">
+<div class="row my-1 mx-1 mt-3 d-flex align-items-center">
     <div class="col-xl-3 col-12 d-flex justify-content-xl-start justify-content-center">
         <h2 class="page-title">Orders</h2>
     </div>
@@ -60,7 +60,7 @@
     </div>
 </div>
 
-<div class="row d-flex justify-content-md-end align-items-center mx-1">
+<div class="row d-flex justify-content-md-end mx-1">
     <div class="col-xl-8 col-12 px-0">
         <div class="row">
             <div class="col-md-4 col-12 form-floating">
@@ -184,6 +184,16 @@
                 var queryString = $.param(params);
                 window.location.href = url + '?' + queryString;
             });
+
+            $("#fromDate").change(function () {
+                fromDate = $(this).val();
+                document.getElementById("toDate").setAttribute("min", fromDate);
+            })
+
+            $("#toDate").change(function () {
+                toDate = $(this).val();
+                document.getElementById("fromDate").setAttribute("max", toDate);
+            })
         })
     </script>
 }

@@ -242,7 +242,7 @@ namespace PizzaShop.Service.Implementations
 
             foreach (var m in ItemModifiersData)
             {
-                List<MenuModifierViewModel>? ML = await GetModifiersByModifierGroup(m.Id);
+                List<MenuModifierViewModel>? ML = await GetModifiersByModifierGroup(m.ModifierGroupId);
                 m.ModifierList = ML;
             }
             var menuItem = new MenuItemViewModel
