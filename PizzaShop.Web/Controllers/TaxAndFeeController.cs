@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PizzaShop.Entity.ViewModels;
+using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
 
 // [Route("tax")]
@@ -18,9 +19,12 @@ public class TaxAndFeeController : Controller
     }
 
     // [HttpGet("taxlist")]
+    [CustomAuthorize("Tax and Fees", "CanView")]
     [HttpGet]
     public async Task<IActionResult> TaxAndFee()
     {
+        Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0";
+        Response.Headers["Pragma"] = "no-cache";
         var taxes = await _taxesAndFeesService.GetAllTaxes();
         return View(taxes);
     }
@@ -31,6 +35,7 @@ public class TaxAndFeeController : Controller
     }
 
     // [HttpGet("taxform")]
+    [CustomAuthorize("Tax and Fees", "CanView")]
     [HttpGet]
     public async Task<IActionResult> TaxForm(int? id)
     {
@@ -43,6 +48,7 @@ public class TaxAndFeeController : Controller
     }
 
     // [HttpPost("addtax")]
+    [CustomAuthorize("Tax and Fees", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> AddTax(TaxAndFeesViewModel model)
     {
@@ -75,6 +81,7 @@ public class TaxAndFeeController : Controller
     }
 
     // [HttpPost("edit")]
+    [CustomAuthorize("Tax and Fees", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> EditTax(TaxAndFeesViewModel model)
     {
@@ -107,6 +114,7 @@ public class TaxAndFeeController : Controller
     }
 
     // [HttpPost("delete/{id}")]
+    [CustomAuthorize("Tax and Fees", "CanDelete")]
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
     {
@@ -139,6 +147,7 @@ public class TaxAndFeeController : Controller
     }
 
     // [HttpPost("updateStatus")]
+    [CustomAuthorize("Tax and Fees", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> UpdateStatus(int id, bool isActive, bool isDefault)
     {

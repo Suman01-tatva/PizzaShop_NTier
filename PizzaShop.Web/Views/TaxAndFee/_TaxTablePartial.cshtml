@@ -71,37 +71,23 @@
 </div>
     <script>
         $(document).ready(function () {
-    $(document).on('change', '.isDefaultSwitch', function () {
-        var checkbox = $(this);
-        var taxId = checkbox.closest('tr').find('.edit-tax').data('id');
-        
-        // Determine if this is for IsActive or IsDefault
-        var isActiveCheckbox = checkbox.closest('td').prev().find('.form-check-input'); // Previous column
-        var isDefaultCheckbox = checkbox.closest('td').find('.form-check-input'); // Current column
-        
-        var isActive = isActiveCheckbox.is(':checked');
-        var isDefault = isDefaultCheckbox.is(':checked');
-
-        $.ajax({
-            type: "POST",
-            url: "/TaxAndFee/UpdateStatus",
-            data: {
-                id: taxId,
-                isActive: isActive,
-                isDefault: isDefault
-            },
-            success: function (response) {
-                if (response.success) {
-                    toastr.success(response.message);
-                } else {
-                    toastr.error(response.message);
-                }
-            },
-            error: function (xhr, status, error) {
-                toastr.error("Failed to update status.");
-                console.error("Error details:", status, error, xhr.responseText);
-            }
-        });
-    });
+   
+       // Open Delete Confirmation Modal
+            $(".delete-btn").click(function () {
+                deleteTaxId = $(this).data("id");
+                console.log("TaxId", deleteTaxId)
+                $('#deleteModal').modal('show');
+            });
+     function handleAjaxError(xhr, status, error) {
+        if (xhr.status === 401) {
+            toastr.error("You are not authenticated. Please log in.");
+        } else if (xhr.status === 403) {
+            toastr.error(xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : "You are not authorized to perform this action.");
+            $('.modal-backdrop').remove();
+        } else {
+            toastr.error("An error occurred while processing your request. Please try again.");
+            console.error("Error details:", status, error, xhr.responseText);
+        }
+    }
 });
 </script>

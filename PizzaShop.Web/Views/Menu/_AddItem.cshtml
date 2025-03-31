@@ -203,16 +203,14 @@
                     console.log(response);
                         $("#listModifiers").append(response);
                 },
-                error: function (error) {
-                    console.log(error);
-                }
+                error: handleAjaxError
             });
         });
 
-         $(document).on("click", ".remove-modifier", function () {
+$(document).on("click", ".remove-modifier", function () {
     var id = $(this).data("id");
     $("#modifier-group-" + id).remove();
-    });
+});
     $("#addItemForm").submit(function (event) {
         event.preventDefault();
         var form = $("#addItemForm")[0];
@@ -252,9 +250,19 @@
                     toastr.error(response.message)
                 }
             },
-            error: function (error) {
-                toastr.error(response.message);
-            }
+            error: handleAjaxError
         });
     });
+
+     function handleAjaxError(xhr, status, error) {
+        if (xhr.status === 401) {
+            toastr.error("You are not authenticated. Please log in.");
+        } else if (xhr.status === 403) {
+            toastr.error(xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : "You are not authorized to perform this action.");
+            $('.modal-backdrop').remove();
+        } else {
+            toastr.error("An error occurred while processing your request. Please try again.");
+            console.error("Error details:", status, error, xhr.responseText);
+        }
+    }
 </script>

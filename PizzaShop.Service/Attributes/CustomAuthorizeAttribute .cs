@@ -48,7 +48,7 @@ public class CustomAuthorizeAttribute : Attribute, IAuthorizationFilter
 
         if (userRole == null)
         {
-            context.Result = new RedirectToActionResult("Error", "Auth", new { statusCode = 403 });
+            context.Result = new RedirectToActionResult("NotFound", "Home", new { statusCode = 401 });
             return;
         }
         // Fetch permissions for the role and module
@@ -65,7 +65,16 @@ public class CustomAuthorizeAttribute : Attribute, IAuthorizationFilter
 
         if (!hasPermission)
         {
-            context.Result = new RedirectToActionResult("Error", "Auth", new { statusCode = 403 });
+            if (context.HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                context.Result = new JsonResult(new { message = "You are not Authorized to Perform this Action." });
+            }
+            else
+            {
+                context.Result = new RedirectToActionResult("Error", "Auth", new { statusCode = 403 });
+            }
+            return;
+            // context.Result = new RedirectToActionResult("Error", "Auth", new { statusCode = 403 });
         }
     }
 }

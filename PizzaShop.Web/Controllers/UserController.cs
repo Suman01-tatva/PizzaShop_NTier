@@ -7,7 +7,7 @@ using PizzaShop.Entity.ViewModels;
 using PizzaShop.Service.Interfaces;
 namespace PizzaShop.Web.Controllers;
 using PizzaShop.Service.Attributes;
-[CustomAuthorize]
+// [CustomAuthorize]
 public class UserController : Controller
 {
     private readonly IUserService _userService;
@@ -33,6 +33,8 @@ public class UserController : Controller
     [HttpPost]
     public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
     {
+        Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0";
+        Response.Headers["Pragma"] = "no-cache";
         if (ModelState.IsValid)
         {
             var token = Request.Cookies["Token"];
@@ -60,6 +62,8 @@ public class UserController : Controller
     [HttpGet]
     public async Task<IActionResult> Profile()
     {
+        Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0";
+        Response.Headers["Pragma"] = "no-cache";
         var token = Request.Cookies["Token"];
         var (email, id, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token);
 
@@ -90,6 +94,8 @@ public class UserController : Controller
     [HttpPost]
     public async Task<IActionResult> Profile(ProfileViewModel model)
     {
+        Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0";
+        Response.Headers["Pragma"] = "no-cache";
         if (ModelState.IsValid)
         {
             var token = Request.Cookies["Token"];
@@ -174,6 +180,8 @@ public class UserController : Controller
     [CustomAuthorize("Users", "CanView")]
     public IActionResult UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")
     {
+        Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0";
+        Response.Headers["Pragma"] = "no-cache";
         var users = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize);
         var totalUsers = _userService.GetTotalUsers(searchString);
         ViewBag.count = totalUsers;

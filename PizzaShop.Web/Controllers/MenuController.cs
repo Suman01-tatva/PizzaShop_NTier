@@ -7,7 +7,7 @@ using PizzaShop.Service.Interfaces;
 
 namespace PizzaShop.Web.Controllers;
 // [Route("api/[controller]")]
-[CustomAuthorize]
+// [CustomAuthorize]
 public class MenuController : Controller
 {
     private readonly IMenuService _menuService;
@@ -24,6 +24,8 @@ public class MenuController : Controller
     [HttpGet]
     public async Task<IActionResult> Menu(int pageSize = 5, int pageIndex = 1, string searchString = "")
     {
+        Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0";
+        Response.Headers["Pragma"] = "no-cache";
         var categories = await _menuService.GetAllMenuCategoriesAsync();
         if (!categories.Any())
         {
@@ -315,12 +317,12 @@ public class MenuController : Controller
         return PartialView("_AddModifier", new MenuModifierViewModel());
     }
 
-    // [CustomAuthorize("Menu", "CanEdit")]
-    [HttpGet]
-    public IActionResult EditModifier()
-    {
-        return PartialView("_EditModifier", new MenuModifierViewModel());
-    }
+    // // [CustomAuthorize("Menu", "CanEdit")]
+    // [HttpGet]
+    // public IActionResult EditModifier()
+    // {
+    //     return PartialView("_EditModifier", new MenuModifierViewModel());
+    // }
 
     [HttpGet]
     public async Task<IActionResult> GetModifiersByModifierGroup(int modifierGroupId, int pageSize, int pageIndex, string searchString = "")
@@ -359,6 +361,7 @@ public class MenuController : Controller
         return PartialView("_ItemModifiers", itemModifiers);
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> AddModifier(AddEditModifierViewModel model)
     {
@@ -393,6 +396,7 @@ public class MenuController : Controller
         return PartialView("_EditModifier", editModifier);
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> EditModifier(AddEditModifierViewModel model)
     {
@@ -415,6 +419,7 @@ public class MenuController : Controller
         }
     }
 
+    [CustomAuthorize("Menu", "CanDelete")]
     [HttpPost]
     public IActionResult DeleteModifier(int id)
     {
@@ -430,6 +435,7 @@ public class MenuController : Controller
         }
     }
 
+    [CustomAuthorize("Menu", "CanDelete")]
     [HttpPost]
     public IActionResult DeleteMultipleModifier(int[] modifierIds)
     {

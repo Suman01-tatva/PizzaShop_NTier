@@ -88,9 +88,7 @@
                     $("#editCategoryModalContent").html(response);
                     $("#EditCategoryModal").modal('show');
                 },
-                error: function (xhr, status, error) {
-                    toastr.error("An error occurred while fetching the category details. Please try again.");
-                }
+                error: handleAjaxError
             });
         });
 
@@ -111,9 +109,7 @@
                         toastr.error(response.message);
                     }
                 },
-                error: function (xhr, status, error) {
-                    toastr.error("An error occurred while updating the category. Please try again.");
-                }
+                error: handleAjaxError
             });
         });
 
@@ -133,9 +129,7 @@
                         toastr.error(response.message);
                     }
                 },
-                error: function (xhr, status, error) {
-                    toastr.error("An error occurred while updating the category. Please try again.");
-                }
+                error: handleAjaxError
             });
         });
 
@@ -158,9 +152,7 @@
                         toastr.error(response.message);
                     }
                 },
-                error: function (xhr, status, error) {
-                    toastr.error("An error occurred while deleting the category. Please try again.");
-                }
+                error: handleAjaxError
             });
         });
     });
@@ -200,8 +192,19 @@
                     toastr.error(response.message);
                 }
                 $("#deleteMultipleItemModal").modal('hide');
-            }
+            },
+            error: handleAjaxError
         })
     })
-
+    function handleAjaxError(xhr, status, error) {
+        if (xhr.status === 401) {
+            toastr.error("You are not authenticated. Please log in.");
+        } else if (xhr.status === 403) {
+            toastr.error(xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : "You are not authorized to perform this action.");
+            $('.modal-backdrop').remove();
+        } else {
+            toastr.error("An error occurred while processing your request. Please try again.");
+            console.error("Error details:", status, error, xhr.responseText);
+        }
+    }
 </script>

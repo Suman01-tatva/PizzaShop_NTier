@@ -5,10 +5,11 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using PizzaShop.Entity.Constants;
 using PizzaShop.Entity.ViewModels;
+using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
 
 namespace PizzaShop.Web.Controllers;
-
+// [CustomAuthorize]
 public class OrderController : Controller
 {
     private readonly IOrderService _orderService;
@@ -16,9 +17,13 @@ public class OrderController : Controller
     {
         _orderService = orderService;
     }
+
+    [CustomAuthorize("Orders", "CanView")]
     [HttpGet]
     public async Task<IActionResult> Orders(string searchString = "", int pageIndex = 1, int pageSize = 5, bool isAsc = true, DateOnly? fromDate = null, DateOnly? toDate = null, string sortColumn = "", int status = 0, string dateRange = "AllTime")
     {
+        Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0";
+        Response.Headers["Pragma"] = "no-cache";
         var (orders, count) = await _orderService.GetAllOrders(searchString, pageIndex, pageSize, isAsc, fromDate, toDate, sortColumn, status, dateRange);
 
         var pageData = new OrderPageViewModel
@@ -40,6 +45,7 @@ public class OrderController : Controller
         return View(pageData);
     }
 
+    [CustomAuthorize("Orders", "CanView")]
     [HttpGet]
     public async Task<IActionResult> GetOrders(string searchString, int pageIndex, int pageSize, bool isAsc, DateOnly? fromDate, DateOnly? toDate, string sortColumn = "", int status = 0, string dateRange = "AllTime")
     {
@@ -206,6 +212,7 @@ public class OrderController : Controller
         }
     }
 
+    [CustomAuthorize("Orders", "CanView")]
     [HttpGet]
     public async Task<IActionResult> OrderDetails(int id)
     {

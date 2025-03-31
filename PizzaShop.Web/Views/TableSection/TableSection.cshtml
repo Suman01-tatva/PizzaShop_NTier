@@ -83,7 +83,8 @@
                     } else {
                         toastr.error(response.message);
                     }
-                }
+                },
+                error: handleAjaxError
             })
         }
     })
@@ -189,9 +190,7 @@
                     $('#modalContent').html(response.html);
                 }
             },
-            error: function (xhr, status, error) {
-                showErrorMessage("An error occurred. Please try again.");
-            }
+            error: handleAjaxError
         });
     }
 
@@ -214,11 +213,9 @@
             $('#deleteMultipleTableModal').modal('show');
         }
     });
-    $(document).on('click', '#multiDeleteTablesSubmit', function () {
 
-        @* }) *@
-            @* $().click(function () { *@
-            console.log("Multidelete");
+    $(document).on('click', '#multiDeleteTablesSubmit', function () {
+        console.log("Multidelete");
         $.ajax({
             url: '/TableSection/MultiDeleteTable',
             type: 'POST',
@@ -238,7 +235,8 @@
                     toastr.error(response.message);
                 }
                 $("#deleteMultipleTableModal").modal('hide');
-            }
+            },
+            error: handleAjaxError
         })
     })
 
@@ -247,4 +245,16 @@
         $(".section").removeClass("active-new");
         $(this).addClass("active-new");
     });
+
+    function handleAjaxError(xhr, status, error) {
+        if (xhr.status === 401) {
+            toastr.error("You are not authenticated. Please log in.");
+        } else if (xhr.status === 403) {
+            toastr.error(xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : "You are not authorized to perform this action.");
+            $('.modal-backdrop').remove();
+        } else {
+            toastr.error("An error occurred while processing your request. Please try again.");
+            console.error("Error details:", status, error, xhr.responseText);
+        }
+    }
 </script>

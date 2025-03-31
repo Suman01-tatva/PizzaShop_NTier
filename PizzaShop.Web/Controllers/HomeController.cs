@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PizzaShop.Service.Attributes;
 using PizzaShop.Web.Models;
 
 namespace PizzaShop.Web.Controllers;
@@ -12,12 +14,15 @@ public class HomeController : Controller
     {
         _logger = logger;
     }
-
+    [CustomAuthorize]
     public IActionResult AdminDashboard()
     {
+        Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0";
+        Response.Headers["Pragma"] = "no-cache";
         return View();
     }
 
+    [CustomAuthorize]
     public IActionResult UserDashboard()
     {
         return View();
