@@ -17,7 +17,7 @@ public class MappingMenuItemsWithModifierRepository : IMappingMenuItemsWithModif
     public async Task<bool> AddMapping(List<ItemModifierViewModel> modifierGroupData, int itemId, int id)
     {
         if (modifierGroupData.Count < 1)
-            return true;
+            return false;
 
         foreach (var mgId in modifierGroupData)
         {
@@ -32,7 +32,7 @@ public class MappingMenuItemsWithModifierRepository : IMappingMenuItemsWithModif
                 IsDeleted = false
             };
 
-            await _context.MappingMenuItemsWithModifiers.AddAsync(record);
+            _context.MappingMenuItemsWithModifiers.AddAsync(record);
         }
         _context.SaveChanges();
         return true;
@@ -45,8 +45,8 @@ public class MappingMenuItemsWithModifierRepository : IMappingMenuItemsWithModif
             var mapping = _context.MappingMenuItemsWithModifiers.FirstOrDefault(m => m.Id == mgId.Id);
             if (mapping != null)
             {
-                mapping.MaxSelectionAllowed = (short)mgId.Maxselectionrequired;
-                mapping.MaxSelectionAllowed = (short)mgId.Minselectionrequired;
+                mapping.MaxSelectionAllowed = mgId.Maxselectionrequired;
+                mapping.MinSelectionRequired = mgId.Minselectionrequired;
                 mapping.ModifiedBy = id;
                 mapping.ModifiedAt = DateTime.UtcNow;
             }
@@ -70,7 +70,7 @@ public class MappingMenuItemsWithModifierRepository : IMappingMenuItemsWithModif
 
     public async Task<List<ItemModifierViewModel>> ModifierGroupDataByItemId(int itemId)
     {
-        var mapping = _context.MappingMenuItemsWithModifiers.Where(m => m.MenuItemId == itemId).ToList();
+        var mapping = _context.MappingMenuItemsWithModifiers.Where(m => m.MenuItemId == itemId && m.IsDeleted == false).ToList();
         var ItemModifiers = new List<ItemModifierViewModel>();
         foreach (var m in mapping)
         {

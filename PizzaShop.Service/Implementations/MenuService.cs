@@ -81,9 +81,9 @@ namespace PizzaShop.Service.Implementations
 
         public async Task<bool> AddNewCategory(string category, MenuCategoryViewModel model)
         {
-            bool isCategory = _menuCategoryRepository.GetCategoryByName(category);
+            var isCategory = _menuCategoryRepository.GetCategoryByName(category);
 
-            if (isCategory == false)
+            if (isCategory == null)
             {
                 var newCategory = new MenuCategory
                 {
@@ -123,6 +123,14 @@ namespace PizzaShop.Service.Implementations
                 return false;
             }
 
+            var isCategory = _menuCategoryRepository.GetCategoryByName(model.Name);
+            if (isCategory != null)
+            {
+                if (isCategory.Id != category.Id && isCategory.Name == model.Name)
+                {
+                    return false;
+                }
+            }
             category.Name = model.Name;
             category.Description = model.Description;
 
@@ -152,8 +160,8 @@ namespace PizzaShop.Service.Implementations
 
         public bool FindCategoryByName(string name)
         {
-            bool isCategory = _menuCategoryRepository.GetCategoryByName(name);
-            if (isCategory)
+            var isCategory = _menuCategoryRepository.GetCategoryByName(name);
+            if (isCategory != null)
             {
                 return true;
             }
@@ -337,9 +345,12 @@ namespace PizzaShop.Service.Implementations
                 }
             }
             // also delete mapping (oldMappingId)
-            _mappingMenuItemsWithModifierRepository.DeleteMapping(oldMappingId);
-            _mappingMenuItemsWithModifierRepository.AddMapping(AddMapping, model.Id, userId);
-            _mappingMenuItemsWithModifierRepository.EditMappings(EditMapping, model.Id, userId);
+            if (oldMapping.Count() > 0)
+                _mappingMenuItemsWithModifierRepository.DeleteMapping(oldMappingId);
+            if (AddMapping.Count() > 0)
+                await _mappingMenuItemsWithModifierRepository.AddMapping(AddMapping, model.Id, userId);
+            if (EditMapping.Count() > 0)
+                await _mappingMenuItemsWithModifierRepository.EditMappings(EditMapping, model.Id, userId);
             // }
         }
 

@@ -1,166 +1,5 @@
 @model PizzaShop.Entity.ViewModels.MenuItemViewModel;
 <partial name="_ValidationScriptsPartial" />
-@* <div class="modal fade align-content-center" id="addItemModal" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content rounded-1">
-            <div class="modal-header border-0">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                    Add New Menu Item
-                </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body text-secondary">
-                <form method="post" id="addItemForm" enctype="multipart/form-data">
-                    <input asp-for="Id" type="hidden">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <div class="form-floating">
-                                        <select asp-for="CategoryId" class="form-select" id="addIetmCategories"
-                                            aria-label="Floating label select example" required>
-                                            <option selected disabled hidden>Select Category</option>
-                                            @foreach (var categories in Model.Categories)
-                                            {
-                                                <option value="@categories.Id">@categories.Name</option>
-                                            }
-                                        </select>
-                                        <label for="category">Category*</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <input asp-for="Name" type="text" class="form-control" id="name" placeholder=""
-                                            required>
-                                        <label>Name*</label>
-                                        <span asp-validation-for="Name"
-                                            class="add-cat-name-validation text-danger"></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-md-6 mb-3">
-                                    <div class="form-floating">
-                                        <select asp-for="Type" class="form-select" id="itemType" required>
-                                            <option selected disabled hidden>Select a type</option>
-                                            <option value="true">Veg</option>
-                                            <option value="false">Non-Veg</option>
-                                        </select>
-                                        <label for="itemType">Item Type*</label>
-                                        <span asp-validation-for="Type"
-                                            class="add-cat-name-validation text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <input asp-for="Rate" type="number" class="form-control" id="rate"
-                                            placeholder="" min="0" required>
-                                        <label asp-for="Rate">Rate*</label>
-                                        <span asp-validation-for="Rate"
-                                            class="add-cat-name-validation text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6">
-                                    <div class="form-floating mb-3">
-                                        <input asp-for="Quantity" type="number" class="form-control" id="quantity"
-                                            placeholder="" min="0" required>
-                                        <label asp-for="Quantity">Quantity*</label>
-                                        <span asp-validation-for="Quantity"
-                                            class="add-cat-name-validation text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 mb-3">
-                                    <div class="form-floating">
-                                        <select asp-for="UnitId" class="form-select" id="addIetmUnits"
-                                            aria-label="Floating label select example">
-                                            <option value="">Select Units</option>
-                                            @foreach (var unit in Model.Units)
-                                            {
-                                                <option value="@unit.Id">@unit.Name</option>
-                                            }
-                                        </select>
-                                        <label for="role">Unit*</label>
-                                        <span asp-validation-for="UnitId"
-                                            class="add-cat-name-validation text-danger"></span>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-3 col-6 mb-3 align-content-center">
-                                    <div class="form-check form-switch text-center">
-                                        <input asp-for="IsAvailable" class="form-check-input" type="checkbox"
-                                            id="available">
-                                        <label asp-for="IsAvailable">Available</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-6 mb-3 align-content-center">
-                                    <div class="form-check form-switch text-center">
-                                        <input asp-for="IsDefaultTax" class="form-check-input" type="checkbox"
-                                            id="defaultTax">
-                                        <label asp-for="IsDefaultTax" class="defaultTax">Default Tax</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 mb-3">
-                                    <div class="form-floating">
-                                        <input asp-for="TaxPercentage" type="number" class="form-control"
-                                            id="taxPercentage" placeholder="">
-                                        <label asp-for="TaxPercentage">Tax Percentage</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-6 mb-3">
-                                    <div class="form-floating">
-                                        <input asp-for="ShortCode" type="text" class="form-control" id="shortCode"
-                                            placeholder="">
-                                        <label asp-for="ShortCode">Short Code</label>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 mb-3">
-                                    <div class="form-floating">
-                                        <textarea asp-for="Description" class="form-control" id="description"
-                                            placeholder=""></textarea>
-                                        <label asp-for="Description">Description</label>
-                                    </div>
-                                </div>
-
-                                <div class="col-12">
-                                    <h6 class="text-start">Upload Image</h6>
-                                    <div class="rounded mb-3 upload-container">
-                                        <input type="file" asp-for="ProfileImagePath" accept="image/*">
-                                        <input type="hidden" asp-for="Image" name="ProfileImg">
-                                        <label for="imageInput" id="file-item-add-label border-doted"
-                                            class="h-100 w-100 text-center align-content-center">
-                                            <span class="icon-upload"><img src="~/images/cloud-upload.svg" alt="">
-                                                Browse files</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 bg-warning-subtle py-2">
-                            <div>
-                                <select class="form-select" id="ModifierGroups"
-                                    aria-label="Floating label select example">
-                                    <option value="" selected>Select ModifierGroup</option>
-                                    @foreach (var mg in Model.ModifierGroups)
-                                    {
-                                        <option value="@mg.Id">@mg.Name</option>
-                                    }
-                                </select>
-                                <div class="listModifiers">
-                                    <!-- Modifier groups will be populated via JavaScript -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer border-0">
-                        <button type="submit" class="fill-btn">Save</button>
-                        <button type="button" class="outline-btn" data-bs-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div> *@
 
 <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="AddItemModelLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -340,9 +179,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-end">
-                        <button class="btn btn-primary me-2" type="submit" id="addItemBtn">Save</button>
-                        <button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">Cancel</button>
+                    <div class="d-flex justify-content-end gap-2">
+                        <button class="fill-btn me-2" type="submit" id="addItemBtn">Save</button>
+                        <button class="outline-btn" type="button" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </form>
 
@@ -356,7 +195,6 @@
         $("#ModifierGroups").change(function () {
             var id = $(this).val();
             var label = $("#ModifierGroups option:selected").text();
-            console.log(id, label);
             $.ajax({
                 url: '@Url.Action("GetModifiersByGroup", "Menu")',
                 type: 'GET',
@@ -370,12 +208,15 @@
                 }
             });
         });
-        
+
+         $(document).on("click", ".remove-modifier", function () {
+    var id = $(this).data("id");
+    $("#modifier-group-" + id).remove();
+    });
     $("#addItemForm").submit(function (event) {
         event.preventDefault();
         var form = $("#addItemForm")[0];
         var formData = new FormData(form);
-        console.log(formData);
         var modifiers = [];
         $("#listModifiers .modifier-group").each(function () {
             var name = $(this).find(".modifierGrp-name").data("name");
@@ -390,8 +231,7 @@
                 Maxselectionrequired: maxValue
             });
         })
-        console.log("ItemModifiers" + modifiers.length);
-        console.log(modifiers);
+        @* console.log("ItemModifiers" + modifiers.length); *@
         formData.append("ItemModifiers", JSON.stringify(modifiers));
 
         $.ajax({

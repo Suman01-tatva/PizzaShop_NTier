@@ -10925,11 +10925,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
+      "projectUniqueName": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
       "projectName": "PizzaShop.Repository",
-      "projectPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
+      "projectPath": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\PizzaShop.Repository.csproj",
       "packagesPath": "C:\\Users\\pci93\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\obj\\",
+      "outputPath": "d:\\Projects\\NTier Projects\\PizzaShop\\PizzaShop.Repository\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pci93\\AppData\\Roaming\\NuGet\\NuGet.Config"

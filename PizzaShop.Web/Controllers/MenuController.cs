@@ -1,10 +1,7 @@
 using System.Text.Json;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
-using PizzaShop.Repository.Interfaces;
 using PizzaShop.Service.Interfaces;
 
 namespace PizzaShop.Web.Controllers;
@@ -15,13 +12,11 @@ public class MenuController : Controller
     private readonly IMenuService _menuService;
     private readonly IMenuModifierService _menuModifierService;
     private readonly ITokenDataService _tokenDataService;
-    private readonly IUnitRepository _unitRepository;
-    public MenuController(IMenuService menuService, IMenuModifierService menuModifierService, ITokenDataService tokenDataService, IUnitRepository unitRepository)
+    public MenuController(IMenuService menuService, IMenuModifierService menuModifierService, ITokenDataService tokenDataService)
     {
         _menuService = menuService;
         _menuModifierService = menuModifierService;
         _tokenDataService = tokenDataService;
-        _unitRepository = unitRepository;
     }
 
     [HttpGet]
@@ -62,20 +57,19 @@ public class MenuController : Controller
             {
                 TempData["ToastrMessage"] = "Category created successfully.";
                 TempData["ToastrType"] = "success";
-                return RedirectToAction("Menu", "Menu");
+                return Json(new { success = true, message = "Category Added successfully.", redirectUrl = Url.Action("Menu") });
             }
             else
             {
                 TempData["ToastrMessage"] = "A category with this name already exists.";
                 TempData["ToastrType"] = "error";
-                return RedirectToAction("Menu", "Menu");
+                return Json(new { success = false, message = "A category with this name already exists.", redirectUrl = Url.Action("Menu") });
             }
         }
 
-        var categories = await _menuService.GetAllMenuCategoriesAsync();
-
-        return RedirectToAction("Menu", "Menu");
+        return Json(new { success = false, message = "Invalid data." });
     }
+
     [HttpGet]
     public async Task<IActionResult> EditCategory(int id)
     {
@@ -104,7 +98,7 @@ public class MenuController : Controller
             {
                 TempData["ToastrMessage"] = "Failed to update the Category. Please try again.";
                 TempData["ToastrType"] = "error";
-                return Json(new { success = false, message = "Failed to update category.", redirectUrl = Url.Action("Menu") });
+                return Json(new { success = false, message = "A category with this name already exists.", redirectUrl = Url.Action("Menu") });
             }
         }
 
@@ -155,10 +149,10 @@ public class MenuController : Controller
     }
 
     [HttpGet]
-    public async Task<JsonResult> GetAllCategory()
+    public async Task<IActionResult> GetAllCategory()
     {
-        var categories = Json(await _menuService.GetAllMenuCategoriesAsync());
-        return categories;
+        var categories = await _menuService.GetAllMenuCategoriesAsync();
+        return PartialView("_CategoryList", categories.ToList());
     }
 
     [HttpGet]
@@ -175,51 +169,6 @@ public class MenuController : Controller
         };
         return PartialView("_AddItem", model);
     }
-
-    // [HttpPost]
-    // public async Task<IActionResult> AddItem(MenuItemViewModel model)
-    // {
-    //     if (ModelState.IsValid)
-    //     {
-    //         var token = Request.Cookies["Token"];
-    //         var (email, id, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
-
-    //         bool isItemExist = _menuService.IsItemExist(model.Name, model.CategoryId);
-    //         if (isItemExist)
-    //         {
-    //             TempData["ToastrMessage"] = "Item Already Exist";
-    //             TempData["ToastrType"] = "error";
-    //             return RedirectToAction("Menu", "Menu");
-    //         }
-
-    //         // ItemTabViewModel MenuItemTab = _menuService.GetCategoryItem(5, 1, "");
-
-    //         try
-    //         {
-    //             var response = _menuService.AddNewItem(model, int.Parse(id));
-    //         }
-    //         catch (Exception e)
-    //         {
-    //             TempData["ToastrMessage"] = "Error While Add New Item!";
-    //             TempData["ToastrType"] = "error";
-    //             return RedirectToAction("Menu", "Menu");
-    //         }
-    //         TempData["ToastrMessage"] = "Item Added Successfully";
-    //         TempData["ToastrType"] = "success";
-    //         return RedirectToAction("Menu", "Menu");
-    //     }
-    //     else
-    //     {
-    //         foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
-    //         {
-    //             Console.WriteLine(error.ErrorMessage);
-    //         }
-    //         TempData["ToastrMessage"] = "Item Not Added";
-    //         TempData["ToastrType"] = "error";
-    //         // ItemTabViewModel MenuItemTab = _menuService.GetCategoryItem(5, 1, "");
-    //         return RedirectToAction("Menu", "Menu");
-    //     }
-    // }
 
     [HttpPost]
     public async Task<IActionResult> AddItem(MenuItemViewModel model, string ItemModifiers)
@@ -344,7 +293,7 @@ public class MenuController : Controller
     public async Task<IActionResult> AddModifier()
     {
         var modifierGroup = await _menuModifierService.GetAllMenuModifierGroupAsync();
-        var units = _unitRepository.GetAllUnits();
+        var units = _menuService.GetAllUnits();
         var modal = new AddEditModifierViewModel();
         modal.Units = units;
         modal.ModifierGroups = modifierGroup;

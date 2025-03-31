@@ -6,7 +6,7 @@
             <!-- Category header -->
             <div class="d-flex flex-wrap justify-content-between align-items-center p-2">
                 <h5>Categories</h5>
-                <button class="fill-btn py-1 px-2" id="Addcategory" data-bs-target="#addCategoryModal"
+                <button class="outline-btn py-1 px-2" id="Addcategory" data-bs-target="#addCategoryModal"
                     data-bs-toggle="modal">
                     <i class="fa-solid fa-plus"></i>
                 </button>
@@ -64,11 +64,6 @@
         })
     })
 
-    $("#submitNewCategory").click(function () {
-        $("#addNewCategoryForm").submit();
-        toastr.success("edited")
-    });
-
     $(".addItemBtn").click(function () {
         $.get('@Url.Action("AddItem", "Menu")', function (data) {
             $("#AddItemPartial").html(data);
@@ -81,4 +76,103 @@
         $(".itemCategory").removeClass("active-new");
         $(this).addClass("active-new");
     });
+
+    $(document).ready(function () {
+        $('.edit-category').click(function () {
+            var categoryId = $(this).data("id");
+            $.ajax({
+                url: '/Menu/EditCategory',
+                type: 'GET',
+                data: { id: categoryId },
+                success: function (response) {
+                    $("#editCategoryModalContent").html(response);
+                    $("#EditCategoryModal").modal('show');
+                },
+                error: function (xhr, status, error) {
+                    toastr.error("An error occurred while fetching the category details. Please try again.");
+                }
+            });
+        });
+
+        $(document).on('click', '#saveCategoryBtn', function () {
+            var form = $('#editCategoryForm');
+            var formData = form.serialize();
+
+            $.ajax({
+                type: "POST",
+                url: '/Menu/EditCategory',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        GetFilteredCategory();
+                        $('#EditCategoryModal').modal('hide');
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    toastr.error("An error occurred while updating the category. Please try again.");
+                }
+            });
+        });
+
+        $("#submitNewCategory").click(function () {
+            var form = $('#addNewCategoryForm');
+            var formData = form.serialize();
+            $.ajax({
+                type: "POST",
+                url: '/Menu/AddCategory',
+                data: formData,
+                success: function (response) {
+                    if (response.success) {
+                        GetFilteredCategory();
+                        $('#addCategoryModal').modal('hide');
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    toastr.error("An error occurred while updating the category. Please try again.");
+                }
+            });
+        });
+
+        $(document).on('click', '.delete-category', function () {
+            categoryIdToDelete = $(this).data("id");
+            $('#deleteCategoryModal').modal('show');
+        });
+
+        $('#confirmDeleteCategoryItemBtn').click(function () {
+            $.ajax({
+                type: "POST",
+                url: '/Menu/DeleteCategory',
+                data: { id: categoryIdToDelete },
+                success: function (response) {
+                    if (response.success) {
+                        $('#deleteCategoryModal').modal('hide');
+                        GetFilteredCategory();
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    toastr.error("An error occurred while deleting the category. Please try again.");
+                }
+            });
+        });
+    });
+
+    function GetFilteredCategory() {
+        $.ajax({
+            url: "/Menu/GetAllCategory",
+            type: "GET",
+            data: {},
+            success: function (data) {
+                $("#categoryList").html(data);
+            }
+        })
+    }
 </script>
