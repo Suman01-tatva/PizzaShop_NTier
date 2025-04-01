@@ -81,8 +81,8 @@
                                 class="edit-tax getOrderPdf" data-id="@order.Id">
                                 <i class="fa-solid fa-file-pdf"></i>
                             </a>
-                            <a href="javascript:void(0)" style="text-decoration: none; color: inherit;"
-                                onclick="window.location.href = '@Url.Action("OrderDetails", "Order", new { id = order.Id })'">
+                            <a href="javascript:void(0)" style="text-decoration: none; color: inherit;" data-id="@order.Id"
+                                class="gerOrderDetails">
                                 <i class="fas fa-eye"></i>
                             </a>
                         </td>
@@ -205,6 +205,12 @@
             sortColumn = $(this).data('sort');
             pageIndex = 1;
             GetFilteredOrders();
+        });
+        $(document).ready(function () {
+            $(".gerOrderDetails").click(function () {
+                var id = $(this).data('id');
+                window.location.href = "/Order/OrderDetails/" + id;
+            });
         });
 
         $(".getOrderPdf").click(function () {

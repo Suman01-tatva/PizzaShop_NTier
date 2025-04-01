@@ -13,7 +13,7 @@ public class LoginViewModel
     [Required(ErrorMessage = "Password is required")]
     [DataType(DataType.Password), MinLength(6)]
     [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&]).{6,}$",
-            ErrorMessage = "Password must be at least 6 characters long and include uppercase, lowercase, number, and special character.")]
+            ErrorMessage = "Password must be Valid.")]
     public string Password { get; set; } = null!;
 
     public bool RememberMe { get; set; }

@@ -29,14 +29,14 @@
                     </td>
                     <td>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
-                                   @(tax.IsActive == true ? "checked" : "")>
+                            <input class="form-check-input isDefaultSwitch" type="checkbox" id="flexSwitchCheckChecked"
+                                @(tax.IsActive == true ? "checked" : "")>
                         </div>
                     </td>
                     <td>
                         <div class="form-check form-switch">
                             <input class="form-check-input isDefaultSwitch" type="checkbox" id="flexSwitchCheckChecked"
-                                   @(tax.IsDefault == true ? "checked" : "")>
+                                @(tax.IsDefault == true ? "checked" : "")>
                         </div>
                     </td>
                     <td>
@@ -52,8 +52,8 @@
                         }
                     </td>
                     <td>
-                        <a href="javascript:void(0);" style="text-decoration: none; color: inherit;"
-                           class="edit-tax" data-id="@tax.Id">
+                        <a href="javascript:void(0);" style="text-decoration: none; color: inherit;" class="edit-tax"
+                            data-id="@tax.Id">
                             <i class="fa-solid fa-pen-clip m-1"></i>
                         </a>
                         @* <a href="javascript:void(0)" onclick="confirmDelete(@tax.Id)"
@@ -69,74 +69,40 @@
         </tbody>
     </table>
 </div>
-    <script>
-        $(document).ready(function () {
-    $(document).on('change', '.isDefaultSwitch', function () {
-        var checkbox = $(this);
-        var taxId = checkbox.closest('tr').find('.edit-tax').data('id');
-        
-        // Determine if this is for IsActive or IsDefault
-        var isActiveCheckbox = checkbox.closest('td').prev().find('.form-check-input'); // Previous column
-        var isDefaultCheckbox = checkbox.closest('td').find('.form-check-input'); // Current column
-        
-        var isActive = isActiveCheckbox.is(':checked');
-        var isDefault = isDefaultCheckbox.is(':checked');
+<script>
+    // Open Delete Confirmation Modal
+    $(".delete-btn").click(function () {
+        deleteTaxId = $(this).data("id");
+        console.log("TaxId", deleteTaxId)
+        $('#deleteModal').modal('show');
+    });
 
+    // Confirm Delete Button Click
+    $("#confirmDeleteButton").click(function () {
         $.ajax({
+            url: "/TaxAndFee/Delete",
             type: "POST",
-            url: "/TaxAndFee/UpdateStatus",
-            data: {
-                id: taxId,
-                isActive: isActive,
-                isDefault: isDefault
-            },
+            data: { id: deleteTaxId },
             success: function (response) {
+                console.log("Delete Res", response);
+                if (response == null) {
+                    window.location.href = "/Auth/Login";
+                    toastr.error("Your session has expired. Please login again.");
+                }
                 if (response.success) {
                     toastr.success(response.message);
+                    $("#taxList").load(location.href + " #taxList > *");
+                    @* GetFilteredTax();  *@
+                        $("#deleteModal").modal("hide");
                 } else {
                     toastr.error(response.message);
                 }
             },
             error: function (xhr, status, error) {
-                toastr.error("Failed to update status.");
+                toastr.error("Failed to delete tax.");
                 console.error("Error details:", status, error, xhr.responseText);
+                $("#deleteModal").modal("hide");
             }
         });
     });
-});
-  // Open Delete Confirmation Modal
-            $(".delete-btn").click(function () {
-                deleteTaxId = $(this).data("id");
-                console.log("TaxId", deleteTaxId)
-                $('#deleteModal').modal('show');
-            });
-
-            // Confirm Delete Button Click
-            $("#confirmDeleteButton").click(function () {
-                $.ajax({
-                    url: "/TaxAndFee/Delete",
-                    type: "POST",
-                    data: { id: deleteTaxId },
-                    success: function (response) {
-                        console.log("Delete Res", response);
-                        if (response == null) {
-                            window.location.href = "/Auth/Login";
-                            toastr.error("Your session has expired. Please login again.");
-                        }
-                        if (response.success) {
-                            toastr.success(response.message);
-                            $("#taxList").load(location.href + " #taxList > *");
-                            @* GetFilteredTax();  *@
-                                $("#deleteModal").modal("hide");
-                        } else {
-                            toastr.error(response.message);
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        toastr.error("Failed to delete tax.");
-                        console.error("Error details:", status, error, xhr.responseText);
-                        $("#deleteModal").modal("hide");
-                    }
-                });
-            });
 </script>

@@ -22,7 +22,8 @@ public class TaxAndFeesViewModel
 
     public bool IsDefault { get; set; } = false;
 
-    [Range(0, double.MaxValue, ErrorMessage = "Tax value must be non-negative.")]
+    [Required(ErrorMessage = "TaxValue is required.")]
+    [Range(1, double.MaxValue, ErrorMessage = "Tax value must be non-negative.")]
     public decimal? TaxValue { get; set; }
 
     public bool? IsDeleted { get; set; } = false;

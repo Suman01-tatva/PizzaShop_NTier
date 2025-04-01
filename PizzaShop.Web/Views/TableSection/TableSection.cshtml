@@ -122,20 +122,6 @@
     @* Pagination Script *@
     var debounce;
     var ajaxRequest;
-    $(".section").click(function () {
-        sectionId = $(this).data("id");
-
-        $.ajax({
-            url: '/TableSection/GetTablesBySectionId',
-            type: 'GET',
-            data: { sectionId: sectionId, pageSize: @Model.PageSize, pageIndex: @Model.PageIndex, searchString: "" },
-            success: function (response) {
-                @* console.log(response); *@
-                    $("#tableList").html(response);
-                deleteTableIds = [];
-            }
-        })
-    })
 
     var pageIndex = @Model.PageIndex;
 

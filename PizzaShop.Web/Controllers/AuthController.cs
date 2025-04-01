@@ -47,25 +47,24 @@ public class AuthController : Controller
                 ModelState.AddModelError("InvalidCredentials", "Please enter valid credentials");
                 return View("Login");
             }
-            else if (user.IsDeleted == true)
+            var token = _jwtService!.GenerateJwtToken(user!.Id.ToString(), user.Email, user.RoleId.ToString(), user.IsFirstLogin);
+            CookieUtils.SaveJWTToken(Response, token);
+            if (user.IsDeleted == true)
             {
                 TempData["ToastrMessage"] = "Your account is Deleted. Please contact support team.";
                 TempData["ToastrType"] = "error";
                 return View();
             }
-            else if (user.IsActive == false)
+            if (user.IsActive == false)
             {
                 TempData["ToastrMessage"] = "Your account is inactive. Please contact support team to reactivate your account.";
                 TempData["ToastrType"] = "error";
                 return View();
             }
-            else if (user.IsFirstLogin == true)
+            if (user.IsFirstLogin == true)
             {
                 return RedirectToAction("ChangePassword", "User");
             }
-
-            var token = _jwtService!.GenerateJwtToken(user.Id.ToString(), user.Email, user.RoleId.ToString(), user.IsFirstLogin);
-            CookieUtils.SaveJWTToken(Response, token);
 
             if (model.RememberMe)
             {

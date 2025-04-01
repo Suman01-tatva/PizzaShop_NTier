@@ -6,19 +6,19 @@
 <section class="" id="invoice-detail">
     <div class="d-flex justify-content-center align-item-center">
         <img src="~/images/logos/pizzashop_logo.png" alt="pizzaShopLogo" style="height: 50px;width:60px;"> <span
-            class="textBlue fs-2 fw-bold">PIZZASHOP</span>
+            class="text-blue fs-2 fw-bold">PIZZASHOP</span>
     </div>
 
     <div class="row mt-3">
         <div class="col rounded-3 mr-md-3 p-3">
-            <h5 class="fw-bold textBlue">
+            <h5 class="fw-bold text-blue">
                 Customer Details
             </h5>
             <p class="mb-1">Name: @Model.CustomerName</p>
             <p class="mb-1">Phone: @Model.CustomerPhone</p>
         </div>
         <div class="col rounded-3 p-3 mt-3 mt-md-0 ms-md-1">
-            <h5 class="fw-bold textBlue">
+            <h5 class="fw-bold text-blue">
                 Order Details
             </h5>
             <p class="mb-1">Invoice Number: @Model.InvoiceNo</p>
@@ -83,11 +83,11 @@
                             </div>
                         </td>
                         <td class="text-center">
-                            <div>
+                            <div class="d-flex flex-column">
                                 <p class="mb-0">@Model.OrderedItems[i].Price</p>
                                 @foreach (var m in @Model.OrderedItems[i].Modifiers)
                                 {
-                                    <p>@m.Rate</p>
+                                    <p class="mb-0">@m.Rate</p>
                                 }
                             </div>
                         </td>
@@ -96,7 +96,7 @@
                                 <p class="mb-0">@Model.OrderedItems[i].TotalAmount</p>
                                 @foreach (var m in @Model.OrderedItems[i].Modifiers)
                                 {
-                                    <p>@m.TotalAmount</p>
+                                    <p class="mb-0">@m.TotalAmount</p>
                                 }
                             </div>
                         </td>
@@ -119,14 +119,14 @@
         </div>
     </div>
     <div class="divider"></div>
-    <div class="d-flex justify-content-between textBlue fw-bold">
+    <div class="d-flex justify-content-between fw-bold text-blue">
         <span>Total Amount Due : </span>
         <span>@Model.TotalAmount</span>
     </div>
 
     <div class="mt-4">
-        <p class="textBlue fw-bold mb-0">Payment Information</p>
+        <p class="text-blue fw-bold mb-0">Payment Information</p>
         <p>Payment Mode : @Model.PaymentMode</p>
     </div>
-    <p class="text-center fw-bold textBlue">THANK YOU!</p>
+    <p class="text-center fw-bold text-blue">THANK YOU!</p>
 </section>

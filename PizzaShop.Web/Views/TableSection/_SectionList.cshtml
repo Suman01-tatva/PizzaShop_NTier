@@ -70,6 +70,20 @@
         $('#deleteSectionModal').modal('show');
     });
 
+    $(".section").click(function () {
+        sectionId = $(this).data("id");
+
+        $.ajax({
+            url: '/TableSection/GetTablesBySectionId',
+            type: 'GET',
+            data: { sectionId: sectionId, pageSize: 5, pageIndex: 1, searchString: "" },
+            success: function (response) {
+                $("#tableList").html(response);
+                deleteTableIds = [];
+            }
+        })
+    })
+
     $('#deleteSectionBtn').click(function () {
         console.log(deleteSectionId)
         $.ajax({

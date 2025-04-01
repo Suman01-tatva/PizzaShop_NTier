@@ -12,8 +12,8 @@
                 <div class="form-input-div d-flex justify-content-between me-3 position-relative ">
                     <input type="text" placeholder="Search" class="form-control p-2 d-none d-sm-block " name="search"
                         required id="searchTaxInput" />
-                    <span class="form-input-icon position-absolute search-icon"><i class="fa-solid fa-search"
-                            id="eye-icon" style="color: gray"></i>
+                    <span class="form-input-icon position-absolute search-icon mx-2" style="margin-top: 12px;"><i
+                            class="fa-solid fa-search" id="eye-icon" style="color: gray"></i>
                     </span>
                 </div>
                 <a href="javascript:void(0);" class="edit-btn add-tax-btn"
@@ -128,7 +128,7 @@
                         } else {
                             toastr.error(response.message);
                             @* $("#taxAddEditModel").html(response); *@
-                            }
+                                        }
                     },
                     error: function (xhr, status, error) {
                         $("#taxModal").find('.modal-content').html(xhr.responseText);
@@ -138,52 +138,49 @@
             });
             var deleteTaxId;
 
-            @* // Open Delete Confirmation Modal
-            $(".delete-btn").click(function () {
-                deleteTaxId = $(this).data("id");
-                console.log("TaxId", deleteTaxId)
-                $('#deleteModal').modal('show');
-            }); *@
+            function GetFilteredTax() {
+                console.log("GetFilteredTax");
+                ajaxRequest = $.ajax({
+                    url: "/TaxAndFee/GetAllTaxesForFilter",
+                    type: "GET",
+                    success: function (data) {
+                        $("#taxList").html(data);
+                    }
+                })
+            }
 
-                @* // Confirm Delete Button Click
-            $("#confirmDeleteButton").click(function () {
+            $(document).on('change', '.isDefaultSwitch', function () {
+                var checkbox = $(this);
+                var taxId = checkbox.closest('tr').find('.edit-tax').data('id');
+
+                // Determine if this is for IsActive or IsDefault
+                var isActiveCheckbox = checkbox.closest('td').prev().find('.form-check-input'); // Previous column
+                var isDefaultCheckbox = checkbox.closest('td').find('.form-check-input'); // Current column
+
+                var isActive = isActiveCheckbox.is(':checked');
+                var isDefault = isDefaultCheckbox.is(':checked');
+
                 $.ajax({
-                    url: "/TaxAndFee/Delete",
                     type: "POST",
-                    data: { id: deleteTaxId },
+                    url: "/TaxAndFee/UpdateStatus",
+                    data: {
+                        id: taxId,
+                        isActive: isActive,
+                        isDefault: isDefault
+                    },
                     success: function (response) {
-                        console.log("Delete Res", response);
-                        if (response == null) {
-                            window.location.href = "/Auth/Login";
-                            toastr.error("Your session has expired. Please login again.");
-                        }
                         if (response.success) {
                             toastr.success(response.message);
-                            $("#taxList").load(location.href + " #taxList > *");
-                            GetFilteredTax(); 
-                                $("#deleteModal").modal("hide");
                         } else {
                             toastr.error(response.message);
                         }
                     },
                     error: function (xhr, status, error) {
-                        toastr.error("Failed to delete tax.");
+                        toastr.error("Failed to update status.");
                         console.error("Error details:", status, error, xhr.responseText);
-                        $("#deleteModal").modal("hide");
                     }
                 });
-            }); *@
-
-                function GetFilteredTax() {
-                    console.log("GetFilteredTax");
-                    ajaxRequest = $.ajax({
-                        url: "/TaxAndFee/GetAllTaxesForFilter",
-                        type: "GET",
-                        success: function (data) {
-                            $("#taxList").html(data);
-                        }
-                    })
-                }
+            });
         });
     </script>
 }
