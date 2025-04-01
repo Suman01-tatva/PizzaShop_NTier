@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -216,20 +217,26 @@ public class OrderController : Controller
     [HttpGet]
     public async Task<IActionResult> OrderDetails(int id)
     {
-        if (id == 0 || id == null)
+        if (id == 0)
         {
-            TempData["ToastrMessage"] = "Order Records Not Found";
+            TempData["ToastrMessage"] = "Invalid Order ID";
             TempData["ToastrType"] = "error";
-            return RedirectToAction("Orders", "Order");
+            return RedirectToAction("Orders");
         }
+
         var orderDetails = await _orderService.OrderDetails(id);
         if (orderDetails == null)
         {
             TempData["ToastrMessage"] = "Order Records Not Found";
             TempData["ToastrType"] = "error";
-            return RedirectToAction("Orders", "Order");
+            return RedirectToAction("Orders");
         }
+
         return View(orderDetails);
     }
-
+    public async Task<IActionResult> InvoiceDetail(int id)
+    {
+        OrderDetailsViewModel orderDetail = await _orderService.OrderDetails(id);
+        return PartialView("_InvoiceDetails", orderDetail);
+    }
 }

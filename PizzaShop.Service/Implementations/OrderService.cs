@@ -132,6 +132,7 @@ namespace PizzaShop.Service.Implementations
                 TableName = table!.Name,
                 SectionName = section!.Name,
                 OrderedItems = Items,
+                PaymentMode = (OrderConstants.PaymentModeEnum)order.Invoices.FirstOrDefault()?.Payments.FirstOrDefault()!.PaymentMethod!,
                 OrderTaxes = OrderTaxesList!.ToList()
             };
             return model;

@@ -31,14 +31,14 @@ public class TaxAndFeesRepository : ITaxAndFeesRepository
     public async Task<TaxesAndFee> GetTaxByName(string name)
     {
         return await _context.TaxesAndFees
-            .Where(tf => tf.Name.ToLower() == name.ToLower())
+            .Where(tf => tf.Name.ToLower() == name.ToLower() && tf.IsDeleted == false)
             .FirstOrDefaultAsync();
     }
 
     public async Task<TaxesAndFee> IsTaxExist(string name, int id)
     {
         return await _context.TaxesAndFees
-            .Where(tf => tf.Name.ToLower() == name.ToLower() && tf.Id != id)
+            .Where(tf => tf.Name.ToLower() == name.ToLower() && tf.Id != id && tf.IsDeleted == false)
             .FirstOrDefaultAsync();
     }
 

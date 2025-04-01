@@ -147,7 +147,16 @@
                                     <span class="text-danger ms-2" asp-validation-for="Description"></span>
                                 </div>
                             </div>
-                            <div>
+                            <div class="mb-3 upload-container d-flex flex-col">
+                                <img src="~/images/Default_pfp.svg.png" alt="ProfileImg" id="profile-img" class="rounded-circle" style="height: 80px; width: 80px;">
+                                <label for="imageInput" class="mx-1">
+                                    <img src="~/images/cloud-upload.svg" alt="upload-icon" class="mx-4" />
+                                    <br />
+                                    Browse File
+                                </label>
+                                <input id="imageInput" asp-for="ProfileImagePath" type="file" name="ProfileImagePath" accept="image/*" class="input-file" hidden />
+                            </div>
+                            @* <div>
                                 <div class="row g-2 mt-2">
                                     <div class="col-12 position-relative">
                                         <label for="file" class="labelfile d-flex flex-wrap">
@@ -160,7 +169,7 @@
                                     </div>
                                     <span class="text-danger ms-2" asp-validation-for="Image"></span>
                                 </div>
-                            </div>
+                            </div> *@
                         </div>
                         <div class="col-md-5 border rounded-3 p-2" style="background-color: rgb(255, 238, 190);">
                             <div>
@@ -239,14 +248,14 @@ $(document).on("click", ".remove-modifier", function () {
             processData: false,
             contentType: false,
             success: function (response) {
-                if (response.isValid == false) {
-                    toastr.warning(response.message);
-                }
                 if (response.isSuccess) {
                     toastr.success(response.message);
                     $("#addItemModal").modal("hide");
                     GetFilteredItems()
                 } else {
+                    if (response.isValid == false) {
+                        toastr.warning(response.message);
+                    }
                     toastr.error(response.message)
                 }
             },

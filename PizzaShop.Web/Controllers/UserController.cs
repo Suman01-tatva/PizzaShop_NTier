@@ -329,9 +329,11 @@ public class UserController : Controller
             }
             TempData["ToastrMessage"] = errorMessage;
             TempData["ToastrType"] = "error";
-            await PopulateDropdowns();
-            return View(model);
+
         }
+        await PopulateDropdowns();
+        return View(model);
+
     }
 
     private async Task PopulateDropdowns()

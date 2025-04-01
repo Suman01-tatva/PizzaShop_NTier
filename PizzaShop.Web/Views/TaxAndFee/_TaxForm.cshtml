@@ -25,6 +25,7 @@
                                     <option value="false">Flat Item</option>
                                 </select>
                                 <label for="Type" class="float">Type*</label>
+                                <span asp-validation-for="Type" class="text-danger"></span>
                             </div>
                             <div class="form-floating col-xl-6 col-12">
                                 <input type="text" class="form-control" asp-for="TaxValue" id="Rate">

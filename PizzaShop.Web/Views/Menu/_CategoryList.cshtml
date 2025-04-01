@@ -25,4 +25,16 @@
 <partial name="_AddCategory" model="new PizzaShop.Entity.ViewModels.MenuCategoryViewModel()"></partial>
 <script>
     var categoryId = @Model.First().Id;
+    $(".itemCategory").click(function () {
+        categoryId = $(this).data("id");
+
+        $.ajax({
+            url: '/Menu/GetItemsByCategory',
+            type: 'GET',
+            data: { categoryId: categoryId, pageSize: 5, pageIndex: 1, searchString: "" },
+            success: function (response) {
+                $("#itemList").html(response);
+            }
+        })
+    })
 </script>

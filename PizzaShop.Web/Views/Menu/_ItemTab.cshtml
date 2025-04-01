@@ -50,19 +50,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
     var pageIndex = @Model.PageIndex;
-    $(".itemCategory").click(function () {
-        categoryId = $(this).data("id");
-
-        $.ajax({
-            url: '/Menu/GetItemsByCategory',
-            type: 'GET',
-            data: { categoryId: categoryId, pageSize: @Model.PageSize, pageIndex: @Model.PageIndex, searchString: "" },
-            success: function (response) {
-                @* console.log(response); *@
-                    $("#itemList").html(response);
-            }
-        })
-    })
 
     $(".addItemBtn").click(function () {
         $.get('@Url.Action("AddItem", "Menu")', function (data) {
