@@ -123,8 +123,7 @@ public class TableService : ITableService
         {
             return false;
         }
-        // if (table != null)
-        // {
+
         table!.Name = model.Name;
         table.SectionId = model.SectionId;
         table.Capacity = model.Capacity;
@@ -133,7 +132,6 @@ public class TableService : ITableService
         table.CreatedAt = DateTime.UtcNow;
 
         return _tableRepository.UpdateTable(table);
-        // }
     }
 
 }

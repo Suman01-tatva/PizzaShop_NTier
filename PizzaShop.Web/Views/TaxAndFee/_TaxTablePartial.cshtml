@@ -52,17 +52,15 @@
                         }
                     </td>
                     <td>
-                        <a href="javascript:void(0);" style="text-decoration: none; color: inherit;" class="edit-tax"
-                            data-id="@tax.Id">
-                            <i class="fa-solid fa-pen-clip m-1"></i>
-                        </a>
-                        @* <a href="javascript:void(0)" onclick="confirmDelete(@tax.Id)"
-                           style="text-decoration: none; color: inherit;">
-                            <i class="fa-solid fa-trash m-1"></i>
-                        </a> *@
-                        <a href="javascript:void(0);" class="delete-btn" data-id="@tax.Id">
-                            <i class="fa-solid fa-trash m-1"></i>
-                        </a>
+                        <div class="d-flex justify-content-cente gap-3">
+                            <a href="javascript:void(0);" style="text-decoration: none; color: inherit;" class="edit-tax"
+                                data-id="@tax.Id">
+                                <i class="fa-solid fa-pen-clip m-1"></i>
+                            </a>
+                            <a href="javascript:void(0);" class="delete-btn" data-id="@tax.Id">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </a>
+                        </div>
                     </td>
                 </tr>
             }

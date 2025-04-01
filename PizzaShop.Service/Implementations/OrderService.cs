@@ -67,9 +67,10 @@ namespace PizzaShop.Service.Implementations
                 table = await _tableRepository.GetTableById(tableId);
             }
             Section? section = null;
-            if (table!.SectionId != 0 || table.SectionId != null)
+            if (table != null)
             {
-                section = _sectionRepository.GetSectionById(table.SectionId);
+                if (table!.SectionId != 0 || table.SectionId != null)
+                    section = _sectionRepository.GetSectionById(table.SectionId);
             }
 
             var taxes = order.OrderTaxMappings?.ToList();

@@ -49,9 +49,9 @@
                                                 <div class="form-floating">
                                                     <select class="form-select" id="select-role"
                                                         asp-for="Type" name="Itemtype">
-                                                        <option value="">Select ItemType</option>
-                                                        <option value="Veg">Veg</option>
-                                                        <option value="Non-Veg">Non-Veg</option>
+                                                        <option value="" disabled>Select ItemType</option>
+                                                        <option value="true">Veg</option>
+                                                        <option value="false">Non-Veg</option>
                                                     </select>
                                                     <label for="itemType">Item Type*</label>
                                                     <span class="text-danger ms-2"
@@ -148,25 +148,20 @@
                                     <span class="text-danger ms-2" asp-validation-for="Description"></span>
                                 </div>
                             </div>
-                            <div>
-                                <div class="row g-2 mt-2">
-                                    <div class="col-12 position-relative">
-                                        <label for="file" class="labelfile d-flex flex-wrap">
-                                            <i class="fa fa-upload"
-                                                style="position: absolute; top: 25%;right: 70%;"></i>
-                                            <p>Drag and Drop or Browse files</p>
-                                        </label>
-                                        <input class="input-file" id="file" type="file" name="Itemimage" asp-for="Image"/>
-                                        <span class="text-danger"></span>
-                                    </div>
-                                    <span class="text-danger ms-2" asp-validation-for="Image"></span>
-                                </div>
+                             <div class="mb-3 upload-container d-flex flex-col">
+                                <label for="imageInput" class="mx-1">
+                                    <img src="~/images/cloud-upload.svg" alt="upload-icon" class="mx-4" />
+                                    <br />
+                                    Browse File
+                                </label>
+                                <input id="imageInput" asp-for="ProfileImagePath" type="file" name="ProfileImagePath" accept="image/*" class="input-file" hidden onchange="showFileName()"/>
+                                <span id="file-upload-name"></span>
                             </div>
                         </div>
                         <div class="col-md-5 border rounded-3 p-2" style="background-color: rgb(255, 238, 190);">
                             <div>
                                 <select class="form-select" aria-label="Default select example" id="SelectEditModifierGroup">
-                                    <option value="" selected>Select ModifierGroupId Group</option>
+                                    <option value="" selected>Select ModifierGroup</option>
                                     @foreach (var mg in Model.ModifierGroups)
                                     {
                                         <option value="@mg.Id">@mg.Name</option>
@@ -259,4 +254,14 @@
             }
         });
     });
+      function showFileName() {
+            var input = document.getElementById('imageInput');
+            var fileNameSpan = document.getElementById('file-upload-name');
+            if (input.files && input.files[0]) {
+                fileNameSpan.textContent = input.files[0].name;
+                fileNameSpan.style.display = 'block';
+            } else {
+                fileNameSpan.style.display = 'none';
+            }
+        }
 </script>

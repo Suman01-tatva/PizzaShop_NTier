@@ -70,10 +70,10 @@
                             </div>
                         </td>
                         <td>
-                            <button type="button" class="btn editItemBtn" data-itemid="@Model.itemList[i].Id">
-                                <i class="fa-solid fa-pen me-3 "></i>
+                            <button type="button" class="btn border-0 editItemBtn" data-itemid="@Model.itemList[i].Id">
+                                <i class="fa-solid fa-pen-clip me-3 "></i>
                             </button>
-                            <button type="button" class="btn deleteItem" value="@Model.itemList[i].Id">
+                            <button type="button" class="btn border-0 deleteItem" value="@Model.itemList[i].Id">
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
                         </td>
@@ -254,6 +254,8 @@
     }
 
     $('#pageSizedropdown').change(function () {
+        pageIndex = 1;
+        console.log(pageIndex)
         var pageSize = $(this).val();
         GetFilteredItems();
     })

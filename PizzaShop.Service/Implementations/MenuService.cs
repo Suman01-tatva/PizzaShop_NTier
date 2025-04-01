@@ -298,29 +298,27 @@ namespace PizzaShop.Service.Implementations
 
         public async Task EditItem(MenuItemViewModel model, int userId)
         {
-            // string ItemImagePath = null;
-            // if (model.Image != null && model.Image.Length > 0)
-            // {
-            //     var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ItemImages");
-            //     if (!Directory.Exists(folderPath))
-            //     {
-            //         Directory.CreateDirectory(folderPath);
-            //     }
-            //     var filename = Guid.NewGuid().ToString() + Path.GetExtension(model.Image);
-            //     var filePath = Path.Combine(folderPath, filename);
-            //     using (var stream = new FileStream(filePath, FileMode.Create))
-            //     {
-            //         model.Image.CopyTo(stream);
-            //     }
-            //     ItemImagePath = "/ItemImages/" + filename;
-            // }
-            // if (ItemImagePath != null)
-            //     model.ImagePath = ItemImagePath;
+            string ProfileImagePath = null!;
+            if (model.ProfileImagePath != null && model.ProfileImagePath.Length > 0)
+            {
+                var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/ProfileImages");
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+                var filename = Guid.NewGuid().ToString() + Path.GetExtension(model.ProfileImagePath.FileName);
+                var filePath = Path.Combine(folderPath, filename);
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileImagePath.CopyTo(stream);
+                }
+                ProfileImagePath = "/ProfileImages/" + filename;
+            }
+            if (ProfileImagePath != null)
+                model.Image = ProfileImagePath;
 
             _menuItemRepository.EditMenuItem(model, userId);
 
-            // if (model.ItemModifiers.Count > 0)
-            // {
             var oldMapping = await _mappingMenuItemsWithModifierRepository.ModifierGroupDataByItemId(model.Id);
             var newMapping = model.ItemModifiersList;
             var deleteIds = new List<int?>();

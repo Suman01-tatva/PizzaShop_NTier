@@ -110,7 +110,7 @@ public class AuthController : Controller
             string token = CookieUtils.GenerateTokenForResetPassword(model.Email);
             string resetLink = Url.Action("ResetPassword", "Auth", new { token }, Request.Scheme)!;
             string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/templates/ResetPasswordEmail.html");
-
+            Response.Cookies.Append("ResetPasswordToken", token);
             if (!System.IO.File.Exists(filePath))
             {
                 ModelState.AddModelError(string.Empty, "Email body template not found");
@@ -140,6 +140,13 @@ public class AuthController : Controller
         if (token == null)
         {
             TempData["ToastrMessage"] = "Invalid link of ResetPassword!";
+            TempData["ToastrType"] = "error";
+            return RedirectToAction("ForgotPassword", "Auth");
+        }
+        var ResetPswToken = Request.Cookies["ResetPasswordToken"];
+        if (ResetPswToken == null)
+        {
+            TempData["ToastrMessage"] = "You can change the passwrd only one time by this link.";
             TempData["ToastrType"] = "error";
             return RedirectToAction("ForgotPassword", "Auth");
         }
@@ -191,19 +198,21 @@ public class AuthController : Controller
     {
         if (ModelState.IsValid)
         {
-            string? email = TempData["Email"]?.ToString();
-            if (email == null)
-            {
-                TempData["ToastrMessage"] = "Invalid link of ResetPassword!";
-                TempData["ToastrType"] = "error";
-                return RedirectToAction("ForgotPassword", "Auth");
-            }
-
+            // string? email = TempData["Email"]?.ToString();
+            // if (email == null)
+            // {
+            //     TempData["ToastrMessage"] = "Invalid link of ResetPassword!";
+            //     TempData["ToastrType"] = "error";
+            //     return RedirectToAction("ForgotPassword", "Auth");
+            // }
+            var token = Request.Cookies["ResetPasswordToken"];
+            string email = DecryptToken(token);
             var resetPassword = await _authService!.ResetPassword(model, email);
             if (resetPassword == "success")
             {
                 TempData["ToastrMessage"] = "Password reset successfully. Please login with your new password.";
                 TempData["ToastrType"] = "success";
+                Response.Cookies.Delete("ResetPasswordToken");
                 return RedirectToAction("Login", "Auth");
             }
             else

@@ -21,15 +21,19 @@
                     <input type="checkbox" class="form-check-input switch-btn mt-1" id="selectAll" />
                     Permission
                 </th>
-                <th>Can View</th>
-                <th>Can Add/Edit</th>
-                <th>Can Delete</th>
+                <th><div class="d-flex justify-content-center align-items-center">Can View</div></th>
+                <th><div class="d-flex justify-content-center align-items-center">Can Add/Edit</div></th>
+                <th><div class="d-flex justify-content-center align-items-center">Can Delete</div></th>
             </tr>
         </thead>
         <tbody>
             @for (var i = 0; i < Model.Count; i++)
             {
-                <tr>
+                @if(Model[i].RoleId == 1 &&  Model[i].PermissionName == "Role And Permissions")
+                {
+                    continue;
+                }
+                  <tr>
                     <td class="permission">
                         <input type="hidden" asp-for="@Model[i].Id" />
                         <input type="hidden" asp-for="@Model[i].Permissionid" />
@@ -39,28 +43,28 @@
 
                         <input type="checkbox" class="form-check-input permission-checkbox switch-btn mt-1"
                                name="selectedPermissions" value="@Model[i].Id" data-index="@i"
-                               @(Model[i].CanView || Model[i].CanEdit || Model[i].CanDelete ? "checked" : "") />
+                               @(Model[i].CanView || Model[i].CanEdit || Model[i].CanDelete ? "checked" : "")/>
                         <span class="p-4">@Model[i].PermissionName</span>
                     </td>
                     <td class="canView">
-                        <div class="form-check form-switch mb-0">
+                        <div class="form-check form-switch mb-0 d-flex justify-content-center align-items-center">
                             <input type="checkbox" asp-for="@Model[i].CanView" class="form-check-input permission-field can-view mt-0"
-                                   data-index="@i" value="true" checked="@Model[i].CanView" />
+                                   data-index="@i" value="true" checked="@Model[i].CanView"/>
                             <input type="hidden" name="[@i].Canview" value="false" />
                         </div>
                     </td>
                     <td class="canEdit">
-                        <div class="form-check form-switch mb-0">
+                        <div class="form-check form-switch mb-0 d-flex justify-content-center align-items-center">
                             <input type="checkbox" asp-for="@Model[i].CanEdit" class="form-check-input permission-field can-addedit"
-                                   data-index="@i" value="true" checked="@Model[i].CanEdit" />
+                                   data-index="@i" value="true" checked="@Model[i].CanEdit"/>
                             <input type="hidden" name="[@i].Canaddedit" value="false" />
                         </div>
                     </td>
                     <td class="canDelete">
-                        <div class="form-check form-switch mb-0">
+                        <div class="form-check form-switch mb-0 d-flex justify-content-center align-items-center">
                             <input type="checkbox" asp-for="@Model[i].CanDelete" class="form-check-input permission-field can-delete"
-                                   data-index="@i" value="true"checked="@Model[i].CanDelete" />
-                            <input type="hidden" name="[@i].Candelete" value="false" />
+                                   data-index="@i" value="true"checked="@Model[i].CanDelete"/>
+                            <input type="hidden" name="[@i].Candelete" value="false"/>
                         </div>
                     </td>
                 </tr>

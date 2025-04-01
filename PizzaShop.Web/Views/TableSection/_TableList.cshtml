@@ -64,10 +64,10 @@
                         </td>
                         <td>
                             <div class="d-flex justify-content-center">
-                                <button type="button" class="btn editTableBtn" data-id="@Model.Tables[i].Id">
-                                    <i class="fa-solid fa-pen me-3 "></i>
+                                <button type="button" class="btn border-0 editTableBtn" data-id="@Model.Tables[i].Id">
+                                    <i class="fa-solid fa-pen-clip m-1"></i>
                                 </button>
-                                <button type="button" class="btn deleteTable" value="@Model.Tables[i].Id">
+                                <button type="button" class="btn border-0 deleteTable" value="@Model.Tables[i].Id">
                                     <i class="fa-regular fa-trash-can"></i>
                                 </button>
                             </div>
@@ -208,6 +208,7 @@
             }
 
         $('#pageSizeTable').change(function () {
+            pageIndex = 1;
             var pageSize = $(this).val();
             console.log("pagesize:", pageSize)
             GetFilteredItems();

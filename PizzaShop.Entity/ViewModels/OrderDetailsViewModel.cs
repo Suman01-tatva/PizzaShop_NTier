@@ -52,7 +52,7 @@ public class OrderDetailsViewModel
 
     //TableOrder
 
-    public int TableId { get; set; }
+    public int? TableId { get; set; }
     public string? TableName { get; set; }
 
     public int? NoOfPeople { get; set; }
@@ -60,10 +60,6 @@ public class OrderDetailsViewModel
     public string? SectionName { get; set; }
 
     public List<OrderItemsViewModel>? OrderedItems { get; set; }
-    // public List<OrderedItem>? OrderedItems { get; set; }
-
-    // public List<Modifier>? Modifiers { get; set; }
-
     //taxList
     public List<TaxesAndFee>? OrderTaxes { get; set; }
 }

@@ -79,11 +79,11 @@
                         <td>
                             <a href="javascript:void(0);" style="text-decoration: none; color: inherit;"
                                 class="edit-tax getOrderPdf" data-id="@order.Id">
-                                <i class="fa-solid fa-file-pdf"></i>
+                                <i class="fa-solid fa-file-pdf m-1" style="color: rgb(99, 99, 99);"></i>
                             </a>
                             <a href="javascript:void(0)" style="text-decoration: none; color: inherit;" data-id="@order.Id"
                                 class="gerOrderDetails">
-                                <i class="fas fa-eye"></i>
+                                <i class="fas fa-eye" style="color: rgb(99, 99, 99);"></i>
                             </a>
                         </td>
                     </tr>
@@ -184,7 +184,7 @@
         })
 
         $('#ordersPageSize').change(function () {
-            var pageIndex = 1
+            pageIndex = 1
             GetFilteredOrders();
         })
 
