@@ -127,8 +127,8 @@
                             GetFilteredTax();
                         } else {
                             toastr.error(response.message);
-                                @* $("#taxAddEditModel").html(response); *@
-                        }
+                            @* $("#taxAddEditModel").html(response); *@
+                            }
                     },
                     error: function (xhr, status, error) {
                         $("#taxModal").find('.modal-content').html(xhr.responseText);
@@ -138,14 +138,14 @@
             });
             var deleteTaxId;
 
-            // Open Delete Confirmation Modal
+            @* // Open Delete Confirmation Modal
             $(".delete-btn").click(function () {
                 deleteTaxId = $(this).data("id");
                 console.log("TaxId", deleteTaxId)
                 $('#deleteModal').modal('show');
-            });
+            }); *@
 
-            // Confirm Delete Button Click
+                @* // Confirm Delete Button Click
             $("#confirmDeleteButton").click(function () {
                 $.ajax({
                     url: "/TaxAndFee/Delete",
@@ -160,7 +160,7 @@
                         if (response.success) {
                             toastr.success(response.message);
                             $("#taxList").load(location.href + " #taxList > *");
-                            @* GetFilteredTax();  *@
+                            GetFilteredTax(); 
                                 $("#deleteModal").modal("hide");
                         } else {
                             toastr.error(response.message);
@@ -172,18 +172,18 @@
                         $("#deleteModal").modal("hide");
                     }
                 });
-            });
+            }); *@
 
-            function GetFilteredTax() {
-                console.log("GetFilteredTax");
-                ajaxRequest = $.ajax({
-                    url: "/TaxAndFee/GetAllTaxesForFilter",
-                    type: "GET",
-                    success: function (data) {
-                        $("#taxList").html(data);
-                    }
-                })
-            }
+                function GetFilteredTax() {
+                    console.log("GetFilteredTax");
+                    ajaxRequest = $.ajax({
+                        url: "/TaxAndFee/GetAllTaxesForFilter",
+                        type: "GET",
+                        success: function (data) {
+                            $("#taxList").html(data);
+                        }
+                    })
+                }
         });
     </script>
 }

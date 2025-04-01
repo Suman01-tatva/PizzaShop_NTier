@@ -215,10 +215,7 @@
         }
     });
     $(document).on('click', '#multiDeleteTablesSubmit', function () {
-
-        @* }) *@
-            @* $().click(function () { *@
-            console.log("Multidelete");
+        console.log("Multidelete");
         $.ajax({
             url: '/TableSection/MultiDeleteTable',
             type: 'POST',
@@ -232,12 +229,12 @@
                 }
                 if (response.isSuccess) {
                     console.log("Delete")
-                    GetFilteredSections();
+                    GetFilteredItems();
+                    $("#deleteMultipleTableModal").modal('hide');
                     toastr.success(response.message);
                 } else {
                     toastr.error(response.message);
                 }
-                $("#deleteMultipleTableModal").modal('hide');
             }
         })
     })

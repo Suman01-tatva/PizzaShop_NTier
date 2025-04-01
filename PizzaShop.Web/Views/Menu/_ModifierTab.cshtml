@@ -129,6 +129,29 @@
 </section>
 </div>
 <script>
+    var pageIndex = @Model.PageIndex;
+
+    function GetFilteredModifiers() {
+        var SearchString = $("#searchModifier").val();
+        var pageSize = $("#pageSizeModifiers").val();
+        if (ajaxRequest && ajaxRequest.readyState !== 4) {
+            ajaxRequest.abort();
+        }
+        ajaxRequest = $.ajax({
+            url: "/Menu/GetModifiersByModifierGroup",
+            type: "GET",
+            data: {
+                modifierGroupId: modifierGroupId,
+                pageIndex: pageIndex,
+                pageSize: pageSize,
+                searchString: SearchString
+            },
+            success: function (data) {
+                $("#modifierList").html(data);
+            }
+        })
+    }
+
     $("#addNewModifier").click(function () {
         $.get('@Url.Action("AddModifier", "Menu")', function (data) {
             console.log("Modifier add");
@@ -152,29 +175,9 @@
 
     $('#multiDeleteModifiersBtn').click(function () {
         if (deleteModifierIds.length == 0) {
-            toastr.info("Select at Least One Item");
+            toastr.warning("Select at Least One Item");
         } else {
             $('#deleteMultipleModifierModal').modal('show');
         }
-    })
-    $('#multiDeleteItemBtn').click(function () {
-        $.ajax({
-            url: "/Menu/DeleteMultipleModifier",
-            type: 'POST',
-            data: {
-                itemIds: deleteModifierIds
-            },
-            success: function (response) {
-                if (response == null)
-                    window.location.href = "/Auth/Login"
-                if (response.isSuccess) {
-                    GetFilteredItems();
-                    toastr.success(response.message);
-                    $("#deleteMultipleModifierModal").modal('hide');
-                } else {
-                    toastr.error(response.message);
-                }
-            }
-        })
     })
 </script>

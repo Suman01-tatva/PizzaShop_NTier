@@ -175,4 +175,38 @@
         // Generate and download the PDF
         html2pdf().set(options).from(element).save();
     }
+
+    $(".getOrderPdf").click(function () {
+        var id = $(this).data('id')
+        console.log(id);
+        $.ajax({
+            url: "/Orders/InvoiceDetail",
+            type: "GET",
+            data: {
+                id: id
+            },
+            success: function (response) {
+                $("#InvoiceDetailContainer").html(response);
+                const element = document.querySelector('#invoice-detail');
+                console.log(response);
+                const isMobile = window.innerWidth < 768;
+
+                const options = {
+                    margin: 1,
+                    filename: 'OrderDetails.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: {
+                        scale: isMobile ? 3 : 2,
+                        windowWidth: 800
+                    },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+
+                html2pdf().set(options).from(element).save();
+            },
+            error: function (error) {
+                toastr.error("Error while download pdf file");
+            }
+        })
+    })
 </script>

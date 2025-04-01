@@ -225,4 +225,9 @@ public class OrderController : Controller
         return View(orderDetails);
     }
 
+    public async Task<IActionResult> InvoiceDetail(int id)
+    {
+        OrderDetailsViewModel orderDetail = await _orderService.OrderDetails(id);
+        return PartialView("_InvoiceDetails", orderDetail);
+    }
 }

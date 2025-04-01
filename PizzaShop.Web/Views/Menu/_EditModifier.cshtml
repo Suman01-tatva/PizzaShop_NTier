@@ -111,7 +111,7 @@
                 if (response.isSuccess) {
                     toastr.success(response.message);
                     $("#editModifierModal").modal('hide');
-                    @* GetFilteredModifiers(); *@
+                    GetFilteredModifiers();
                 } else {
                     toastr.error(response.message);
                 }

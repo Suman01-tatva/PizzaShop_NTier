@@ -104,4 +104,39 @@
         });
     });
 });
+  // Open Delete Confirmation Modal
+            $(".delete-btn").click(function () {
+                deleteTaxId = $(this).data("id");
+                console.log("TaxId", deleteTaxId)
+                $('#deleteModal').modal('show');
+            });
+
+            // Confirm Delete Button Click
+            $("#confirmDeleteButton").click(function () {
+                $.ajax({
+                    url: "/TaxAndFee/Delete",
+                    type: "POST",
+                    data: { id: deleteTaxId },
+                    success: function (response) {
+                        console.log("Delete Res", response);
+                        if (response == null) {
+                            window.location.href = "/Auth/Login";
+                            toastr.error("Your session has expired. Please login again.");
+                        }
+                        if (response.success) {
+                            toastr.success(response.message);
+                            $("#taxList").load(location.href + " #taxList > *");
+                            @* GetFilteredTax();  *@
+                                $("#deleteModal").modal("hide");
+                        } else {
+                            toastr.error(response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        toastr.error("Failed to delete tax.");
+                        console.error("Error details:", status, error, xhr.responseText);
+                        $("#deleteModal").modal("hide");
+                    }
+                });
+            });
 </script>

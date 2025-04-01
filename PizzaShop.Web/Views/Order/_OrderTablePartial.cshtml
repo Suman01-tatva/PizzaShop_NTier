@@ -77,7 +77,8 @@
                         </td>
                         <td>@order.TotalAmount</td>
                         <td>
-                            <a href="javascript:void(0);" style="text-decoration: none; color: inherit;" class="edit-tax">
+                            <a href="javascript:void(0);" style="text-decoration: none; color: inherit;"
+                                class="edit-tax getOrderPdf" data-id="@order.Id">
                                 <i class="fa-solid fa-file-pdf"></i>
                             </a>
                             <a href="javascript:void(0)" style="text-decoration: none; color: inherit;"
@@ -129,8 +130,10 @@
         </button>
     }
 </div>
+<div id="InvoiceDetailContainer" hidden>
 
-
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 <script>
     $(document).ready(function () {
         var pageIndex = @PageIndex, pageSize = 5, searchString = "", sortColumn = "@SortColumn", isAsc = true, status = 0, fromDate = "", toDate = "", dateRange = "AllTime";
@@ -203,5 +206,39 @@
             pageIndex = 1;
             GetFilteredOrders();
         });
+
+        $(".getOrderPdf").click(function () {
+            var id = $(this).data('id')
+            console.log(id);
+            $.ajax({
+                url: "/Order/InvoiceDetail",
+                type: "GET",
+                data: {
+                    id: id
+                },
+                success: function (response) {
+                    $("#InvoiceDetailContainer").html(response);
+                    const element = document.querySelector('#invoice-detail');
+                    console.log(response);
+                    const isMobile = window.innerWidth < 768;
+
+                    const options = {
+                        margin: 1,
+                        filename: 'OrderDetails.pdf',
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: {
+                            scale: isMobile ? 3 : 2,
+                            windowWidth: 800
+                        },
+                        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                    };
+
+                    html2pdf().set(options).from(element).save();
+                },
+                error: function (error) {
+                    toastr.error("Error while download pdf file");
+                }
+            })
+        })
     })
 </script>
