@@ -4391,6 +4391,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "EPPlus": "7.7.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "7.0.7",
           "Microsoft.AspNetCore.DataProtection": "9.0.2",
           "PizzaShop.Entity": "1.0.0",

@@ -10,4 +10,6 @@ public class CustomerPageViewModel
     public int TotalCustomers { get; set; }
     public string? SortOrder { get; set; }
     public string? DateRange { get; set; }
+    public DateOnly? FromDate { get; set; }
+    public DateOnly? ToDate { get; set; }
 }

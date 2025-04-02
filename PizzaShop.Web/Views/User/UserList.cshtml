@@ -1,70 +1,3 @@
-@* @model PizzaShop.Entity.ViewModels.UserPageViewModel;
-@{
-    ViewData["Title"] = "UserList";
-    var count = Model.TotalUsers;
-    var pageIndex = Model.PageIndex;
-    var pageSize = Model.PageSize;
-    var totalPage = Model.TotalPage;
-    var searchString = Model.SearchString;
-    var totalUsers = Model.TotalUsers;
-}
-
-<div class="col-md-12">
-    <div class="d-flex align-items-center justify-content-between">
-        <h2 class="page-title">Users</h2>
-        <div class="d-flex" style="gap: 10px; margin-right: 12px;">
-            <form method="get" class="search-container">
-                <i class="icon fa fa-search"></i>
-                <input id="searchString" type="text" name="searchString" value="@searchString" placeholder="Search..."
-                    class="form-control mb-3" style="height: 50px; width: 250px; border: none; border-radius: 5%;">
-            </form>
-            <a asp-action="CreateUser" asp-controller="User" style="text-decoration: none;">
-                <button class="border-0 p-2 fill-btn rounded shadow add-user-btn">
-                    <span class="span2">+</span>
-                    <span class="span1"><i class="fa-solid fa-plus" style="color: white;"></i> Add User</span>
-                </button>
-            </a>
-        </div>
-    </div>
-    <div id="userListContainer">
-        @await Html.PartialAsync("_UserListPartial", Model)
-    </div>
-</div>
-
-<!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header border-0">
-                <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Confirmation</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="text-center">
-                <i class="fa-solid fa-triangle-exclamation fa-2xl" style="color: #FFD43B;"></i>
-            </div>
-            <div class="modal-body text-center p-1">
-                <p class="fw-bold mb-0">Are you sure you want to delete this user?</p>
-            </div>
-            <div class="modal-footer d-flex justify-content-center border-0">
-                <button type="button" class="fill-btn" id="confirmDeleteButton">Delete</button>
-                <button type="button" class="outline-btn" data-bs-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    <script>
-        function confirmDelete(userId, roleId) {
-            const modal = new bootstrap.Modal(document.getElementById('deleteModal'));
-            document.getElementById("confirmDeleteButton").onclick = function () {
-                document.getElementById(`deleteForm-${userId}-${roleId}`).submit();
-            };
-            modal.show();
-        }
-    </script>
-} *@
-
 @model PizzaShop.Entity.ViewModels.UserPageViewModel
 @{
     ViewData["Title"] = "UserList";
@@ -80,11 +13,6 @@
     <div class="d-flex align-items-center justify-content-between">
         <h2 class="page-title">Users</h2>
         <div class="d-flex" style="gap: 10px; margin-right: 12px;">
-            @* <form method="get" id="searchForm" class="search-container">
-                <i class="icon fa fa-search"></i>
-                <input id="searchString" type="text" name="searchString" value="@searchString" placeholder="Search..."
-                    class="form-control mb-3" style="height: 50px; width: 250px; border: none; border-radius: 5%;">
-            </form> *@
             <div class="form-input-div d-flex justify-content-between me-3 position-relative">
                 <input type="text" placeholder="Search" class="form-control p-2 d-none d-sm-block" required
                     id="searchString" />

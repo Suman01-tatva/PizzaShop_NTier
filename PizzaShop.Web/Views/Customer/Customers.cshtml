@@ -1,12 +1,12 @@
 @model PizzaShop.Entity.ViewModels.CustomerPageViewModel
 @{
-    @* var PageSize = Model.PageSize;
+    var PageSize = Model.PageSize;
     var PageIndex = Model.PageIndex;
     var TotalPage = Model.TotalPage;
     var SearchString = Model.SearchString;
     var TotalRecord = Model.TotalCustomers;
-    var sortOrder = Model.SortOrder;
-    var DateRange = Model.DateRange; *@
+    var SortOrder = Model.SortOrder;
+    var DateRange = Model.DateRange;
 }
 
 <div class="col-md-12">
@@ -20,16 +20,108 @@
                         class="fa-solid fa-search" id="eye-icon" style="color: gray"></i>
                 </span>
             </div>
+            <div class="">
+                <select id="dateRange" class="form-control form-select " aria-label="Default select example">
+                    <option value="AllTime" selected="@(DateRange == "AllTime" ? true : false)">All Time</option>
+                    <option value="Last7Days" selected="@(DateRange == "Last7Days" ? true : false)">Last Week</option>
+                    <option value="Last30Days" selected="@(DateRange == "Last30Days" ? true : false)">Last Month
+                    </option>
+                    <option value="CurrentMonth" selected="@(DateRange == "CurrentMonth" ? true : false)">Current Month
+                    </option>
+                    <option value="CustomeDate" selected="@(DateRange == "CustomeDate" ? true : false)">Custome Date
+                    </option>
+                </select>
+            </div>
             <div class="d-flex justify-content-center align-items-center">
-                <button type="button" class="fill-btn w-100" id="export">
+                <button type="button" class="fill-btn w-100" id="ExportToExcel">
                     <span></span><i class="fa-solid fa-share-from-square me-1"></i></span>
                     <span>Export</span>
                 </button>
             </div>
         </div>
     </div>
-
-    <div id="userListContainer">
-        @await Html.PartialAsync("_CustomerList", Model)
-    </div>
 </div>
+
+<div id="userListContainer">
+    @await Html.PartialAsync("_CustomerList", Model)
+</div>
+
+@section Scripts {
+    <script>
+        var debounceTimer;
+        var customerPageIndex = @PageIndex, pageSize = 5, searchString = "", dateRange = "AllTime", fromDate = null, toDate = "";
+        var sortOrder = "@SortOrder";
+        var AjaxReq;
+        var deleteTableId;
+
+        function GetFilteredCustomers(pageIndex = 1) {
+            var searchString = $('#searchString').val();
+            var pageSize = $('#userPageSize').val();
+            var dateRange = $('#dateRange').val();
+            var fromDate = $('#fromDate').val();
+            var toDate = $('#toDate').val();
+
+            if (AjaxReq && AjaxReq.readyState !== 4)
+                AjaxReq.abort();
+            AjaxReq = $.ajax({
+                url: "/Customer/GetCustomers",
+                type: "GET",
+                data: {
+                    pageIndex: customerPageIndex,
+                    pageSize: pageSize,
+                    searchString: searchString,
+                    sortOrder: sortOrder,
+                    dateRange: dateRange,
+                    fromDate: fromDate,
+                    toDate: toDate
+                },
+                success: function (data) {
+                    $("#userListContainer").html(data);
+                }
+            })
+        }
+
+        $('#dateRange').change(function () {
+            var pageIndex = 1;
+            console.log("DateRange DropDown");
+            GetFilteredCustomers();
+        })
+
+
+        $("#ExportToExcel").click(function () {
+            var searchString = $('#searchString').val();
+            var pageSize = $('#userPageSize').val();
+            var dateRange = $('#dateRange').val();
+            var fromDate = $('#fromDate').val();
+            var toDate = $('#toDate').val();
+
+            $.ajax({
+                url: "/Customer/GenerateExcelFile",
+                type: "POST",
+                data: {
+                    pageIndex: customerPageIndex,
+                    pageSize: pageSize,
+                    searchString: searchString,
+                    sortOrder: sortOrder,
+                    dateRange: dateRange,
+                    fromDate: fromDate,
+                    toDate: toDate
+                },
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (data, status, xhr) {
+                    var ExcelFile = new Blob([data], { type: xhr.getResponseHeader('content-type') });
+                    var a = document.createElement("a");
+                    var url = window.URL.createObjectURL(data);
+                    a.href = url;
+                    a.download = 'Orders.xlsx';
+                    a.click();
+                },
+                error: function (error) {
+                    toastr.error("Error while download excel file");
+                }
+            })
+        });
+    </script>
+}

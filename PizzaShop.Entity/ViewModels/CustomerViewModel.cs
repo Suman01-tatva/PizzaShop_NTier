@@ -18,5 +18,5 @@ public class CustomerViewModel
 
     public string Phone { get; set; } = null!;
 
-    public string? TotalOrders { get; set; }
+    public int? TotalOrders { get; set; }
 }

@@ -38,6 +38,9 @@ builder.Services.AddScoped<IMenuService, MenuService>();
 builder.Services.AddScoped<IMenuModifierGroupRepository, MenuModifierGroupRepository>();
 builder.Services.AddScoped<IMenuModifierRepository, MenuModifierRepository>();
 builder.Services.AddScoped<IMenuModifierService, MenuModifierService>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepositoy>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+
 
 builder.Services.AddDataProtection().SetApplicationName("PizzaShop");
 builder.Services.AddControllersWithViews();
