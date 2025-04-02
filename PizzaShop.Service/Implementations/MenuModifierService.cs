@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Repository.Interfaces;
 using PizzaShop.Service.Interfaces;
@@ -145,5 +147,24 @@ public class MenuModifierService : IMenuModifierService
             Units = units
         };
         return editModifier;
+    }
+
+    public async Task<AddEditExistingModifiersViewModel> GetAllModifiers(int pageSize = 5, int pageIndex = 1, string? searchString = "")
+    {
+        var modifiers = await _menuModifierRepository.GetAllModifiers(searchString);
+        // var filteredModifier = modifiers.Skip((pageIndex - 1) * pageSize)
+        //                                 .Take(pageSize)
+        //                                 .ToList();
+
+        var addEditModifierViewModel = new AddEditExistingModifiersViewModel
+        {
+            modifier = modifiers,
+            PageSize = pageSize,
+            PageIndex = pageIndex,
+            TotalPage = (int)Math.Ceiling(modifiers.Count() / (double)pageSize),
+            SearchString = searchString,
+            TotalItems = modifiers.Count()
+        };
+        return addEditModifierViewModel;
     }
 }

@@ -6,8 +6,7 @@
             <!-- Modifier header -->
             <div class="d-flex flex-wrap justify-content-between align-items-center p-2">
                 <h5>Modifier Group</h5>
-                <button class="outline-btn py-1 px-2" id="AddModifier" data-bs-target="#addModifierGroupModal"
-                    data-bs-toggle="modal">
+                <button class="outline-btn py-1 px-2" id="AddModifierGroup">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
@@ -67,17 +66,20 @@
                     </div>
                 </form>
             </div>
-            <div>
-                <button class="btn btn-light border-0 text-primary bg-light" type="button">
-                    <i class="fa-solid fa-plus me-2"></i>Add Existing
-                    Modifier
+            <div class="text-left mx-3">
+                <button class="btn btn-light border-0 text-primary bg-light" id="OpenExistingModifierModal"
+                    type="button">
+                    <i class="fa-solid fa-plus me-2"></i>Add Existing Modifier
                 </button>
             </div>
+            <div id="selectedModifiersDisplay">
+
+            </div>
             <div class="modal-footer d-flex justify-content-end border-0">
-                <button type="button" class="btn btn-primary">
+                <button type="button" class="fill-btn">
                     Save
                 </button>
-                <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">
+                <button type="button" class="outline-btn" data-bs-dismiss="modal">
                     Cancel
                 </button>
             </div>
@@ -85,8 +87,36 @@
     </div>
 </div>
 
+<!-- Add ExistingModifiers Modal-->
+<div class="modal fade modal-md" id="selectExistingModifierModal" tabindex="-1"
+    aria-labelledby="selectExistingModifierLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-0">
+                <h5 class="modal-title" id="selectExistingModifierLabel">Select Existing Modifier</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="search-box">
+                    <input type="text" id="searchExistingModifier" class="form-control" placeholder="Search...">
+                </div>
+                <br>
+                <div id="existingModifiersList" style=" overflow-y: scroll; height: 400px;">
+                    <!-- Table and pagination will be loaded here via AJAX -->
+                </div>
+
+            </div>
+            <div class="modal-footer border-0">
+                <button id="saveModifiersButton" class="fill-btn">Add</button>
+                <button id="cancelBtn" class="outline-btn" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Edit Modifier group -->
-<div class="modal fade" id="editModifierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModifierGroupModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header border-0">
@@ -180,4 +210,123 @@
             $('#deleteMultipleModifierModal').modal('show');
         }
     })
+
+    @* AddExistingModifiers *@
+        $('#AddModifierGroup').click(function () {
+            $('#addModifierGroupModal').modal('show');
+            console.log('show');
+        });
+    var pageIndex = @Model.PageIndex;
+    $('#OpenExistingModifierModal').click(function () {
+        var SearchString = $("#searchExistingModifier").val();
+        var pageSize = $("#pageSizeExistingModifiers").val();
+        $('#selectExistingModifierModal').modal('show');
+        $.ajax({
+            url: '/Menu/GetAllModifiers',
+            type: 'GET',
+            data: { pageSize: @Model.PageSize, pageIndex: @Model.PageIndex, searchString: "" },
+            success: function (response) {
+                $('#existingModifiersList').html(response);
+            }
+        })
+        console.log('show');
+    });
+
+    @* var pageIndex = @Model.PageIndex; *@
+
+        function GetFilteredExistingModifiers() {
+            var SearchString = $("#searchExistingModifier").val();
+            var pageSize = $("#pageSizeExistingModifiers").val();
+            if (ajaxRequest && ajaxRequest.readyState !== 4) {
+                ajaxRequest.abort();
+            }
+            ajaxRequest = $.ajax({
+                url: "/Menu/GetAllModifiers",
+                type: "GET",
+                data: {
+                    pageSize: @Model.PageSize, pageIndex: @Model.PageIndex, searchString: SearchString
+                },
+                success: function (data) {
+                    $("#existingModifiersList").html(data);
+                }
+            })
+        }
+
+    $('#searchExistingModifier').keyup(function () {
+        var value = $(this).val();
+        console.log('SearchString', value)
+        clearTimeout(debounce);
+        pageIndex = 1
+        pageSize = @Model.PageSize;
+        debounce = setTimeout(() => {
+            GetFilteredExistingModifiers();
+        }, 600)
+    });
+
+    $("#saveModifiersButton").click(function () {
+        // Clear the selectedModifiers array
+        selectedModifiers = [];
+
+        // Get all selected checkboxes
+        $(".modifier-checkbox:checked").each(function () {
+            const modifierId = $(this).val();
+            const modifierName = $(this).data("name");
+
+            // Add to selectedModifiers array
+            selectedModifiers.push({ id: modifierId, name: modifierName });
+        });
+        console.log(selectedModifiers)
+        // Update the UI in Modal 1
+        updateSelectedModifiersUI();
+        $("#selectExistingModifierModal").modal("hide");
+    });
+
+    function updateSelectedModifiersUI() {
+        console.log("updateSelected")
+        const selectedModifiersDisplay = $("#selectedModifiersDisplay");
+        @* const selectedModifiersContainer = $("#selectedModifiersContainer"); *@
+
+            // Clear the existing UI
+            selectedModifiersDisplay.empty();
+        @* selectedModifiersContainer.empty(); *@
+
+            // Append each selected modifier
+            selectedModifiers.forEach(mod => {
+                console.log(mod)
+                // Display in the list with a cancel icon
+                selectedModifiersDisplay.append(`
+         <span class="badge bg-light border text-muted small d-inline-flex align-items-center me-2 p-2">
+            ${mod.name}
+            <button type="button" class="btn btn-sm p-0 ms-2 text-secondary remove-modifier" data-id="${mod.id}" style="border: none; background: none;">
+                <i class="fa fa-close"></i>
+            </button>
+        </span>
+        `);
+
+                // Add hidden input for form submission
+                @* selectedModifiersContainer.append(`
+            <input type="hidden" name="SelectedModifierIds" value="${mod.id}">
+        `); *@
+        });
+    }
+
+    $(document).on("click", ".remove-modifier", function () {
+        const modifierId = $(this).data("id");
+
+        // Remove from the selectedModifiers array
+        selectedModifiers = selectedModifiers.filter(mod => mod.id != modifierId);
+
+        // Update the UI
+        updateSelectedModifiersUI();
+    });
+
+    @* Load Checkboxes *@
+        function initializeCheckboxes() {
+            $('.modifier-checkbox').each(function () {
+                const id = $(this).data('id');
+                if (selectedModifiers[id]) {
+                    $(this).prop('checked', true);
+                }
+            });
+        }
 </script>

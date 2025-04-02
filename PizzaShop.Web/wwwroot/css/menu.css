@@ -110,3 +110,11 @@
     background-color: white;
   }
 }
+
+.modal.show .modal-dialog {
+  z-index: 1050;
+}
+
+#selectExistingModifierModal.show .modal-dialog {
+  z-index: 1060;
+}

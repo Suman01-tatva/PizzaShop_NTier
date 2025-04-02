@@ -1,3 +1,4 @@
+using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
 
 namespace PizzaShop.Service.Interfaces;
@@ -14,4 +15,5 @@ public interface IMenuModifierService
     public void DeleteMultipleModifiers(int[] modifierIds);
     public AddEditModifierViewModel GetModifierByid(int id);
     public List<MenuModifierViewModel> GetModifiersByGroupId(int id);
+    public Task<AddEditExistingModifiersViewModel> GetAllModifiers(int pageSize, int pageIndex, string? searchString);
 }

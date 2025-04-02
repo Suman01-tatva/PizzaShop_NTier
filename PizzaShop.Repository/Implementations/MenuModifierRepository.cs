@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
@@ -123,5 +124,33 @@ public class MenuModifierRepository : IMenuModifierRepository
     {
         var modifier = _context.Modifiers.FirstOrDefault(m => m.Id == id);
         return modifier;
+    }
+
+    public async Task<List<MenuModifierViewModel>> GetAllModifiers(string? searchString)
+    {
+        var modifiers = _context.Modifiers
+                                 .Where(m => m.IsDeleted == false)
+                                 .OrderBy(m => m.Name)
+                                 .AsQueryable();
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            searchString = searchString.Trim().ToLower();
+
+            modifiers = modifiers.Where(n =>
+                n.Name!.ToLower().Contains(searchString));
+        }
+
+        var filteredModifiers = modifiers.Select(c => new MenuModifierViewModel
+        {
+            Id = c.Id,
+            UnitName = c.Unit.ShortName,
+            ModifierGroupId = c.ModifierGroupId,
+            Name = c.Name,
+            Description = c.Description,
+            Rate = c.Rate,
+            Quantity = c.Quantity,
+        }).ToList();
+
+        return filteredModifiers;
     }
 }

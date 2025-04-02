@@ -19,12 +19,7 @@ public class MenuModifierGroupViewModel
     public DateTime? ModifiedAt { get; set; }
 
     public int? ModifiedBy { get; set; }
-
-    public virtual User CreatedByNavigation { get; set; } = null!;
-
-    public virtual ICollection<MappingMenuItemsWithModifier> MappingMenuItemsWithModifiers { get; set; } = new List<MappingMenuItemsWithModifier>();
-
-    public virtual User? ModifiedByNavigation { get; set; }
-
-    public virtual ICollection<Modifier> Modifiers { get; set; } = new List<Modifier>();
+    public virtual List<Modifier>? Modifiers { get; set; }
+    public List<int>? ExistingModifiers { get; set; }
+    public List<int>? RemovedModifiers { get; set; }
 }

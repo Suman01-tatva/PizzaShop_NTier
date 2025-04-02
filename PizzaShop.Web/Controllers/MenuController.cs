@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
@@ -421,5 +422,13 @@ public class MenuController : Controller
             Console.WriteLine(e.Message);
             return Json(new { isSuccess = true, message = "Error while delete Modifiers" });
         }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllModifiers(int pageSize, int pageIndex, string? searchString)
+    {
+        var modifiers = await _menuModifierService.GetAllModifiers(pageSize, pageIndex, searchString);
+
+        return PartialView("_AddExistingModifier", modifiers);
     }
 }

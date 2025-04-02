@@ -28,7 +28,7 @@
                     </option>
                     <option value="CurrentMonth" selected="@(DateRange == "CurrentMonth" ? true : false)">Current Month
                     </option>
-                    <option value="CustomeDate" selected="@(DateRange == "CustomeDate" ? true : false)">Custome Date
+                    <option value="CustomeDate">Custome Date
                     </option>
                 </select>
             </div>
@@ -44,6 +44,38 @@
 
 <div id="userListContainer">
     @await Html.PartialAsync("_CustomerList", Model)
+</div>
+
+<!-- Date Range Modal -->
+<div class="modal fade" id="dateRangeModal" tabindex="-1" role="dialog" aria-labelledby="dateRangeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="dateRangeModalLabel" style="color:grey;"><b>Select Date Range</b></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body d-flex justify-content-center align-items-center">
+                <div class="form-floating col-6 p-2">
+                    <input type="date" class="form-control" id="startDate"
+                        style="border:1px solid #d3d3d3; border-radius: 5px;" "required>
+                    <label  for=" startDate" class="mt-2 mx-1">Select Date</label>
+                </div>
+                <div class="form-floating col-6 p-2">
+                    <input type="date" class="form-control" id="endDate"
+                        style="border:1px solid #d3d3d3; border-radius: 5px;" required>
+                    <label for="endDate" class="mt-2 mx-1">End Date</label>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center border-0">
+                <button type="button" class="btn update-button" id="submitDateRange"
+                    style=" width: 80px;">Submit</button>
+                <button type="button" class="btn cancel-button" data-dismiss="modal"
+                    style=" width: 80px;">Cancel</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
@@ -86,6 +118,20 @@
             console.log("DateRange DropDown");
             GetFilteredCustomers();
         })
+
+        $('#submitDateRange').click(function () {
+            const startDate = $('#startDate').val();
+            const endDate = $('#endDate').val();
+
+            if (startDate && endDate) {
+                $('#dateRangeModal').modal('hide');
+                $('#dateRangeFilter').val('Custom Date');
+                loadCustomers(1, startDate, endDate);
+                $('#dateRangeFilter').val('All Time');
+            } else {
+                alert('Both Start Date and End Date are required.');
+            }
+        });
 
 
         $("#ExportToExcel").click(function () {

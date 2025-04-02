@@ -15,4 +15,6 @@ public interface IMenuModifierRepository
     public Modifier? GetModifierById(int id);
 
     public List<Modifier> GetModifiersByGroupId(int id);
+    public Task<List<MenuModifierViewModel>> GetAllModifiers(string? searchString);
+
 }
