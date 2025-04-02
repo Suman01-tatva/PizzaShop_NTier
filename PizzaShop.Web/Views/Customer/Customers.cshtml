@@ -1,0 +1,35 @@
+@model PizzaShop.Entity.ViewModels.CustomerPageViewModel
+@{
+    @* var PageSize = Model.PageSize;
+    var PageIndex = Model.PageIndex;
+    var TotalPage = Model.TotalPage;
+    var SearchString = Model.SearchString;
+    var TotalRecord = Model.TotalCustomers;
+    var sortOrder = Model.SortOrder;
+    var DateRange = Model.DateRange; *@
+}
+
+<div class="col-md-12">
+    <div class="d-flex align-items-center justify-content-between">
+        <h2 class="page-title">Customers</h2>
+        <div class="d-flex" style="gap: 10px; margin-right: 12px;">
+            <div class="form-input-div d-flex justify-content-between me-3 position-relative">
+                <input type="text" placeholder="Search" class="form-control p-2 d-none d-sm-block" required
+                    id="searchString" />
+                <span class="form-input-icon position-absolute search-icon mx-2" style="margin-top: 12px;"><i
+                        class="fa-solid fa-search" id="eye-icon" style="color: gray"></i>
+                </span>
+            </div>
+            <div class="d-flex justify-content-center align-items-center">
+                <button type="button" class="fill-btn w-100" id="export">
+                    <span></span><i class="fa-solid fa-share-from-square me-1"></i></span>
+                    <span>Export</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="userListContainer">
+        @await Html.PartialAsync("_CustomerList", Model)
+    </div>
+</div>

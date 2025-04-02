@@ -23,7 +23,7 @@
                 <div class="order-summary d-flex flex-wrap gap-4" style="font-size: 13px;">
                     <div class="fw-bold">Paid on: @Model.PaidAmount</div>
                     <div class="fw-bold">Placed on: @Model.CreatedAt</div>
-                    <div class="fw-bold">Placed on: @Model.ModifiedAt</div>
+                    <div class="fw-bold">Modified on: @Model.ModifiedAt</div>
 
                     @if (Model.Status == (OrderConstants.OrderStatusEnum.Completed))
                     {
