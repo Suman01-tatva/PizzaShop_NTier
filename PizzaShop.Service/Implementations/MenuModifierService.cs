@@ -167,4 +167,95 @@ public class MenuModifierService : IMenuModifierService
         };
         return addEditModifierViewModel;
     }
+
+
+
+    public bool AddModifierGroup(MenuModifierGroupViewModel model, int userId)
+    {
+        try
+        {
+            var newModifierGroup = _menuModifierGroupRepository.AddModifierGroup(model.Name, model.Description!, userId);
+            if (newModifierGroup == null)
+                return false;
+
+            _menuModifierRepository.AddExistingModifiers(model.ExistingModifiers!, newModifierGroup.Id, userId);
+
+            return true;
+        }
+        catch (System.Exception e)
+        {
+            return false;
+        }
+    }
+
+    public bool EditModifierGroup(MenuModifierGroupViewModel model, int userId)
+    {
+        var oldModifiers = _menuModifierRepository.GetModifiersByModifierGroup(model.Id);
+
+        var oldModifiersId = new List<int>();
+        var modifiersId = new List<int>();
+        foreach (var om in oldModifiers)
+            oldModifiersId.Add(om.Id);
+        foreach (var m in model.ExistingModifiers!)
+            modifiersId.Add(m.Id);
+
+        try
+        {
+            var modifiers = model.ExistingModifiers;
+
+            foreach (var m in modifiers)
+            {
+                if (oldModifiersId.IndexOf(m.Id) == -1)
+                    _menuModifierRepository.AddExistingModifier(m, model.Id, userId);
+            }
+
+            foreach (var m in oldModifiers)
+            {
+                if (modifiersId.IndexOf(m.Id) == -1)
+                    _menuModifierRepository.DeleteModifier(m.Id);
+            }
+
+            _menuModifierGroupRepository.EditModifierGroup(model.Id, model.Name, model.Description!, userId);
+            return true;
+        }
+        catch (System.Exception e)
+        {
+            return false;
+        }
+    }
+
+    public MenuModifierGroupViewModel GetEditModifierGroupDetail(int id)
+    {
+        var modifiergroup = _menuModifierGroupRepository.GetModifierGroupById(id);
+        var modifiers = _menuModifierRepository.GetModifiersByModifierGroup(id);
+        var EditModifierDetail = new MenuModifierGroupViewModel();
+
+        EditModifierDetail.Id = modifiergroup.Id;
+        EditModifierDetail.Name = modifiergroup.Name;
+        EditModifierDetail.Description = modifiergroup.Description;
+
+        var ExistingModifiers = new List<MenuModifierViewModel>();
+        if (modifiers.Count > 0)
+        {
+            foreach (var m in modifiers)
+            {
+                ExistingModifiers.Add(new MenuModifierViewModel
+                {
+                    Id = m.Id,
+                    Name = m.Name,
+                });
+            }
+        }
+        EditModifierDetail.Modifiers = ExistingModifiers;
+        return EditModifierDetail;
+    }
+
+    public bool IsModifierGrpExist(string name)
+    {
+        var ModifierGrp = _menuModifierGroupRepository.IsModifierGrpExist(name);
+        if (ModifierGrp != null)
+            return true;
+
+        return false;
+    }
 }

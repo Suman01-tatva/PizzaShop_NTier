@@ -19,7 +19,7 @@ public class MenuModifierGroupViewModel
     public DateTime? ModifiedAt { get; set; }
 
     public int? ModifiedBy { get; set; }
-    public virtual List<Modifier>? Modifiers { get; set; }
-    public List<int>? ExistingModifiers { get; set; }
+    public List<MenuModifierViewModel>? Modifiers { get; set; }
+    public List<ExistingModifierViewModel>? ExistingModifiers { get; set; }
     public List<int>? RemovedModifiers { get; set; }
 }

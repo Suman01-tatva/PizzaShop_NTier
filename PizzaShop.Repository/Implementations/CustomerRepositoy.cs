@@ -95,7 +95,8 @@ public class CustomerRepositoy : ICustomerRepository
                 CreatedBy = c.CreatedBy,
                 ModifiedAt = c.ModifiedAt,
                 ModifiedBy = c.ModifiedBy,
-                TotalOrders = c.Orders.Count()
+                TotalOrders = c.Orders.Count(),
+                LastOrderDate = c.Orders.Max(o => o.OrderDate) ?? null
             })
             .ToListAsync();
 

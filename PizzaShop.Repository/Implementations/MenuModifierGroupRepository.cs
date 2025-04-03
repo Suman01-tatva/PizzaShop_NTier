@@ -26,4 +26,42 @@ public class MenuModifierGroupRepository : IMenuModifierGroupRepository
 
         return modifierGroups;
     }
+
+    public ModifierGroup? AddModifierGroup(string name, string description, int userId)
+    {
+        var neweModifierGroup = new ModifierGroup
+        {
+            Name = name,
+            Description = description,
+            CreatedBy = userId,
+            CreatedAt = DateTime.UtcNow,
+            IsDeleted = false
+        };
+
+        _context.ModifierGroups.Add(neweModifierGroup);
+        _context.SaveChanges();
+        return neweModifierGroup;
+    }
+
+    public void EditModifierGroup(int? id, string name, string description, int userId)
+    {
+        var modifierGroup = _context.ModifierGroups.FirstOrDefault(m => m.Id == id);
+        modifierGroup!.Name = name;
+        modifierGroup.Description = description;
+        modifierGroup.ModifiedAt = DateTime.UtcNow;
+        modifierGroup.ModifiedBy = userId;
+        _context.SaveChanges();
+    }
+
+    public ModifierGroup? GetModifierGroupById(int id)
+    {
+        var modifierGroup = _context.ModifierGroups.FirstOrDefault(m => m.Id == id);
+        return modifierGroup;
+    }
+
+    public ModifierGroup IsModifierGrpExist(string name)
+    {
+        var modifierGroup = _context.ModifierGroups.Where(m => m.Name.ToLower() == name.ToLower().Trim()).FirstOrDefault();
+        return modifierGroup!;
+    }
 }

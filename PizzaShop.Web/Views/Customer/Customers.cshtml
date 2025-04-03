@@ -69,10 +69,8 @@
                 </div>
             </div>
             <div class="modal-footer d-flex justify-content-center border-0">
-                <button type="button" class="btn update-button" id="submitDateRange"
-                    style=" width: 80px;">Submit</button>
-                <button type="button" class="btn cancel-button" data-dismiss="modal"
-                    style=" width: 80px;">Cancel</button>
+                <button type="button" class="fill-btn" id="submitDateRange">Submit</button>
+                <button type="button" class="outline-btn" data-bs-dismiss="modal" id="closeDateRange">Cancel</button>
             </div>
         </div>
     </div>
@@ -130,11 +128,16 @@
                 $('#dateRangeModal').modal('hide');
                 $('#dateRange').val('CustomeDate');
                 GetFilteredCustomers();
+                $('#dateRange').val('AllTime');
             } else {
                 toastr.error('Both Start Date and End Date are required.');
             }
         });
 
+        $('#closeDateRange').click(function () {
+            $('#dateRangeModal').modal('hide');
+            $('#dateRange').val('AllTime');
+        })
 
         $("#ExportToExcel").click(function () {
             var searchString = $('#searchString').val();
@@ -171,5 +174,15 @@
                 }
             })
         });
+
+        $("#fromDate").change(function () {
+            fromDate = $(this).val();
+            document.getElementById("toDate").setAttribute("min", fromDate);
+        })
+
+        $("#toDate").change(function () {
+            toDate = $(this).val();
+            document.getElementById("fromDate").setAttribute("max", toDate);
+        })
     </script>
 }

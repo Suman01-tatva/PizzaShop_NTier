@@ -71,7 +71,6 @@ public class MenuModifierRepository : IMenuModifierRepository
 
     public void AddModifier(AddEditModifierViewModel model, int userId)
     {
-
         var newModifier = new Modifier
         {
             Name = model.Name,
@@ -152,5 +151,52 @@ public class MenuModifierRepository : IMenuModifierRepository
         }).ToList();
 
         return filteredModifiers;
+    }
+
+    public List<Modifier>? GetModifiersByModifierGroup(int? id)
+    {
+        return _context.Modifiers.Where(m => m.ModifierGroupId == id && m.IsDeleted == false).ToList();
+    }
+
+    public void AddExistingModifiers(List<ExistingModifierViewModel> modifiers, int modifierGroupId, int userId)
+    {
+        foreach (var m in modifiers)
+        {
+            var existingModifier = _context.Modifiers.FirstOrDefault(a => a.Id == m.Id);
+            var newModifier = new Modifier
+            {
+                Name = existingModifier!.Name,
+                Description = existingModifier.Description,
+                ModifierGroupId = modifierGroupId,
+                Rate = existingModifier.Rate,
+                Quantity = existingModifier.Quantity,
+                UnitId = existingModifier.UnitId,
+                CreatedBy = userId,
+                // CreatedAt = DateTime.UtcNow,
+                // IsDeleted = false,
+            };
+
+            _context.Modifiers.Add(newModifier);
+        }
+        _context.SaveChanges();
+    }
+
+    public void AddExistingModifier(ExistingModifierViewModel modifier, int modifierGroupId, int userId)
+    {
+        var existingModifier = _context.Modifiers.FirstOrDefault(a => a.Id == modifier.Id);
+
+        var newModifier = new Modifier
+        {
+            Name = existingModifier!.Name,
+            Description = existingModifier.Description,
+            ModifierGroupId = modifierGroupId,
+            Rate = existingModifier.Rate,
+            Quantity = existingModifier.Quantity,
+            UnitId = existingModifier.UnitId,
+            CreatedBy = userId,
+        };
+
+        _context.Modifiers.Add(newModifier);
+        _context.SaveChanges();
     }
 }

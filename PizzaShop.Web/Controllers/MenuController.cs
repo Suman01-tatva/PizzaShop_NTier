@@ -431,4 +431,73 @@ public class MenuController : Controller
 
         return PartialView("_AddExistingModifier", modifiers);
     }
+
+    [HttpPost]
+    public async Task<IActionResult?> AddModifierGroup([FromBody] MenuModifierGroupViewModel model)
+    {
+        var AuthToken = Request.Cookies["Token"];
+        var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(AuthToken);
+
+        if (string.IsNullOrEmpty(email))
+            return null;
+
+        bool isAlreadyExist = _menuModifierService.IsModifierGrpExist(model.Name);
+        if (isAlreadyExist)
+            return null;
+
+        bool IsAdded = _menuModifierService.AddModifierGroup(model, int.Parse(userId));
+
+        // var pagination = new PaginationViewModel
+        // {
+        //     PageIndex = 1,
+        //     PageSize = 5,
+        //     SearchString = ""
+        // };
+        var modifierGroups = await _menuModifierService.GetAllMenuModifierGroupAsync();
+        if (IsAdded)
+        {
+            return PartialView("_ModifierGroup", modifierGroups.ToList());
+        }
+        else
+        {
+            return BadRequest();
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> EditModifierGroup(int id)
+    {
+        var AuthToken = Request.Cookies["Token"];
+        var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(AuthToken);
+
+        if (string.IsNullOrEmpty(email))
+            return RedirectToAction("Login", "Authentication");
+
+        var editModifier = _menuModifierService.GetEditModifierGroupDetail(id);
+
+        return Json(new { data = editModifier });
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> EditModifierGroup([FromBody] MenuModifierGroupViewModel model)
+    {
+        var AuthToken = Request.Cookies["Token"];
+        var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(AuthToken);
+
+        if (string.IsNullOrEmpty(email))
+            return RedirectToAction("Login", "Authentication");
+
+        bool isUpdated = _menuModifierService.EditModifierGroup(model, int.Parse(userId));
+        // var pagination = new PaginationViewModel { PageIndex = 1, PageSize = 5, SearchString = "" };
+        var modifierGroups = await _menuModifierService.GetAllMenuModifierGroupAsync();
+        if (isUpdated)
+        {
+            return PartialView("_ModifierGroup", modifierGroups.ToList());
+        }
+        else
+        {
+            return BadRequest();
+        }
+    }
+
 }

@@ -16,5 +16,7 @@ public interface IMenuModifierRepository
 
     public List<Modifier> GetModifiersByGroupId(int id);
     public Task<List<MenuModifierViewModel>> GetAllModifiers(string? searchString);
-
+    public void AddExistingModifiers(List<ExistingModifierViewModel> modifiers, int modifierGroupId, int userId);
+    public List<Modifier>? GetModifiersByModifierGroup(int? id);
+    public void AddExistingModifier(ExistingModifierViewModel modifier, int modifierGroupId, int userId);
 }

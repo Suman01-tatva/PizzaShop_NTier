@@ -16,4 +16,8 @@ public interface IMenuModifierService
     public AddEditModifierViewModel GetModifierByid(int id);
     public List<MenuModifierViewModel> GetModifiersByGroupId(int id);
     public Task<AddEditExistingModifiersViewModel> GetAllModifiers(int pageSize, int pageIndex, string? searchString);
+    public bool AddModifierGroup(MenuModifierGroupViewModel model, int userId);
+    public bool EditModifierGroup(MenuModifierGroupViewModel model, int userId);
+    public MenuModifierGroupViewModel GetEditModifierGroupDetail(int id);
+    public bool IsModifierGrpExist(string name);
 }

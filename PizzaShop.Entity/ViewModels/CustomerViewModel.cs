@@ -19,4 +19,5 @@ public class CustomerViewModel
     public string Phone { get; set; } = null!;
 
     public int? TotalOrders { get; set; }
+    public DateOnly? LastOrderDate { get; set; }
 }
