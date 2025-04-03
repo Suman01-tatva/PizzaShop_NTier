@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Elfie.Model.Strings;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
+using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
 
 namespace PizzaShop.Web.Controllers;
@@ -171,6 +172,7 @@ public class UserController : Controller
         return View(model);
     }
 
+    [CustomAuthorize("Users", "CanView")]
     public IActionResult UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")
     {
         var users = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize);
@@ -194,6 +196,7 @@ public class UserController : Controller
         return View(userListPage);
     }
 
+    [CustomAuthorize("Users", "CanView")]
     [HttpGet]
     public IActionResult GetUsers(string searchString, int pageIndex, int pageSize, string sortOrder = "")
     {
@@ -215,13 +218,13 @@ public class UserController : Controller
         };
         return PartialView("_UserListPartial", userListPage);
     }
-
+    [CustomAuthorize("Users", "CanEdit")]
     public async Task<IActionResult> CreateUser()
     {
         await PopulateDropdowns();
         return View();
     }
-
+    [CustomAuthorize("Users", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> CreateUser(UserViewModel model)
     {
@@ -335,6 +338,7 @@ public class UserController : Controller
 
     [HttpPost]
     [Route("User/DeleteUser/{id}/{roleId}")]
+    [CustomAuthorize("Users", "CanDelete")]
     public IActionResult DeleteUser(int id, int roleId)
     {
         _userService.DeleteUser(id);
@@ -343,6 +347,7 @@ public class UserController : Controller
         return RedirectToAction(nameof(UserList));
     }
 
+    [CustomAuthorize("Users", "CanEdit")]
     public async Task<IActionResult> UpdateUser(int id)
     {
         ViewBag.Roles = new SelectList(await _userService.GetAllRolesAsync(), "Id", "Name");
@@ -358,6 +363,7 @@ public class UserController : Controller
         return View(model);
     }
 
+    [CustomAuthorize("Users", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> UpdateUser(UserUpdateViewModel model)
     {

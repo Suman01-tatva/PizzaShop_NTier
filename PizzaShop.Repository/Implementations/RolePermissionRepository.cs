@@ -77,5 +77,22 @@ namespace PizzaShop.Repository.Implementations
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public RolePermission GetPermissions(int roleId, string moduleName)
+        {
+            var permission = _context.RolePermissions
+                .Include(rp => rp.Permission)
+                .Include(p => p.Role)
+                .Where(p => p.RoleId == roleId && p.Permission.Name == moduleName)
+                .Select(p => new RolePermission
+                {
+                    CanView = p.CanView,
+                    CanEdit = p.CanEdit,
+                    CanDelete = p.CanDelete
+                })
+                .FirstOrDefault();
+
+            return permission ?? new RolePermission();
+        }
     }
 }

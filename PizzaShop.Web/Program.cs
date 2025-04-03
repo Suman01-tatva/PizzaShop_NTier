@@ -17,6 +17,13 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<PizzashopContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseConnection")));
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromDays(1);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
 DependencyInjection.RegisterServices(builder.Services, builder.Configuration.GetConnectionString("DatabaseConnection")!);
 
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
@@ -41,6 +48,7 @@ builder.Services.AddScoped<IMenuModifierService, MenuModifierService>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepositoy>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDataProtection().SetApplicationName("PizzaShop");
 builder.Services.AddControllersWithViews();
@@ -80,8 +88,9 @@ app.UseRouting();
 // Add the authentication middleware
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseSession();
 
-app.UseMiddleware<IsFirstLoginMiddleware>(builder.Configuration["Jwt:Key"], "Token");
+// app.UseMiddleware<IsFirstLoginMiddleware>(builder.Configuration["Jwt:Key"], "Token");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Auth}/{action=Login}/{id?}");

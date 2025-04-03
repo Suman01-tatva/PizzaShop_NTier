@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
+using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
 
 namespace PizzaShop.Web.Controllers;
@@ -19,7 +20,7 @@ public class MenuController : Controller
         _menuModifierService = menuModifierService;
         _tokenDataService = tokenDataService;
     }
-
+    [CustomAuthorize("Menu", "CanView")]
     [HttpGet]
     public async Task<IActionResult> Menu(int pageSize = 5, int pageIndex = 1, string searchString = "")
     {
@@ -47,6 +48,7 @@ public class MenuController : Controller
         return View(model);
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> AddCategory(MenuCategoryViewModel model)
     {
@@ -71,6 +73,7 @@ public class MenuController : Controller
         return Json(new { success = false, message = "Invalid data." });
     }
 
+    // [CustomAuthorize("Menu", "CanEdit")]
     [HttpGet]
     public async Task<IActionResult> EditCategory(int id)
     {
@@ -82,6 +85,7 @@ public class MenuController : Controller
         return PartialView("_EditCategory", category);
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> EditCategory(MenuCategoryViewModel model)
     {
@@ -124,6 +128,7 @@ public class MenuController : Controller
         return PartialView("_ItemListPartial", model);
     }
 
+    [CustomAuthorize("Menu", "CanDelete")]
     [HttpPost]
     public IActionResult DeleteCategory(int id)
     {
@@ -171,6 +176,7 @@ public class MenuController : Controller
         return PartialView("_AddItem", model);
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> AddItem(MenuItemViewModel model, string ItemModifiers)
     {
@@ -221,6 +227,7 @@ public class MenuController : Controller
         return PartialView("_EditItem", menuItem);
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult?> EditMenuItem([FromForm] MenuItemViewModel model, string ItemModifiers)
     {
@@ -247,6 +254,7 @@ public class MenuController : Controller
         }
     }
 
+    [CustomAuthorize("Menu", "CanDelete")]
     [HttpPost]
     public async Task<IActionResult>? DeleteMenuItem(int id)
     {
@@ -268,6 +276,7 @@ public class MenuController : Controller
         }
     }
 
+    [CustomAuthorize("Menu", "CanDelete")]
     [HttpPost]
     public async Task<IActionResult>? MultiDeleteMenuItem(int[] itemIds)
     {
@@ -301,6 +310,7 @@ public class MenuController : Controller
         return PartialView("_AddModifier", modal);
     }
 
+    [CustomAuthorize("Menu", "CanView")]
     [HttpGet]
     public async Task<IActionResult> GetModifiersByModifierGroup(int modifierGroupId, int pageSize, int pageIndex, string searchString = "")
     {
@@ -318,6 +328,7 @@ public class MenuController : Controller
         return PartialView("_Modifier", model);
     }
 
+    [CustomAuthorize("Menu", "CanView")]
     [HttpGet]
     public async Task<JsonResult> GetAllModifierGroups()
     {
@@ -338,6 +349,7 @@ public class MenuController : Controller
         return PartialView("_ItemModifiers", itemModifiers);
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> AddModifier(AddEditModifierViewModel model)
     {
@@ -372,6 +384,7 @@ public class MenuController : Controller
         return PartialView("_EditModifier", editModifier);
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> EditModifier(AddEditModifierViewModel model)
     {
@@ -394,6 +407,7 @@ public class MenuController : Controller
         }
     }
 
+    [CustomAuthorize("Menu", "CanDelete")]
     [HttpPost]
     public IActionResult DeleteModifier(int id)
     {
@@ -409,6 +423,7 @@ public class MenuController : Controller
         }
     }
 
+    [CustomAuthorize("Menu", "CanDelete")]
     [HttpPost]
     public IActionResult DeleteMultipleModifier(int[] modifierIds)
     {
@@ -432,6 +447,7 @@ public class MenuController : Controller
         return PartialView("_AddExistingModifier", modifiers);
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult?> AddModifierGroup([FromBody] MenuModifierGroupViewModel model)
     {
@@ -464,6 +480,7 @@ public class MenuController : Controller
         }
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpGet]
     public async Task<IActionResult> EditModifierGroup(int id)
     {
@@ -478,6 +495,7 @@ public class MenuController : Controller
         return Json(new { data = editModifier });
     }
 
+    [CustomAuthorize("Menu", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> EditModifierGroup([FromBody] MenuModifierGroupViewModel model)
     {

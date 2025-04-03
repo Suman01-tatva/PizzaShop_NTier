@@ -4,6 +4,7 @@ namespace PizzaShop.Web.Controllers;
 
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
 
 public class CustomerController : Controller
@@ -14,6 +15,7 @@ public class CustomerController : Controller
         _customerService = customerService;
     }
 
+    [CustomAuthorize("Customers", "CanView")]
     public async Task<IActionResult> Customers(string searchString = "", string sortOrder = "", int pageIndex = 1, int pageSize = 5, string dateRange = "AllTime", DateOnly? fromDate = null, DateOnly? toDate = null)
     {
         var customers = await _customerService.GetCustomerList(searchString, sortOrder, pageIndex, pageSize, dateRange, fromDate, toDate);
@@ -25,6 +27,7 @@ public class CustomerController : Controller
         return View(customers);
     }
 
+    [CustomAuthorize("Customers", "CanView")]
     public async Task<IActionResult> GetCustomers(string searchString = "", string sortOrder = "", int pageIndex = 1, int pageSize = 5, string dateRange = "AllTime", DateOnly? fromDate = null, DateOnly? toDate = null)
     {
         var customers = await _customerService.GetCustomerList(searchString, sortOrder, pageIndex, pageSize, dateRange, fromDate, toDate);

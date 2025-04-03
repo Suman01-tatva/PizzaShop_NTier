@@ -1,7 +1,11 @@
 @model List<PizzaShop.Entity.Data.TaxesAndFee>;
-
+@inject IHttpContextAccessor Accessor;
+@using Newtonsoft.Json;
+@using PizzaShop.Entity.ViewModels;
 @{
     ViewData["Title"] = "TaxAndFees";
+ var permission =
+    JsonConvert.DeserializeObject<List<RolePermissionViewModel>>(Accessor.HttpContext.Session.GetString("permission"));
 }
 
 <div class="container-fluid" style="padding: 20px !important;">
@@ -131,7 +135,7 @@
                         } else {
                             toastr.error(response.message);
                             @* $("#taxAddEditModel").html(response); *@
-                                                    }
+                                                            }
                     },
                     error: function (xhr, status, error) {
                         $("#taxModal").find('.modal-content').html(xhr.responseText);

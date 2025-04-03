@@ -1,4 +1,7 @@
-@model PizzaShop.Entity.ViewModels.UserPageViewModel
+@model PizzaShop.Entity.ViewModels.UserPageViewModel;
+@inject IHttpContextAccessor Accessor;
+@using Newtonsoft.Json;
+@using PizzaShop.Entity.ViewModels;
 @{
     ViewData["Title"] = "UserList";
     var count = Model.TotalUsers;
@@ -7,6 +10,8 @@
     var totalPage = Model.TotalPage;
     var searchString = Model.SearchString;
     var totalUsers = Model.TotalUsers;
+    var permission =
+    JsonConvert.DeserializeObject<List<RolePermissionViewModel>>(Accessor.HttpContext.Session.GetString("permission"));
 }
 
 <div class="col-md-12">
@@ -20,7 +25,8 @@
                         class="fa-solid fa-search" id="eye-icon" style="color: gray"></i>
                 </span>
             </div>
-            <a asp-action="CreateUser" asp-controller="User" style="text-decoration: none;">
+            <a asp-action="CreateUser" asp-controller="User" style="text-decoration: none;"
+                class="d-@(permission[0].CanEdit == false ? "none" : "")">
                 <button class="border-0 p-2 fill-btn rounded shadow add-user-btn">
                     <span class="span2">+</span>
                     <span class="span1"><i class="fa-solid fa-plus" style="color: white;"></i> Add User</span>

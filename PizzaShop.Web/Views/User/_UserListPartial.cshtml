@@ -1,4 +1,7 @@
 @model PizzaShop.Entity.ViewModels.UserPageViewModel;
+@inject IHttpContextAccessor Accessor;
+@using Newtonsoft.Json;
+@using PizzaShop.Entity.ViewModels;
 @{
     var PageSize = Model.PageSize;
     var PageIndex = Model.PageIndex;
@@ -6,6 +9,8 @@
     var SearchString = Model.SearchString;
     var TotalRecord = Model.TotalUsers;
     var sortOrder = Model.SortOrder;
+    var permission =
+    JsonConvert.DeserializeObject<List<RolePermissionViewModel>>(Accessor.HttpContext.Session.GetString("permission"));
 }
 
 <section class="table-responsive shadow card p-2">
@@ -36,7 +41,8 @@
                 <th scope="col">
                     <div class="d-flex justify-content-center align-items-center">Status</div>
                 </th>
-                <th scope="col">
+                <th scope="col"
+                    class="d-@((permission[0].CanEdit == false && permission[0].CanDelete == false) ? "none" : "")">
                     <div class="d-flex justify-content-center align-items-center">Action</div>
                 </th>
             </tr>
@@ -92,11 +98,12 @@
                     </td>
                     <td>
                         <div class="d-flex gap-2 justify-content-center align-items-center">
-                            <a asp-action="UpdateUser" asp-controller="User" asp-route-id="@user.Id">
+                            <a asp-action="UpdateUser" asp-controller="User" asp-route-id="@user.Id"
+                                class="d-@(permission[0].CanEdit == false ? "none" : "")">
                                 <i class="fa-solid fa-pen-clip"></i>
                             </a>
-                            <a class="bi bi-trash m-1" href="javascript:void(0)"
-                                onclick="confirmDelete(@user.Id,@user.RoleId)">
+                            <a class="bi bi-trash m-1 d-@(permission[0].CanDelete == false ? "none" : "")"
+                                href="javascript:void(0)" onclick="confirmDelete(@user.Id,@user.RoleId)">
                                 <i class="fa-solid fa-trash"></i>
                             </a>
 

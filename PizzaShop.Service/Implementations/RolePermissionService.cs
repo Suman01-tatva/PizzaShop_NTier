@@ -36,4 +36,10 @@ public class RolePermissionService : IRolePermissionService
         bool isRolePermission = await _rolePermission.UpdateRolePermissionAsync(model, email);
         return isRolePermission;
     }
+
+    public RolePermission GetRolePermission(int roleId, string permissionName)
+    {
+        var rolePermissions = _rolePermission.GetPermissions(roleId, permissionName);
+        return rolePermissions;
+    }
 }

@@ -1,8 +1,11 @@
-﻿@using System.Security.Claims
+﻿@using System.Security.Claims;
+@inject IHttpContextAccessor Accessor;
+@using Newtonsoft.Json;
+@using PizzaShop.Entity.ViewModels;
 @{
     var email = User.FindFirst(ClaimTypes.Email)?.Value;
-}
-@{
+    var permission =
+    JsonConvert.DeserializeObject<List<RolePermissionViewModel>>(Accessor.HttpContext.Session.GetString("permission"));
     ViewData["Title"] = "Dashboard";
 }
 
@@ -49,38 +52,44 @@
                             Dashboard
                         </li>
                     </a>
-                    <a asp-action="UserList" asp-controller="User" class="nav-item">
+                    <a asp-action="UserList" asp-controller="User"
+                        class="nav-item  d-@(permission[0].CanView == false ? "none" : "")">
                         <li class="nav-item">
                             <i class="fa-solid fa-users me-2"></i> Users
                         </li>
                     </a>
-                    <a asp-action="Role" asp-controller="RolePermission" class="nav-item">
+                    <a asp-action="Role" asp-controller="RolePermission"
+                        class="nav-item  d-@(permission[1].CanView == false ? "none" : "")">
                         <li class="nav-item">
                             <i class="fas fa-user-cog me-2"></i>Role and Permission
                         </li>
                     </a>
-                    <a asp-action="Menu" asp-controller="Menu" class="nav-item">
-                        <li class="nav-item">
+                    <a asp-action="Menu" asp-controller="Menu"
+                        class="nav-item  d-@(permission[2].CanView == false ? "none" : "")">
+                        <li class=" nav-item">
                             <i class="fa-solid fa-square me-2"></i>Menu
                         </li>
                     </a>
-                    <a asp-action="TableSection" asp-controller="TableSection" class="nav-item">
+                    <a asp-action="TableSection" asp-controller="TableSection"
+                        class="nav-item  d-@(permission[3].CanView == false ? "none" : "")">
                         <li class="nav-item">
                             <i class="fa-solid fa-money-check-dollar me-2"></i> Table and
                             Section
                         </li>
                     </a>
-                    <a href="/TaxAndFee/TaxAndFee" class="nav-item">
+                    <a href="/TaxAndFee/TaxAndFee" class="nav-item  d-@(permission[4].CanView == false ? "none" : "")">
                         <li class="nav-item">
                             <i class="fa-solid fa-cart-plus me-2"></i> Taxes And Fees
                         </li>
                     </a>
-                    <a asp-action="Orders" asp-controller="Order" class="nav-item">
+                    <a asp-action="Orders" asp-controller="Order"
+                        class="nav-item  d-@(permission[5].CanView == false ? "none" : "")">
                         <li class="nav-item">
                             <i class="fa-solid fa-users-rectangle me-2"></i> Orders
                         </li>
                     </a>
-                    <a asp-action="Customers" asp-controller="Customer" class="nav-item">
+                    <a asp-action="Customers" asp-controller="Customer"
+                        class="nav-item  d-@(permission[6].CanView == false ? "none" : "")">
                         <li class="nav-item">
                             <i class="fa-solid fa-users-rectangle me-2"></i> Customers
                         </li>

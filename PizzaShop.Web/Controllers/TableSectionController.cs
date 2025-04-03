@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PizzaShop.Entity.ViewModels;
+using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
 
 namespace PizzaShop.Web.Controllers;
@@ -17,6 +18,7 @@ public class TableSectionController : Controller
         _sectionService = sectionService;
         _tokenDataService = tokenDataService;
     }
+    [CustomAuthorize("Table and Section", "CanView")]
     [HttpGet]
     public IActionResult TableSection(int? id, int pageSize = 5, int pageIndex = 1, string searchString = "")
     {
@@ -38,6 +40,7 @@ public class TableSectionController : Controller
         return PartialView("_TableList", tables);
     }
 
+    [CustomAuthorize("Table and Section", "CanView")]
     [HttpGet]
     public async Task<IActionResult> GetTablesBySectionId(int sectionId, int pageSize, int pageIndex, string searchString = "")
     {
@@ -48,6 +51,8 @@ public class TableSectionController : Controller
         return PartialView("_TableList", model);
     }
 
+
+    [CustomAuthorize("Table and Section", "CanView")]
     [HttpGet]
     public async Task<JsonResult> GetAllSections()
     {
@@ -55,6 +60,8 @@ public class TableSectionController : Controller
         return sections;
     }
 
+
+    [CustomAuthorize("Table and Section", "CanView")]
     [HttpGet]
     public IActionResult GetAllSectionsForFilter()
     {
@@ -68,6 +75,7 @@ public class TableSectionController : Controller
         return PartialView("_AddEditTable", new TableViewModel());
     }
 
+    [CustomAuthorize("Table and Section", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> AddNewTable(TableViewModel model)
     {
@@ -100,6 +108,7 @@ public class TableSectionController : Controller
         }
     }
 
+    [CustomAuthorize("Table and Section", "CanDelete")]
     [HttpPost]
     public async Task<IActionResult>? DeleteTable(int id)
     {
@@ -124,6 +133,7 @@ public class TableSectionController : Controller
         }
     }
 
+    [CustomAuthorize("Table and Section", "CanDelete")]
     [HttpPost]
     public async Task<IActionResult>? MultiDeleteTable(int[] itemIds)
     {
@@ -157,6 +167,7 @@ public class TableSectionController : Controller
         return PartialView("_AddEditTable", table);
     }
 
+    [CustomAuthorize("Table and Section", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> EditTable(TableViewModel model)
     {
@@ -195,6 +206,7 @@ public class TableSectionController : Controller
         return PartialView("_AddEditSection", tableSection);
     }
 
+    [CustomAuthorize("Table and Section", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> AddEditSection(SectionViewModel sectionViewModel)
     {
@@ -220,6 +232,7 @@ public class TableSectionController : Controller
         }
     }
 
+    [CustomAuthorize("Table and Section", "CanDelete")]
     [HttpPost]
     public async Task<IActionResult> DeleteSection(int id, bool softDelete = true)
     {

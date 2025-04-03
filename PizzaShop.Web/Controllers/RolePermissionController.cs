@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Repository.Interfaces;
+using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
 
 namespace PizzaShop.Web.Controllers;
@@ -22,6 +23,7 @@ public class RolePermissionController : Controller
         _tokenDataService = tokenDataService;
     }
 
+    [CustomAuthorize("Role And Permissions", "CanView")]
     [HttpGet]
     public async Task<IActionResult> Role()
     {
@@ -43,6 +45,7 @@ public class RolePermissionController : Controller
         return View(roles);
     }
 
+    [CustomAuthorize("Role And Permissions", "CanView")]
     [HttpGet]
     public IActionResult Permission(int id)
     {
@@ -58,6 +61,7 @@ public class RolePermissionController : Controller
         return RedirectToAction("Permission", "RolePermission");
     }
 
+    [CustomAuthorize("Role And Permissions", "CanEdit")]
     [HttpPost]
     public async Task<IActionResult> Permission(List<RolePermissionViewModel> model)
     {

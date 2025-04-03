@@ -1,5 +1,11 @@
 @model PizzaShop.Entity.ViewModels.ItemTabViewModel
-
+@inject IHttpContextAccessor Accessor;
+@using Newtonsoft.Json;
+@using PizzaShop.Entity.ViewModels;
+@{
+    var permission =
+    JsonConvert.DeserializeObject<List<RolePermissionViewModel>>(Accessor.HttpContext.Session.GetString("permission"));
+}
 <section>
     <div class="row mx-0">
         <aside class="col-md-3 left-section">

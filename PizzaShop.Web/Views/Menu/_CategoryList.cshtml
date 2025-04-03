@@ -1,5 +1,11 @@
 @model List<PizzaShop.Entity.ViewModels.MenuCategoryViewModel>
-
+@inject IHttpContextAccessor Accessor;
+@using Newtonsoft.Json;
+@using PizzaShop.Entity.ViewModels;
+@{
+    var permission =
+    JsonConvert.DeserializeObject<List<RolePermissionViewModel>>(Accessor.HttpContext.Session.GetString("permission"));
+}
 <div class="category-list">
     @foreach (var category in Model)
     {

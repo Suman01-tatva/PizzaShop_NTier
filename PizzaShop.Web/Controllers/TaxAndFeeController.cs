@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PizzaShop.Entity.ViewModels;
+using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
 
 // [Route("tax")]
@@ -18,6 +19,7 @@ public class TaxAndFeeController : Controller
     }
 
     // [HttpGet("taxlist")]
+    [CustomAuthorize("Tax and Fees", "CanView")]
     [HttpGet]
     public async Task<IActionResult> TaxAndFee()
     {
@@ -30,6 +32,7 @@ public class TaxAndFeeController : Controller
         return View();
     }
 
+    [CustomAuthorize("Tax and Fees", "CanView")]
     // [HttpGet("taxform")]
     [HttpGet]
     public async Task<IActionResult> TaxForm(int? id)
@@ -42,6 +45,7 @@ public class TaxAndFeeController : Controller
         return PartialView("_TaxForm", new TaxAndFeesViewModel());
     }
 
+    [CustomAuthorize("Tax and Fees", "CanEdit")]
     // [HttpPost("addtax")]
     [HttpPost]
     public async Task<IActionResult> AddTax(TaxAndFeesViewModel model)
@@ -74,6 +78,7 @@ public class TaxAndFeeController : Controller
         }
     }
 
+    [CustomAuthorize("Tax and Fees", "CanEdit")]
     // [HttpPost("edit")]
     [HttpPost]
     public async Task<IActionResult> EditTax(TaxAndFeesViewModel model)
@@ -106,6 +111,7 @@ public class TaxAndFeeController : Controller
         }
     }
 
+    [CustomAuthorize("Tax and Fees", "CanDelete")]
     // [HttpPost("delete/{id}")]
     [HttpPost]
     public async Task<IActionResult> Delete(int id)
@@ -138,6 +144,7 @@ public class TaxAndFeeController : Controller
         return PartialView("_TaxTablePartial", taxes);
     }
 
+    [CustomAuthorize("Tax and Fees", "CanEdit")]
     // [HttpPost("updateStatus")]
     [HttpPost]
     public async Task<IActionResult> UpdateStatus(int id, bool isActive, bool isDefault)

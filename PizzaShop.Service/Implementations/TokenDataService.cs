@@ -33,4 +33,19 @@ public class TokenDataService : ITokenDataService
 
         return ("", "", "");
     }
+
+    public async Task<int> GetRoleFromToken(string token)
+    {
+        if (!string.IsNullOrEmpty(token))
+        {
+            var principal = _jwtservice.ValidateToken(token);
+            if (principal != null)
+            {
+                var role = principal.Claims.First(claim => claim.Type == ClaimTypes.Role);
+                return int.Parse(role.Value);
+            }
+        }
+
+        return 0;
+    }
 }

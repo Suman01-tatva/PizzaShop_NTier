@@ -1,10 +1,15 @@
 @model PizzaShop.Entity.ViewModels.TableSectionViewModel;
+@inject IHttpContextAccessor Accessor;
+@using Newtonsoft.Json;
+@using PizzaShop.Entity.ViewModels;
 @{
     var PageSize = Model.PageSize;
     var PageIndex = Model.PageIndex;
     var TotalPage = Model.TotalPage;
     var SearchString = Model.SearchString;
     var TotalItems = Model.TotalItems;
+    var permission =
+    JsonConvert.DeserializeObject<List<RolePermissionViewModel>>(Accessor.HttpContext.Session.GetString("permission"));
 }
 <section class="table-responsive">
     @if (Model.Tables.Count == 0)

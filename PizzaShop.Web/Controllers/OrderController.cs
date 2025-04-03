@@ -6,6 +6,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using PizzaShop.Entity.Constants;
 using PizzaShop.Entity.ViewModels;
+using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
 
 namespace PizzaShop.Web.Controllers;
@@ -17,6 +18,8 @@ public class OrderController : Controller
     {
         _orderService = orderService;
     }
+
+    [CustomAuthorize("Orders", "CanView")]
     [HttpGet]
     public async Task<IActionResult> Orders(string searchString = "", int pageIndex = 1, int pageSize = 5, bool isAsc = true, DateOnly? fromDate = null, DateOnly? toDate = null, string sortColumn = "", int status = 0, string dateRange = "AllTime")
     {
@@ -41,6 +44,7 @@ public class OrderController : Controller
         return View(pageData);
     }
 
+    [CustomAuthorize("Orders", "CanView")]
     [HttpGet]
     public async Task<IActionResult> GetOrders(string searchString, int pageIndex, int pageSize, bool isAsc, DateOnly? fromDate, DateOnly? toDate, string sortColumn = "", int status = 0, string dateRange = "AllTime")
     {
@@ -207,6 +211,7 @@ public class OrderController : Controller
         }
     }
 
+    [CustomAuthorize("Orders", "CanView")]
     [HttpGet]
     public async Task<IActionResult> OrderDetails(int id)
     {
@@ -227,6 +232,8 @@ public class OrderController : Controller
 
         return View(orderDetails);
     }
+
+    [CustomAuthorize("Orders", "CanView")]
     public async Task<IActionResult> InvoiceDetail(int id)
     {
         OrderDetailsViewModel orderDetail = await _orderService.OrderDetails(id);
