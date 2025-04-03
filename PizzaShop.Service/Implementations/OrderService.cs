@@ -59,20 +59,6 @@ namespace PizzaShop.Service.Implementations
                 throw new Exception("Order not found");
             }
 
-            var tableId = order.TableOrderMappings?.FirstOrDefault()?.TableId ?? 0;
-            TableViewModel? table = null;
-
-            if (tableId != 0)
-            {
-                table = await _tableRepository.GetTableById(tableId);
-            }
-            Section? section = null;
-            if (table != null)
-            {
-                if (table!.SectionId != 0 || table.SectionId != null)
-                    section = _sectionRepository.GetSectionById(table.SectionId);
-            }
-
             var taxes = order.OrderTaxMappings?.ToList();
             List<TaxesAndFee> OrderTaxesList = new List<TaxesAndFee>();
             if (taxes != null)
@@ -83,6 +69,20 @@ namespace PizzaShop.Service.Implementations
                     OrderTaxesList.Add(tax);
                 }
             }
+            decimal subTotal = 0;
+            foreach (var i in order.OrderedItems)
+            {
+                subTotal += i.TotalAmount;
+                foreach (var modifier in i.OrderedItemModifierMappings)
+                {
+                    subTotal += (modifier.RateOfModifier * modifier.QuantityOfModifier) ?? 0;
+                }
+            }
+            decimal total = subTotal;
+            foreach (var i in order.OrderTaxMappings)
+            {
+                total += i.TaxValue ?? 0;
+            }
 
             var Items = order.OrderedItems.Select(item => new OrderItemsViewModel
             {
@@ -90,7 +90,6 @@ namespace PizzaShop.Service.Implementations
                 Quantity = item.Quantity,
                 Price = item.Rate ?? 0,
                 TotalAmount = item.TotalAmount,
-                // Modifiers = string.Join(", ", item.OrderedItemModifierMappings.Select(m => m.Modifier.Name)),
                 Modifiers = item.OrderedItemModifierMappings.Select(m => new OrderItemModifierViewModel
                 {
                     Id = m.Id,
@@ -100,24 +99,22 @@ namespace PizzaShop.Service.Implementations
                     Rate = m.RateOfModifier,
                     TotalAmount = m.RateOfModifier * m.QuantityOfModifier
                 }).ToList(),
-                QuantityOfModifier = item.OrderedItemModifierMappings.FirstOrDefault()?.QuantityOfModifier ?? 0,
+                // QuantityOfModifier = item.OrderedItemModifierMappings.Select(i => i.QuantityOfModifier).FirstOrDefault() ?? 0,
                 ModifiersPrice = item.OrderedItemModifierMappings.Sum(m => m.RateOfModifier ?? 0),
                 TotalModifierAmount = item.TotalModifierAmount ?? 0
             }).ToList();
-
+            string invoiceNumber = "#DOM" + Convert.ToDateTime(order.CreatedAt).ToString("yyyyMMdd") + "-" + order.Invoices?.Select(i => i.Id).FirstOrDefault().ToString();
             var model = new OrderDetailsViewModel
             {
                 Id = order.Id,
                 CustomerId = order.CustomerId,
-                InvoiceNo = order.Invoices.FirstOrDefault()!.Id.ToString(),
-                OrderNo = order.OrderNo,
-                TotalAmount = order.TotalAmount,
+                InvoiceNo = invoiceNumber,
+                // OrderNo = order.OrderNo,
+                TotalAmount = total,
                 Tax = order.Tax,
-                SubTotal = order.SubTotal,
-                Discount = order.Discount,
+                SubTotal = subTotal,
+                Discount = order.Discount ?? 0,
                 PaidAmount = order.PaidAmount,
-                Notes = order.Notes,
-                IsSgstSelected = order.IsSgstSelected,
                 CreatedAt = order.CreatedAt,
                 CreatedBy = order.CreatedBy,
                 ModifiedAt = order.ModifiedAt,
@@ -125,15 +122,14 @@ namespace PizzaShop.Service.Implementations
                 Date = order.OrderDate,
                 CustomerName = order.Customer?.Name,
                 Status = (OrderConstants.OrderStatusEnum)order.OrderStatus,
-                Rating = order.Feedbacks?.FirstOrDefault()?.AvgRating,
                 CustomerEmail = order.Customer?.Email,
                 CustomerPhone = order.Customer?.Phone,
-                TableId = order.TableOrderMappings?.FirstOrDefault()?.TableId ?? 0,
                 NoOfPeople = order.TableOrderMappings?.FirstOrDefault()?.NoOfPeople,
-                TableName = table!.Name,
-                SectionName = section!.Name,
+                TableName = order.TableOrderMappings?.Select(t => t.Table.Name).FirstOrDefault(),
+                SectionName = order?.TableOrderMappings?.Select(s => s.Table.Section.Name).FirstOrDefault(),
                 OrderedItems = Items,
-                PaymentMode = (OrderConstants.PaymentModeEnum)order.Invoices.FirstOrDefault()?.Payments.FirstOrDefault()!.PaymentMethod!,
+                // PaymentMode = (OrderConstants.PaymentModeEnum)order?.Invoices?.FirstOrDefault()?.Payments.FirstOrDefault()!.PaymentMethod!,
+                // PaymentMode = (OrderConstants.PaymentModeEnum)order?.Invoices.Select(i => i.Payments).FirstOrDefault(),
                 OrderTaxes = OrderTaxesList!.ToList()
             };
             return model;

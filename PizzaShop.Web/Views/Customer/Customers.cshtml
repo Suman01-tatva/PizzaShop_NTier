@@ -28,7 +28,7 @@
                     </option>
                     <option value="CurrentMonth" selected="@(DateRange == "CurrentMonth" ? true : false)">Current Month
                     </option>
-                    <option value="CustomeDate">Custome Date
+                    <option value="CustomeDate" selected="@(DateRange == "CustomeDate" ? true : false)">Custome Date
                     </option>
                 </select>
             </div>
@@ -58,12 +58,12 @@
             </div>
             <div class="modal-body d-flex justify-content-center align-items-center">
                 <div class="form-floating col-6 p-2">
-                    <input type="date" class="form-control" id="startDate"
+                    <input type="date" class="form-control" id="fromDate"
                         style="border:1px solid #d3d3d3; border-radius: 5px;" "required>
                     <label  for=" startDate" class="mt-2 mx-1">Select Date</label>
                 </div>
                 <div class="form-floating col-6 p-2">
-                    <input type="date" class="form-control" id="endDate"
+                    <input type="date" class="form-control" id="toDate"
                         style="border:1px solid #d3d3d3; border-radius: 5px;" required>
                     <label for="endDate" class="mt-2 mx-1">End Date</label>
                 </div>
@@ -116,20 +116,22 @@
         $('#dateRange').change(function () {
             var pageIndex = 1;
             console.log("DateRange DropDown");
-            GetFilteredCustomers();
+            var dateRange = $('#dateRange').val();
+            if (dateRange == "CustomeDate")
+                $('#dateRangeModal').modal('show');
+            else
+                GetFilteredCustomers();
         })
 
         $('#submitDateRange').click(function () {
-            const startDate = $('#startDate').val();
-            const endDate = $('#endDate').val();
-
-            if (startDate && endDate) {
+            fromDate = $('#fromDate').val();
+            toDate = $('#toDate').val();
+            if (fromDate && toDate) {
                 $('#dateRangeModal').modal('hide');
-                $('#dateRangeFilter').val('Custom Date');
-                loadCustomers(1, startDate, endDate);
-                $('#dateRangeFilter').val('All Time');
+                $('#dateRange').val('CustomeDate');
+                GetFilteredCustomers();
             } else {
-                alert('Both Start Date and End Date are required.');
+                toastr.error('Both Start Date and End Date are required.');
             }
         });
 

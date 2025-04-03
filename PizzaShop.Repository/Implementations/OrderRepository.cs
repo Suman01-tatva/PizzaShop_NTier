@@ -105,7 +105,12 @@ public class OrderRepository : IOrderRepository
                                     .ThenInclude(O => O.OrderedItemModifierMappings)
                                     .ThenInclude(m => m.Modifier)
                                     .Include(o => o.TableOrderMappings)
-                                    .Include(o => o.OrderTaxMappings).FirstOrDefaultAsync();
+                                    .ThenInclude(o => o.Table)
+                                    .ThenInclude(o => o.Section)
+                                    .Include(o => o.OrderTaxMappings)
+                                    .ThenInclude(o => o.Tax)
+                                    .FirstOrDefaultAsync();
         return orderDetails!;
+
     }
 }

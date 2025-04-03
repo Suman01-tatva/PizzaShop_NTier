@@ -40,6 +40,8 @@ public class CustomerRepositoy : ICustomerRepository
                 fromDate = new DateOnly(now.Year, now.Month, 1);
                 toDate = new DateOnly(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month));
                 break;
+            case "CustomeDate":
+                break;
             case "AllTime":
             default:
                 fromDate = null;

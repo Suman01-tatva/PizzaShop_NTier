@@ -1,6 +1,5 @@
 @model PizzaShop.Entity.ViewModels.OrderDetailsViewModel;
 @using PizzaShop.Entity.Constants;
-
 <div class="d-flex justify-content-end mt-4 mx-3">
     <a href="@Url.Action("Orders", "Order")" style="text-decoration: none;">
         <button type="button" class="outline-btn">
@@ -129,8 +128,7 @@
 
             <div class="text-end">
                 <div class="d-flex justify-content-end mb-2">
-                    <div class="me-3">Subtotal: @Model.SubTotal</div>
-                    <div>₹</div>
+                    <div class="me-3">Subtotal: ₹@Model.SubTotal</div>
                 </div>
                 @if (Model.OrderTaxes != null)
                 {
@@ -145,12 +143,10 @@
                     srNo++;
                 }
                 <div class="d-flex justify-content-end mb-2">
-                    <div class="me-3">Discount:@Model.Discount</div>
-                    <div>₹</div>
+                    <div class="me-3">Discount: ₹@Model.Discount</div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <div class="me-3">Total: @Model.TotalAmount</div>
-                    <div>₹</div>
+                    <div class="me-3">Total: ₹@Model.TotalAmount</div>
                 </div>
             </div>
         </div>

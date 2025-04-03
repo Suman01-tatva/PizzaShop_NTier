@@ -38,9 +38,9 @@ public class OrderDetailsViewModel
 
     public string? CustomerName { get; set; }
 
-    public OrderConstants.OrderStatusEnum Status { get; set; }
+    public OrderConstants.OrderStatusEnum? Status { get; set; }
 
-    public OrderConstants.PaymentModeEnum PaymentMode { get; set; }
+    public OrderConstants.PaymentModeEnum? PaymentMode { get; set; }
 
     public int? Rating { get; set; }
 
@@ -52,7 +52,7 @@ public class OrderDetailsViewModel
 
     //TableOrder
 
-    public int? TableId { get; set; }
+    // public int? TableId { get; set; }
     public string? TableName { get; set; }
 
     public int? NoOfPeople { get; set; }
