@@ -1,7 +1,9 @@
 using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Elfie.Model.Strings;
+using Newtonsoft.Json;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Service.Attributes;
@@ -17,13 +19,16 @@ public class UserController : Controller
 
     private readonly IMailService _mailService;
 
-    public UserController(IUserService userService, ITokenDataService tokenDataService, IMailService mailService)
+    private readonly IRolePermissionService _rolePermission;
+    public UserController(IUserService userService, ITokenDataService tokenDataService, IMailService mailService, IRolePermissionService rolePermissionService)
     {
         _userService = userService;
 
         _tokenDataService = tokenDataService;
 
         _mailService = mailService;
+
+        _rolePermission = rolePermissionService;
     }
 
     public IActionResult ChangePassword()
@@ -173,8 +178,14 @@ public class UserController : Controller
     }
 
     [CustomAuthorize("Users", "CanView")]
-    public IActionResult UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")
+    public async Task<IActionResult> UserList(string searchString, int pageIndex = 1, int pageSize = 5, string sortOrder = "")
     {
+        var token = Request.Cookies["Token"];
+        var roleId = await _tokenDataService.GetRoleFromToken(token!);
+        Console.WriteLine("Role Id", roleId);
+        var permission = _rolePermission.GetRolePermissionByRoleId(roleId);
+        HttpContext.Session.SetString("permission", JsonConvert.SerializeObject(permission));
+
         var users = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize);
         var totalUsers = _userService.GetTotalUsers(searchString);
         ViewBag.count = totalUsers;

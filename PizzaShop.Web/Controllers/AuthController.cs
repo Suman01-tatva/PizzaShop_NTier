@@ -71,7 +71,7 @@ public class AuthController : Controller
                 CookieUtils.SaveUserData(Response, user);
             }
             TempData["Email"] = user.Email;
-            if (user.RoleId == 1)
+            if (user.RoleId == 1 || user.RoleId == 2)
             {
                 return RedirectToAction("AdminDashboard", "Home");
             }
@@ -229,6 +229,11 @@ public class AuthController : Controller
     {
         Response.Cookies.Delete("Token");
         Response.Cookies.Delete("UserData");
+        HttpContext.Session.Clear();
+
+        Response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0";
+        Response.Headers["Pragma"] = "no-cache";
+        Response.Headers["Expires"] = "-1";
         return RedirectToAction("Login", "Auth");
     }
 
@@ -237,13 +242,21 @@ public class AuthController : Controller
     {
         var refererUrl = Request.Headers["Referer"].ToString(); // Referer header is used to get the URL of the previous page from which request(Error) comes.
 
-        if (statusCode == 403 && !string.IsNullOrEmpty(refererUrl))
+        // if (statusCode == 403 && !string.IsNullOrEmpty(refererUrl))
+        // {
+        //     TempData["ToastrMessage"] = "You are not authorized to access this page.";
+        //     TempData["ToastrType"] = "error";
+        //     return Redirect(refererUrl);
+        // }
+        if (statusCode == 403)
         {
-            TempData["ToastrMessage"] = "You are not authorized to access this page.";
-            TempData["ToastrType"] = "error";
-            return Redirect(refererUrl);
+            return RedirectToAction("NotFound", "Home"); // ✅ Redirect to the 404 page instead of referer
         }
 
+        if (statusCode == 401)
+        {
+            return RedirectToAction("NotFound", "Home"); // ✅ Show 404 for unauthorized access
+        }
         // if (statusCode == 500 && !string.IsNullOrEmpty(refererUrl))
         // {
         //     TempData["error"] = "An error occurred while processing your request.";

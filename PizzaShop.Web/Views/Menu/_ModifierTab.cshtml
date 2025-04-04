@@ -12,7 +12,8 @@
             <!-- Modifier header -->
             <div class="d-flex flex-wrap justify-content-between align-items-center p-2">
                 <h5>Modifier Group</h5>
-                <button class="outline-btn py-1 px-2" id="AddModifierGroup">
+                <button class="outline-btn py-1 px-2 d-@(permission[2].CanEdit == false ? "none" : "")"
+                    id="AddModifierGroup">
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
@@ -34,10 +35,11 @@
                                 id="eye-icon" style="color: gray"></i>
                         </span>
                     </div>
-                    <button class="btn btn-outline-secondary me-3" id="multiDeleteModifiersBtn">
+                    <button class="btn btn-outline-secondary me-3 d-@(permission[2].CanDelete == false ? "none" : "")"
+                        id="multiDeleteModifiersBtn">
                         <i class="fa-solid fa-trash"></i>
                     </button>
-                    <button class="fill-btn me-3" id="addNewModifier">
+                    <button class="fill-btn me-3 d-@(permission[2].CanEdit == false ? "none" : "")" id="addNewModifier">
                         <i class="fa-solid fa-plus"></i> New Modifier
                     </button>
                 </div>

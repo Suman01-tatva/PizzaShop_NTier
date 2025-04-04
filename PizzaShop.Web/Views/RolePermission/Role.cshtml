@@ -13,7 +13,7 @@
             <tr class="bg-light">
                 <td>Role</td>
                 <td
-                    class="text-end  d-@((permission[1].CanEdit == false || permission[1].CanDelete == false) ? "none" : "")">
+                    class="text-end  d-@((permission[1].CanEdit == false && permission[1].CanDelete == false) ? "none" : "")">
                     Action</td>
             </tr>
             @foreach (var role in Model)
@@ -21,7 +21,7 @@
                 <tr class="bg-light">
                     <td>@role.Name</td>
                     <td
-                        class="text-end d-@((permission[1].CanEdit == false || permission[1].CanDelete == false) ? "none" : "")">
+                        class="text-end d-@((permission[1].CanEdit == false && permission[1].CanDelete == false) ? "none" : "")">
                         <i class="fa-solid fa-pen-clip mx-3" style="cursor: pointer;"
                             onclick="window.location.href = '@Url.Action("Permission", "RolePermission", new { id = role.Id })'"></i>
                     </td>

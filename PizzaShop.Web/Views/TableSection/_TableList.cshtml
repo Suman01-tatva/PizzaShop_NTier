@@ -35,7 +35,8 @@
                     <th scope="col">
                         <div class="d-flex justify-content-center">Status</div>
                     </th>
-                    <th scope="col">
+                    <th scope="col"
+                        class="d-@((permission[3].CanEdit == false && permission[3].CanDelete == false) ? "none" : "")">
                         <div class="d-flex justify-content-center">Action</div>
                     </th>
                 </tr>
@@ -67,12 +68,16 @@
                                 }
                             </div>
                         </td>
-                        <td>
+                        <td class="d-@((permission[3].CanEdit == false && permission[3].CanDelete == false) ? "none" : "")">
                             <div class="d-flex justify-content-center">
-                                <button type="button" class="btn border-0 editTableBtn" data-id="@Model.Tables[i].Id">
+                                <button type="button"
+                                    class="btn border-0 editTableBtn  d-@(permission[3].CanEdit == false ? "none" : "")"
+                                    data-id="@Model.Tables[i].Id">
                                     <i class="fa-solid fa-pen-clip m-1"></i>
                                 </button>
-                                <button type="button" class="btn border-0 deleteTable" value="@Model.Tables[i].Id">
+                                <button type="button"
+                                    class="btn border-0 deleteTable  d-@(permission[3].CanDelete == false ? "none" : "")"
+                                    value="@Model.Tables[i].Id">
                                     <i class="fa-regular fa-trash-can"></i>
                                 </button>
                             </div>

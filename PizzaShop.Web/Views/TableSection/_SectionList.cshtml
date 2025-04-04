@@ -17,13 +17,16 @@
                     @Model[i].Name
                 </h6>
             </div>
-            <span class="edit-delete-icon">
-                <a href="javascript:void(0);" class="edit-btn edit-category" style="text-decoration: none; color: inherit;">
+            <span
+                class="edit-delete-icon d-@((permission[3].CanEdit == false && permission[3].CanDelete == false) ? "none" : "")">
+                <a href="javascript:void(0);"
+                    class="edit-btn edit-category d-@(permission[3].CanEdit == false ? "none" : "")"
+                    style="text-decoration: none; color: inherit;">
                     <i class="fa-solid fa-pencil m-1" data-bs-toggle="modal" data-bs-target="#sectionModal"
                         onclick="openAddEditModal(@Model[i].Id)"></i>
                 </a>
-                <i class="fa-regular fa-trash-can mx-2 delete-section" data-id="@Model[i].Id" data-bs-target="#deleteModal"
-                    data-bs-toggle="modal"></i>
+                <i class="fa-regular fa-trash-can mx-2 delete-section d-@(permission[3].CanDelete == false ? "none" : "")"
+                    data-id="@Model[i].Id" data-bs-target="#deleteModal" data-bs-toggle="modal"></i>
             </span>
         </div>
     }

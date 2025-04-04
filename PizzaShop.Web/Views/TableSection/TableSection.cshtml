@@ -20,8 +20,8 @@
                 <!-- Section header -->
                 <div class="d-flex flex-wrap justify-content-between align-items-center p-2">
                     <h5 class="section-heading">Sections</h5>
-                    <button class="fill-btn py-1 px-2" data-bs-toggle="modal" data-bs-target="#sectionModal"
-                        onclick="openAddEditModal(0)">
+                    <button class="fill-btn py-1 px-2 d-@(permission[3].CanEdit == false ? "none" : "")"
+                        data-bs-toggle="modal" data-bs-target="#sectionModal" onclick="openAddEditModal(0)">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
@@ -42,10 +42,12 @@
                                     id="eye-icon" style="color: gray"></i>
                             </span>
                         </div>
-                        <button class="btn btn-outline-secondary me-3" id="multiDeletTableBtn">
+                        <button
+                            class="btn btn-outline-secondary me-3 d-@(permission[3].CanDelete == false ? "none" : "")"
+                            id="multiDeletTableBtn">
                             <i class="fa-solid fa-trash"></i>
                         </button>
-                        <button class="fill-btn addTableBtn">
+                        <button class="fill-btn addTableBtn d-@(permission[3].CanEdit == false ? "none" : "")">
                             <i class="fa-solid fa-plus"></i> New Table
                         </button>
                     </div>

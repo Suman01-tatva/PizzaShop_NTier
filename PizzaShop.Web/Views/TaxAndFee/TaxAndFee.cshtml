@@ -22,7 +22,7 @@
                 </div>
                 <a href="javascript:void(0);" class="edit-btn add-tax-btn"
                     style="text-decoration: none; color: inherit;">
-                    <button data-bs-toggle="modal" class=" d-flex add-user-btn fill-btn align-items-center">
+                    <button data-bs-toggle="modal" class=" d-flex add-user-btn fill-btn align-items-center d-@(permission[4].CanEdit == false ? "none" : "")">
                         <span class="span1"><i class="fa-solid fa-plus" style="color: white;"></i> New Tax</span>
                         <span class="span2"><i class="fa-solid fa-plus" style="color: white;"></i></span>
                     </button>

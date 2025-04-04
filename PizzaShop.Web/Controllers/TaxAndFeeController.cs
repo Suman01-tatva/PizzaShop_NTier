@@ -3,6 +3,7 @@ namespace PizzaShop.Web.Controllers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
@@ -13,9 +14,14 @@ using PizzaShop.Service.Interfaces;
 public class TaxAndFeeController : Controller
 {
     private readonly ITaxAndFeesService _taxesAndFeesService;
-    public TaxAndFeeController(ITaxAndFeesService taxesAndFeesService)
+
+    private readonly IRolePermissionService _rolePermission;
+    private readonly ITokenDataService _tokenDataService;
+    public TaxAndFeeController(ITaxAndFeesService taxesAndFeesService, ITokenDataService tokenDataService, IRolePermissionService rolePermissionService)
     {
         _taxesAndFeesService = taxesAndFeesService;
+        _rolePermission = rolePermissionService;
+        _tokenDataService = tokenDataService;
     }
 
     // [HttpGet("taxlist")]
@@ -23,6 +29,12 @@ public class TaxAndFeeController : Controller
     [HttpGet]
     public async Task<IActionResult> TaxAndFee()
     {
+        var token = Request.Cookies["Token"];
+        var roleId = await _tokenDataService.GetRoleFromToken(token!);
+        Console.WriteLine("Role Id", roleId);
+        var permission = _rolePermission.GetRolePermissionByRoleId(roleId);
+        HttpContext.Session.SetString("permission", JsonConvert.SerializeObject(permission));
+
         var taxes = await _taxesAndFeesService.GetAllTaxes();
         return View(taxes);
     }

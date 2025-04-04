@@ -19,6 +19,11 @@ public class CustomAuthorizeAttribute : Attribute, IAuthorizationFilter
 
     public void OnAuthorization(AuthorizationFilterContext context)
     {
+        var response = context.HttpContext.Response;
+        response.Headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0";
+        response.Headers["Pragma"] = "no-cache";
+        response.Headers["Expires"] = "-1";
+
         var jwtService = context.HttpContext.RequestServices.GetService(typeof(IJwtService)) as IJwtService;
         var permissionService = context.HttpContext.RequestServices.GetService(typeof(IRolePermissionService)) as IRolePermissionService;
 

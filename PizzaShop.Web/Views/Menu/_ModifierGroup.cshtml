@@ -17,12 +17,13 @@
                     @modifierGroup.Name
                 </h6>
             </div>
-            <span class="edit-delete-icon">
-                <a href="javascript:void(0);" data-id="@modifierGroup.Id" class="edit-btn editModifierGroup"
+            <span
+                class="edit-delete-icon d-@((permission[2].CanEdit == false && permission[2].CanDelete == false) ? "none" : "")">
+                <a href="javascript:void(0);" data-id="@modifierGroup.Id" class="edit-btn editModifierGroup d-@(permission[2].CanEdit == false ? "none" : "")"
                     style="text-decoration: none; color: inherit;">
                     <i class="fa-solid fa-pencil m-1"></i>
                 </a>
-                <i class="fa-regular fa-trash-can mx-2 delete-modifiergroup" data-bs-target="#deleteModifierGroupModal"
+                <i class="fa-regular fa-trash-can mx-2 delete-modifiergroup d-@(permission[2].CanDelete == false ? "none" : "")" data-bs-target="#deleteModifierGroupModal"
                     data-bs-toggle="modal" id="deleteModifierGroup" data-id="@modifierGroup.Id"></i>
             </span>
         </div>

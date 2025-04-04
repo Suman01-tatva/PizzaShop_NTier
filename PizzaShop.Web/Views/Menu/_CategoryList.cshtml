@@ -18,12 +18,15 @@
                     @category.Name
                 </h6>
             </div>
-            <span class="edit-delete-icon">
-                <a href="javascript:void(0);" data-id="@category.Id" class="edit-btn edit-category"
+            <span
+                class="edit-delete-icon d-@((permission[2].CanEdit == false && permission[2].CanDelete == false) ? "none" : "")">
+                <a href="javascript:void(0);" data-id="@category.Id"
+                    class="edit-btn edit-category d-@(permission[2].CanEdit == false ? "none" : "")"
                     style="text-decoration: none; color: inherit;">
                     <i class="fa-solid fa-pencil m-1" data-bs-toggle="modal" data-bs-target="#EditCategoryModal"></i>
                 </a>
-                <i class="fa-regular fa-trash-can mx-2 delete-category" id="deleteCategory" data-id="@category.Id"></i>
+                <i class="fa-regular fa-trash-can mx-2 delete-category d-@(permission[2].CanDelete == false ? "none" : "")"
+                    id="deleteCategory" data-id="@category.Id"></i>
             </span>
         </div>
     }

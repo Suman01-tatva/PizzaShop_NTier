@@ -1,5 +1,7 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
@@ -11,17 +13,25 @@ public class TableSectionController : Controller
     private readonly ITableService _tableService;
     private readonly ISectionService _sectionService;
     private readonly ITokenDataService _tokenDataService;
-
-    public TableSectionController(ITableService tableService, ISectionService sectionService, ITokenDataService tokenDataService)
+    private readonly IRolePermissionService _rolePermission;
+    public TableSectionController(ITableService tableService, ISectionService sectionService, ITokenDataService tokenDataService, IRolePermissionService rolePermissionService)
     {
         _tableService = tableService;
         _sectionService = sectionService;
         _tokenDataService = tokenDataService;
+        _rolePermission = rolePermissionService;
     }
     [CustomAuthorize("Table and Section", "CanView")]
     [HttpGet]
-    public IActionResult TableSection(int? id, int pageSize = 5, int pageIndex = 1, string searchString = "")
+    public async Task<IActionResult> TableSection(int? id, int pageSize = 5, int pageIndex = 1, string searchString = "")
     {
+
+        var token = Request.Cookies["Token"];
+        var roleId = await _tokenDataService.GetRoleFromToken(token!);
+        Console.WriteLine("Role Id", roleId);
+        var permission = _rolePermission.GetRolePermissionByRoleId(roleId);
+        HttpContext.Session.SetString("permission", JsonConvert.SerializeObject(permission));
+
         var sections = _sectionService.GetAllSections();
         if (!sections.Any())
         {

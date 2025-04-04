@@ -15,7 +15,8 @@
                 <th>IsEnabled</th>
                 <th>Default</th>
                 <th>TaxValue</th>
-                <th>Action</th>
+                <th class="d-@((permission[4].CanEdit == false && permission[4].CanDelete == false) ? "none" : "")">
+                    Action</th>
             </tr>
         </thead>
         <tbody>
@@ -57,13 +58,14 @@
                             @Html.DisplayFor(modelItem => tax.TaxValue)
                         }
                     </td>
-                    <td>
+                    <td class="d-@((permission[4].CanEdit == false && permission[4].CanDelete == false) ? "none" : "")">
                         <div class="d-flex justify-content-cente gap-3">
-                            <a href="javascript:void(0);" style="text-decoration: none; color: inherit;" class="edit-tax"
-                                data-id="@tax.Id">
+                            <a href="javascript:void(0);" style="text-decoration: none; color: inherit;"
+                                class="edit-tax d-@(permission[4].CanEdit == false ? "none" : "")" data-id="@tax.Id">
                                 <i class="fa-solid fa-pen-clip m-1"></i>
                             </a>
-                            <a href="javascript:void(0);" class="delete-btn" data-id="@tax.Id">
+                            <a href="javascript:void(0);"
+                                class="delete-btn d-@(permission[4].CanDelete == false ? "none" : "")" data-id="@tax.Id">
                                 <i class="fa-regular fa-trash-can"></i>
                             </a>
                         </div>

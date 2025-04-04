@@ -25,7 +25,7 @@
                 <th scope="col">Unit</th>
                 <th scope="col">Rate</th>
                 <th scope="col">Quantity</th>
-                <th scope="col">Action</th>
+                <th scope="col" class="d-@((permission[2].CanEdit == false && permission[2].CanDelete == false) ? "none" : "")">Action</th>
             </tr>
         </thead>
         <tbody class="table-group-devider">
@@ -48,12 +48,12 @@
                     <td>@modifier.UnitName</td>
                     <td>@modifier.Rate</td>
                     <td>@modifier.Quantity</td>
-                    <td>
-                        <button type="button" class="btn border-0 p-0 me-4 editModifierBtn" data-id="@modifier.Id"
+                    <td class="d-@((permission[2].CanEdit == false && permission[2].CanDelete == false) ? "none" : "")">
+                        <button type="button" class="btn border-0 p-0 me-4 editModifierBtn d-@(permission[2].CanEdit == false ? "none" : "")" data-id="@modifier.Id"
                             data-bs-toggle="modal">
                             <i class="fa-solid fa-pen-clip"></i>
                         </button>
-                        <button type="button" class="btn border-0 p-0 deleteModifierBtn" data-bs-toggle="modal" data-id="@modifier.Id"
+                        <button type="button" class="btn border-0 p-0 deleteModifierBtn d-@(permission[2].CanDelete == false ? "none" : "")" data-bs-toggle="modal" data-id="@modifier.Id"
                             data-bs-target="#deleteModifiersModal">
                             <i class="fa-regular fa-trash-can"></i>
                         </button>

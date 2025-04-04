@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Service.Attributes;
@@ -14,16 +15,26 @@ public class MenuController : Controller
     private readonly IMenuService _menuService;
     private readonly IMenuModifierService _menuModifierService;
     private readonly ITokenDataService _tokenDataService;
-    public MenuController(IMenuService menuService, IMenuModifierService menuModifierService, ITokenDataService tokenDataService)
+
+    private readonly IRolePermissionService _rolePermission;
+
+    public MenuController(IMenuService menuService, IMenuModifierService menuModifierService, ITokenDataService tokenDataService, IRolePermissionService rolePermissionService)
     {
         _menuService = menuService;
         _menuModifierService = menuModifierService;
         _tokenDataService = tokenDataService;
+        _rolePermission = rolePermissionService;
     }
     [CustomAuthorize("Menu", "CanView")]
     [HttpGet]
     public async Task<IActionResult> Menu(int pageSize = 5, int pageIndex = 1, string searchString = "")
     {
+        var token = Request.Cookies["Token"];
+        var roleId = await _tokenDataService.GetRoleFromToken(token!);
+        Console.WriteLine("Role Id", roleId);
+        var permission = _rolePermission.GetRolePermissionByRoleId(roleId);
+        HttpContext.Session.SetString("permission", JsonConvert.SerializeObject(permission));
+
         var categories = await _menuService.GetAllMenuCategoriesAsync();
         if (!categories.Any())
         {
@@ -206,7 +217,7 @@ public class MenuController : Controller
         List<ItemModifierViewModel> itemModifiers = new List<ItemModifierViewModel>();
         if (!string.IsNullOrEmpty(ItemModifiers))
         {
-            itemModifiers = JsonSerializer.Deserialize<List<ItemModifierViewModel>>(ItemModifiers);
+            itemModifiers = System.Text.Json.JsonSerializer.Deserialize<List<ItemModifierViewModel>>(ItemModifiers);
         }
         model.ItemModifiersList = itemModifiers;
         try
@@ -242,7 +253,7 @@ public class MenuController : Controller
             List<ItemModifierViewModel> itemModifiers = new List<ItemModifierViewModel>();
             if (!string.IsNullOrEmpty(ItemModifiers))
             {
-                itemModifiers = JsonSerializer.Deserialize<List<ItemModifierViewModel>>(ItemModifiers);
+                itemModifiers = System.Text.Json.JsonSerializer.Deserialize<List<ItemModifierViewModel>>(ItemModifiers);
             }
             model.ItemModifiersList = itemModifiers;
             _menuService.EditItem(model, int.Parse(id));

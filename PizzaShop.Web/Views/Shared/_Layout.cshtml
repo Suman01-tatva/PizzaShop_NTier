@@ -4,8 +4,10 @@
 @using PizzaShop.Entity.ViewModels;
 @{
     var email = User.FindFirst(ClaimTypes.Email)?.Value;
-    var permission =
-    JsonConvert.DeserializeObject<List<RolePermissionViewModel>>(Accessor.HttpContext.Session.GetString("permission"));
+    var permissionString = Accessor.HttpContext.Session.GetString("permission");
+    var permission = string.IsNullOrEmpty(permissionString)
+    ? new List<RolePermissionViewModel>()
+    : JsonConvert.DeserializeObject<List<RolePermissionViewModel>>(permissionString);
     ViewData["Title"] = "Dashboard";
 }
 
@@ -220,6 +222,10 @@
                 }
             });
         })
+        window.history.pushState(null, "", window.location.href);
+        window.addEventListener("popstate", function () {
+            window.location.replace("/Auth/Login");
+        });
     </script>
 </body>
 

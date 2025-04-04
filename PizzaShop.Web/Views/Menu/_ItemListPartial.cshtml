@@ -33,7 +33,7 @@
                     <th scope="col">Rate</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Available</th>
-                    <th scope="col">Action</th>
+                    <th scope="col" class="d-@((permission[2].CanEdit == false && permission[2].CanDelete == false) ? "none" : "")">Action</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider menuItems" id="itemsList">
@@ -74,11 +74,11 @@
                                     id="flexSwitchCheckDefault" checked="@Model.itemList[i].IsAvailable" />
                             </div>
                         </td>
-                        <td>
-                            <button type="button" class="btn border-0 editItemBtn" data-itemid="@Model.itemList[i].Id">
+                        <td class="d-@((permission[2].CanEdit == false && permission[2].CanDelete == false) ? "none" : "")">
+                            <button type="button" class="btn border-0 editItemBtn d-@(permission[2].CanEdit == false ? "none" : "")" data-itemid="@Model.itemList[i].Id">
                                 <i class="fa-solid fa-pen-clip me-3 "></i>
                             </button>
-                            <button type="button" class="btn border-0 deleteItem" value="@Model.itemList[i].Id">
+                            <button type="button" class="btn border-0 deleteItem d-@(permission[2].CanDelete == false ? "none" : "")" value="@Model.itemList[i].Id">
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
                         </td>
