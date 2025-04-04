@@ -26,8 +26,8 @@ public partial class MenuItemViewModel
     public bool Type { get; set; }
 
     [Required(ErrorMessage = "Rate is required")]
-    [Range(1, 9999999.99, ErrorMessage = "Invalid rate")]
     [RegularExpression(@"^\d+(\.\d{1,2})?$", ErrorMessage = "Invalid rate")]
+    [Range(0, double.MaxValue, ErrorMessage = "Flat amount must be Positive.")]
     public decimal Rate { get; set; }
 
     [Required(ErrorMessage = "Quantity is required")]

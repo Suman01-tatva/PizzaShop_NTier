@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Pizzashop.Service.Implementations;
+using PizzaShop.Entity.ViewModels;
 using PizzaShop.Service.Attributes;
 using PizzaShop.Service.Interfaces;
 
@@ -14,7 +15,7 @@ public class CustomerController : Controller
     private readonly ICustomerService _customerService;
     private readonly ITokenDataService _tokenDataService;
     private readonly IRolePermissionService _rolePermissionService;
-    public CustomerController(ICustomerService customerService,ITokenDataService tokenDataService, IRolePermissionService rolePermissionService)
+    public CustomerController(ICustomerService customerService, ITokenDataService tokenDataService, IRolePermissionService rolePermissionService)
     {
         _customerService = customerService;
         _tokenDataService = tokenDataService;
@@ -53,5 +54,12 @@ public class CustomerController : Controller
     public Task<FileContentResult> GenerateExcelFile(string searchString = "", string sortOrder = "", int pageIndex = 1, int pageSize = 5, string dateRange = "AllTime", DateOnly? fromDate = null, DateOnly? toDate = null)
     {
         return _customerService.ExportCustomersExcel(searchString, sortOrder, pageIndex, pageSize, dateRange, fromDate, toDate);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetCustomerDetails(int id)
+    {
+        var customerDetails = await _customerService.GetCustomerDetails(id);
+        return PartialView("_CustomerDetails", customerDetails);
     }
 }

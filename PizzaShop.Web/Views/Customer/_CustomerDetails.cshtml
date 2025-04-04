@@ -1,0 +1,92 @@
+@model PizzaShop.Entity.ViewModels.CustomerDetailsViewModel;
+
+<div class="modal fade" id="CustomerModal" tabindex="-1" aria-labelledby="taxModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            CustomerDetails
+            <div class="modal-header border-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="container-fluid">
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="col-md-12 d-flex justify-content-between border p-2 ">
+                                <span class="text-secondary">Name </span><span class="fw-bolder">@Model.Name</span>
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-between border p-2">
+                                <span class="text-secondary">MobileNumber </span><span
+                                    class="fw-bolder">@Model.MobileNumber</span>
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-between border p-2">
+                                <span class="text-secondary">Max Order </span><span
+                                    class="fw-bolder">@Model.MaxOrder</span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="col-md-12 d-flex justify-content-between border-bottom p-2">
+                                <span class="text-secondary">Average Bill </span><span
+                                    class="fw-bolder">@Model.AvgBill</span>
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-between border-bottom p-2">
+                                <span class="text-secondary">Comming Since </span><span
+                                    class="fw-bolder">@Model.CommingSince</span>
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-between border-bottom p-2">
+                                <span class="text-secondary">Visits </span><span class="fw-bolder">@Model.Visits</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="table-responsive mt-5">
+                        <table class="table table-hover">
+                            <thead class="border-dark bg-white position-sticky top-0">
+                                <tr>
+                                    <th scope="col">Order Date</th>
+                                    <th scope="col">Order Type</th>
+                                    <th scope="col">Payment</th>
+                                    <th scope="col">Items</th>
+                                    <th scope="col">Amount</th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="scroll-y-auto">
+
+                                @foreach (var item in Model.CustomerOrders)
+                                {
+
+                                    <tr>
+
+                                        <td class="">
+                                            @item.OrderDate
+                                        </td>
+
+                                        <td>
+                                            @item.OrderType
+                                        </td>
+                                        <td>
+                                            @item.Payment
+                                        </td>
+                                        <td>
+                                            @item.items
+                                        </td>
+                                        <td>
+                                            @item.Amount
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

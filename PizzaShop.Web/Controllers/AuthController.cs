@@ -237,6 +237,7 @@ public class AuthController : Controller
         return RedirectToAction("Login", "Auth");
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public IActionResult Error(int statusCode)
     {
@@ -250,12 +251,12 @@ public class AuthController : Controller
         // }
         if (statusCode == 403)
         {
-            return RedirectToAction("NotFound", "Home"); // ✅ Redirect to the 404 page instead of referer
+            return RedirectToAction("Forbidden", "Home");
         }
 
         if (statusCode == 401)
         {
-            return RedirectToAction("NotFound", "Home"); // ✅ Show 404 for unauthorized access
+            return RedirectToAction("Unauthorized", "Home");
         }
         // if (statusCode == 500 && !string.IsNullOrEmpty(refererUrl))
         // {
@@ -267,7 +268,7 @@ public class AuthController : Controller
         {
             // TempData["ToastrMessage"] = "You are not authenticated Please Login.";
             // TempData["ToastrType"] = "error";
-            return RedirectToAction("NotFound", "Home");
+            return RedirectToAction("Error", "Home");  // Not Found
         }
 
         string errorText = statusCode switch

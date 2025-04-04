@@ -38,6 +38,8 @@ public class OrderDetailsViewModel
 
     public string? CustomerName { get; set; }
 
+    public int? OrderDuration { get; set; }
+
     public OrderConstants.OrderStatusEnum? Status { get; set; }
 
     public OrderConstants.PaymentModeEnum? PaymentMode { get; set; }

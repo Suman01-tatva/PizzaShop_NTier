@@ -24,16 +24,20 @@
             <thead>
                 <tr>
                     <th>
-                        @* <div class="form-check">
+                        <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                        </div> *@
+                        </div>
                     </th>
                     <th scope="col">Name</th>
-                    <th scope="col">ItemType</th>
-                    <th scope="col">Rate</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Available</th>
-                    <th scope="col" class="d-@((permission[2].CanEdit == false && permission[2].CanDelete == false) ? "none" : "")">Action</th>
+                    <th scope="col">
+                        <div class="d-flex justify-content-center align-items-center">ItemType</div>
+                    </th>
+                    <th scope="col"><div class="d-flex justify-content-center align-items-center">Rate</div></th>
+                    <th scope="col"><div class="d-flex justify-content-center align-items-center">Quantity</div></th>
+                    <th scope="col"><div class="d-flex justify-content-center align-items-center">Available</div></th>
+                    <th scope="col"
+                        class="d-@((permission[2].CanEdit == false && permission[2].CanDelete == false) ? "none" : "")"><div class="d-flex justify-content-center align-items-center">
+                        Action</div></th>
                 </tr>
             </thead>
             <tbody class="table-group-divider menuItems" id="itemsList">
@@ -55,7 +59,7 @@
                             </span>
                         </td>
                         <td>
-                            <div class="">
+                            <div class="" style="vertical-align: middle;">
                                 @if ((bool)Model.itemList[i].Type)
                                 {
                                     <img src="~/images/icons/veg-icon.svg" class="veg-icon" alt="veg-icon" />
@@ -66,21 +70,27 @@
                                 }
                             </div>
                         </td>
-                        <td>@Model.itemList[i].Rate</td>
-                        <td>@Model.itemList[i].Quantity</td>
+                        <td><div class="d-flex justify-content-center align-items-center">@Model.itemList[i].Rate</div></td>
+                        <td><div class="d-flex justify-content-center align-items-center">@Model.itemList[i].Quantity</div></td>
                         <td>
-                            <div class="form-check form-switch">
+                            <div class="form-check form-switch d-flex justify-content-center align-items-center">
                                 <input class="form-check-input switch-btn" type="checkbox" role="switch"
                                     id="flexSwitchCheckDefault" checked="@Model.itemList[i].IsAvailable" />
                             </div>
                         </td>
                         <td class="d-@((permission[2].CanEdit == false && permission[2].CanDelete == false) ? "none" : "")">
-                            <button type="button" class="btn border-0 editItemBtn d-@(permission[2].CanEdit == false ? "none" : "")" data-itemid="@Model.itemList[i].Id">
+                            <div class="d-flex justify-content-center align-items-center">
+                            <button type="button"
+                                class="btn border-0 editItemBtn d-@(permission[2].CanEdit == false ? "none" : "")"
+                                data-itemid="@Model.itemList[i].Id">
                                 <i class="fa-solid fa-pen-clip me-3 "></i>
                             </button>
-                            <button type="button" class="btn border-0 deleteItem d-@(permission[2].CanDelete == false ? "none" : "")" value="@Model.itemList[i].Id">
+                            <button type="button"
+                                class="btn border-0 deleteItem d-@(permission[2].CanDelete == false ? "none" : "")"
+                                value="@Model.itemList[i].Id">
                                 <i class="fa-regular fa-trash-can"></i>
                             </button>
+                            </div>
                         </td>
                     </tr>
                 }
@@ -299,7 +309,28 @@
                 $("#EditItemModel").modal('show');
             }
         })
-    })
+    });
+
+    $('#multiDeleteItemBtn').click(function () {
+        $.ajax({
+            url: "/Menu/MultiDeleteMenuItem",
+            type: 'POST',
+            data: {
+                itemIds: deleteItemIds
+            },
+            success: function (response) {
+                if (response == null)
+                    window.location.href = "/Auth/Login"
+                if (response.isSuccess) {
+                    GetFilteredItems();
+                    toastr.success(response.message);
+                } else {
+                    toastr.error(response.message);
+                }
+                $("#deleteMultipleItemModal").modal('hide');
+            }
+        })
+    });
     @* EditItem *@
         $(document).ready(function () {
             $('#editItemForm').on('submit', function (e) {

@@ -103,4 +103,15 @@ public class CustomerRepositoy : ICustomerRepository
         return (customers, customers.Count());
     }
 
+    public async Task<Customer> CustomerDetails(int id)
+    {
+        var customer = _context.Customers.Where(c => c.Id == id)
+        .Include(o => o.Orders)
+        .ThenInclude(o => o.OrderedItems)
+        .Include(o => o.Orders)
+        .ThenInclude(i => i.Invoices)
+        .ThenInclude(p => p.Payments)
+        .FirstOrDefault();
+        return customer!;
+    }
 }

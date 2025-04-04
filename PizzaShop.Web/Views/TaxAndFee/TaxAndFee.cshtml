@@ -4,25 +4,26 @@
 @using PizzaShop.Entity.ViewModels;
 @{
     ViewData["Title"] = "TaxAndFees";
- var permission =
+    var permission =
     JsonConvert.DeserializeObject<List<RolePermissionViewModel>>(Accessor.HttpContext.Session.GetString("permission"));
 }
 
 <div class="container-fluid" style="padding: 20px !important;">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex tablsec-header">
         <h2 style="color: #0066A7;">Taxes/Fees</h2>
-        <div class="upper-div d-flex justify-content-end">
-            <div class="d-flex">
-                <div class="form-input-div d-flex justify-content-between me-3 position-relative ">
-                    <input type="text" placeholder="Search" class="form-control p-2 d-none d-sm-block " name="search"
-                        required id="searchTaxInput" />
+        <div class="upper-div d-flex justify-content-end filters">
+            <div class="d-flex gap-2">
+                <div class="form-input-div d-flex justify-content-between position-relative ">
+                    <input type="text" placeholder="Search" class="form-control p-2 d-sm-block " name="search" required
+                        id="searchTaxInput" />
                     <span class="form-input-icon position-absolute search-icon mx-2" style="margin-top: 12px;"><i
                             class="fa-solid fa-search" id="eye-icon" style="color: gray"></i>
                     </span>
                 </div>
                 <a href="javascript:void(0);" class="edit-btn add-tax-btn"
                     style="text-decoration: none; color: inherit;">
-                    <button data-bs-toggle="modal" class=" d-flex add-user-btn fill-btn align-items-center d-@(permission[4].CanEdit == false ? "none" : "")">
+                    <button data-bs-toggle="modal" style="height: 45px;"
+                        class=" d-flex add-user-btn fill-btn align-items-center d-@(permission[4].CanEdit == false ? "none" : "")">
                         <span class="span1"><i class="fa-solid fa-plus" style="color: white;"></i> New Tax</span>
                         <span class="span2"><i class="fa-solid fa-plus" style="color: white;"></i></span>
                     </button>
@@ -65,7 +66,7 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('#searchMenuInput').on('input', function () {
+            $('#searchTaxInput').on('input', function () {
                 var searchTerm = $(this).val().toLowerCase();
                 $.ajax({
                     type: "GET",
@@ -80,7 +81,19 @@
                     }
                 });
             });
+            function validateTaxValue() {
+                var taxType = $('#Type').val();
+                var taxValue = parseFloat($('#Rate').val());
 
+                if (taxType === 'true' && (taxValue < 0 || taxValue > 100)) {
+                    toastr.error("Tax Value must be between 0 and 100 for percentage type.");
+                    return false;
+                } else if (taxType === 'false' && taxValue < 0) {
+                    toastr.error("Tax Value must be non-negative for flat amount type.");
+                    return false;
+                }
+                return true;
+            }
             $(document).on('click', '.add-tax-btn', function () {
                 $.ajax({
                     type: "GET",
@@ -123,25 +136,29 @@
             $(document).on('submit', '#taxForm', function (e) {
                 e.preventDefault();
                 var form = $(this);
-                $.ajax({
-                    type: form.attr('method'),
-                    url: form.attr('action'),
-                    data: form.serialize(),
-                    success: function (response) {
-                        if (response.success) {
-                            toastr.success(response.message);
-                            $('#taxModal').modal('hide');
-                            GetFilteredTax();
-                        } else {
-                            toastr.error(response.message);
-                            @* $("#taxAddEditModel").html(response); *@
-                                                            }
-                    },
-                    error: function (xhr, status, error) {
-                        $("#taxModal").find('.modal-content').html(xhr.responseText);
-                        toastr.error("A Tax with this name already exists");
-                    }
-                });
+                if (!validateTaxValue()) {
+                    @* console.log("") *@
+                                } else {
+                    $.ajax({
+                        type: form.attr('method'),
+                        url: form.attr('action'),
+                        data: form.serialize(),
+                        success: function (response) {
+                            if (response.success) {
+                                toastr.success(response.message);
+                                $('#taxModal').modal('hide');
+                                GetFilteredTax();
+                            } else {
+                                toastr.error(response.message);
+                                @* $("#taxAddEditModel").html(response); *@
+                                                                                                                    }
+                        },
+                        error: function (xhr, status, error) {
+                            $("#taxModal").find('.modal-content').html(xhr.responseText);
+                            toastr.error("A Tax with this name already exists");
+                        }
+                    });
+                }
             });
             var deleteTaxId;
 

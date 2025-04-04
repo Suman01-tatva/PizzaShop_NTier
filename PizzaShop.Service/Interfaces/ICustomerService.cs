@@ -9,4 +9,6 @@ public interface ICustomerService
 
     public Task<FileContentResult> ExportCustomersExcel(string searchString, string sortOrder, int pageIndex, int pageSize, string dateRange, DateOnly? fromDate, DateOnly? toDate);
 
+    public Task<CustomerDetailsViewModel> GetCustomerDetails(int id);
+
 }

@@ -45,5 +45,34 @@
                 $("#itemList").html(response);
             }
         })
-    })
+    });
+
+    $(".itemCategory").first().addClass("active-new");
+    $(".itemCategory").click(function () {
+        $(".itemCategory").removeClass("active-new");
+        $(this).addClass("active-new");
+    });
+
+    $("#submitNewCategory").click(function () {
+        var form = $('#addNewCategoryForm');
+        var formData = form.serialize();
+        $.ajax({
+            type: "POST",
+            url: '/Menu/AddCategory',
+            data: formData,
+            success: function (response) {
+                if (response.success) {
+                    GetFilteredCategory();
+                    $('#addCategoryModal').modal('hide');
+                    toastr.success(response.message);
+                    $('.modal-backdrop').remove();
+                } else {
+                    toastr.error(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                toastr.error("An error occurred while updating the category. Please try again.");
+            }
+        });
+    });
 </script>

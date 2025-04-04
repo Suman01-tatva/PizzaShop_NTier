@@ -64,4 +64,9 @@ public class MenuModifierGroupRepository : IMenuModifierGroupRepository
         var modifierGroup = _context.ModifierGroups.Where(m => m.Name.ToLower() == name.ToLower().Trim()).FirstOrDefault();
         return modifierGroup!;
     }
+
+    // public bool DeleteModifierGroup(int id)
+    // {
+
+    // }
 }

@@ -91,44 +91,44 @@
             }
         </tbody>
     </table>
-</div>
+    @* Pagination *@
+    <div class="d-flex justify-content-end align-items-center mt-2">
+        <p class="mb-0">Items Per page</p>
+        <select class="ms-3 form-select w-auto" aria-label="Default select example" id="ordersPageSize">
+            <option value="5" selected="@(PageSize == 5 ? true : false)">5</option>
+            <option value="10" selected="@(PageSize == 10 ? true : false)">10</option>
+            <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
+        </select>
+        <span class="mb-0 ms-2 me-2 d-none d-md-block" id="showing">Showing @(Math.Min(((PageIndex - 1) * PageSize) + 1,
+                        TotalOrders)) -
+            @(Math.Min(PageIndex * PageSize, TotalOrders)) of @TotalOrders</span>
+        @if (PageIndex > 1)
+        {
+            <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="PreviousOrders">
+                <i class="fa fa-chevron-left"></i>
+            </a>
+        }
+        else
+        {
+            <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
+                <i class="fa fa-chevron-left"></i>
+            </button>
+        }
 
-@* Pagination *@
-<div class="d-flex justify-content-end align-items-center mt-2">
-    <p class="mb-0">Items Per page</p>
-    <select class="ms-3 form-select w-auto" aria-label="Default select example" id="ordersPageSize">
-        <option value="5" selected="@(PageSize == 5 ? true : false)">5</option>
-        <option value="10" selected="@(PageSize == 10 ? true : false)">10</option>
-        <option value="15" selected="@(PageSize == 15 ? true : false)">15</option>
-    </select>
-    <span class="mb-0 ms-2 me-2 d-none d-md-block" id="showing">Showing @(Math.Min(((PageIndex - 1) * PageSize) + 1,
-                TotalOrders)) -
-        @(Math.Min(PageIndex * PageSize, TotalOrders)) of @TotalOrders</span>
-    @if (PageIndex > 1)
-    {
-        <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="PreviousOrders">
-            <i class="fa fa-chevron-left"></i>
-        </a>
-    }
-    else
-    {
-        <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
-            <i class="fa fa-chevron-left"></i>
-        </button>
-    }
+        @if (PageIndex < TotalPage)
+        {
+            <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="NextOrders">
+                <i class="fa fa-chevron-right"></i>
+            </a>
+        }
+        else
+        {
+            <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        }
+    </div>
 
-    @if (PageIndex < TotalPage)
-    {
-        <a class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" id="NextOrders">
-            <i class="fa fa-chevron-right"></i>
-        </a>
-    }
-    else
-    {
-        <button class="bg-light border-1 bg-light mx-2 px-2 btn btn-outline-dark" name="PageIndex" hidden>
-            <i class="fa fa-chevron-right"></i>
-        </button>
-    }
 </div>
 <div id="InvoiceDetailContainer" hidden>
 

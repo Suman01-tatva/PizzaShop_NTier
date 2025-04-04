@@ -105,6 +105,10 @@
   }
 }
 
+.brand-name {
+  margin-top: 20px;
+}
+
 @media (max-width: 1180px) {
   .pizza-logo {
     height: 35px !important;
@@ -112,6 +116,7 @@
   }
   .brand-name {
     font-size: medium;
+    /* margin-top: 0px !important; */
   }
   .sidebar li {
     font-size: small;
@@ -438,4 +443,13 @@
 }
 thead {
   border: black 15px;
+}
+
+/*For All Tabe */
+.table td,
+.table th {
+  vertical-align: middle;
+  color: rgb(114, 114, 114) !important;
+  padding: 10px;
+  white-space: nowrap;
 }

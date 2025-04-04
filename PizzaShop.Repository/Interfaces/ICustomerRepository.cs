@@ -1,3 +1,4 @@
+using PizzaShop.Entity.Data;
 using PizzaShop.Entity.ViewModels;
 
 namespace PizzaShop.Repository.Interfaces;
@@ -5,4 +6,6 @@ namespace PizzaShop.Repository.Interfaces;
 public interface ICustomerRepository
 {
     public Task<(List<CustomerViewModel>, int count)> GetCustomerList(string searchString, string sortOrder, int pageIndex, int pageSize, string dateRange, DateOnly? fromDate, DateOnly? toDate);
+
+    public Task<Customer> CustomerDetails(int id);
 }

@@ -128,8 +128,8 @@ public class TableService : ITableService
         table.SectionId = model.SectionId;
         table.Capacity = model.Capacity;
         table.IsAvailable = model.IsAvailable;
-        table.CreatedBy = userId;
-        table.CreatedAt = DateTime.UtcNow;
+        table.ModifiedBy = userId;
+        table.ModifiedAt = DateTime.UtcNow;
 
         return _tableRepository.UpdateTable(table);
     }

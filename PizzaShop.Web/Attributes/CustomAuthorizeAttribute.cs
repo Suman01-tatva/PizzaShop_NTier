@@ -52,7 +52,7 @@ public class CustomAuthorizeAttribute : Attribute, IAuthorizationFilter
 
         if (userRole == null)
         {
-            context.Result = new RedirectToActionResult("NotFound", "Home", new { statusCode = 401 });
+            context.Result = new RedirectToActionResult("Error", "Auth", new { statusCode = 401 });
             return;
         }
         // Fetch permissions for the role and module
@@ -75,7 +75,7 @@ public class CustomAuthorizeAttribute : Attribute, IAuthorizationFilter
             }
             else
             {
-                context.Result = new RedirectToActionResult("Error", "Auth", new { statusCode = 403 });
+                context.Result = new RedirectToActionResult("Forbidden", "Home", new { statusCode = 403 });
             }
             return;
             // context.Result = new RedirectToActionResult("Error", "Auth", new { statusCode = 403 });

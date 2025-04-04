@@ -19,7 +19,8 @@ public class AddEditModifierViewModel
     public decimal Rate { get; set; }
 
     [Required(ErrorMessage = "Quantity is required.")]
-    [Range(0, int.MaxValue, ErrorMessage = "Invalid Quantity.")]
+    [Range(0, double.MaxValue, ErrorMessage = "Quantity must be Positive.")]
+
     public int? Quantity { get; set; }
 
     public bool? Isdeleted { get; set; }

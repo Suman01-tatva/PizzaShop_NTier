@@ -72,8 +72,9 @@
   border: 2px solid #006098;
   background-color: white;
   color: #006098;
-  border-radius: 5px;
+  border-radius: 6px;
   padding: 7px;
+  transition: 0.5s;
 }
 
 .border-btn:hover {
@@ -110,7 +111,7 @@ a i {
   justify-content: center;
   background-color: #0066a7;
   color: white;
-  height: 50px;
+  height: 40px;
   border: none;
   border-radius: 5%;
 }

@@ -112,7 +112,7 @@ public class MenuModifierRepository : IMenuModifierRepository
         modifier.Rate = model.Rate;
         modifier.Quantity = model.Quantity;
         modifier.Description = model.Description;
-        modifier.ModifierGroupId = modifier.ModifierGroupId;
+        modifier.ModifierGroupId = model.Modifiergroupid;
         modifier.UnitId = model.UnitId;
         modifier.ModifiedBy = userId;
         modifier.ModifiedAt = DateTime.UtcNow;

@@ -15,7 +15,7 @@ public class TaxAndFeesViewModel
     [Range(0, 100, ErrorMessage = "Percentage must be between 0 and 100.")]
     public decimal? Percentage { get; set; }
 
-    [Range(0, double.MaxValue, ErrorMessage = "Flat amount must be non-negative.")]
+    [Range(0, double.MaxValue, ErrorMessage = "Flat amount must be Positive.")]
     public decimal? FlatAmount { get; set; }
 
     public bool IsActive { get; set; } = true;

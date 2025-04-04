@@ -55,7 +55,7 @@
             }
             @foreach (var customer in Model.CustomerList)
             {
-                <tr id="@customer.Id">
+                <tr id="@customer.Id" data-id="@customer.Id" class="customer">
                     <td style="min-width: 200px;">
                         @customer.Name
                     </td>
@@ -117,7 +117,7 @@
         }
     </div>
 </section>
-
+<div id="custoemrData"></div>
 <script>
     var debounceTimer;
     var customerPageIndex = @PageIndex, pageSize = 5, searchString = "", dateRange = "AllTime", fromDate = null, toDate = "";
@@ -184,4 +184,19 @@
         customerPageIndex = 1;
         GetFilteredCustomers();
     });
+
+    $('.customer').click(function () {
+        var id = $(this).data('id');
+        console.log(id);
+        $.ajax({
+            url: "/Customer/GetCustomerDetails",
+            type: "GET",
+            data: { id: id },
+            success: function (data) {
+                $("#custoemrData").html(data);
+                console.log(data)
+                $("#CustomerModal").modal('show');
+            }
+        })
+    })
 </script>

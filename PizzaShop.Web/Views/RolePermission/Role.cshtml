@@ -11,10 +11,10 @@
     <div class="col-md-8 bg-light mt-5 p-3">
         <table class="table position-relative">
             <tr class="bg-light">
-                <td>Role</td>
-                <td
+                <th>Role</th>
+                <th
                     class="text-end  d-@((permission[1].CanEdit == false && permission[1].CanDelete == false) ? "none" : "")">
-                    Action</td>
+                    Action</th>
             </tr>
             @foreach (var role in Model)
             {

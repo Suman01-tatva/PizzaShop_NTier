@@ -80,3 +80,39 @@ add-user {
     width: 150px !important;
   }
 } */
+
+.tablsec-header {
+  display: flex;
+  justify-content: space-between;
+}
+@media (max-width: 493px) {
+  .tablsec-header {
+    display: flex;
+    flex-wrap: wrap !important;
+  }
+  .tablsec-header .filters {
+    justify-content: center !important;
+  }
+}
+
+/* customer */
+.customer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media (max-width: 696px) {
+  .customer-header {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .customer-filter {
+    margin-bottom: 20px;
+    justify-content: space-between !important;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .customer-items {
+    width: 100%;
+  }
+}

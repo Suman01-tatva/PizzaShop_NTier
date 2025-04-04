@@ -1,10 +1,9 @@
 @model PizzaShop.Entity.ViewModels.OrderDetailsViewModel;
 @using PizzaShop.Entity.Constants;
-<div class="d-flex justify-content-end mt-4 mx-3">
+<div class="d-flex justify-content-end align-items-center mt-4 mx-3">
     <a href="@Url.Action("Orders", "Order")" style="text-decoration: none;">
         <button type="button" class="outline-btn">
-            <img src="~/images/less-than-symbol.png" alt="bak-btn" style="height: 20px; width: 20px;">
-            Back
+            <img src="~/images/less-than-symbol.png" alt="bak-btn" style="height: 20px; width: 20px;"> Back
         </button>
     </a>
 </div>
@@ -14,26 +13,26 @@
     </div>
 
     <!-- Order Summary -->
-    <div class="card mb-3">
+    <div class="card mb-3 p-2 fs-2">
         <div class="card-body d-flex justify-content-between">
             <div>
-                <h5 class="card-title fw-bold">Order Summary <span class="badge bg-success">@Model.Status</span></h5>
+                <h4 class="fw-bold">Order Summary <span class="badge bg-success">@Model.Status</span></h4>
                 <p class="mb-1 mt-2" style="font-size: 13px;"><strong>Invoice No.:</strong> @Model.InvoiceNo</p>
                 <div class="order-summary d-flex flex-wrap gap-4" style="font-size: 13px;">
-                    <div class="fw-bold">Paid on: @Model.PaidAmount</div>
-                    <div class="fw-bold">Placed on: @Model.CreatedAt</div>
-                    <div class="fw-bold">Modified on: @Model.ModifiedAt</div>
+                    <div><b>Paid on:</b> @Model.PaidAmount</div>
+                    <div><b>Placed on:</b> @Model.CreatedAt</div>
+                    <div><b>Modified on:</b> @Model.ModifiedAt</div>
 
-                    @if (Model.Status == (OrderConstants.OrderStatusEnum.Completed))
+                    @* @if (Model.Status == (OrderConstants.OrderStatusEnum.Completed))
                     {
-                        <div class="text-muted">Order Duration: </div>
-                    }
+                    <div><b>Order Duration:</b> </div>
+                    } *@
                 </div>
             </div>
             <div>
-                <button type="button" onclick="exportViewOrderPdf()" class="fill-btn btn border-2">
+                <button type="button" onclick="exportViewOrderPdf()" class="fill-btn fs-6">
                     <span><i class="fa-solid fa-share-from-square me-1"></i></span>
-                    <span class="lh-sm">Export</span>
+                    <span class="export-btn">Export</span>
                 </button>
             </div>
         </div>
@@ -41,10 +40,10 @@
 
     <!-- Customer & Table Details -->
     <div class="row mb-3">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-3">
             <div class="card h-100">
-                <div class="card-body">
-                    <h5 class="fw-bold"><i class="fa-solid fa-user mx-2"></i> Customer Details</h5>
+                <div class="card-body" style="color: gray;">
+                    <h5 class="fw-bold"><i class="fa-solid fa-user me-2"></i> Customer Details</h5>
                     <p><strong>Name: @Model.CustomerName</strong></p>
                     <p><strong>Phone: @Model.CustomerPhone</strong></p>
                     <p><strong>Email: @Model.CustomerEmail</strong></p>
@@ -54,10 +53,9 @@
         </div>
         <div class="col-md-6">
             <div class="card h-100">
-                <div class="card-body">
+                <div class="card-body" style="color: gray;">
                     <h5 class="fw-bold"><img src="~/images/dining-table.png" style="height: 30px; width:40px"></i> Table
                         Details</h5>
-                    @* <p><strong>TableId: @Model.TableId</strong></p> *@
                     <p><strong>Table: @Model.TableName</strong></p>
                     <p><strong>Section: @Model.SectionName</strong></p>
                 </div>
@@ -127,7 +125,7 @@
             </table>
 
             <div class="text-end">
-                <div class="d-flex justify-content-end mb-2">
+                <div class="d-flex justify-content-end">
                     <div class="me-3">Subtotal: ₹@Model.SubTotal</div>
                 </div>
                 @if (Model.OrderTaxes != null)
@@ -152,7 +150,182 @@
         </div>
     </div>
 </div>
+@* 
+<div class="container-fluid orderDetails">
+    <div class="row pdf" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <div class="col-xl-8 col-lg-10 mb-3 col-11">
+            <div class="d-flex justify-content-between">
+                <h2 class="d-inline-block" style="color: #0066A7;">Order Details</h2>
+                <a asp-controller="Order" asp-action="Index" class="btn btn-primary m-1"
+                    style="background-color:transparent; color: #0066A7; border: 1px solid #0066A7;">Back</a>
+            </div>
+        </div>
 
+        <div class="card mb-3 col-xl-8 col-lg-10 col-11">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="d-inline-block">Order Summary</h4>
+                        <span class="ml-3"
+                            style="background-color: #ADD8E6; color: #448490; padding: 3px; font-size: small; font-weight: 500;">@Model.Status</span>
+                    </div>
+                    <button id="Export" class="btn btn-primary float-right"
+                        style="height: 40px; background-color: #0066A7; color: white; border: 1px solid #0066A7;">
+                        <i class="fa-solid fa-share-from-square"></i> Export
+                    </button>
+                </div>
+                <div class="order-info">
+                    <div>
+                        <p style="margin: 0;"><strong>Invoice number:</strong> @Model.InvoiceNo</p>
+                    </div>
+                    <div>
+                        <p style="margin: 0;"><strong>Paid on:</strong> @Model.PaidAmount</p>
+                    </div>
+                    <div>
+                        <p style="margin: 0;"><strong>Placed on:</strong> @Model.CreatedAt</p>
+                    </div>
+                    <div>
+                        <p style="margin: 0;"><strong>Modified On:</strong> @Model.ModifiedAt</p>
+                    </div>
+                    @if (Model.OrderDuration.HasValue)
+                    {
+                        var totalMinutes = (int)Model.OrderDuration.Value;
+                        var hours = totalMinutes / 60;
+                        var minutes = totalMinutes % 60;
+                        <div>
+                            <p style="margin: 0;"><strong>Order Duration:</strong> @($"{hours} hour{(hours != 1 ? "s" : "")} {minutes} minute{(minutes != 1 ? "s" : "")}")</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            <p style="margin: 0;"><strong>Order Duration:</strong></p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex flex-wrap col-xl-8 col-lg-10 col-11 p-0">
+            <div class="col-md-6 col-xl-6 order-card-container">
+                <div class="card d-flex justify-content-center" style="height: 200px;">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <h5 style="align-items: center; display:flex; gap:5px;"><i
+                                class="fa-regular fa-address-card"></i> <span>Customer Details</span></h5>
+                        <br>
+                        <p style="margin: 0;">Name: @Model.CustomerName</p>
+                        <p style="margin: 0;">Phone: @Model.CustomerPhone</p>
+                        <p style="margin: 0;">No. of Person: @Model.NoOfPeople</p>
+                        <p style="margin: 0;">Email: @Model.CustomerEmail</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-6 mb-3 order-card-container">
+                <div class="card d-flex justify-content-center" style="height: 200px;">
+                    <div class="card-body d-flex flex-column justify-content-center">
+                        <h5 style="align-items: center; display:flex; gap:5px;">
+                            <img src="@Url.Content("~/images/icons/dinner-table.svg")" height="30px" alt=""> <span>Table
+                                Details</span>
+                        </h5>
+                        <br>
+                        <p style="margin: 0;">Table: @Model.TableName</p>
+                        <p style="margin: 0;">Section: @Model.SectionName</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3 col-xl-8 col-lg-10 col-11">
+            <div class="card-body">
+                <h4>Order Items</h4>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="color: #6E695E; white-space: nowrap; text-align: left;">Sr.No.</th>
+                                <th style="color: #6E695E; white-space: nowrap; text-align: left;">Item</th>
+                                <th style="color: #6E695E; white-space: nowrap; text-align: left;">Quantity</th>
+                                <th style="color: #6E695E; white-space: nowrap; text-align: left;">Price</th>
+                                <th style="color: #6E695E; white-space: nowrap; text-align: left;">Total Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int srNo = 1;
+                            }
+                            @foreach (var item in Model.OrderedItems)
+                            {
+                                <tr>
+                                    <td style="color: #4d4a4d; white-space: nowrap;">@srNo</td>
+                                    <td style="color: #4d4a4d; white-space: nowrap;">
+                                        <div>@item.ItemName</div>
+                                        @foreach (var modifier in item.Modifiers)
+                                        {
+                                            <div class="modifier">+ @modifier.Name</div>
+                                        }
+                                        <br>
+                                    </td>
+                                    <td style="color: #4d4a4d; white-space: nowrap;">
+                                        <div>@item.Quantity</div>
+                                        @foreach (var modifier in item.Modifiers)
+                                        {
+                                            <div class="modifier">@modifier.Quantity</div>
+                                        }
+                                    </td>
+                                    <td style="color: #4d4a4d; white-space: nowrap;">
+                                        <div>@item.Price</div>
+                                        @foreach (var modifier in item.Modifiers)
+                                        {
+                                            <div class="modifier">@modifier.Rate</div>
+                                        }
+                                    </td>
+                                    <td style="color: #4d4a4d; white-space: nowrap;">
+                                        <div>@item.TotalAmount</div>
+                                        @foreach (var modifier in item.Modifiers)
+                                        {
+                                            <div class="modifier">@modifier.TotalAmount</div>
+                                        }
+                                    </td>
+                                </tr>
+                                srNo++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div style="text-align: end;">
+                    <p style="margin: 0;">Subtotal: ₹ @Model.SubTotal</p>
+                    @foreach (var tax in Model.OrderTaxes)
+                    {
+                        <p style="margin: 0;">@tax.Name (@(tax.Type ?? true ? "Percentage" : "Flat")): ₹ @tax.TaxValue</p>
+                    }
+                    <p>Total: ₹ @Model.TotalAmount</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+<div id="InvoiceDetailContainer">
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<script>
+    $("#Export").click(function () {
+
+        const element = document.querySelector('.orderDetails');
+
+        const options = {
+            filename: 'OrderDetails.pdf',
+            image: { type: 'jpeg', quality: 1 },
+            html2canvas: { scale: 1 },
+            jsPDF: { unit: 'in', format: 'A3', orientation: 'portrait' }
+        };
+
+        html2pdf().set(options).from(element).save();
+
+    })
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 <script>
     function exportViewOrderPdf() {

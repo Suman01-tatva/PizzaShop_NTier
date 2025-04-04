@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using PizzaShop.Entity.Constants;
 using PizzaShop.Entity.ViewModels;
 using PizzaShop.Repository.Interfaces;
 using PizzaShop.Service.Interfaces;
@@ -207,10 +208,31 @@ public class CustomerService : ICustomerService
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" //Excel Sheet Mime Type
             )
             {
-                FileDownloadName = "Orders.xlsx" //File Name
+                FileDownloadName = "Customers.xlsx" //File Name
             };
         }
     }
 
-
+    public async Task<CustomerDetailsViewModel> GetCustomerDetails(int id)
+    {
+        var customer = await _customerRepository.CustomerDetails(id);
+        var customerDetails = new CustomerDetailsViewModel
+        {
+            Name = customer.Name,
+            MobileNumber = customer.Phone,
+            MaxOrder = customer.Orders.Max(o => o.TotalAmount),
+            AvgBill = customer.Orders.Average(o => o.TotalAmount),
+            CommingSince = customer.Orders.Min(o => o.CreatedAt),
+            Visits = customer.Orders.Count(c => c.CustomerId == customer.Id),
+            CustomerOrders = customer.Orders.Select(o => new CustomerOrderDetails
+            {
+                OrderDate = DateOnly.FromDateTime(o.CreatedAt.GetValueOrDefault()),
+                OrderType = "Dinein",
+                Payment = o.Invoices.FirstOrDefault()?.Payments.FirstOrDefault()!.PaymentMethod!,
+                items = o.OrderedItems.Count(i => i.OrderId == o.Id),
+                Amount = o.OrderedItems.Sum(t => t.TotalAmount)
+            }).ToList(),
+        };
+        return customerDetails;
+    }
 }
