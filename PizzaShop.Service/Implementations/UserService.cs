@@ -102,9 +102,9 @@ public class UserService : IUserService
         await _userRepository.UpdateUserAsync(user);
     }
 
-    public IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize)
+    public IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize, int userId)
     {
-        return _userRepository.GetUserList(searchString, sortOrder, pageIndex, pageSize);
+        return _userRepository.GetUserList(searchString, sortOrder, pageIndex, pageSize, userId);
     }
 
     public int GetTotalUsers(string searchString)

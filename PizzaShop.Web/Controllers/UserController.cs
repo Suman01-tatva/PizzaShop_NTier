@@ -186,7 +186,8 @@ public class UserController : Controller
         var permission = _rolePermission.GetRolePermissionByRoleId(roleId);
         HttpContext.Session.SetString("permission", JsonConvert.SerializeObject(permission));
 
-        var users = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize);
+        var (currentUserEmail, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
+        var users = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize, int.Parse(userId));
         var totalUsers = _userService.GetTotalUsers(searchString);
         ViewBag.count = totalUsers;
 
@@ -209,14 +210,16 @@ public class UserController : Controller
 
     [CustomAuthorize("Users", "CanView")]
     [HttpGet]
-    public IActionResult GetUsers(string searchString, int pageIndex, int pageSize, string sortOrder = "")
+    public async Task<IActionResult> GetUsers(string searchString, int pageIndex, int pageSize, string sortOrder = "")
     {
         var count = _userService.GetTotalUsers(searchString);
+        var token = Request.Cookies["Token"];
+        var (currentUserEmail, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(token!);
 
         ViewData["UsernameSortParam"] = string.IsNullOrEmpty(sortOrder) ? "username_asc" : sortOrder == "username_asc" ? "username_desc" : "username_asc";
         ViewData["RoleSortParam"] = sortOrder == "role_asc" ? "role_desc" : "role_asc";
 
-        var userList = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize);
+        var userList = _userService.GetUserList(searchString, sortOrder, pageIndex, pageSize, int.Parse(userId));
         var userListPage = new UserPageViewModel
         {
             UserList = userList,

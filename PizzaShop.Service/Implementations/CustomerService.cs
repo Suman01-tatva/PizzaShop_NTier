@@ -221,7 +221,7 @@ public class CustomerService : ICustomerService
             Name = customer.Name,
             MobileNumber = customer.Phone,
             MaxOrder = customer.Orders.Max(o => o.TotalAmount),
-            AvgBill = customer.Orders.Average(o => o.TotalAmount),
+            AvgBill = Math.Round((decimal)customer.Orders.Average(o => o.TotalAmount)!, 2),
             CommingSince = customer.Orders.Min(o => o.CreatedAt),
             Visits = customer.Orders.Count(c => c.CustomerId == customer.Id),
             CustomerOrders = customer.Orders.Select(o => new CustomerOrderDetails

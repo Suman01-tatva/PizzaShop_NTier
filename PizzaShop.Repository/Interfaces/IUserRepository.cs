@@ -9,7 +9,7 @@ public interface IUserRepository
 
     Task UpdateUserAsync(User user);
 
-    IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize);
+    IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize, int userId);
     User GetUserById(int id);
     void DeleteUser(int id);
     Task AddUserAsync(User user);

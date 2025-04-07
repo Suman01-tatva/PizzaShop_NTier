@@ -367,7 +367,10 @@ public class MenuController : Controller
         var AuthToken = Request.Cookies["Token"];
 
         var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(AuthToken);
-
+        if (!ModelState.IsValid)
+        {
+            return Json(new { isSuccess = false, message = "Please fill the required Values" });
+        }
         try
         {
             bool isAdded = _menuModifierService.AddModifier(model, int.Parse(userId));
@@ -399,6 +402,10 @@ public class MenuController : Controller
     [HttpPost]
     public async Task<IActionResult> EditModifier(AddEditModifierViewModel model)
     {
+        if (!ModelState.IsValid)
+        {
+            return Json(new { isSuccess = false, message = "Please fill the required Values" });
+        }
         var AuthToken = Request.Cookies["Token"];
         var (email, userId, isFirstLogin) = await _tokenDataService.GetEmailFromToken(AuthToken);
         if (string.IsNullOrEmpty(email))

@@ -155,10 +155,19 @@ public class MenuModifierService : IMenuModifierService
         // var filteredModifier = modifiers.Skip((pageIndex - 1) * pageSize)
         //                                 .Take(pageSize)
         //                                 .ToList();
-
+        var filteredModifiers = modifiers.Select(c => new MenuModifierViewModel
+        {
+            Id = c.Id,
+            // UnitName = c.Unit.ShortName,
+            ModifierGroupId = c.ModifierGroupId,
+            Name = c.Name,
+            Description = c.Description,
+            Rate = c.Rate,
+            Quantity = c.Quantity,
+        }).ToList();
         var addEditModifierViewModel = new AddEditExistingModifiersViewModel
         {
-            modifier = modifiers,
+            modifier = filteredModifiers,
             PageSize = pageSize,
             PageIndex = pageIndex,
             TotalPage = (int)Math.Ceiling(modifiers.Count() / (double)pageSize),

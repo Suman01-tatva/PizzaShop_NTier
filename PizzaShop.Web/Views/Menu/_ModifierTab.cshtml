@@ -239,8 +239,9 @@
             selectedModifiers = [];
             let selectedModifiersDisplay = $(".selectedModifiersDisplay");
             selectedModifiersDisplay.empty();
-            console.log('show');
         });
+
+    //openAddExistingModal
     var pageIndex = @Model.PageIndex;
     $('#OpenExistingModifierModal').click(function () {
         var SearchString = $("#searchExistingModifier").val();
@@ -252,12 +253,12 @@
             data: { pageSize: @Model.PageSize, pageIndex: @Model.PageIndex, searchString: "" },
             success: function (response) {
                 $('#existingModifiersList').html(response);
-                updateModifierCheckboxes();
             }
         })
         console.log('show');
     });
 
+    //openEditExistingModal
     $('#OpenEditExistingModifierModal').click(function () {
         var SearchString = $("#searchExistingModifier").val();
         var pageSize = $("#pageSizeExistingModifiers").val();
@@ -267,8 +268,8 @@
             type: 'GET',
             data: { pageSize: @Model.PageSize, pageIndex: @Model.PageIndex, searchString: "" },
             success: function (response) {
-                $('#existingModifiersList').html(response);
                 updateModifierCheckboxes();
+                $('#existingModifiersList').html(response);
             }
         })
         console.log('show');
@@ -292,7 +293,7 @@
                 }
             })
         }
-
+    //search
     $('#searchExistingModifier').keyup(function () {
         var value = $(this).val();
         console.log('SearchString', value)
@@ -333,7 +334,6 @@
 
             // Append each selected modifier
             selectedModifiers.forEach(mod => {
-                console.log(mod)
                 // Display in the list with a cancel icon
                 selectedModifiersDisplay.append(`
          <span class="badge bg-light border text-muted small d-inline-flex align-items-center me-2 p-2">
@@ -343,12 +343,7 @@
             </button>
         </span>
         `);
-
-                // Add hidden input for form submission
-                @* selectedModifiersContainer.append(`
-            <input type="hidden" name="SelectedModifierIds" value="${mod.id}">
-        `); *@
-        });
+            });
     }
 
     $(document).on("click", ".remove-modifier", function () {
@@ -356,7 +351,7 @@
 
         // Remove from the selectedModifiers array
         selectedModifiers = selectedModifiers.filter(mod => mod.Id != modifierId);
-
+        console.log("remove", selectedModifiers);
         // Update the UI
         updateSelectedModifiersUI();
     });
@@ -385,14 +380,13 @@
             Description: description,
             ExistingModifiers: selectedModifiers
         };
-        console.log(data);
         $.ajax({
             url: "/Menu/AddModifierGroup",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(data),
             success: function (response) {
-                console.log("ModifierGropuss", response);
+                @* console.log("ModifierGropuss", response); *@
                 if (response == null)
                     toastr.error("Error while addModifier group or modifier is already exist");
                 $("#addModifierGroupModal").modal('hide');
@@ -407,43 +401,9 @@
         });
     });
 
-    var editModifierGroupId;
-    $(".editModifierGroup").click(function () {
-        editModifierGroupId = $(this).data('id');
-
-        $.ajax({
-            url: '/Menu/EditModifierGroup',
-            type: 'GET',
-            data: { id: editModifierGroupId },
-            success: function (response) {
-                if (response.data != null) {
-                    $("#editModifierGroupName").val(response.data.name);
-                    $("#editModifierGroupDesc").val(response.data.description);
-                    var container = $(".selectedModifiersDisplay");
-                    container.empty(); // Clear previous selections
-                    selectedModifiers = [];
-                    response.data.modifiers.map(m => selectedModifiers.push({ Id: m.id, Name: m.name })); // Store selected IDs globally
-
-                    response.data.modifiers.forEach(modifier => {
-                        var span = $("<span class='modifier-item border rounded-pill p-1 me-1 my-2'></span>").text(modifier.name);
-                        var removeBtn = $("<i class='fa-solid fa-xmark remove  ms-1' style='cursor:pointer'></i>").click(function () {
-                            selectedModifiers = selectedModifiers.filter(m => m.id != modifier.id);
-                            $(this).parent().remove(); // Remove the span
-                            $(`.modifier-checkbox[data-id='${modifier.id}']`).prop("checked", false); // Uncheck checkbox
-                        });
-                        span.append(removeBtn);
-                        container.append(span);
-                    });
-
-                    $("#editModifierGroupModal").modal('show');
-                    updateModifierCheckboxes();
-                }
-            }
-        })
-    })
-
     function updateModifierCheckboxes() {
         selectedModifiers.forEach(m => {
+            console.log("checkbox", m)
             $(`.modifier-checkbox[data-id='${m.id}']`).prop("checked", true);
         })
     }

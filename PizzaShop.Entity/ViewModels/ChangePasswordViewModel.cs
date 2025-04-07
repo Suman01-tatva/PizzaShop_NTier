@@ -12,7 +12,7 @@ public class ChangePasswordViewModel
 
         [Required(ErrorMessage = "New Password is Required")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&]).{6,}$",
-                ErrorMessage = "Password must be at least 6 characters long and include uppercase, lowercase, number, and special character.")]
+                ErrorMessage = "Password must be Strong.")]
         public string NewPassword { set; get; } = null!;
 
         [Required(ErrorMessage = "Confirm New Password is Required")]

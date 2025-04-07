@@ -90,7 +90,10 @@ public class MenuItemRepository : IMenuItemsRepository
         menuItem.TaxPercentage = model.TaxPercentage;
         menuItem.ShortCode = model.ShortCode;
         menuItem.Description = model.Description;
-        menuItem.Image = model.Image;
+        if (!string.IsNullOrEmpty(model.Image))
+        {
+            menuItem.Image = model.Image;
+        }
         menuItem.ModifiedBy = userId;
         menuItem.ModifiedAt = DateTime.UtcNow;
         _context.SaveChanges();

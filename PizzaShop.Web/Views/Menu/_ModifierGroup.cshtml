@@ -19,12 +19,14 @@
             </div>
             <span
                 class="edit-delete-icon d-@((permission[2].CanEdit == false && permission[2].CanDelete == false) ? "none" : "")">
-                <a href="javascript:void(0);" data-id="@modifierGroup.Id" class="edit-btn editModifierGroup d-@(permission[2].CanEdit == false ? "none" : "")"
+                <a href="javascript:void(0);" data-id="@modifierGroup.Id"
+                    class="edit-btn editModifierGroup d-@(permission[2].CanEdit == false ? "none" : "")"
                     style="text-decoration: none; color: inherit;">
                     <i class="fa-solid fa-pencil m-1"></i>
                 </a>
-                <i class="fa-regular fa-trash-can mx-2 delete-modifiergroup d-@(permission[2].CanDelete == false ? "none" : "")" data-bs-target="#deleteModifierGroupModal"
-                    data-bs-toggle="modal" id="deleteModifierGroup" data-id="@modifierGroup.Id"></i>
+                <i class="fa-regular fa-trash-can mx-2 delete-modifiergroup d-@(permission[2].CanDelete == false ? "none" : "")"
+                    data-bs-target="#deleteModifierGroupModal" data-bs-toggle="modal" id="deleteModifierGroup"
+                    data-id="@modifierGroup.Id"></i>
             </span>
         </div>
     }
@@ -97,21 +99,29 @@
                     selectedModifiers = [];
                     response.data.modifiers.map(m => selectedModifiers.push({ Id: m.id, Name: m.name })); // Store selected IDs globally
 
-                    response.data.modifiers.forEach(modifier => {
-                        var span = $("<span class='modifier-item border rounded-pill p-1 me-1 my-2'></span>").text(modifier.name);
-                        var removeBtn = $("<i class='fa-solid fa-xmark remove  ms-1' style='cursor:pointer'></i>").click(function () {
-                            selectedModifiers = selectedModifiers.filter(m => m.id != modifier.id);
-                            $(this).parent().remove(); // Remove the span
-                            $(`.modifier-checkbox[data-id='${modifier.id}']`).prop("checked", false); // Uncheck checkbox
-                        });
-                        span.append(removeBtn);
-                        container.append(span);
+                    response.data.modifiers.forEach(mod => {
+                        // Display in the list with a cancel icon
+                        container.append(`
+                            <span class="badge bg-light border text-muted small d-inline-flex align-items-center me-2 p-2">
+                            ${mod.Name}
+                            <button type="button" class="btn btn-sm p-0 ms-2 text-secondary remove-modifier" data-id="${mod.Id}" style="border: none; background: none;">
+                            <i class="fa fa-close"></i>
+                            </button>
+                            </span>
+                        `);
                     });
-
-                    $("#editModifierGroupModal").modal('show');
+                    updateSelectedModifiersUI();
                     updateModifierCheckboxes();
+                    $("#editModifierGroupModal").modal('show');
                 }
             }
         })
     })
+
+    function updateModifierCheckboxes() {
+        selectedModifiers.forEach(m => {
+            console.log("checkbox", m)
+            $(`.modifier-checkbox[data-name='${m.Name}']`).prop("checked", true);
+        })
+    }
 </script>

@@ -11,7 +11,7 @@ public interface IUserService
     Task<List<Country>> GetAllCountriesAsync();
     Task<List<State>> GetStatesByCountryIdAsync(int? countryId);
     Task<List<City>> GetCitiesByStateIdAsync(int? stateId);
-    IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize);
+    IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize, int userId);
     User GetUserById(int id);
     Task<UserUpdateViewModel> GetUserByIdForUpdate(int id);
     void DeleteUser(int id);

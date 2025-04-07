@@ -125,32 +125,26 @@ public class MenuModifierRepository : IMenuModifierRepository
         return modifier;
     }
 
-    public async Task<List<MenuModifierViewModel>> GetAllModifiers(string? searchString)
+    public async Task<List<Modifier>> GetAllModifiers(string? searchString)
     {
-        var modifiers = _context.Modifiers
-                                 .Where(m => m.IsDeleted == false)
-                                 .OrderBy(m => m.Name)
-                                 .AsQueryable();
+        var query = _context.Modifiers.Where(m => m.IsDeleted == false).AsQueryable();
+
         if (!string.IsNullOrEmpty(searchString))
         {
-            searchString = searchString.Trim().ToLower();
-
-            modifiers = modifiers.Where(n =>
-                n.Name!.ToLower().Contains(searchString));
+            query = query.Where(m => m.Name.ToLower().Contains(searchString.ToLower()));
         }
 
-        var filteredModifiers = modifiers.Select(c => new MenuModifierViewModel
-        {
-            Id = c.Id,
-            UnitName = c.Unit.ShortName,
-            ModifierGroupId = c.ModifierGroupId,
-            Name = c.Name,
-            Description = c.Description,
-            Rate = c.Rate,
-            Quantity = c.Quantity,
-        }).ToList();
+        var modifiers = await query
+            .OrderBy(m => m.Name)
+            .ToListAsync();
 
-        return filteredModifiers;
+        // Ensure uniqueness by name and select the first occurrence
+        var uniqueModifiers = modifiers
+            .GroupBy(m => m.Name)
+            .Select(g => g.First())
+            .ToList();
+
+        return uniqueModifiers;
     }
 
     public List<Modifier>? GetModifiersByModifierGroup(int? id)

@@ -30,11 +30,11 @@ public class UserRepostory : IUserRepository
         await _context.SaveChangesAsync();
     }
 
-    public IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize)
+    public IEnumerable<User> GetUserList(string searchString, string sortOrder, int pageIndex, int pageSize, int userId)
     {
         try
         {
-            var userQuery = _context.Users.Where(u => u.IsDeleted == false);
+            var userQuery = _context.Users.Where(u => u.IsDeleted == false && u.Id != userId);
 
             if (!string.IsNullOrEmpty(searchString))
             {
